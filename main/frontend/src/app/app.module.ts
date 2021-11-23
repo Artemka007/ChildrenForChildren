@@ -16,6 +16,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
 import { ResetPasswordConfirmComponent } from './reset-password-confirm/reset-password-confirm.component';
 import { AccountNavComponent } from './account-nav/account-nav.component';
+import { PersonalAreaComponent } from './personal-area/personal-area.component';
+import { FormSwitcherComponent } from './form-switcher/form-switcher.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +30,9 @@ import { AccountNavComponent } from './account-nav/account-nav.component';
     RegisterComponent,
     ResetPasswordComponent,
     ResetPasswordConfirmComponent,
-    AccountNavComponent
+    AccountNavComponent,
+    PersonalAreaComponent,
+    FormSwitcherComponent
   ],
   imports: [
     BrowserModule,

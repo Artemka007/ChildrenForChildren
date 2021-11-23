@@ -1,11 +1,27 @@
 @import "src/styles.sass"
     
+=field()
+    font-weight: 500
+    font-family: "Rubik", sans-serif
+    border: #00000020 solid 2px
+    width: 100%
+    padding: 10px
+    font-size: 16px
+    border-radius: 5px
+    transition: all .1s
+    &:hover:not(.ng-touched.ng-invalid)
+        border-color: #00000040
+    &:focus:not(.ng-touched.ng-invalid)
+        border-color: var(--blue)
+    &.ng-touched.ng-invalid
+        border-color: var(--lite-red)
+
 .Form-Container
     +flex-container()
     position: fixed
     top: 100px
-    left: calc( 50% - 200px )
-    width: 400px
+    left: calc( 50% - 250px )
+    width: 500px
     height: auto
     background: white
     box-shadow: #00000025 0 4px 8px 0
@@ -34,7 +50,9 @@
             +flex-container()
             width: 100%
             margin-top: 10px
-            input
+            input,
+            select,
+            textarea
                 font-weight: 500
                 font-family: "Rubik", sans-serif
                 border: #00000020 solid 2px
@@ -49,10 +67,13 @@
                     border-color: var(--blue)
                 &.ng-touched.ng-invalid
                     border-color: var(--lite-red)
-
             span
                 width: 100%
                 color: var(--red)
+            textarea
+                resize: vertical
+                min-height: 100px
+                max-height: 800px
     .Form-Container__Links
         +flex-container(row)
         padding: 10px

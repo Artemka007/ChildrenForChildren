@@ -16,11 +16,18 @@ export interface IRegisterData {
   password: string
   password2: string
   profile: {
-    patronymic: string
     phone: string
+    patronymic: string
     age?: number
+    status?: string
+    user_in_school_status: "student" | "teacher" | "parent"
+    country?: string
+    city?: string
+    about_me?: string
   }
 }
+
+export interface IEditProfileData extends IUser {}
 
 export interface IResetPasswordData {
   email: string
@@ -66,6 +73,13 @@ export class AccountService {
   register(data: IRegisterData) {
     let token = this._getCookie("csrftoken")
     return this._http.post<APIResponse<{user?: IUser}>>("/api/v1/account/register/", {csrfmiddlewaretoken: token, ...data}, {
+      headers: {"X-CSRFToken": token}
+    })
+  }
+
+  editProfile(data: IEditProfileData) {
+    let token = this._getCookie("csrftoken")
+    return this._http.put<APIResponse<{errors?: [{[key: string]: string}]}>>("/api/v1/account/", {csrfmiddlewaretoken: token, ...data}, {
       headers: {"X-CSRFToken": token}
     })
   }

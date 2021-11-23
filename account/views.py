@@ -70,6 +70,15 @@ class AccountView(APIView):
         if not user.is_authenticated:
             return Response({"result": False, "message": "Пользователь не авторизован.", "data": {"user": None}})
         return Response({"result": True, "message": "Данные пользователя отправлены в ответе.", "data": {"user": UserSerializer(user).data}}, 200)
+    def put(self, request):
+        instance = request.user
+        data = request.data
+        serializer = UserSerializer(data=data, instance=instance)
+        if serializer.is_valid():
+            serializer.save()
+            return Response({"result": True, "message": "Данные пользователя успешно изменены.", "data": {}})
+        else:
+            return Response({"result": False, "message": "Какие-то не те данные... Пожалуйста, повторите попытку.", "data": {"errors": serializer.errors}})
 
 class PasswordResetView(GenericAPIView):
     serializer_class = PasswordResetSerializer

@@ -40,7 +40,7 @@ export class AppComponent implements OnInit {
       let JSONUser = data.data.user
       if (!JSONUser) {
         let path = location.pathname.split("/")[1]
-        if (path === "home" || path === "news" || path === "events" || path === "chats" || path === "chat") {
+        if (location.pathname === "/" || path === "home" || path === "news" || path === "events" || path === "chats" || path === "chat" || path === "profile") {
           console.log(location.pathname.split("/")[1])
           this._router.navigateByUrl("login")
         }
@@ -48,8 +48,8 @@ export class AppComponent implements OnInit {
       
       else {
         let {id, username, email, first_name, last_name, profile} = JSONUser
-        let {user, patronymic, age, phone} = profile
-        let p = new Profile(profile.id, user, phone, patronymic, age)
+        let {user, patronymic, age, phone, user_in_school_status, status, country, city, about_me} = profile
+        let p = new Profile(profile.id, user, phone, patronymic, age, user_in_school_status, status, country, city, about_me)
         let u = new User(id, username, email, first_name, last_name, p)
         this._store.dispatch(new SetUser(u))
         this.user = u

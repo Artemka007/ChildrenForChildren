@@ -22,9 +22,19 @@ export class RegisterComponent implements OnInit {
       phone: "",
       patronymic: "",
       age: undefined,
+      status: undefined,
+      user_in_school_status: "student",
+      country: undefined,
+      city: undefined,
+      about_me: undefined
     }
   }
   isLoading: boolean = false
+  user_in_school_status_options: Array<{key: "student" | "teacher" | "parent", value: string}> = [
+    {key: "student", value: "Ученик"},
+    {key: "teacher", value: "Учитель"},
+    {key: "parent", value: "Родитель"},
+  ]
 
   constructor(
     private _account: AccountService,

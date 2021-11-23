@@ -54,7 +54,7 @@
                 Обязательное поле.
             </span>
             <span *ngIf="phone.errors?.maxlength && phone.touched">
-                Максимальная длина - 64 символа
+                Максимальная длина - 16 символов
             </span>
         </div>
         <div class="Field">
@@ -62,6 +62,31 @@
             <span *ngIf="age.errors?.required && age.touched">
                 Обязательное поле.
             </span>
+        </div>
+        <div class="Field">
+            <input [name]="'status'" [placeholder]="'Статус'" [(ngModel)]="registerFormGroup.profile.status" #status="ngModel" />
+        </div>
+        <div class="Field">
+            <select [name]="'user_in_school_status'" *ngIf="user_in_school_status_options" [(ngModel)]="registerFormGroup.profile.user_in_school_status" #user_in_school_status_options="ngModel">
+                <option value="student">
+                    Ученик
+                </option>
+                <option value="teacher">
+                    Учитель
+                </option>
+                <option value="parent">
+                    Родитель
+                </option>
+            </select>
+        </div>
+        <div class="Field">
+            <input [name]="'country'" [placeholder]="'Страна'" [(ngModel)]="registerFormGroup.profile.country" #country="ngModel" />
+        </div>
+        <div class="Field">
+            <input [name]="'city'" [placeholder]="'Город'" [(ngModel)]="registerFormGroup.profile.city" #city="ngModel" />
+        </div>
+        <div class="Field">
+            <textarea [name]="'about_me'" [placeholder]="'Напишите немного о себе, чем вы занимаетесь, Ваши хобби, любимая настолка и т.д.'" [(ngModel)]="registerFormGroup.profile.about_me" #about_me="ngModel"></textarea>
         </div>
         <div class="Field">
             <input [name]="'password'" required pattern="\S*\d+\S*" [placeholder]="'Пароль'" [type]="'password'" [(ngModel)]="registerFormGroup.password" #password="ngModel" />

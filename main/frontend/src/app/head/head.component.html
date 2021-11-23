@@ -9,8 +9,8 @@
             <div class="Header__Auth-Container__User-Info__Username">{{user?.username}}</div>
         </div>
         <div class="Header__Auth-Container__Submenu" *ngIf="submenuIsOpen">
-            <div class="Header__Auth-Container__Submenu__Item LK">Личный кабинет</div>
-            <a routerLink="logout" class="Header__Auth-Container__Submenu__Item LogOut">Выйти</a>
+            <a routerLink="/profile" class="Header__Auth-Container__Submenu__Item LK">Личный кабинет</a>
+            <a routerLink="/logout" class="Header__Auth-Container__Submenu__Item LogOut">Выйти</a>
         </div>
     </div>
 </div>

@@ -1,0 +1,62 @@
+<form class="Profile" *ngIf="user" #editProfileForm="ngForm">
+    <div class="Profile__Tools-Nav">
+        <span class="Item-1">
+            <i class="Edit-Icon" *ngIf="!isEditing" (click)="startEdit()"></i>
+            <i class="Ok-Edit-Icon" *ngIf="isEditing" [(ngModel)]="user.profile.city" (click)="endEdit(true)"></i>
+            <i class="Not-Edit-Icon" *ngIf="isEditing" [(ngModel)]="user.profile.city" (click)="endEdit(false)"></i>
+        </span>
+        <span class="Item-2"><i></i></span>
+    </div>
+    <main class="Profile__Content">
+        <div class="Profile__Content__Status-User-Information">
+            <div class="Item-1">
+                <div class="Avatar"><img src="/media/icons/profile.png" alt="" /> </div>
+                <div class="Username-Status">
+                    <div class="Username">{{user.fullName}}</div>
+                    <div class="Status">{{user.profile?.status || "Статус не указан"}}</div>
+                </div>
+            </div>
+            <div class="Item-2">
+                <div class="User-In-School-Status">{{checkUserInSchoolStatus(user.profile.user_in_school_status)}}</div>
+                <div class="Online-Status">online</div>
+            </div>
+        </div>
+        <div class="Profile__Content__Main-User-Information">
+            <div class="Title">Основное</div>
+            <div class="Content">
+                <div class="Item">
+                    <div class="Key">Страна:</div>
+                    <div class="Description" *ngIf="!isEditing">{{user.profile?.country || "Страна не указана."}}</div>
+                    <input [name]="'country'" class="Edit-Description" *ngIf="isEditing" [(ngModel)]="user.profile.country" #country="ngModel" />
+                </div>
+                <div class="Item">
+                    <div class="Key">Город:</div>
+                    <div class="Description" *ngIf="!isEditing">{{user.profile?.city || "Город не указан."}}</div>
+                    <input [name]="'city'" class="Edit-Description" *ngIf="isEditing" [(ngModel)]="user.profile.city" #city="ngModel" />
+                </div>
+                <div class="Item">
+                    <div class="Key">О себе:</div>
+                    <div class="Description" *ngIf="!isEditing">{{user.profile?.about_me || "О себе не написано."}}</div>
+                    <textarea [name]="'about_me'" class="Edit-Description" *ngIf="isEditing" [(ngModel)]="user.profile.about_me" #about_me="ngModel"></textarea>
+                </div>
+            </div>
+        </div>
+        <div class="Profile__Content__Contacts-User-Information">
+            <div class="Title">Контакты</div>
+            <div class="Content">
+                <div class="Item">
+                    <div class="Key">Email:</div>
+                    <div class="Description" *ngIf="!isEditing">{{user.email}}</div>
+                    <input [name]="'email'" class="Edit-Description" *ngIf="isEditing" [(ngModel)]="user.email" #email="ngModel" />
+                </div>
+                <div class="Item">
+                    <div class="Key">Телефон:</div>
+                    <div class="Description" *ngIf="!isEditing">{{user.profile?.phone || "Телефон не указан."}}</div>
+                    <input [name]="'phone'" class="Edit-Description" *ngIf="isEditing" [(ngModel)]="user.profile.phone" #phone="ngModel" />
+                </div>
+            </div>
+        </div>
+        <div class="Profile__Content__Projects-User-Information"></div>
+        <div class="Profile__Content__Password-Change"></div>
+    </main>
+</form>
