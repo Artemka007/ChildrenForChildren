@@ -1,0 +1,65 @@
+@import "src/styles.sass"
+
+$show-height: 350px
+
+=title()
+    +flex-container(column, center, center)
+    width: 100%
+    font-size: 26px
+    margin: 10px 0
+
+.Content,
+.About,
+.Pluses,
+.Instruction
+    +flex-container()
+    width: 100%
+    height: auto
+    word-wrap: break-word
+    flex-wrap: wrap
+
+
+.Content
+    .About
+        .About__Content
+            +flex-container(row)
+            width: 100%
+            height: 100%
+            .Content__Images
+                width: 400px
+    .Pluses
+        .Pluses__Content
+            +flex-container(column, center, center)
+            padding: 0
+            .Pluses__Content__List
+                +flex-container(row, center)
+                width: 100%
+                @media screen and ( max-width: 820px )
+                    flex-direction: column
+                list-style-type: none
+                margin: 0
+                padding: 0
+                flex-wrap: wrap
+                .Item
+                    +flex-container(row, center, center)
+                    margin: 20px
+                    width: 200px
+                    &::before
+                        content: url("/media/icons/pluse.png")
+                        margin-right: 10px
+                    @media screen and ( max-width: 820px )
+                        width: 100%
+    .Instruction__Content,
+    .Content__Text,
+    .Content__Images,
+    .Pluses__Content
+        display: inline
+        border: #000 dashed 1px
+        width: 100%
+        height: 100%
+        padding: 10px
+        word-wrap: break-word
+        white-space: normal
+    .Title
+        +title()
+                    

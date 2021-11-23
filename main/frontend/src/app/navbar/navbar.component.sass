@@ -1,0 +1,88 @@
+@import "src/styles.sass"
+
+=link-i($url)
+    width: 30px
+    height: 30px
+    font-size: 30px
+    content: url($url)
+    
+.Navbar
+    +flex-container()
+    position: fixed
+    top: 0
+    left: 0
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif
+    margin: 0
+    box-shadow: #00000025 2px 0 8px 0
+    height: 100%
+    padding: 0 0 0 10px
+    width: $nav_w
+    list-style-type: none
+    .Navbar__Item
+        +flex-container()
+        margin-top: 10px
+        width: 100%
+        .Main-Link
+            +flex-container(row, flex-start, center)
+            width: 100%
+            &.Home-Main-Link
+                &::before
+                    +link-i("/media/icons/home.svg")
+            &.News-Main-Link
+                &::before
+                    +link-i("/media/icons/info.svg")
+            &.Ads-Main-Link
+                &::before
+                    +link-i("/media/icons/ad.svg")
+            &.Chats-Main-Link
+                &::before
+                    +link-i("/media/icons/message.svg")
+            .Main-Link__Text
+                text-decoration: none
+                font-size: 20px
+                color: #00000070
+                transition: color .1s
+                cursor: pointer
+                width: 100%
+                margin-left: 10px
+                &:hover,
+                &.active
+                    color: #7370ff
+            .Main-Link__OpenClose-Arrow
+                content: url("/media/icons/angle-down.svg")
+                font-size: 40px
+                width: 40px
+                height: 40px
+                transform-origin: 50%
+                cursor: pointer
+                &.Rotated
+                    transform: rotate(180deg)
+        .Links-Container
+            +flex-container()
+            width: calc(100% - 20px)
+            padding-inline-start: 20px
+            .Item
+                +flex-container(row, flex-start, center)
+                width: 100%
+                a
+                    color: #00000070
+                    text-decoration: none
+                    width: 100%
+                    padding: 10px 0
+                    &.active,
+                    &:hover
+                        color: #7370ff
+                        border-bottom: #7370ff solid 1px
+                &:hover,
+                &.active
+                    &::before
+                        background: #7370ff
+                &::before
+                    content: ""
+                    width: 5px
+                    height: 5px
+                    background: #00000070
+                    margin-right: 10px
+                    border-radius: 100%
+
+

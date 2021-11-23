@@ -1,0 +1,16 @@
+<div class="Header">
+    <div class="Header__Title">
+        <div class="Header__Title__Logo">logo</div>
+        <div class="Header__Title__Text">Title</div>
+    </div>
+    <div class="Header__Auth-Container" (mouseenter)="openS()" (mouseleave)="closeS()">
+        <div class="Header__Auth-Container__User-Info">
+            <div class="Header__Auth-Container__User-Info__Ava"></div>
+            <div class="Header__Auth-Container__User-Info__Username">{{user?.username}}</div>
+        </div>
+        <div class="Header__Auth-Container__Submenu" *ngIf="submenuIsOpen">
+            <div class="Header__Auth-Container__Submenu__Item LK">Личный кабинет</div>
+            <a routerLink="logout" class="Header__Auth-Container__Submenu__Item LogOut">Выйти</a>
+        </div>
+    </div>
+</div>

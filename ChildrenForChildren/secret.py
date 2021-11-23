@@ -1,0 +1,2 @@
+EMAIL_HOST_USER = 'kopylovartyom007@gmail.com'
+EMAIL_HOST_PASSWORD = 'AKChess16022007'

@@ -1,0 +1,93 @@
+@import "src/styles.sass"
+    
+.Form-Container
+    +flex-container()
+    position: fixed
+    top: 100px
+    left: calc( 50% - 200px )
+    width: 400px
+    height: auto
+    background: white
+    box-shadow: #00000025 0 4px 8px 0
+    .Form-Container__Title
+        width: 100%
+        text-align: center
+        font-size: 26px
+        margin: 10px
+    .Form-Container__Warning
+        margin: 10px 0
+        width: 100%
+        border: var(--red) solid 2px
+        background: #fff
+        color: var(--red)
+        font-size: 18px
+        padding: 10px 20px
+        border-radius: 10px
+        &.ok
+            color: var(--green)
+            border-color: var(--green)
+    .Form-Container__Fields-Container
+        +flex-container()
+        width: 100%
+        padding: 10px
+        .Field
+            +flex-container()
+            width: 100%
+            margin-top: 10px
+            input
+                font-weight: 500
+                font-family: "Rubik", sans-serif
+                border: #00000020 solid 2px
+                width: 100%
+                padding: 10px
+                font-size: 16px
+                border-radius: 5px
+                transition: all .1s
+                &:hover:not(.ng-touched.ng-invalid)
+                    border-color: #00000040
+                &:focus:not(.ng-touched.ng-invalid)
+                    border-color: var(--blue)
+                &.ng-touched.ng-invalid
+                    border-color: var(--lite-red)
+
+            span
+                width: 100%
+                color: var(--red)
+    .Form-Container__Links
+        +flex-container(row)
+        padding: 10px
+        border-top: #00000030 solid 1px
+        border-bottom: #00000030 solid 1px
+        width: 100%
+        font-size: 16px
+        span
+            font-family: "Rubik", sans-serif
+        a
+            font-weight: 550
+            color: var(--blue)
+            transition: all .1s
+            &:hover
+                cursor: pointer
+                color: var(--lite-blue)
+    .Form-Container__Button
+        width: calc(100% - 20px)
+        background: transparent
+        font-size: 16px
+        font-family: "Rubik", sans-serif
+        font-weight: 550
+        padding: 7px 15px
+        cursor: pointer
+        border: var(--blue) solid 2px
+        background: #fff
+        color: var(--blue)
+        margin: 10px
+        border-radius: 1000px
+        transition: all .1s
+        &:hover:not(:disabled)
+            color: #fff
+            background: var(--blue)
+        &:disabled
+            color: var(--lite-blue)
+            border-color: var(--lite-blue)
+            cursor: not-allowed
+
