@@ -13,8 +13,6 @@ class MessageSerializer(ModelSerializer):
 
 class ChatSerializer(ModelSerializer):
     users = UserSerializer(many=True, read_only=True)
-    moderators = UserSerializer(many=True, read_only=True)
-    admins = UserSerializer(many=True, read_only=True)
     messages = MessageSerializer(many=True, read_only=True)
 
     class Meta:

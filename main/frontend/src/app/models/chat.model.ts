@@ -7,11 +7,11 @@ export interface IChat {
     title: string
     description: string
     about: string
-    who_can_edit_chat: "everybody" | "moders_and_adnins" | "admins"
+    who_can_edit_chat: "everybody" | "admins_and_moders" | "admins"
     
     users: IUser[]
-    moderators: IUser[]
-    admins: IUser[]
+    moderators: number[]
+    admins: number[]
     messages: IMessage[]
 
     is_group: boolean

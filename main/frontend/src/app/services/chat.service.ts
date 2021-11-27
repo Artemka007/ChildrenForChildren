@@ -29,9 +29,7 @@ export class ChatService {
   ) { }
 
   connectToMessages(id: number) {
-    this._messages = <Subject<WSMessage>>this._ws.connect(`ws://127.0.0.1:8000/chat/${id}/`).pipe(map((res): WSMessage => {
-      return JSON.parse(res.data)
-    }))
+    this._messages = this._ws.connect(`ws://127.0.0.1:8000/chat/${id}/`)
   }
 
   getUserChats() {

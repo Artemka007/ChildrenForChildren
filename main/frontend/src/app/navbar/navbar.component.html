@@ -25,7 +25,7 @@
     </li>
     <li class="Navbar__Item">
         <div class="Main-Link News-Main-Link">
-            <a class="Main-Link__Text">Новости</a>
+            <a class="Main-Link__Text" routerLinkActive="active">Новости</a>
             <i class="Main-Link__OpenClose-Arrow" (click)="location.pathname.split('/')[1] === 'news' ? undefined : checkLinkIsOpen('news') ? closeLink('news') : openLink('news')" [ngClass]="{'Rotated': checkLinkIsOpen('news') || location.pathname.split('/')[1] === 'news'}"></i>
         </div>
         <ul class="Links-Container" *ngIf="checkLinkIsOpen('home') || location.pathname.split('/')[1] === 'home'"></ul>
@@ -40,7 +40,7 @@
     </li>
     <li class="Navbar__Item">
         <div class="Main-Link Chats-Main-Link">
-            <a class="Main-Link__Text">Чаты</a>
+            <a class="Main-Link__Text" routerLink="/chats">Чаты</a>
             <i class="Main-Link__OpenClose-Arrow" (click)="location.pathname.split('/')[1] === 'chats' ? undefined : checkLinkIsOpen('chats') ? closeLink('chats') : openLink('chats')" [ngClass]="{'Rotated': checkLinkIsOpen('chats') || location.pathname.split('/')[1] === 'chats'}">
             </i>
         </div>

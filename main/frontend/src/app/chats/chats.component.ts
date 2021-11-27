@@ -113,6 +113,38 @@ export class ChatsComponent implements OnInit {
     return totalString.length >= 1 ? totalString + " печатает..." : totalString + " печатают..."
   }
 
+  editChat() {
+
+  }
+
+  signoutFormChat() {
+
+  }
+
+  checkUserIsAdmin(id?: number) {
+    return this.user ? this.chat?.admins.includes(id || this.user.id) : false
+  }
+
+  checkUserIsModer(id?: number) {
+    return this.user ? this.chat?.moderators.includes(id || this.user.id) : false
+  }
+
+  checkUserCanEditChat() {
+    switch (this.chat?.who_can_edit_chat) {
+      case "everybody": return true
+      case "admins_and_moders": return this.checkUserIsAdmin() || this.checkUserIsModer
+      case "admins": return this.checkUserIsAdmin()
+      default: return false
+    }
+  }
+
+  getOtherUserInChat(id?: number) {
+    let chat
+    if (id) chat = this.chats.find(i => i.id === id)
+    else chat = this.chat
+    return chat?.users.filter(i => i.id !== this.user?.id)[0]
+  }
+
   private _subscribeToWSMessages(data: any) {
     switch (data.action) {
       case "send_message": {

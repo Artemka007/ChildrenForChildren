@@ -34,8 +34,14 @@
             width: 100%;
         }
         
-        chats {
+        chats,
+        home {
             height: calc(100% - 90px);
+        }
+        
+        chats {
+            display: flex;
+            flex-direction: row;
         }
         
         a {
@@ -46,7 +52,7 @@
          :root {
             --blue: #251db3;
             --lite-blue: #726bf7;
-            --bg-lite-blue: #251DB304;
+            --bg-lite-blue: #251DB310;
             --red: rgb(247, 47, 47);
             --lite-red: rgb(241, 89, 89);
             --green: rgb(2, 160, 29);

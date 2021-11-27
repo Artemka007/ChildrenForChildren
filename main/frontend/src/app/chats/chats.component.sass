@@ -1,9 +1,44 @@
 @import "src/styles.sass"
 @import "src/styles.forms.sass"
 
+=item()
+    +flex-container(row, flex-start, center)
+    height: 70px
+    width: 100%
+    border-bottom: #00000050 solid 1px
+    padding: 0 10px
+    &:hover
+        background: #00000007
+        cursor: pointer
+    &:last-child
+        border-bottom: none
+    .Avatar
+        display: flex
+        flex: 0 0 50px
+        width: 50px
+        height: 50px
+        border-radius: 100%
+        margin-right: 10px
+        img
+            width: 100%
+            height: 100%
+    .Main-Info
+        +flex-container(column, center, flex-start)
+        width: 100%
+        margin: 0
+        background: #00000000
+        .Name
+            color: #000
+            font-size: 18px
+            text-decoration: none
+        .Status
+            color: #000
+            font-size: 14px
+
 .Chat
     +flex-container(row)
     height: 100%
+    width: 100%
     .Chat__Container
         +flex-container()
         width: 100%
@@ -21,7 +56,7 @@
                     height: 50px
                     border-radius: 100%
                     border: #000 solid 1px
-                .Main-Info
+                .Chat-Main-Info
                     +flex-container(column, center)
                     height: 100%
                     font-weight: 550
@@ -78,8 +113,76 @@
                     i
                         font-size: 40px
                         content: url("/media/icons/send-message.svg")
-
     .Chat__Information
-        +flex-container()
-        flex: 0 0 400px
-    
+        .Main-Info,
+        .Actions,
+        .Users
+            background: #fff
+            margin-bottom: 20px
+            width: 100%
+        .Main-Info
+            +flex-container(column, flex-start, center)
+            .Chat-Ava
+                width: 200px
+                height: 200px
+                border-radius: 100%
+                border: #000000 solid 1px
+                margin: 10px 0
+            .Chat-Title
+                color: var(--blue)
+                font-size: 28px
+                margin: 10px 0
+            .Chat-Description
+                padding: 10px
+                width: 100%
+                font-size: 16px
+        .Actions
+            .Edit,
+            .Bad-Chat,
+            .Signout
+                +flex-container(row, flex-start, center)
+                color: var(--blue)
+                font-size: 20px
+                padding: 10px 15px
+                &::before
+                    font-size: 28px
+                    width: 28px
+                    height: 28px
+                    margin-right: 10px
+                &:hover
+                    background: #00000005
+                    cursor: pointer
+            .Edit::before
+                content: url("/media/icons/edit-alt.svg")
+            .Bad-Chat::before
+                content: url("/media/icons/comment-exclamation.svg")
+            .Signout::before
+                content: url("/media/icons/sign-out-alt.svg")
+        .Users
+            +flex-container()
+            .Item
+                +item()
+                .Chat-Status
+                    height: 100%
+                    color: var(--red)
+                    font-size: 12px
+                    padding: 5px 10px
+                    
+
+.Shadow-Left
+    box-shadow: #00000025 -4px 0 8px 0
+.Shadow-Right
+    box-shadow: #00000025 4px 0 8px 0
+.All-Chats,
+.Chat__Information
+    +flex-container(column)
+    height: 100%
+    flex: 0 0 400px
+    background: var(--bg-lite-blue)
+
+.All-Chats
+    flex: 0 0 300px
+    color: #000
+    .Item
+        +item()
+        width: 100%

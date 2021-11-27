@@ -24,7 +24,7 @@ export class ChatMessageComponent implements OnInit {
 
   checkUserIsReadMessage() {
     let r = this.message?.readers
-    return r ? r.includes(this.userId) : false
+    return r ? r.includes(this.userId) && r.length > 1 : false
   }
 
 }

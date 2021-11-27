@@ -1,11 +1,20 @@
+<div class="All-Chats Shadow-Right">
+    <a [routerLink]="'/chats'" [queryParams]="{id: c.id}" *ngFor="let c of chats" class="Item">
+        <div class="Avatar"><img src="/media/icons/profile.png" alt="" /> </div>
+        <div class="Main-Info">
+            <div class="Name">{{c.title || getOtherUserInChat(c.id)?.first_name + " " + getOtherUserInChat(c.id)?.last_name}}</div>
+            <div class="Status">{{c.messages[c.messages.length - 1].body}}</div>
+        </div>
+    </a>
+</div>
 <div *ngIf="chat" class="Chat">
     <div class="Chat__Container">
         <header class="Chat__Header">
             <div class="Information">
                 <div class="Chat-Ava"></div>
-                <div class="Main-Info">
+                <div class="Chat-Main-Info">
                     <div class="Chat-Title" *ngIf="chat.is_group" (click)="chatInfoIsOpen = !chatInfoIsOpen">{{getChatTitle()}}</div>
-                    <a class="Chat-Title" *ngIf="!chat.is_group">{{getChatTitle()}}</a>
+                    <a [routerLink]="'/profile'" [queryParams]="{id: getOtherUserInChat()?.id}" class="Chat-Title" *ngIf="!chat.is_group">{{getChatTitle()}}</a>
                     <div class="Chat-Status">{{writingUsers.length === 0 ? "online" : getWritingUsersString()}}</div>
                 </div>
             </div>
@@ -18,22 +27,27 @@
             <button class="Send"><i></i></button>
         </form>
     </div>
-    <div class="Chat__Information" *ngIf="chatInfoIsOpen && chat.is_group">
+    <div class="Chat__Information Shadow-Left" *ngIf="chatInfoIsOpen && chat.is_group">
         <div class="Main-Info">
             <div class="Chat-Ava"></div>
             <div class="Chat-Title">{{getChatTitle()}}</div>
-            <div class="Chat-Description">{{chat.description}}</div>
+            <div class="Chat-Description">{{chat.description || "Описание не написано"}}</div>
         </div>
         <div class="Actions">
-            <div class="Action-Edit"></div>
-            <div class="Action-Bad-Chat"></div>
-            <div class="Action-Signout"></div>
+            <div class="Edit" *ngIf="checkUserCanEditChat()">Изменить</div>
+            <div class="Bad-Chat">Пожаловаться</div>
+            <div class="Signout">Выйти из чата</div>
         </div>
-        <div class="Users"></div>
-    </div>
-</div>
-<div *ngIf="!chat" class="Chats">
-    <div *ngFor="let c of chats" class="Chats-Item">
-
+        <div class="Users">
+            <a [routerLink]="'/profile'" [queryParams]="{id: u.id}" class="Item" *ngFor="let u of chat.users">
+                <div class="Avatar"><img src="/media/icons/profile.png" alt="" /> </div>
+                <div class="Main-Info">
+                    <div class="Name">{{u.first_name + " " + u.last_name}}</div>
+                    <div class="Status">{{u.profile.status || "online"}}</div>
+                </div>
+                <span class="Chat-Status" *ngIf="checkUserIsAdmin(u.id)">admin</span>
+                <span class="Chat-Status" *ngIf="checkUserIsModer(u.id)">moder</span>
+            </a>
+        </div>
     </div>
 </div>
