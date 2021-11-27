@@ -25,11 +25,14 @@ class UserSerializer(ModelSerializer):
         instance.save()
 
         profile = validated_data.pop("profile", None)
-
         if profile is not None:
             instance.profile.patronymic = profile['patronymic']
             instance.profile.phone = profile['phone']
-            instance.profile.age = profile['age']
+            instance.profile.city = profile['city']
+            instance.profile.country = profile['country']
+            instance.profile.status = profile['status']
+            instance.profile.user_in_school_status = profile['user_in_school_status']
+            instance.profile.about_me = profile['about_me']
             instance.profile.save()
 
         return super().update(instance,validated_data)

@@ -49,9 +49,9 @@ export class AccountService {
     private _http: HttpClient
   ) { }
 
-  getUser() {
+  getUser(query?: {id: number}) {
     let token = this._getCookie("csrftoken")
-    return this._http.get<APIResponse<{user?: IUser}>>("/api/v1/account/", {
+    return this._http.get<APIResponse<{user?: IUser}>>(`/api/v1/account/${query?.id ? "?id=" + query?.id : ""}`, {
       headers: {"XCSRF-Token": token}
     })
   }

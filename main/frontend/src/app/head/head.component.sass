@@ -5,8 +5,10 @@
     width: $s
     height: $s
     border-radius: 100%
-    border: #000 solid 1px
     margin-right: 10px
+    img
+        width: $s
+        height: $s
 
 =i($url)
     height: 24px
@@ -19,13 +21,23 @@
     +flex-container(row, space-between, center)
     width: 100%
     background: #fff
-    height: 60px
+    height: 90px
     .Header__Title
         +flex-container(row, flex-start, center)
-        .Header__Title__Logo
-            +ava-logo(50px)
+        span
+            width: 1px
+            height: 50px
+            background: var(--blue)
+            margin: 0 10px
         .Header__Title__Text
-            font-size: 26px
+            color: var(--blue)
+            font-size: 30px
+            font-family: 'Roboto',Arial,sans-serif
+            line-height: 1.55
+            font-weight: 700
+            background-position: center center
+            border-color: transparent
+            border-style: solid
     .Header__Auth-Container
         +flex-container(row, flex-start, center)
         margin-right: 10px
@@ -61,6 +73,7 @@
                 cursor: pointer
                 font-size: 16px
                 &.LK
+                    color: #000
                     &::before
                         +i("/media/icons/user-circle.svg")
                 &.LogOut
@@ -68,4 +81,4 @@
                     &::before
                         +i("/media/icons/sign-out-alt.svg")
                 &:hover
-                    color: #6765FF
+                    color: var(--blue)

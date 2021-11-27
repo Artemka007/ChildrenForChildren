@@ -6,7 +6,7 @@ import { SetUser } from '../business/actions/account.actions';
 import { AccountService } from '../services/account.service';
 
 @Component({
-  selector: 'app-logout',
+  selector: 'logout',
   templateUrl: './logout.component.html',
   styleUrls: ['./logout.component.sass']
 })

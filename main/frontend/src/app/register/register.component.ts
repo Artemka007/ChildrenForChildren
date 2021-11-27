@@ -5,7 +5,7 @@ import { IUser } from '../models/user.model';
 import { AccountService, IRegisterData } from '../services/account.service';
 
 @Component({
-  selector: 'app-register',
+  selector: 'register',
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.sass']
 })

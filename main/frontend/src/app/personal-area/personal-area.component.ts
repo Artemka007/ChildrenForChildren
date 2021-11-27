@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { AppState } from '../business';
-import { User } from '../models/user.model';
+import { Profile, User } from '../models/user.model';
 import { AccountService } from '../services/account.service';
 
 @Component({
@@ -12,48 +12,48 @@ import { AccountService } from '../services/account.service';
 })
 export class PersonalAreaComponent implements OnInit {
   user?: User
+  currentUser?: User
   isEditing: boolean = false
 
   constructor(
     private _router: Router,
+    private _route: ActivatedRoute,
     private _store: Store<AppState>,
     private _account: AccountService
   ) { }
 
   ngOnInit(): void {
-    this._store.subscribe(data => {
-      this.user = data.account.user
+    this._route.queryParams.subscribe(p => {
+      this._store.subscribe(data => {
+        this.currentUser = data.account.user
+      })
+      if (p["id"]) {
+        this._account.getUser({id: p["id"]}).subscribe(data => {
+          if (data.result && data.data.user) {
+            let {id, username, email, first_name, last_name, profile} = data.data.user
+            let {patronymic, phone, age, status, user_in_school_status, city, country, about_me} = profile
+            let p = new Profile(profile.id, profile.user, phone, patronymic, age, user_in_school_status, status, country, city, about_me)
+            this.user = new User(id, username, email, first_name, last_name, p)
+            console.log(this.user)
+          }
+        })
+      } else {
+        this._store.subscribe(data => {
+          this.user = data.account.user
+        })
+      }
+      console.log(p)
     })
   }
 
   startEdit() {
-    this.isEditing = true
+    if (this.checkUser()) this.isEditing = true
   }
 
   endEdit(ok: boolean) {
-    if (ok && this.user) {
-      let {id, username, email, firstName, lastName, profile} = this.user
-      let {userId, patronymic, phone, age, status, user_in_school_status, city, country, about_me} = profile
-      let itogUser = {
-        id, 
-        username, 
-        email, 
-        first_name: firstName, 
-        last_name: lastName, 
-        profile: {
-          id: profile.id,
-          user: userId,
-          patronymic,
-          phone,
-          age,
-          status,
-          user_in_school_status,
-          city,
-          country,
-          about_me
-        }
-      }
-      this._account.editProfile(itogUser).subscribe(data => {
+    if (ok && this.user && this.checkUser()) {
+      let user = this.user.toJSON()
+      this._account.editProfile(user).subscribe(data => {
         if (data.result) {
           console.log(data.message)
         } else {
@@ -71,6 +71,16 @@ export class PersonalAreaComponent implements OnInit {
     else if (status === "parent") return "Родитель"
     else if (status === "moderator") return "Модератор"
     else return ""
+  }
+
+  checkUser() {
+    return this.user?.id === this.currentUser?.id
+  }
+
+  logout() {
+    this._account.logout().subscribe(data => {
+      if (data.result) this._router.navigateByUrl("/login")
+    })
   }
 
 }

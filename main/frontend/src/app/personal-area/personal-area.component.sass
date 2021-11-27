@@ -14,39 +14,57 @@
         +flex-container(row)
         width: auto
         padding: 15px 15px 0 0
+        .Item-1
+            border-right: var(--blue) solid 2px
         span
-            margin-right: 15px
-        i
+            padding-right: 7px
+            margin-right: 7px
+        button
+            outline: none
+            border: none
             background: #fff
             border-radius: 5px
+            width: 40px
+            height: 40px
+            padding: 5px
+            &::before
+                font-size: 30px
             &:hover
                 box-shadow: #00000050 2px 0 8px 0
                 cursor: pointer
-
-        i
-            width: 34px
-            height: 34px
-            font-size: 34px
+            &:focus
+                box-shadow: inset #00000050 2px 0 8px 0
         .Item-1
             +flex-container(row)
-            .Edit-Icon
-                content: url("/media/icons/edit-alt.svg")
-            .Ok-Edit-Icon
-                content: url("/media/icons/check-circle.svg")
-            .Not-Edit-Icon
-                content: url("/media/icons/times-circle.svg")
+            .Edit-Btn
+                &::before
+                    content: url("/media/icons/edit-alt.svg")
+            .Ok-Edit-Btn
+                &::before
+                    content: url("/media/icons/check-circle.svg")
+                margin-right: 10px
+            .Not-Edit-Btn
+                &::before
+                    content: url("/media/icons/times-circle.svg")
         .Item-2
-            i
-                content: url("/media/icons/sign-out-alt.svg")
+            button
+                &::before
+                    content: url("/media/icons/sign-out-alt.svg")
             
     .Profile__Content
         border-bottom: none
+        span.Validator
+            color: var(--red)
+            font-size: 15px
+            padding: 5px
+        .Field
+            +flex-container(column)
         .Profile__Content__Status-User-Information
             +flex-container(row, space-between, center)
             height: auto
             width: 100%
             padding: 0 0 15px 0
-            border-bottom: #00000050 solid 1px
+            border-bottom: var(--blue) solid 1px
             .Item-1
                 +flex-container(row, flex-start, center)
                 height: auto
@@ -97,5 +115,5 @@
 .Profile__Content__Contacts-User-Information
     +flex-container()
     padding: 15px 0
-    border-bottom: #00000050 solid 1px
+    border-bottom: var(--blue) solid 1px
     width: 100%

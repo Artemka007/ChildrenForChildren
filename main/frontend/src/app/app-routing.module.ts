@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { ChatsComponent } from './chats/chats.component';
 import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './login/login.component';
 import { LogoutComponent } from './logout/logout.component';
@@ -16,6 +17,7 @@ const routes: Routes = [
  {path: "reset-password", component: ResetPasswordComponent},
  {path: "reset-password/confirm/:uid/:token", component: ResetPasswordConfirmComponent},
  {path: "profile", component: PersonalAreaComponent},
+ {path: "chats", component: ChatsComponent}
 ];
 
 @NgModule({

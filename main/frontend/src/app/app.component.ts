@@ -3,8 +3,12 @@ import { NavigationEnd, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { AppState } from './business';
 import { SetUser } from './business/actions/account.actions';
+import { SetUserChats } from './business/actions/chats.actions';
+import { IChat } from './models/chat.model';
 import { Profile, User } from './models/user.model';
 import { AccountService } from './services/account.service';
+import { ChatService, WSMessage } from './services/chat.service';
+import { WebsocketService } from './services/websocket.service';
 
 @Component({
   selector: 'app-root',
@@ -19,12 +23,15 @@ export class AppComponent implements OnInit {
   constructor(
     private _router: Router,
     private _store: Store<AppState>,
-    private _accountService: AccountService
+    private _accountService: AccountService,
+    private _chatService: ChatService,
   ) {
     this._getUser()
+    this._getChats()
     this._router.events.subscribe((e) => {
       if (e instanceof NavigationEnd) {
         this._getUser()
+        this._getChats()
       }
     })
     this._store.subscribe(data => {
@@ -45,7 +52,6 @@ export class AppComponent implements OnInit {
           this._router.navigateByUrl("login")
         }
       }
-      
       else {
         let {id, username, email, first_name, last_name, profile} = JSONUser
         let {user, patronymic, age, phone, user_in_school_status, status, country, city, about_me} = profile
@@ -56,6 +62,16 @@ export class AppComponent implements OnInit {
         if (location.pathname === "/") {
           this._router.navigateByUrl("home")
         } 
+      }
+    })
+  }
+
+  private _getChats() {
+    this._chatService.getUserChats().subscribe(data => {
+      if (data.result && data.data.chats) {
+        this._store.dispatch(new SetUserChats(data.data.chats))
+      } else {
+        console.error(data.message)
       }
     })
   }

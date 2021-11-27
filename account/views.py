@@ -66,16 +66,22 @@ class LogoutView(APIView):
         
 class AccountView(APIView):
     def get(self, request):
+        id = request.GET.get("id")
         user = request.user
         if not user.is_authenticated:
             return Response({"result": False, "message": "Пользователь не авторизован.", "data": {"user": None}})
+        if id:
+            try:
+                user = get_user_model().objects.get(pk=id)
+            except Exception as e:
+                return Response({"result": False, "message": "Пользователь с таким id не найден.", "data": {"user": None}})
         return Response({"result": True, "message": "Данные пользователя отправлены в ответе.", "data": {"user": UserSerializer(user).data}}, 200)
     def put(self, request):
         instance = request.user
         data = request.data
         serializer = UserSerializer(data=data, instance=instance)
         if serializer.is_valid():
-            serializer.save()
+            serializer.update(instance, data)
             return Response({"result": True, "message": "Данные пользователя успешно изменены.", "data": {}})
         else:
             return Response({"result": False, "message": "Какие-то не те данные... Пожалуйста, повторите попытку.", "data": {"errors": serializer.errors}})

@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'rest_auth',
     'rest_framework',
     'rest_framework.authtoken',
+    'channels',
     'main',
     'account',
     'ads',
@@ -78,7 +79,17 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'ChildrenForChildren.wsgi.application'
+ASGI_APPLICATION = 'ChildrenForChildren.routing.application'
 
+CHANNEL_LAYERS = {
+    'default': {
+        # 'BACKEND': 'channels_redis.core.RedisChannelLayer',
+        # 'CONFIG': {
+        #     'hosts': [<hosts of docker>]
+        # }
+        'BACKEND': 'channels.layers.InMemoryChannelLayer'
+    }
+}
 
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
@@ -105,7 +116,6 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
-
 
 # Internationalization
 # https://docs.djangoproject.com/en/3.2/topics/i18n/

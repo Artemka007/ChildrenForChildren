@@ -1,0 +1,8 @@
+<div class="Message-Container" *ngIf="message" [style.justifyContent]="checkMessageIsFromUser() ? 'flex-end' : 'flex-start'">
+    <span class="Message-Is-Read" *ngIf="!checkUserIsReadMessage() && checkMessageIsFromUser()"></span>
+    <div class="Message__Ava"></div>
+    <div class="Message" [ngClass]="{'not-from-user': !checkMessageIsFromUser()}">
+        <div class="Message__Body">{{message.body}}</div>
+        <div class="Message__Date">{{message.date | date : "dd.MM.y HH:mm" : "UTC-3"}}</div>
+    </div>
+</div>

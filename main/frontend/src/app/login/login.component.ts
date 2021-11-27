@@ -7,7 +7,7 @@ import { AppState } from '../business';
 import { AccountService, ILoginData } from '../services/account.service';
 
 @Component({
-  selector: 'app-login',
+  selector: 'login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.sass']
 })

@@ -18,6 +18,9 @@ import { ResetPasswordConfirmComponent } from './reset-password-confirm/reset-pa
 import { AccountNavComponent } from './account-nav/account-nav.component';
 import { PersonalAreaComponent } from './personal-area/personal-area.component';
 import { FormSwitcherComponent } from './form-switcher/form-switcher.component';
+import { ChatsComponent } from './chats/chats.component';
+import { Subject } from 'rxjs';
+import { ChatMessageComponent } from './chat-message/chat-message.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +35,9 @@ import { FormSwitcherComponent } from './form-switcher/form-switcher.component';
     ResetPasswordConfirmComponent,
     AccountNavComponent,
     PersonalAreaComponent,
-    FormSwitcherComponent
+    FormSwitcherComponent,
+    ChatsComponent,
+    ChatMessageComponent
   ],
   imports: [
     BrowserModule,
@@ -43,7 +48,9 @@ import { FormSwitcherComponent } from './form-switcher/form-switcher.component';
     StoreModule,
     StoreModule.forRoot(reducers)
   ],
-  providers: [],
+  providers: [
+    Subject
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

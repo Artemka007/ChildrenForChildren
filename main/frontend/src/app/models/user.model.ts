@@ -77,6 +77,31 @@ export class User {
   set profile(profile: Profile) {
     this._profile = profile
   }
+
+  toJSON(): IUser {
+    let {id, username, email, firstName, lastName, profile} = this
+    let {userId, patronymic, phone, age, status, user_in_school_status, city, country, about_me} = profile
+    let JSONUser = {
+      id, 
+      username, 
+      email, 
+      first_name: firstName, 
+      last_name: lastName, 
+      profile: {
+        id: profile.id,
+        user: userId,
+        patronymic,
+        phone,
+        age,
+        status,
+        user_in_school_status,
+        city,
+        country,
+        about_me
+      }
+    }
+    return JSONUser
+  }
 }
 
 export class Profile {

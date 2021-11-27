@@ -1,0 +1,31 @@
+@import "src/styles.sass"
+
+.Message-Container
+    +flex-container(row, flex-start, center)
+    width: 100%
+    .Message-Is-Read
+        width: 5px
+        height: 5px
+        margin-right: 15px
+        background: var(--blue)
+        border-radius: 50%
+
+
+    .Message
+        +flex-container(column, center)
+        width: auto
+        max-width: 400px
+        background: #BDE7FF
+        padding: 10px
+        border-radius: 10px 0 10px 10px
+
+        &.not-from-user
+            border-radius: 0 10px 10px 10px
+            background: #AAF5FF
+        .Message__Body
+            +flex-container(row, flex-start)
+            font-size: 16px
+        .Message__Date
+            +flex-container(row, flex-end)
+            width: 100%
+            font-size: 12px

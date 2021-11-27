@@ -1,0 +1,39 @@
+<div *ngIf="chat" class="Chat">
+    <div class="Chat__Container">
+        <header class="Chat__Header">
+            <div class="Information">
+                <div class="Chat-Ava"></div>
+                <div class="Main-Info">
+                    <div class="Chat-Title" *ngIf="chat.is_group" (click)="chatInfoIsOpen = !chatInfoIsOpen">{{getChatTitle()}}</div>
+                    <a class="Chat-Title" *ngIf="!chat.is_group">{{getChatTitle()}}</a>
+                    <div class="Chat-Status">{{writingUsers.length === 0 ? "online" : getWritingUsersString()}}</div>
+                </div>
+            </div>
+        </header>
+        <main class="Chat__Body" #chatBody>
+            <chat-message *ngFor="let m of chat.messages" [message]="m" [userId]="user?.id || -1" style="padding: 0 10px;" #chatMessages></chat-message>
+        </main>
+        <form class="Chat__Form" #chatForm="ngForm" (ngSubmit)="sendMessage()">
+            <input (ngModelChange)="writingMessage()" name="body" [(ngModel)]="message.body" placeholder="Введите сообщение" />
+            <button class="Send"><i></i></button>
+        </form>
+    </div>
+    <div class="Chat__Information" *ngIf="chatInfoIsOpen && chat.is_group">
+        <div class="Main-Info">
+            <div class="Chat-Ava"></div>
+            <div class="Chat-Title">{{getChatTitle()}}</div>
+            <div class="Chat-Description">{{chat.description}}</div>
+        </div>
+        <div class="Actions">
+            <div class="Action-Edit"></div>
+            <div class="Action-Bad-Chat"></div>
+            <div class="Action-Signout"></div>
+        </div>
+        <div class="Users"></div>
+    </div>
+</div>
+<div *ngIf="!chat" class="Chats">
+    <div *ngFor="let c of chats" class="Chats-Item">
+
+    </div>
+</div>

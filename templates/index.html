@@ -29,8 +29,13 @@
         
         headerbar,
         home,
-        personal-area {
+        personal-area,
+        chats {
             width: 100%;
+        }
+        
+        chats {
+            height: calc(100% - 90px);
         }
         
         a {
@@ -39,12 +44,34 @@
     </style>
     <style>
          :root {
-            --blue: #0077D7;
-            --lite-blue: #3898e7;
+            --blue: #251db3;
+            --lite-blue: #726bf7;
+            --bg-lite-blue: #251DB304;
             --red: rgb(247, 47, 47);
             --lite-red: rgb(241, 89, 89);
             --green: rgb(2, 160, 29);
             --lite-green: rgb(18, 221, 62);
+        }
+    </style>
+    <style>
+        login,
+        register,
+        reset-password,
+        reset-password-confirm {
+            width: 100%;
+            height: 100vh;
+            background: var(--lite-blue);
+        }
+        
+        login img,
+        register img,
+        reset-password img,
+        reset-password-confirm img {
+            position: absolute;
+            width: 90px;
+            height: 30px;
+            top: 50px;
+            left: calc(50% - 45px);
         }
     </style>
 </head>

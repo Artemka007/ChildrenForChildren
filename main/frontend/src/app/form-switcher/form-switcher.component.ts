@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-form-switcher',
+  selector: 'form-switcher',
   templateUrl: './form-switcher.component.html',
   styleUrls: ['./form-switcher.component.sass']
 })
