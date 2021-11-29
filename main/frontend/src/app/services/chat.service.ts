@@ -1,10 +1,10 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
-import { IChat, ICreateChat, ICreateMessage, IMessage } from '../models/chat.model';
+import { IChat, ICreateMessage, IEditChat } from '../models/chat.model';
 import { WebsocketService } from './websocket.service';
-import { map } from 'rxjs/operators';
 import { APIResponse } from '../models/api.model';
+import { IUser } from '../models/user.model';
 
 export type WSMessage = {
   readonly action: "send_message"
@@ -39,8 +39,34 @@ export class ChatService {
   }
 
   getChatById(id: number) {
-    return this._http.get<APIResponse<{chat?: IChat}>>(`/api/v1/chats/?id=${id}/`, {
+    return this._http.get<APIResponse<{chat?: IChat}>>(`/api/v1/chats/?id=${id}`, {
       headers: {"X-CSRFToken": this._getCookie("csrftoken")}
+    })
+  }
+
+  editChat(chat: IEditChat, chatId: number, action?: "remove_user") {
+    return this._http.put<APIResponse<{chat?: IChat}>>(`/api/v1/chats/?id=${chatId}&action=${action}`, {csrfmiddlewaretoken: this._getCookie("csrftoken"), ...chat}, {
+      headers: {"X-CSRFToken": this._getCookie("csrftoken")}
+    })
+  }
+
+  signout(id: number) {
+    return this._http.put<APIResponse<{chat?: IChat}>>(`/api/v1/chats/?id=${id}&action=remove_user`, {csrfmiddlewaretoken: this._getCookie("csrftoken"), id}, {
+      headers: {"X-CSRFToken": this._getCookie("csrftoken")}
+    })
+  }
+
+  ban(id: number, userId: number) {
+    return this._http.put<APIResponse<{chat?: IChat}>>(`/api/v1/chats/?id=${id}&userId=${userId}&action=ban_user`, {csrfmiddlewaretoken: this._getCookie("csrftoken"), id}, {
+      headers: {"X-CSRFToken": this._getCookie("csrftoken")}
+    })
+  }
+
+  uploadFile(fd: FormData, type: "video" | "img" | "doc") {
+    return this._http.post<APIResponse<{id?: number}>>(`/api/v1/chats/messages/upload/?type=${type}`, fd, {
+      headers: {"X-CSRFToken": this._getCookie("csrftoken")},
+      reportProgress: true,
+      observe: 'events'
     })
   }
 
@@ -61,16 +87,16 @@ export class ChatService {
   }
   
   private _getCookie(name: string): string {
-    let ca: Array<string> = document.cookie.split(';');
-    let caLen: number = ca.length;
-    let cookieName = `${name}=`;
-    let c: string;
+    let ca: Array<string> = document.cookie.split(';')
+    let caLen: number = ca.length
+    let cookieName = `${name}=`
+    let c: string
     for (let i: number = 0; i < caLen; i += 1) {
-        c = ca[i].replace(/^\s+/g, '');
+        c = ca[i].replace(/^\s+/g, '')
         if (c.indexOf(cookieName) == 0) {
-            return c.substring(cookieName.length, c.length);
+            return c.substring(cookieName.length, c.length)
         }
     }
-    return '';
+    return ''
   }
 }

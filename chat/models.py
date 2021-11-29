@@ -18,10 +18,16 @@ class Chat(models.Model):
     users = models.ManyToManyField(get_user_model(), related_name="chats", default=[], blank=True)
     moderators = models.ManyToManyField(get_user_model(), related_name="moder_in_chats", default=[], blank=True)
     admins = models.ManyToManyField(get_user_model(), related_name="admin_in_chats", default=[], blank=True)
+    banned_list = models.ManyToManyField(get_user_model(), related_name="banned_in_chats", default=[], blank=True)
 
     # any flags
     is_group = models.BooleanField(default=False)
     is_private = models.BooleanField(default=False)
+
+    # files
+    videos = models.ManyToManyField("VideoFileUpload", related_name="messages", default=[], blank=True)
+    imgs = models.ManyToManyField("ImgFileUpload", related_name="messages", default=[], blank=True)
+    docs = models.ManyToManyField("DocFileUpload", related_name="messages", default=[], blank=True)
 
 class Message(models.Model):
     user = models.ForeignKey(get_user_model(), on_delete=models.CASCADE, related_name="messages")
@@ -37,3 +43,12 @@ class Message(models.Model):
 
     class Meta:
         ordering = ("date",)
+
+class VideoFileUpload(models.Model):
+    file = models.FileField(upload_to="chat/message/videos")
+
+class ImgFileUpload(models.Model):
+    file = models.FileField(upload_to="chat/message/imgs")
+
+class DocFileUpload(models.Model):
+    file = models.FileField(upload_to="chat/message/docs")

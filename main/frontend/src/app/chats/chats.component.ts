@@ -1,13 +1,13 @@
 import { Component, ElementRef, OnInit, QueryList, ViewChild, ViewChildren } from '@angular/core';
-import { IChat, ICreateMessage } from '../models/chat.model';
-import { ChatService, WSMessage } from '../services/chat.service';
+import { IChat, ICreateChat, ICreateMessage, IEditChat } from '../models/chat.model';
+import { ChatService } from '../services/chat.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { AppState } from '../business';
 import { IUser, User } from '../models/user.model';
 import { SetUserChats } from '../business/actions/chats.actions';
 import { ChatMessageComponent } from '../chat-message/chat-message.component';
-import { interval } from 'rxjs';
+import { HttpEventType } from '@angular/common/http';
 
 @Component({
   selector: 'chats',
@@ -35,8 +35,24 @@ export class ChatsComponent implements OnInit {
     user: -1,
     chat: -1,
     body: "",
-    is_forwarded: false
+    is_forwarded: false,
+    videos: [],
+    imgs: [],
+    docs: []
   }
+
+  chatForEdit: IEditChat = {
+    photo:  undefined,
+    title:  undefined,
+    about:  undefined,
+    users:         [],
+    moderators:    [],
+    banned_list:   [],
+    is_private: false,
+
+  }
+
+  isEditing: boolean = false
 
   constructor (
     private _router: Router,
@@ -52,9 +68,13 @@ export class ChatsComponent implements OnInit {
         let id = parseInt(p["id"])
         if (id) {
           this.chat = data.chats.chats.find(i => i.id === id)
-          this.message["chat"] = id
-          this.chatBody && this.scroll(this.chatBody.nativeElement)
-          this._chat.readMessage(id)
+          if (this.chat) {
+            let {title, about, users, banned_list, moderators, is_private} = this.chat
+            this.chatForEdit = {photo: undefined, title, about, users: users.map(i => {return i.id}), moderators, banned_list, is_private}
+            this.message["chat"] = id
+            this.chatBody && this.scroll(this.chatBody.nativeElement)
+            this._chat.readMessage(id)
+          }
         }
       })
     })
@@ -92,6 +112,27 @@ export class ChatsComponent implements OnInit {
     this._chat.sendMessage(this.message)
   }
 
+  uploadFile(event: Event, type: "video" | "img" | "doc") {
+    let el = event.target as HTMLInputElement
+    let fileList: FileList | null = el.files
+    let fd = new FormData()
+    if (fileList) {
+      console.log(fileList[0])
+      fd.append("file", fileList[0])
+      this._chat.uploadFile(fd, type).subscribe(data => {
+        if (data.type === HttpEventType.UploadProgress) {
+          data.total && console.log(Math.round(data.loaded / data.total * 100).toString() + "%")
+        } else if (data.type === HttpEventType.Response) {
+          if (data.body?.data.id) {
+            type === "img" && this.message['imgs'].push(data.body?.data.id)
+            type === "video" && this.message['videos'].push(data.body?.data.id)
+            type === "doc" && this.message['docs'].push(data.body?.data.id)
+          }
+        }
+      })
+    }
+  }
+
   writingMessage() {
     this._chat.writingMessage(this.user?.id || -1)
   }
@@ -113,12 +154,47 @@ export class ChatsComponent implements OnInit {
     return totalString.length >= 1 ? totalString + " печатает..." : totalString + " печатают..."
   }
 
-  editChat() {
-
+  startEditing() {
+    this.isEditing = true
   }
 
-  signoutFormChat() {
+  stopEditing() {
+    this.isEditing = false
+  }
 
+  editChat() {
+    this.chat && this._chat.editChat(this.chatForEdit, this.chat.id).subscribe(data => {
+      if (data.result) {
+        this.chat = data.data.chat
+        if (this.chat) {
+          let {title, about, users, banned_list, moderators, is_private} = this.chat
+          this.chatForEdit = {photo: undefined, title, about, users: users.map(i => {return i.id}), moderators, banned_list, is_private}
+        }
+      }
+      else console.error(data.message)
+    })
+    this.stopEditing()
+  }
+
+  signoutFromChat() {
+    this.chat && this._chat.signout(this.chat.id).subscribe(data => {
+      if (data.result) {
+        this.chat = data.data.chat
+        this.chatForEdit.banned_list = data.data.chat?.banned_list || this.chatForEdit.banned_list
+      }
+      else console.error(data.message)
+    })
+  }
+
+  banUser(id: number) {
+    this.chat && this._chat.ban(this.chat.id, id).subscribe(data => {
+      if (data.result) {
+        this.chat = data.data.chat
+        this.chatForEdit.banned_list = data.data.chat?.banned_list || this.chatForEdit.banned_list
+        console.log(data.data.chat)
+      }
+      else console.error(data.message)
+    })
   }
 
   checkUserIsAdmin(id?: number) {
@@ -127,6 +203,10 @@ export class ChatsComponent implements OnInit {
 
   checkUserIsModer(id?: number) {
     return this.user ? this.chat?.moderators.includes(id || this.user.id) : false
+  }
+
+  checkUserIsBanned(id?: number) {
+    return this.user ? this.chat?.banned_list.includes(id || this.user.id) : false
   }
 
   checkUserCanEditChat() {

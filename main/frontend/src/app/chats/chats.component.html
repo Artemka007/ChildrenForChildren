@@ -23,31 +23,68 @@
             <chat-message *ngFor="let m of chat.messages" [message]="m" [userId]="user?.id || -1" style="padding: 0 10px;" #chatMessages></chat-message>
         </main>
         <form class="Chat__Form" #chatForm="ngForm" (ngSubmit)="sendMessage()">
-            <input (ngModelChange)="writingMessage()" name="body" [(ngModel)]="message.body" placeholder="Введите сообщение" />
-            <button class="Send"><i></i></button>
+            <div class="Chat__Form__Fields-Container">
+                <input (ngModelChange)="writingMessage()" name="body" [(ngModel)]="message.body" placeholder="Введите сообщение" />
+                <ng-container>
+                    <input type="file" #imageUpload accept="image/*" (change)="uploadFile($event, 'img')" style="display: none;" />
+                    <input type="file" #videoUpload accept="video/*" (change)="uploadFile($event, 'video')" style="display: none;" />
+                    <input type="file" #fileUpload accept="application/msword, text/plain, application/pdf" (change)="uploadFile($event, 'doc')" style="display: none;" />
+                </ng-container>
+                <div class="Actions">
+                    <button type="button" (click)="imageUpload.click()" class="Upload-Img"><i></i></button>
+                    <button type="button" (click)="videoUpload.click()" class="Upload-Video"><i></i></button>
+                    <button type="button" (click)="fileUpload.click()" class="Upload-Doc"><i></i></button>
+                </div>
+                <button class="Send"><i></i></button>
+            </div>
         </form>
     </div>
-    <div class="Chat__Information Shadow-Left" *ngIf="chatInfoIsOpen && chat.is_group">
-        <div class="Main-Info">
+    <form class="Chat__Information Shadow-Left" *ngIf="chatInfoIsOpen && chat.is_group" #chatEditForm="ngForm" (ngSubmit)="editChat()">
+        <div *ngIf="!isEditing" class="Main-Info">
             <div class="Chat-Ava"></div>
             <div class="Chat-Title">{{getChatTitle()}}</div>
-            <div class="Chat-Description">{{chat.description || "Описание не написано"}}</div>
+            <div class="Chat-Description">{{chat.about || "Описание не написано"}}</div>
         </div>
-        <div class="Actions">
-            <div class="Edit" *ngIf="checkUserCanEditChat()">Изменить</div>
-            <div class="Bad-Chat">Пожаловаться</div>
-            <div class="Signout">Выйти из чата</div>
+        <div *ngIf="isEditing" class="Main-Info">
+            <div class="Chat-Ava"></div>
+            <input name="title" class="Chat-Title" [(ngModel)]="chatForEdit.title" />
+            <textarea name="about" class="Chat-Description" [(ngModel)]="chatForEdit.about"></textarea>
         </div>
-        <div class="Users">
+        <div *ngIf="!isEditing" class="Actions Column">
+            <div class="Edit" *ngIf="checkUserCanEditChat()" (click)="startEditing()">Изменить</div>
+            <div class="Bad-Chat" *ngIf="!checkUserIsAdmin()">Пожаловаться</div>
+            <div class="Signout" *ngIf="!checkUserIsAdmin()" (click)="signoutFromChat()">Выйти из чата</div>
+        </div>
+        <div *ngIf="isEditing" class="Actions Row">
+            <button class="Done" type="submit">Готово</button>
+            <span class="Split"></span>
+            <button class="Cancel" type="button" (click)="stopEditing()">Отменить</button>
+        </div>
+        <div *ngIf="!isEditing" class="Users">
             <a [routerLink]="'/profile'" [queryParams]="{id: u.id}" class="Item" *ngFor="let u of chat.users">
                 <div class="Avatar"><img src="/media/icons/profile.png" alt="" /> </div>
                 <div class="Main-Info">
-                    <div class="Name">{{u.first_name + " " + u.last_name}}</div>
+                    <div class="Name">{{u.id === user?.id ? "Вы" : u.first_name + " " + u.last_name}}</div>
                     <div class="Status">{{u.profile.status || "online"}}</div>
                 </div>
                 <span class="Chat-Status" *ngIf="checkUserIsAdmin(u.id)">admin</span>
                 <span class="Chat-Status" *ngIf="checkUserIsModer(u.id)">moder</span>
             </a>
         </div>
-    </div>
+        <div *ngIf="isEditing" class="Users">
+            <div class="Item" *ngFor="let u of chat.users">
+                <div class="Avatar"><img src="/media/icons/profile.png" alt="" /> </div>
+                <div class="Main-Info">
+                    <div class="Name">{{u.first_name + " " + u.last_name}}</div>
+                </div>
+                <ng-container *ngIf="u.id !== user?.id">
+                    <select [value]="checkUserIsModer() ? 'moder' : 'user'">
+                        <option value="user">Пользователь</option>
+                        <option value="moder">Модератор</option>
+                    </select>
+                    <button (click)="banUser(u.id)" type="button" class="Ban" [ngClass]="{'Is-Banned': checkUserIsBanned(u.id), 'Not-Banned': !checkUserIsBanned(u.id)}"><i></i></button>
+                </ng-container>
+            </div>
+        </div>
+    </form>
 </div>

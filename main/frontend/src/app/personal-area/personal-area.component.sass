@@ -20,20 +20,7 @@
             padding-right: 7px
             margin-right: 7px
         button
-            outline: none
-            border: none
-            background: #fff
-            border-radius: 5px
-            width: 40px
-            height: 40px
-            padding: 5px
-            &::before
-                font-size: 30px
-            &:hover
-                box-shadow: #00000050 2px 0 8px 0
-                cursor: pointer
-            &:focus
-                box-shadow: inset #00000050 2px 0 8px 0
+            +manage-button(40px, 40px)
         .Item-1
             +flex-container(row)
             .Edit-Btn

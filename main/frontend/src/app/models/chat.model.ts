@@ -12,6 +12,7 @@ export interface IChat {
     users: IUser[]
     moderators: number[]
     admins: number[]
+    banned_list: number[]
     messages: IMessage[]
 
     is_group: boolean
@@ -29,6 +30,10 @@ export interface IMessage {
 
     reply_to_message?: IMessage
     is_forwarded: boolean
+
+    videos: {file: string}
+    imgs: {file: string}
+    docs: {file: string}
 }
 
 export interface ICreateChat {
@@ -45,6 +50,18 @@ export interface ICreateChat {
     is_private?: boolean
 }
 
+export interface IEditChat {
+    photo?: File | Blob
+    title?: string
+    about?: string
+    
+    users: number[]
+    moderators: number[]
+    banned_list: number[]
+
+    is_private: boolean
+}
+
 export interface ICreateMessage {
     user: number
     chat: number
@@ -52,4 +69,8 @@ export interface ICreateMessage {
 
     reply_to_message?: IMessage
     is_forwarded?: boolean
+
+    videos: number[]
+    imgs: number[]
+    docs: number[]
 }

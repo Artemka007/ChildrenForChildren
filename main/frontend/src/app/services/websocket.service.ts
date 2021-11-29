@@ -1,10 +1,7 @@
 import { Injectable } from '@angular/core';
-import { ConnectableObservable, from, interval, Observable, Observer, Subject } from 'rxjs';
-import { AnonymousSubject } from 'rxjs/internal/Subject';
-import { multicast } from 'rxjs/operators';
+import { Subject } from 'rxjs';
 import { WSMessage } from './chat.service';
 import { webSocket } from 'rxjs/webSocket';
-const subject = webSocket("ws://localhost:8081");
 
 @Injectable({
   providedIn: 'root'

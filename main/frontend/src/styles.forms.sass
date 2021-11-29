@@ -3,7 +3,7 @@
 =field()
     font-weight: 500
     font-family: "Rubik", sans-serif
-    border: #00000020 solid 2px
+    border: #00000020 solid 1px
     width: 100%
     padding: 10px
     font-size: 16px
@@ -15,6 +15,22 @@
         border-color: var(--lite-blue)
     &.ng-touched.ng-invalid
         border-color: var(--lite-red)
+
+=manage-button($w, $h)
+    outline: none
+    border: none
+    background: #fff
+    border-radius: 5px
+    width: $w
+    height: $h
+    padding: 5px
+    &::before
+        font-size: 30px
+    &:hover
+        box-shadow: #00000050 2px 0 8px 0
+        cursor: pointer
+    &:focus
+        box-shadow: inset #00000050 2px 0 8px 0
 
 .Form-Container
     +flex-container()
