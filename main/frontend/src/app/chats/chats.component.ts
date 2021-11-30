@@ -8,6 +8,7 @@ import { IUser, User } from '../models/user.model';
 import { SetUserChats } from '../business/actions/chats.actions';
 import { ChatMessageComponent } from '../chat-message/chat-message.component';
 import { HttpEventType } from '@angular/common/http';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'chats',
@@ -36,10 +37,11 @@ export class ChatsComponent implements OnInit {
     chat: -1,
     body: "",
     is_forwarded: false,
-    videos: [],
     imgs: [],
     docs: []
   }
+
+  uploadigFiles: {id?: number, type: "img" | "doc", name: string, progress: number, progressColor?: string}[] = []
 
   chatForEdit: IEditChat = {
     photo:  undefined,
@@ -49,10 +51,15 @@ export class ChatsComponent implements OnInit {
     moderators:    [],
     banned_list:   [],
     is_private: false,
-
   }
 
   isEditing: boolean = false
+
+  uploadSubscription?: Subscription
+
+  imageIdForImageSlider: number = 0
+  imagesForImageSlider: string[] = []
+  imageSliderIsOpen: boolean = false
 
   constructor (
     private _router: Router,
@@ -112,25 +119,62 @@ export class ChatsComponent implements OnInit {
     this._chat.sendMessage(this.message)
   }
 
-  uploadFile(event: Event, type: "video" | "img" | "doc") {
+  uploadFile(event: Event, type: "img" | "doc") {
     let el = event.target as HTMLInputElement
     let fileList: FileList | null = el.files
     let fd = new FormData()
     if (fileList) {
-      console.log(fileList[0])
-      fd.append("file", fileList[0])
-      this._chat.uploadFile(fd, type).subscribe(data => {
-        if (data.type === HttpEventType.UploadProgress) {
-          data.total && console.log(Math.round(data.loaded / data.total * 100).toString() + "%")
-        } else if (data.type === HttpEventType.Response) {
-          if (data.body?.data.id) {
-            type === "img" && this.message['imgs'].push(data.body?.data.id)
-            type === "video" && this.message['videos'].push(data.body?.data.id)
-            type === "doc" && this.message['docs'].push(data.body?.data.id)
+      let f = fileList[0]
+      if (f.name.length > 100) {
+        console.error("Длина названия файла не может быть больше 100 символов.")
+      } else {
+        let uf = {type, name: f.name, progress: 0}
+        fd.append("file", f)
+        this.uploadigFiles.push(uf)
+        let uploadingFilesLastId = this.uploadigFiles.length - 1
+        this.uploadSubscription = this._chat.uploadFile(fd, type).subscribe(data => {
+          if (data.type === HttpEventType.UploadProgress && data.total) {
+            this.uploadigFiles[uploadingFilesLastId].progress = Math.round(data.loaded / data.total * 100)
+          } else if (data.type === HttpEventType.Response) {
+            if (data.body?.data.id) {
+              type === "img" && this.message['imgs'].push(data.body?.data.id)
+              type === "doc" && this.message['docs'].push(data.body?.data.id)
+              this.uploadigFiles[uploadingFilesLastId].id = data.body.data.id
+            }
           }
-        }
-      })
+        })
+       }
     }
+  }
+
+  breakUpload() {
+    this.uploadSubscription?.unsubscribe()
+    let uploadingFilesLastId = this.uploadigFiles.length - 1
+    this.uploadigFiles.splice(uploadingFilesLastId, 1)
+  }
+
+  deleteUploadedFile(type: "img" | "doc", id?: number) {
+    id && this._chat.deleteUploadedFile(id, type).subscribe(data => {
+      if (type === 'img') {
+        this.message['imgs'].splice(this.message.imgs.indexOf(id), 1)
+      } else if (type === 'doc') {
+        this.message['docs'].splice(this.message.docs.indexOf(id), 1)
+      }
+      let uf = this.uploadigFiles.find(i => i.id === id)
+      uf && this.uploadigFiles.splice(this.uploadigFiles.indexOf(uf), 1)
+    })
+  }
+
+  openImageSlider(data: {id: number, urls: string[]}) {
+    this.imagesForImageSlider = data.urls
+    this.imageIdForImageSlider = data.id
+    this.imageSliderIsOpen = true
+  }
+
+  closeImageSlider() {
+    this.imagesForImageSlider = []
+    this.imageIdForImageSlider = 0
+    this.imageSliderIsOpen = false
   }
 
   writingMessage() {

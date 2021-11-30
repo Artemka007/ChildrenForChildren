@@ -21,6 +21,8 @@ import { FormSwitcherComponent } from './form-switcher/form-switcher.component';
 import { ChatsComponent } from './chats/chats.component';
 import { Subject } from 'rxjs';
 import { ChatMessageComponent } from './chat-message/chat-message.component';
+import { ProgressBarComponent } from './progress-bar/progress-bar.component';
+import { ImageSliderComponent } from './image-slider/image-slider.component';
 
 @NgModule({
   declarations: [
@@ -37,7 +39,9 @@ import { ChatMessageComponent } from './chat-message/chat-message.component';
     PersonalAreaComponent,
     FormSwitcherComponent,
     ChatsComponent,
-    ChatMessageComponent
+    ChatMessageComponent,
+    ProgressBarComponent,
+    ImageSliderComponent
   ],
   imports: [
     BrowserModule,

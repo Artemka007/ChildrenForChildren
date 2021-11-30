@@ -91,52 +91,80 @@
                 +flex-container(row, flex-start, center)
                 width: 100%
                 height: 100%
-            input
-                width: 100%
-                font-size: 16px
-                padding: 12px 15px
-                border: #00000050 solid 1px
-                border-radius: 10px
-                margin-right: 10px
-                &:focus
-                    border-color: var(--lite-blue)
-            button
-                display: flex
-                flex: 0 0 40px
-                cursor: pointer
-                padding: 5px
-                border-radius: 5px
-                background: #fff
-                otline: none
-                border: none
-                height: 40px
-                &:hover
-                    box-shadow: #00000050 0 2px 8px 2px
-                &:focus
-                    box-shadow: inset #00000050 0 2px 8px 2px
-                &.Send
-                    i
-                        font-size: 30px
-                        content: url("/media/icons/send-message.svg")
-            .Actions
-                +flex-container(row)
-                flex: 0 0 170px
-                width: 170px
-                height: 40px
+                input
+                    width: 100%
+                    font-size: 16px
+                    padding: 12px 15px
+                    border: #00000050 solid 1px
+                    border-radius: 10px
+                    margin-right: 10px
+                    &:focus
+                        border-color: var(--lite-blue)
                 button
-                    margin: 0 5px
-                    &.Upload-Img
+                    display: flex
+                    flex: 0 0 40px
+                    +manage-button(40px, 40px)
+                    &.Send
                         i
                             font-size: 30px
-                            content: url("/media/icons/image-upload.svg")
-                    &.Upload-Video
+                            content: url("/media/icons/send-message.svg")
+                .Actions
+                    +flex-container(row)
+                    flex: 0 0 170px
+                    width: 120px
+                    height: 40px
+                    button
+                        margin: 0 5px
+                        &.Upload-Img
+                            i
+                                font-size: 30px
+                                content: url("/media/icons/image-upload.svg")
+                        &.Upload-Doc
+                            i
+                                font-size: 30px
+                                content: url("/media/icons/file-upload.svg")
+            .Chat__Form__Upload-Files
+                +flex-container()
+                width: 100%
+                height: auto
+                .Item
+                    +flex-container(row, flex-start, center)
+                    width: 100%
+                    height: auto
+                    padding: 10px
+                    border-top: var(--blue) solid 1px
+                    .Icon
+                        +flex-container(row)
+                        flex: 0 0 50px
+                        height: 50px
+                        width: 50px
+                        padding: 10px
+                        border-radius: 100%
+                        background: var(--blue)
                         i
                             font-size: 30px
-                            content: url("/media/icons/video-upload.svg")
-                    &.Upload-Doc
-                        i
-                            font-size: 30px
-                            content: url("/media/icons/file-upload.svg")
+                        .Upload-Doc
+                            content: url("/media/icons/file-upload-white.svg")
+                        .Upload-Img
+                            content: url("/media/icons/image-upload-white.svg")
+                    .Name
+                        width: auto
+                        height: auto
+                        margin: 0 10px
+                    .Actions
+                        +flex-container(row)
+                        .Break-Upload,
+                        .Delete-File
+                            +manage-button(40px, 40px)
+                            i
+                                font-size: 30px
+                        .Break-Upload
+                            i
+                                content: url("/media/icons/red-times-circle.svg")
+                        .Delete-File
+                            i
+                                content: url("/media/icons/trash-alt.svg")
+
     .Chat__Information
         .Main-Info,
         .Actions,

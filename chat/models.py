@@ -24,11 +24,6 @@ class Chat(models.Model):
     is_group = models.BooleanField(default=False)
     is_private = models.BooleanField(default=False)
 
-    # files
-    videos = models.ManyToManyField("VideoFileUpload", related_name="messages", default=[], blank=True)
-    imgs = models.ManyToManyField("ImgFileUpload", related_name="messages", default=[], blank=True)
-    docs = models.ManyToManyField("DocFileUpload", related_name="messages", default=[], blank=True)
-
 class Message(models.Model):
     user = models.ForeignKey(get_user_model(), on_delete=models.CASCADE, related_name="messages")
     chat = models.ForeignKey(Chat, on_delete=models.CASCADE, related_name="messages")
@@ -41,14 +36,25 @@ class Message(models.Model):
 
     is_forwarded = models.BooleanField(default=False)
 
+    # files
+    imgs = models.ManyToManyField("ImgFileUpload", related_name="messages", default=[], blank=True)
+    docs = models.ManyToManyField("DocFileUpload", related_name="messages", default=[], blank=True)
+
     class Meta:
         ordering = ("date",)
 
-class VideoFileUpload(models.Model):
-    file = models.FileField(upload_to="chat/message/videos")
-
 class ImgFileUpload(models.Model):
     file = models.FileField(upload_to="chat/message/imgs")
+    
+    def delete(self, using=None, keep_parents=False):
+        self.file.delete(save=True)
+        super().delete()
+
 
 class DocFileUpload(models.Model):
+    name = models.CharField(max_length=100, null=True, blank=True)
     file = models.FileField(upload_to="chat/message/docs")
+    
+    def delete(self, using=None, keep_parents=False):
+        self.file.delete(save=True)
+        super().delete()

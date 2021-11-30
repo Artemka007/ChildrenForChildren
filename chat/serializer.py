@@ -2,14 +2,8 @@ from django.db.models import fields
 from django.db.models.base import Model
 from rest_framework.serializers import ModelSerializer
 
-from .models import Chat, Message, DocFileUpload, ImgFileUpload, VideoFileUpload
+from .models import Chat, Message, DocFileUpload, ImgFileUpload
 from account.serializer import UserSerializer
-
-
-class VideoFileUploadSerializer(ModelSerializer):
-    class Meta:
-        model = VideoFileUpload
-        fields = "__all__"
 
 class ImgFileUploadSerializer(ModelSerializer):
     class Meta:
@@ -23,7 +17,6 @@ class DocFileUploadSerializer(ModelSerializer):
 
 class MessageSerializer(ModelSerializer):
     user = UserSerializer(many=False, read_only=True)
-    videos = VideoFileUploadSerializer(many=True, read_only=True)
     imgs = ImgFileUploadSerializer(many=True, read_only=True)
     docs = DocFileUploadSerializer(many=True, read_only=True)
 
@@ -54,4 +47,4 @@ class EditChatSerializer(ModelSerializer):
 class CreateMessageSerializer(ModelSerializer):
     class Meta:
         model = Message
-        fields = ["user", "chat", "body", "reply_to_message", "is_forwarded", "videos", "imgs", "docs"]
+        fields = ["user", "chat", "body", "reply_to_message", "is_forwarded", "imgs", "docs"]

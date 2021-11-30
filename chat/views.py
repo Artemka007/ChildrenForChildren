@@ -60,11 +60,23 @@ class UploadFilesForMessageView(APIView):
             return Response({"result": False, "message": "Пользователь не авторизован.", "data": {}})
         if type == 'img':
             serializer = ImgFileUploadSerializer(data=request.FILES)
-        elif type == 'video':
-            serializer = VideoFileUploadSerializer(data=request.FILES)
         elif type == 'doc':
             serializer = DocFileUploadSerializer(data=request.FILES)
-        print(request.FILES)
         serializer.is_valid(raise_exception=True)
         serializer.save()
-        return Response({"message": "Файл успешно загружен.", "result": True, "data": {}})
+        serializer.instance.name = request.FILES.get("file").name
+        serializer.instance.save()
+        return Response({"message": "Файл успешно загружен.", "result": True, "data": {"id": serializer.instance.id}})
+    def delete(self, request):
+        if not request.user.is_authenticated:
+            return Response({"result": False, "message": "Пользователь не авторизован.", "data": {}})
+        id = request.GET.get("id")
+        type = request.GET.get("type")
+        try:
+            if type == 'img':
+                ImgFileUpload.objects.get(pk=id).delete()
+            elif type == 'doc':
+                DocFileUpload.objects.get(pk=id).delete()
+            return Response({"message": "Файл успешно удален.", "result": True, "data": {}})
+        except:
+            return Response({"result": False, "message": "Файл с таким id не существует.", "data": {}})

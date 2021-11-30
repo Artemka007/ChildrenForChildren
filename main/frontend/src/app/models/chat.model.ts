@@ -31,9 +31,8 @@ export interface IMessage {
     reply_to_message?: IMessage
     is_forwarded: boolean
 
-    videos: {file: string}
-    imgs: {file: string}
-    docs: {file: string}
+    imgs: {file: string}[]
+    docs: {file: string, name?: string}[]
 }
 
 export interface ICreateChat {
@@ -70,7 +69,6 @@ export interface ICreateMessage {
     reply_to_message?: IMessage
     is_forwarded?: boolean
 
-    videos: number[]
     imgs: number[]
     docs: number[]
 }

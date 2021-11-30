@@ -1,3 +1,4 @@
+<image-slider *ngIf="imageSliderIsOpen" [urls]="imagesForImageSlider" [id]="imageIdForImageSlider" (close)="closeImageSlider()"></image-slider>
 <div class="All-Chats Shadow-Right">
     <a [routerLink]="'/chats'" [queryParams]="{id: c.id}" *ngFor="let c of chats" class="Item">
         <div class="Avatar"><img src="/media/icons/profile.png" alt="" /> </div>
@@ -20,22 +21,35 @@
             </div>
         </header>
         <main class="Chat__Body" #chatBody>
-            <chat-message *ngFor="let m of chat.messages" [message]="m" [userId]="user?.id || -1" style="padding: 0 10px;" #chatMessages></chat-message>
+            <chat-message *ngFor="let m of chat.messages" [message]="m" [userId]="user?.id || -1" style="padding: 0 10px;" (openSlider)="openImageSlider($event)" #chatMessages></chat-message>
         </main>
         <form class="Chat__Form" #chatForm="ngForm" (ngSubmit)="sendMessage()">
             <div class="Chat__Form__Fields-Container">
                 <input (ngModelChange)="writingMessage()" name="body" [(ngModel)]="message.body" placeholder="Введите сообщение" />
                 <ng-container>
                     <input type="file" #imageUpload accept="image/*" (change)="uploadFile($event, 'img')" style="display: none;" />
-                    <input type="file" #videoUpload accept="video/*" (change)="uploadFile($event, 'video')" style="display: none;" />
                     <input type="file" #fileUpload accept="application/msword, text/plain, application/pdf" (change)="uploadFile($event, 'doc')" style="display: none;" />
                 </ng-container>
                 <div class="Actions">
                     <button type="button" (click)="imageUpload.click()" class="Upload-Img"><i></i></button>
-                    <button type="button" (click)="videoUpload.click()" class="Upload-Video"><i></i></button>
                     <button type="button" (click)="fileUpload.click()" class="Upload-Doc"><i></i></button>
                 </div>
                 <button class="Send"><i></i></button>
+            </div>
+            <div class="Chat__Form__Upload-Files">
+                <div class="Item" *ngFor="let i of uploadigFiles">
+                    <div class="Icon">
+                        <i [class]="i.type === 'img' ? 'Upload-Img' : 'Upload-Doc'"></i>
+                    </div>
+                    <div class="Name">{{i.name}}</div>
+                    <progress-bar [progress]="i.progress" [progressColor]="i.progressColor"></progress-bar>
+                    <div class="Progress-Bar-Procents">{{i.progress.toString() + "%"}}</div>
+                    <div class="Actions">
+                        <button type="button" *ngIf="i.progress < 100" [class]="'Break-Upload'" (click)="breakUpload()"><i></i></button>
+                        <button type="button" *ngIf="i.progress === 100" [class]="'Delete-File'" (click)="deleteUploadedFile(i.type, i.id)"><i></i></button>
+                    </div>
+                </div>
+                <div class="Item" *ngFor="let d of message.docs"></div>
             </div>
         </form>
     </div>

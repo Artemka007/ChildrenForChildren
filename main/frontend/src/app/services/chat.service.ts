@@ -62,11 +62,17 @@ export class ChatService {
     })
   }
 
-  uploadFile(fd: FormData, type: "video" | "img" | "doc") {
+  uploadFile(fd: FormData, type: "img" | "doc") {
     return this._http.post<APIResponse<{id?: number}>>(`/api/v1/chats/messages/upload/?type=${type}`, fd, {
       headers: {"X-CSRFToken": this._getCookie("csrftoken")},
       reportProgress: true,
       observe: 'events'
+    })
+  }
+
+  deleteUploadedFile(id: number, type: "img" | "doc") {
+    return this._http.delete<APIResponse<{id?: number}>>(`/api/v1/chats/messages/upload/?type=${type}&id=${id}`, {
+      headers: {"X-CSRFToken": this._getCookie("csrftoken")}
     })
   }
 
