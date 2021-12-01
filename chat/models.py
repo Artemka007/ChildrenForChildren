@@ -56,5 +56,5 @@ class DocFileUpload(models.Model):
     file = models.FileField(upload_to="chat/message/docs")
     
     def delete(self, using=None, keep_parents=False):
-        self.file.delete(save=True)
+        self.file.delete()
         super().delete()

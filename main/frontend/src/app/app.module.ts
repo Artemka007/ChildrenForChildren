@@ -23,6 +23,7 @@ import { Subject } from 'rxjs';
 import { ChatMessageComponent } from './chat-message/chat-message.component';
 import { ProgressBarComponent } from './progress-bar/progress-bar.component';
 import { ImageSliderComponent } from './image-slider/image-slider.component';
+import { SearchUsersComponent } from './search-users/search-users.component';
 
 @NgModule({
   declarations: [
@@ -41,7 +42,8 @@ import { ImageSliderComponent } from './image-slider/image-slider.component';
     ChatsComponent,
     ChatMessageComponent,
     ProgressBarComponent,
-    ImageSliderComponent
+    ImageSliderComponent,
+    SearchUsersComponent
   ],
   imports: [
     BrowserModule,

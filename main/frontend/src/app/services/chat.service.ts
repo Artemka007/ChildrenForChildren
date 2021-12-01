@@ -4,7 +4,6 @@ import { Subject } from 'rxjs';
 import { IChat, ICreateMessage, IEditChat } from '../models/chat.model';
 import { WebsocketService } from './websocket.service';
 import { APIResponse } from '../models/api.model';
-import { IUser } from '../models/user.model';
 
 export type WSMessage = {
   readonly action: "send_message"

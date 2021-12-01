@@ -24,6 +24,7 @@ export interface IRegisterData {
     country?: string
     city?: string
     about_me?: string
+    district?: string
   }
 }
 
@@ -39,6 +40,17 @@ export interface IResetPasswordConfirmData {
   uid: string
   token: string
 }
+export type SearchUserQuery = 
+  | string 
+  | {
+    username?: string,
+    first_name?: string,
+    last_name?: string,
+    country?: string,
+    city?: string,
+    bistrict?: string,
+  }
+
 
 @Injectable({
   providedIn: 'root'
@@ -94,6 +106,13 @@ export class AccountService {
   resetPasswordConfirm(data: IResetPasswordConfirmData) {
     let token = this._getCookie("csrftoken")
     return this._http.post<APIResponse>(`/api/v1/account/password/reset/confirm/${data.uid}/${data.token}/`, {csrfmiddlewaretoken: token, ...data}, {
+      headers: {"X-CSRFToken": token}
+    })
+  }
+
+  searchUser(q: SearchUserQuery) {
+    let token = this._getCookie("csrftoken")
+    return this._http.post<APIResponse<{users?: IUser[]}>>(`/api/v1/account/search/`, {csrfmiddlewaretoken: token, q}, {
       headers: {"X-CSRFToken": token}
     })
   }

@@ -5,7 +5,7 @@
                 <button type="submit" class="Ok-Edit-Btn" *ngIf="isEditing"></button>
                 <button type="button" class="Not-Edit-Btn" *ngIf="isEditing" (click)="endEdit(false)"></button>
         </span>
-        <span class="Item-2" type="button"><button (click)="logout()"></button></span>
+        <span class="Item-2" *ngIf="checkUser()" type="button"><button (click)="logout()"></button></span>
     </div>
     <main class="Profile__Content">
         <div class="Profile__Content__Status-User-Information">
@@ -60,14 +60,24 @@
                     <div class="Key">Страна:</div>
                     <div class="Description" *ngIf="!isEditing">{{user.profile?.country || "Страна не указана."}}</div>
                     <div class="Field" *ngIf="isEditing && checkUser()">
-                        <input name="country" class="Edit-Description" [(ngModel)]="user.profile.country" #country="ngModel" />
+                        <input name="country" class="Edit-Description" [(ngModel)]="user.profile.country" #country="ngModel" maxlength="128" />
+                        <span class="Validator" *ngIf="country.errors?.maxlength">Максимальная длина - 128 символов.</span>
                     </div>
                 </div>
                 <div class="Item">
                     <div class="Key">Город:</div>
                     <div class="Description" *ngIf="!isEditing">{{user.profile?.city || "Город не указан."}}</div>
                     <div class="Field" *ngIf="isEditing && checkUser()">
-                        <input name="city" maxlength="64" class="Edit-Description" [(ngModel)]="user.profile.city" #city="ngModel" />
+                        <input name="city" maxlength="64" class="Edit-Description" [(ngModel)]="user.profile.city" #city="ngModel" maxlength="128" />
+                        <span class="Validator" *ngIf="city.errors?.maxlength">Максимальная длина - 128 символов.</span>
+                    </div>
+                </div>
+                <div class="Item">
+                    <div class="Key">Район/Улица:</div>
+                    <div class="Description" *ngIf="!isEditing">{{user.profile?.district || "Район/Улица не указаны."}}</div>
+                    <div class="Field" *ngIf="isEditing && checkUser()">
+                        <input name="district" maxlength="64" class="Edit-Description" [(ngModel)]="user.profile.district" #district="ngModel" maxlength="128" />
+                        <span class="Validator" *ngIf="district.errors?.maxlength">Максимальная длина - 128 символов.</span>
                     </div>
                 </div>
                 <div class="Item">

@@ -16,6 +16,28 @@
     &.ng-touched.ng-invalid
         border-color: var(--lite-red)
 
+=button()
+    width: calc(100% - 20px)
+    background: transparent
+    font-size: 16px
+    font-family: "Rubik", sans-serif
+    font-weight: 550
+    padding: 7px 15px
+    cursor: pointer
+    border: var(--blue) solid 2px
+    background: #fff
+    color: var(--blue)
+    margin: 10px
+    border-radius: 1000px
+    transition: all .1s
+    &:hover:not(:disabled)
+        color: #fff
+        background: var(--blue)
+    &:disabled
+        color: var(--lite-blue)
+        border-color: var(--lite-blue)
+        cursor: not-allowed
+
 =manage-button($w, $h)
     outline: none
     border: none
@@ -95,24 +117,5 @@
                 cursor: pointer
                 color: var(--lite-blue)
     .Form-Container__Button
-        width: calc(100% - 20px)
-        background: transparent
-        font-size: 16px
-        font-family: "Rubik", sans-serif
-        font-weight: 550
-        padding: 7px 15px
-        cursor: pointer
-        border: var(--blue) solid 2px
-        background: #fff
-        color: var(--blue)
-        margin: 10px
-        border-radius: 1000px
-        transition: all .1s
-        &:hover:not(:disabled)
-            color: #fff
-            background: var(--blue)
-        &:disabled
-            color: var(--lite-blue)
-            border-color: var(--lite-blue)
-            cursor: not-allowed
+        +button()
 

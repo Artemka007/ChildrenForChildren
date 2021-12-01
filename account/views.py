@@ -1,4 +1,7 @@
 from django.contrib.auth import authenticate, login, get_user_model, logout
+from django.db.models import Value as V
+from django.db.models.functions import Concat
+from django.db.models.query import QuerySet, Q
 from rest_auth.app_settings import PasswordResetConfirmSerializer
 from rest_framework.generics import GenericAPIView
 from rest_framework.permissions import AllowAny
@@ -85,6 +88,41 @@ class AccountView(APIView):
             return Response({"result": True, "message": "Данные пользователя успешно изменены.", "data": {}})
         else:
             return Response({"result": False, "message": "Какие-то не те данные... Пожалуйста, повторите попытку.", "data": {"errors": serializer.errors}})
+
+class SearchUserView(APIView):
+    def post(self, request):
+        q = request.data.get('q')
+        try:
+            users = self._search_users(q)
+            return Response({"result": True, "message": "Список пользователей возращен.", "data": {"users": users}})
+        except Exception as e:
+            return Response({"result": False, "message": e.__str__(), "data": {}})
+    def _search_users(self, q):
+        if q is None:
+            return UserSerializer(get_user_model().objects.all(), many=True).data
+        if isinstance(q, str):
+            users = get_user_model().objects.annotate(full_name=Concat('first_name', V(' '), 'last_name')).filter(Q(full_name__contains=q) | Q(first_name__contains=q) | Q(last_name__contains=q) | Q(username__contains=q))
+        else:
+            username = q.get("username")
+            first_name = q.get("first_name")
+            last_name = q.get("last_name")
+            city = q.get("city")
+            country = q.get("country")
+            district = q.get("district")
+            users = get_user_model().objects.all()
+            if username:
+                users = users.filter(username__contains=username)
+            if first_name:
+                users = users.filter(first_name__contains=first_name)
+            if last_name:
+                users = users.filter(last_name__contains=last_name)
+            if country:
+                users = users.filter(country__contains=country)
+            if city:
+                users = users.filter(city__contains=city)
+            if district:
+                users = users.filter(district__contains=district)
+        return UserSerializer(users, many=True).data
 
 class PasswordResetView(GenericAPIView):
     serializer_class = PasswordResetSerializer

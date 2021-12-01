@@ -17,6 +17,7 @@ export interface IProfile {
   readonly user_in_school_status: "student" | "teacher" | "parent" | "admin" | "moderator"
   readonly country?: string
   readonly city?: string
+  readonly district?: string
   readonly about_me?: string
 }
 
@@ -80,7 +81,7 @@ export class User {
 
   toJSON(): IUser {
     let {id, username, email, firstName, lastName, profile} = this
-    let {userId, patronymic, phone, age, status, user_in_school_status, city, country, about_me} = profile
+    let {userId, patronymic, phone, age, status, user_in_school_status, city, country, about_me, district} = profile
     let JSONUser = {
       id, 
       username, 
@@ -97,10 +98,14 @@ export class User {
         user_in_school_status,
         city,
         country,
-        about_me
+        about_me,
+        district
       }
     }
     return JSONUser
+  }
+  copy() {
+    return {...this}
   }
 }
 
@@ -115,7 +120,8 @@ export class Profile {
     private _status?: string,
     private _country?: string,
     private _city?: string,
-    private _about_me?: string
+    private _about_me?: string,
+    private _district?: string
   ) { }
   get id() {
     return this._id
@@ -179,6 +185,14 @@ export class Profile {
   
   set city(city: string | undefined) {
     this._city = city
+  }
+
+  get district() {
+    return this._district
+  }
+
+  set district(district: string | undefined) {
+    this._district = district
   }
 
   get about_me() {

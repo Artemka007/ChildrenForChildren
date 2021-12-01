@@ -1,0 +1,96 @@
+@import "src/styles.sass"
+@import "src/styles.forms.sass"
+
+.Search-Users
+    +flex-container()
+    width: 1200px
+    background: #fff
+    border-radius: 5px
+    box-shadow: #00000050 0 1px 4px 0
+    .Search-Container
+        +flex-container(row, center, center)
+        width: 100%
+        height: 70px
+        padding: 10px 15px
+        border-bottom: #00000040 solid 2px
+        .Query
+            border: none
+            outline: none
+            width: 100%
+            height: auto
+            font-size: 18px
+            font-family: Arial, Helvetica, sans-serif
+            padding: 0 15px
+            height: 100%
+        i
+            flex: 0 0 30px
+            font-size: 30px
+            width: 30px
+            height: 30px
+        .Search
+            content: url("/media/icons/search.svg")
+        .Settings
+            .Settings-Icon-Btn
+                +manage-button(40px, 40px)
+                i
+                    transform: rotate(90deg)
+                    content: url("/media/icons/sliders-v-alt.svg")
+            .Details
+                width: 600px
+                position: absolute
+                background: #fff
+                border-radius: 10px
+                padding: 10px
+                box-shadow: #00000040 0 2px 4px 0
+                .Title
+                    +flex-container(row, center)
+                    padding: 10px 0
+                    width: 100%
+                .Item
+                    +flex-container(row)
+                    margin: 10px
+                    input
+                        +field()
+                        width: 100%
+                        margin: 0 10px
+                .Button
+                    +button()
+    .Searched-Users
+        +flex-container()
+        width: 100%
+        .Item
+            +flex-container(row, flex-start, center)
+            height: 80px
+            color: #000
+            text-decoration: none
+            width: 100%
+            .Ava
+                width: 50px
+                height: 50px
+                border-radius: 100%
+                margin: 0 10px
+                img
+                    width: 50px
+                    height: 50px
+                    border-radius: 100%
+            .Main-Info
+                +flex-container()
+                width: 100%
+                .Name
+                    font-size: 18px
+                    margin-bottom: 8px
+                .Status
+                    font-size: 14px
+            .Actions
+                +flex-container(row)
+                padding: 10px
+                .Go-To-Chat
+                    +manage-button(40px, 40px)
+                    &::before
+                        font-size: 30px
+                        content: url("/media/icons/message.svg")
+            &:hover
+                background: #00000020
+            &:last-child
+                border-radius: 0 0 5px 5px
+                

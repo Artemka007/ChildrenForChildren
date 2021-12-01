@@ -17,4 +17,5 @@ class Profile(models.Model):
     user_in_school_status = models.CharField(max_length=32, default="student", choices=CHOICES)
     country = models.CharField(max_length=128, null=True, blank=True)
     city = models.CharField(max_length=128, null=True, blank=True)
+    district = models.CharField(max_length=128, null=True, blank=True)
     about_me = models.TextField(null=True, blank=True)

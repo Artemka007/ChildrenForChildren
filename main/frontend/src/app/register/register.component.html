@@ -81,10 +81,22 @@
             </select>
         </div>
         <div class="Field">
-            <input [name]="'country'" [placeholder]="'Страна'" [(ngModel)]="registerFormGroup.profile.country" #country="ngModel" />
+            <input [name]="'country'" [placeholder]="'Страна'" [(ngModel)]="registerFormGroup.profile.country" #country="ngModel" maxlength="128" />
+            <span *ngIf="country.errors?.maxlength && phone.touched">
+                Максимальная длина - 128 символов
+            </span>
         </div>
         <div class="Field">
-            <input [name]="'city'" [placeholder]="'Город'" [(ngModel)]="registerFormGroup.profile.city" #city="ngModel" />
+            <input [name]="'city'" [placeholder]="'Город'" [(ngModel)]="registerFormGroup.profile.city" #city="ngModel" maxlength="128" />
+            <span *ngIf="city.errors?.maxlength && phone.touched">
+                Максимальная длина - 128 символов
+            </span>
+        </div>
+        <div class="Field">
+            <input [name]="'district'" [placeholder]="'Район/Улица'" [(ngModel)]="registerFormGroup.profile.district" #district="ngModel" maxlength="128" />
+            <span *ngIf="district.errors?.maxlength && phone.touched">
+                Максимальная длина - 128 символов
+            </span>
         </div>
         <div class="Field">
             <textarea [name]="'about_me'" [placeholder]="'Напишите немного о себе, чем вы занимаетесь, Ваши хобби, любимая настолка и т.д.'" [(ngModel)]="registerFormGroup.profile.about_me" #about_me="ngModel"></textarea>

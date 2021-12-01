@@ -27,22 +27,14 @@ export class PersonalAreaComponent implements OnInit {
       this._store.subscribe(data => {
         this.currentUser = data.account.user
       })
-      if (p["id"]) {
         this._account.getUser({id: p["id"]}).subscribe(data => {
           if (data.result && data.data.user) {
             let {id, username, email, first_name, last_name, profile} = data.data.user
-            let {patronymic, phone, age, status, user_in_school_status, city, country, about_me} = profile
-            let p = new Profile(profile.id, profile.user, phone, patronymic, age, user_in_school_status, status, country, city, about_me)
+            let {patronymic, phone, age, status, user_in_school_status, city, country, about_me, district} = profile
+            let p = new Profile(profile.id, profile.user, phone, patronymic, age, user_in_school_status, status, country, city, about_me, district)
             this.user = new User(id, username, email, first_name, last_name, p)
-            console.log(this.user)
           }
         })
-      } else {
-        this._store.subscribe(data => {
-          this.user = data.account.user
-        })
-      }
-      console.log(p)
     })
   }
 
