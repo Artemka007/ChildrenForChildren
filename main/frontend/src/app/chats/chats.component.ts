@@ -31,6 +31,7 @@ export class ChatsComponent implements OnInit {
   chat?: IChat
   chats: IChat[] = []
   chatInfoIsOpen: boolean = false
+  chatNavIsOpen: boolean = false
 
   message: ICreateMessage = {
     user: -1,
@@ -52,7 +53,6 @@ export class ChatsComponent implements OnInit {
     banned_list:   [],
     is_private: false,
   }
-
   isEditing: boolean = false
 
   uploadSubscription?: Subscription
@@ -82,6 +82,8 @@ export class ChatsComponent implements OnInit {
             this.chatBody && this.scroll(this.chatBody.nativeElement)
             this._chat.readMessage(id)
           }
+        } else {
+          this.chatNavIsOpen = true
         }
       })
     })
@@ -267,6 +269,24 @@ export class ChatsComponent implements OnInit {
     if (id) chat = this.chats.find(i => i.id === id)
     else chat = this.chat
     return chat?.users.filter(i => i.id !== this.user?.id)[0]
+  }
+
+  setChatNavIsOpen() {
+    this.chatNavIsOpen = !this.chatNavIsOpen
+    if (this.chatNavIsOpen && window.innerWidth < 1043) {
+      this.chatInfoIsOpen = false
+    }
+  }
+
+  setChatInfoIsOpen() {
+    this.chatInfoIsOpen = !this.chatInfoIsOpen
+    if (this.chatInfoIsOpen && window.innerWidth < 1043) {
+      this.chatNavIsOpen = false
+    }
+  }
+
+  chatIsOpen() {
+    return window.innerWidth > 767
   }
 
   private _subscribeToWSMessages(data: any) {

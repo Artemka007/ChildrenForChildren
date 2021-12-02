@@ -34,7 +34,7 @@ export class ChatMessageComponent implements OnInit {
     let a = path.split('/')
     let str = a[a.length - 1]
     let type = '.' + str.split('.')[1]
-    return a[a.length - 1].substr(0, 30) + '...'
+    return a[a.length - 1].substr(0, 23) + '...'
   }
 
   openImagesSlider(id: number) {

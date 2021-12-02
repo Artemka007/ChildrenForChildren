@@ -7,6 +7,8 @@
     background: #fff
     border-radius: 5px
     box-shadow: #00000050 0 1px 4px 0
+    @media screen and ( max-width: 1543px )
+        width: 100%
     .Search-Container
         +flex-container(row, center, center)
         width: 100%
@@ -42,17 +44,21 @@
                 border-radius: 10px
                 padding: 10px
                 box-shadow: #00000040 0 2px 4px 0
+                @media screen and ( max-width: 676px )
+                    width: calc(100% - 10px)
                 .Title
                     +flex-container(row, center)
                     padding: 10px 0
                     width: 100%
                 .Item
                     +flex-container(row)
+                    @media screen and ( max-width: 469px )
+                        flex-direction: column
                     margin: 10px
                     input
                         +field()
                         width: 100%
-                        margin: 0 10px
+                        margin: 4px 10px
                 .Button
                     +button()
     .Searched-Users

@@ -14,11 +14,12 @@
     .Message
         +flex-container(column, center)
         width: auto
-        max-width: 400px
         background: #BDE7FF
         padding: 10px
         border-radius: 10px 0 10px 10px
-
+        max-width: 400px
+        @media screen and ( max-width: 1043px )
+            max-width: 300px
         &.not-from-user
             border-radius: 0 10px 10px 10px
             background: #AAF5FF

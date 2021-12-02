@@ -9,7 +9,7 @@
         <div class="Message__Docs" *ngIf="message.docs.length > 0">
             <a [href]="i.file" class="Item" *ngFor="let i of message.docs">
                 <div class="Icon"><i></i></div>
-                <div class="Name">{{i.name || spliceFileURL(i.file)}}</div>
+                <div class="Name">{{i.name ? spliceFileURL(i.name) : spliceFileURL(i.file)}}</div>
             </a>
         </div>
         <div class="Message__Date">{{message.date | date : "dd.MM.y HH:mm" : "UTC-3"}}</div>

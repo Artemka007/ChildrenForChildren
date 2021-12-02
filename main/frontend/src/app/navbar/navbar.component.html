@@ -1,7 +1,8 @@
-<ul class="Navbar">
+<div class="Blackout" *ngIf="navbarIsOpen() && windowWidth <= 1450" (click)="setIsOpen()"></div>
+<ul #navbar class="Navbar" [ngClass]="{'Close': navbarIsOpen()}" [ngClass]="{'Close': !navbarIsOpen()}">
     <li class="Navbar__Item">
         <div class="Main-Link Home-Main-Link">
-            <a routerLink="/home" [fragment]="'About'" routerLinkActive="active" class="Main-Link__Text">Главная</a>
+            <a (click)="setIsOpen()" routerLink="/home" [fragment]="'About'" routerLinkActive="active" class="Main-Link__Text">Главная</a>
             <i class="Main-Link__OpenClose-Arrow" (click)="location.pathname.split('/')[1] === 'home' ? undefined : checkLinkIsOpen('home') ? closeLink('home') : openLink('home')" [ngClass]="{'Rotated': checkLinkIsOpen('home') || location.pathname.split('/')[1] === 'home'}">
             </i>
         </div>
@@ -39,11 +40,22 @@
         <ul class="Links-Container" *ngIf="checkLinkIsOpen('home') || location.pathname.split('/')[1] === 'home'"></ul>
     </li>
     <li class="Navbar__Item">
+        <div class="Main-Link Users-Main-Link">
+            <a class="Main-Link__Text" (click)="setIsOpen()" routerLink="/users">Пользователи</a>
+            <i class="Main-Link__OpenClose-Arrow" (click)="location.pathname.split('/')[1] === 'chats' ? undefined : checkLinkIsOpen('chats') ? closeLink('chats') : openLink('chats')" [ngClass]="{'Rotated': checkLinkIsOpen('chats') || location.pathname.split('/')[1] === 'chats'}">
+            </i>
+        </div>
+        <ul class="Links-Container" *ngIf="checkLinkIsOpen('home') || location.pathname.split('/')[1] === 'home'"></ul>
+    </li>
+    <li class="Navbar__Item">
         <div class="Main-Link Chats-Main-Link">
-            <a class="Main-Link__Text" routerLink="/chats">Чаты</a>
+            <a class="Main-Link__Text" (click)="setIsOpen()" routerLink="/chats">Чаты</a>
             <i class="Main-Link__OpenClose-Arrow" (click)="location.pathname.split('/')[1] === 'chats' ? undefined : checkLinkIsOpen('chats') ? closeLink('chats') : openLink('chats')" [ngClass]="{'Rotated': checkLinkIsOpen('chats') || location.pathname.split('/')[1] === 'chats'}">
             </i>
         </div>
         <ul class="Links-Container" *ngIf="checkLinkIsOpen('home') || location.pathname.split('/')[1] === 'home'"></ul>
     </li>
 </ul>
+<span class="Hanburger-Container" *ngIf="windowWidth <= 1450">
+    <hamburger [isOpen]="navbarIsOpen()" (onchange)="setIsOpen()"></hamburger>
+</span>

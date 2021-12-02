@@ -1,0 +1,29 @@
+@import "src/styles.sass"
+@import "src/styles.forms.sass"
+
+.Hamburger
+    +flex-container(column, center, center)
+    flex: 0 0 60px
+    height: 60px
+    width: 60px
+    border-radius: 100%
+    background: #fff
+    cursor: pointer
+    span
+        width: 40px
+        height: 4px
+        border-radius: 4px
+        background: var(--blue)
+        margin: 4px 0
+        transform-origin: 0 50%
+        transition: transform .1s, margin .1s
+    &.Open
+        span
+            margin: 12px 0
+        .Item-1
+            transform: rotate(45deg)
+        .Item-2
+            display: none
+        .Item-3
+            transform: rotate(-45deg)
+            

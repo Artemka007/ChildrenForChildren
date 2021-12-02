@@ -1,5 +1,5 @@
-<navbar *ngIf="user"></navbar>
-<div class="C" [style.marginLeft]="user ? '320px' : 0">
-    <headerbar *ngIf="user"></headerbar>
+<navbar [Content]="Content" *ngIf="user"></navbar>
+<div #Content class="C " [style.marginLeft]="user ? '320px' : 0 ">
+    <headerbar *ngIf="user "></headerbar>
     <router-outlet></router-outlet>
 </div>

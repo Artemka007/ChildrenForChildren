@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 
 type CanOpenLinks =
@@ -13,9 +13,16 @@ type CanOpenLinks =
   styleUrls: ['./navbar.component.sass']
 })
 export class NavbarComponent implements OnInit {
+  @Input()
+  Content?: HTMLDivElement
+
   openLinks: CanOpenLinks[] | any = JSON.parse(localStorage.getItem("openLinks") || "[]")
   location = window.location
   hash: string = ""
+
+  windowWidth: number = window.innerWidth
+
+  isOpen: boolean = false
 
   constructor(private _router: Router) {
     _router.events.subscribe(e => {
@@ -27,6 +34,16 @@ export class NavbarComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    if (this.Content) {
+      if(this.windowWidth < 1450) this.Content.style.marginLeft = "0"
+    }
+    window.onresize = e => {
+      this.windowWidth = window.innerWidth
+      if (this.Content){
+        if(this.windowWidth < 1450) this.Content.style.marginLeft = "0"
+        else this.Content.style.marginLeft = "320px"
+      }
+    }
   }
 
   openLink(n: CanOpenLinks) {
@@ -51,4 +68,12 @@ export class NavbarComponent implements OnInit {
     return this.openLinks.indexOf(n) !== -1
   }
 
+  navbarIsOpen(): boolean {
+    if (this.windowWidth > 1450) return true
+    else return this.isOpen
+  }
+
+  setIsOpen() {
+    this.isOpen = !this.isOpen
+  }
 }

@@ -24,6 +24,7 @@ import { ChatMessageComponent } from './chat-message/chat-message.component';
 import { ProgressBarComponent } from './progress-bar/progress-bar.component';
 import { ImageSliderComponent } from './image-slider/image-slider.component';
 import { SearchUsersComponent } from './search-users/search-users.component';
+import { HamburgerComponent } from './hamburger/hamburger.component';
 
 @NgModule({
   declarations: [
@@ -43,7 +44,8 @@ import { SearchUsersComponent } from './search-users/search-users.component';
     ChatMessageComponent,
     ProgressBarComponent,
     ImageSliderComponent,
-    SearchUsersComponent
+    SearchUsersComponent,
+    HamburgerComponent
   ],
   imports: [
     BrowserModule,

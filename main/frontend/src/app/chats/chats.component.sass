@@ -48,9 +48,11 @@
             width: 100%
             flex: 0 0 70px
             border-bottom: #00000050 solid 2px
+            padding: 0 15px
             .Information
                 +flex-container(row, center, center)
                 height: 100%
+                width: 100%
                 .Chat-Ava
                     width: 50px
                     height: 50px
@@ -110,9 +112,10 @@
                             content: url("/media/icons/send-message.svg")
                 .Actions
                     +flex-container(row)
-                    flex: 0 0 170px
-                    width: 120px
+                    flex: 0 0 auto
+                    width: auto
                     height: 40px
+                    margin: 0 5px
                     button
                         margin: 0 5px
                         &.Upload-Img
@@ -166,12 +169,26 @@
                                 content: url("/media/icons/trash-alt.svg")
 
     .Chat__Information
+        transition: width .2s, flex .2s
+        hamburger
+            position: absolute
+        &.Close
+            flex: 0 0 0
+            width: 0
+            .Main-Info,
+            .Actions,
+            .Users
+                opacity: 0
+                z-index: -5
+                width: 0
+
         .Main-Info,
         .Actions,
         .Users
             background: #fff
             margin-bottom: 20px
             width: 100%
+            transition: opacity .2s, z-index .2s, width .2s
         .Main-Info
             +flex-container(column, flex-start, center)
             input,
@@ -266,12 +283,24 @@
 .Chat__Information
     +flex-container(column)
     height: 100%
-    flex: 0 0 400px
+    @media screen and ( min-width: 767px )
+        width: 300px
+        flex: 0 0 300px
+    @media screen and ( max-width: 767px )
+        width: 100%
+        flex: 0 0 auto
     background: var(--bg-lite-blue)
 
 .All-Chats
-    flex: 0 0 300px
-    color: #000
+    color: #000    
+    transition: width .2s, flex .2s
+    &.Close
+        flex: 0 0 0
+        width: 0
+        .Item
+            opacity: 0
+            z-index: -5
     .Item
         +item()
         width: 100%
+        transition: opacity .2s, z-index .2s

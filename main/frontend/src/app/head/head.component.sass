@@ -22,8 +22,12 @@
     width: 100%
     background: #fff
     height: 90px
+    @media screen and ( max-width: 1470px )
+        justify-content: flex-end
     .Header__Title
         +flex-container(row, flex-start, center)
+        @media screen and ( max-width: 1470px )
+            display: none
         span
             width: 1px
             height: 50px
