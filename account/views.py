@@ -2,6 +2,7 @@ from django.contrib.auth import authenticate, login, get_user_model, logout
 from django.db.models import Value as V
 from django.db.models.functions import Concat
 from django.db.models.query import QuerySet, Q
+from django.http.request import QueryDict
 from rest_auth.app_settings import PasswordResetConfirmSerializer
 from rest_framework.generics import GenericAPIView
 from rest_framework.permissions import AllowAny
@@ -13,48 +14,118 @@ from .serializer import UserSerializer
 from .models import Profile
 
 class LoginView(APIView):
+    '''
+    The view that authenticate and login user or return warning.
+    In data you should send params:
+    * csrfmiddlewaretoken*: str
+    * username: str
+    * password: str
+    '''
     def post(self, request):
         data = request.data
-        if "username" not in data or "password" not in data:
-            return Response({"result": True, "message": "Данные пользователя переданы не полностью.", "data": {}})
         username = data.get("username")
         password = data.get("password")
+        # if username or password did not send in data return fail message
+        if not username or not password:
+            return Response({"result": False, "message": "Данные пользователя переданы не полностью.", "data": {}})
+        # else try to authenticate a user
         user = authenticate(username=username, password=password)
+        # if user authenticated login him
         if user is not None:
             login(request, user)
             return Response({"result": True, "message": "Пользователь успешно авторизован.", "data": {"user": UserSerializer(user).data}}, 200)
+        # else return that user does not exists
         else:
             return Response({"result": False, "message": "Пользователя с таким паролем и логином не существует.", "data": {"user": None}}, 200)
 
 class RegisterView(APIView):
+    '''
+    The view that register new user and send a success message.
+    In data you should send params:
+    * csrfmiddlewaretoken*: str
+    * username*: str
+    * email*: str
+    * first_name*: str
+    * last_name*: str
+    * profile*:
+    * - patronymic: str
+    * - phone*: str
+    * - age*: str
+    * - status: str
+    * - user_in_school_status: str
+    * - about_me: str
+    * - city: str
+    * - country: str
+    * - district: str
+    * password*: str
+    * password2*: str
+    '''
     def post(self, request):
         try:
-            [username, email, first_name, last_name, phone, age, patronymic, password] = self._get_user_data(request=request)
+            # get data for register
+            [
+                username, 
+                email, 
+                first_name, 
+                last_name,
+                patronymic,
+                phone, 
+                age, 
+                status, 
+                user_in_school_status, 
+                about_me, 
+                city, 
+                country, 
+                district,
+                password
+            ] = self._get_user_data(request=request)
+            # create a user object
             user = get_user_model().objects.create_user(username, email, password)
+            # set the user first and last name
             user.first_name = first_name
             user.last_name = last_name
             user.save()
-            profile = Profile.objects.create(user=user, phone=phone, age=age, patronymic=patronymic)
+            # create profile object with foreign key to user
+            profile = Profile.objects.create(
+                user=user, 
+                phone=phone, 
+                age=age, 
+                status=status, 
+                user_in_school_status=user_in_school_status, 
+                about_me=about_me, 
+                city=city, 
+                country=country, 
+                district=district, 
+                patronymic=patronymic
+            )
+            # save profile object
             profile.save()
-            return Response({"result": True, "message": "Пользователь успешно зарегистрирован.", "data": {}}, 210)
+            return Response({"result": True, "message": "Пользователь успешно зарегистрирован.", "data": {}}, 201)
         except Exception as e:
-            return Response({"result": False, "message": e.__str__(), "data": {}}, 400)
+            return Response({"result": False, "message": e.__str__(), "data": {}})
     
     def _get_user_data(self, request):
+            '''
+            Function that get user data in request and return
+            it in array.
+            '''
             data = request.data
             username = data.get("username")
             email = data.get("email")
             first_name = data.get("first_name")
             last_name = data.get("last_name")
-            profile = data.get("profile")
-            if profile is None:
-                raise Exception("Профиль не передан.")
-            phone = profile.get("phone")
-            age = profile.get("age")
-            patronymic = profile.get("patronymic")
+            phone = data.get("phone")
+            age = data.get("age")
+            patronymic = data.get("patronymic")
+            user_in_school_status = data.get("user_in_school_status")
+            status = data.get("status")
+            about_me = data.get("about_me")
+            city = data.get("city")
+            country = data.get("country")
+            district = data.get("district")
             password = data.get("password")
             password2 = data.get("password2")
-            data = [username, email, first_name, last_name, phone, age, patronymic, password2]
+            data = [username, email, first_name, last_name, patronymic, phone, age, status, user_in_school_status, about_me, city, country, district, password2]
             for i in data:
                 if i is None:
                     raise Exception("Данные пользователя переданы не полностью.")
@@ -63,11 +134,19 @@ class RegisterView(APIView):
             return data
 
 class LogoutView(APIView):
+    '''
+    The view for logout user.
+    data:
+    * csrfmiddlewaretoken*: str
+    '''
     def post(self, request):
         logout(request)
         return Response({"result": True, "message": "Пользователь успешно вышел из аккаунта.", "data": {}}, 200)
         
 class AccountView(APIView):
+    '''
+    The view for get and change user data.
+    '''
     def get(self, request):
         id = request.GET.get("id")
         user = request.user
@@ -82,15 +161,16 @@ class AccountView(APIView):
     def put(self, request):
         instance = request.user
         data = request.data
-        serializer = UserSerializer(data=data, instance=instance)
+        serializer = UserSerializer(data=QueryDict.copy(data), instance=instance)
         if serializer.is_valid():
-            serializer.update(instance, data)
+            serializer.save()
             return Response({"result": True, "message": "Данные пользователя успешно изменены.", "data": {}})
         else:
             return Response({"result": False, "message": "Какие-то не те данные... Пожалуйста, повторите попытку.", "data": {"errors": serializer.errors}})
 
 class SearchUserView(APIView):
     def post(self, request):
+        # get query in request
         q = request.data.get('q')
         try:
             users = self._search_users(q)
@@ -98,6 +178,20 @@ class SearchUserView(APIView):
         except Exception as e:
             return Response({"result": False, "message": e.__str__(), "data": {}})
     def _search_users(self, q):
+        '''
+        The function that search users by the query.
+        ---
+        In q you can pass query string or object
+        with user params:
+        * username 
+        * first_name 
+        * last_name 
+        * city 
+        * country 
+        * district
+        ---
+        return <UserSerializer many=True/>
+        '''
         if q is None:
             return UserSerializer(get_user_model().objects.all(), many=True).data
         if isinstance(q, str):
@@ -125,6 +219,7 @@ class SearchUserView(APIView):
         return UserSerializer(users, many=True).data
 
 class PasswordResetView(GenericAPIView):
+    '''The generic view that resep password'''
     serializer_class = PasswordResetSerializer
     permission_classes = (AllowAny,)
 
@@ -132,7 +227,6 @@ class PasswordResetView(GenericAPIView):
         try:
             serializer = self.get_serializer(data=request.data)
             serializer.is_valid(raise_exception=True)
-
             serializer.save()
             return Response({"result": True, "message": "Вам на почту выслано письмо с ссылкой для сброса пароля."})
         except Exception as e:

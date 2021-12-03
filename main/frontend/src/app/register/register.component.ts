@@ -16,18 +16,16 @@ export class RegisterComponent implements OnInit {
     email: "",
     first_name: "",
     last_name: "",
+    phone: "",
+    patronymic: "",
+    age: undefined,
+    status: undefined,
+    user_in_school_status: "student",
+    country: undefined,
+    city: undefined,
+    about_me: undefined,
     password: "",
     password2: "",
-    profile: {
-      phone: "",
-      patronymic: "",
-      age: undefined,
-      status: undefined,
-      user_in_school_status: "student",
-      country: undefined,
-      city: undefined,
-      about_me: undefined
-    }
   }
   isLoading: boolean = false
   user_in_school_status_options: Array<{key: "student" | "teacher" | "parent", value: string}> = [

@@ -13,19 +13,17 @@ export interface IRegisterData {
   email: string
   first_name: string
   last_name: string
+  phone: string
+  patronymic: string
+  age?: number
+  status?: string
+  user_in_school_status: "student" | "teacher" | "parent"
+  country?: string
+  city?: string
+  about_me?: string
+  district?: string
   password: string
   password2: string
-  profile: {
-    phone: string
-    patronymic: string
-    age?: number
-    status?: string
-    user_in_school_status: "student" | "teacher" | "parent"
-    country?: string
-    city?: string
-    about_me?: string
-    district?: string
-  }
 }
 
 export interface IEditProfileData extends IUser {}

@@ -41,7 +41,7 @@
             </span>
         </div>
         <div class="Field">
-            <input [name]="'patronymic'" required [placeholder]="'Отчество'" [maxLength]="64" [(ngModel)]="registerFormGroup.profile.patronymic" #patronymic="ngModel" />
+            <input [name]="'patronymic'" required [placeholder]="'Отчество'" [maxLength]="64" [(ngModel)]="registerFormGroup.patronymic" #patronymic="ngModel" />
             <span *ngIf="patronymic.errors?.required && patronymic.touched">
                 Обязательное полеа.
             </span>
@@ -50,7 +50,7 @@
             </span>
         </div>
         <div class="Field">
-            <input [name]="'phone'" required [placeholder]="'Телефон'" [maxLength]="16" [(ngModel)]="registerFormGroup.profile.phone" #phone="ngModel" />
+            <input [name]="'phone'" required [placeholder]="'Телефон'" [maxLength]="16" [(ngModel)]="registerFormGroup.phone" #phone="ngModel" />
             <span *ngIf="phone.errors?.required && phone.touched">
                 Обязательное поле.
             </span>
@@ -59,16 +59,16 @@
             </span>
         </div>
         <div class="Field">
-            <input [name]="'age'" required [placeholder]="'Возраст'" [(ngModel)]="registerFormGroup.profile.age" #age="ngModel" [type]="'number'" />
+            <input [name]="'age'" required [placeholder]="'Возраст'" [(ngModel)]="registerFormGroup.age" #age="ngModel" [type]="'number'" />
             <span *ngIf="age.errors?.required && age.touched">
                 Обязательное поле.
             </span>
         </div>
         <div class="Field">
-            <input [name]="'status'" [placeholder]="'Статус'" [(ngModel)]="registerFormGroup.profile.status" #status="ngModel" />
+            <input [name]="'status'" [placeholder]="'Статус'" [(ngModel)]="registerFormGroup.status" #status="ngModel" />
         </div>
         <div class="Field">
-            <select [name]="'user_in_school_status'" *ngIf="user_in_school_status_options" [(ngModel)]="registerFormGroup.profile.user_in_school_status" #user_in_school_status_options="ngModel">
+            <select [name]="'user_in_school_status'" *ngIf="user_in_school_status_options" [(ngModel)]="registerFormGroup.user_in_school_status" #user_in_school_status_options="ngModel">
                 <option value="student">
                     Ученик
                 </option>
@@ -81,25 +81,25 @@
             </select>
         </div>
         <div class="Field">
-            <input [name]="'country'" [placeholder]="'Страна'" [(ngModel)]="registerFormGroup.profile.country" #country="ngModel" maxlength="128" />
+            <input [name]="'country'" [placeholder]="'Страна'" [(ngModel)]="registerFormGroup.country" #country="ngModel" maxlength="128" />
             <span *ngIf="country.errors?.maxlength && phone.touched">
                 Максимальная длина - 128 символов
             </span>
         </div>
         <div class="Field">
-            <input [name]="'city'" [placeholder]="'Город'" [(ngModel)]="registerFormGroup.profile.city" #city="ngModel" maxlength="128" />
+            <input [name]="'city'" [placeholder]="'Город'" [(ngModel)]="registerFormGroup.city" #city="ngModel" maxlength="128" />
             <span *ngIf="city.errors?.maxlength && phone.touched">
                 Максимальная длина - 128 символов
             </span>
         </div>
         <div class="Field">
-            <input [name]="'district'" [placeholder]="'Район/Улица'" [(ngModel)]="registerFormGroup.profile.district" #district="ngModel" maxlength="128" />
+            <input [name]="'district'" [placeholder]="'Район/Улица'" [(ngModel)]="registerFormGroup.district" #district="ngModel" maxlength="128" />
             <span *ngIf="district.errors?.maxlength && phone.touched">
                 Максимальная длина - 128 символов
             </span>
         </div>
         <div class="Field">
-            <textarea [name]="'about_me'" [placeholder]="'Напишите немного о себе, чем вы занимаетесь, Ваши хобби, любимая настолка и т.д.'" [(ngModel)]="registerFormGroup.profile.about_me" #about_me="ngModel"></textarea>
+            <textarea [name]="'about_me'" [placeholder]="'Напишите немного о себе, чем вы занимаетесь, Ваши хобби, любимая настолка и т.д.'" [(ngModel)]="registerFormGroup.about_me" #about_me="ngModel"></textarea>
         </div>
         <div class="Field">
             <input [name]="'password'" required pattern="\S*\d+\S*" [placeholder]="'Пароль'" [type]="'password'" [(ngModel)]="registerFormGroup.password" #password="ngModel" />

@@ -10,6 +10,7 @@ class ChatView(APIView):
         if not request.user.is_authenticated:
             return Response({"result": False, "message": "Пользователь не авторизован.", "data": {}})
         id = request.GET.get("id")
+        # if id sended in request return chat by this id
         if id:
             try:
                 chat = Chat.objects.get(pk=id)
@@ -19,12 +20,14 @@ class ChatView(APIView):
             if not user_is_in_chat and (chat.is_private or not chat.is_group):
                 return Response({"result": False, "message": "Пользователя нет в этом чате.", "data": {}})
             return Response({"result": True, "message": "Чат успешно возращен.", "data": {"chat": ChatSerializer(chat).data}})
+        # else reurn all chats where the user be
         chats = Chat.objects.filter(users__in=[request.user])
         return Response({"result": True, "message": "Чаты успешно возращены.", "data": {"chats": ChatSerializer(chats, many=True).data}})
     
     def put(self, request):
         if not request.user.is_authenticated:
             return Response({"result": False, "message": "Пользователь не авторизован.", "data": {}})
+        # get chat id
         id = request.GET.get("id")
         action = request.GET.get("action")
         if id:
@@ -34,11 +37,14 @@ class ChatView(APIView):
                 chat.moderators.remove(request.user)
                 return Response({"result": True, "message": "Чат успешно возращен.", "data": {"chat": ChatSerializer(chat).data}})
             elif action == "ban_user":
+                # get user by id in request
                 userId = request.GET.get("userId")
                 user = get_user_model().objects.get(pk=userId)
+                # try to get user in banned users list
                 try:
                     chat.banned_list.get(pk=userId)
                     chat.banned_list.remove(user)
+                # if user does not exists add user in that list
                 except:
                     chat.banned_list.add(user)
                 return Response({"result": True, "message": "Чат успешно возращен.", "data": {"chat": ChatSerializer(chat).data}})
@@ -55,6 +61,7 @@ class ChatView(APIView):
 
 class UploadFilesForMessageView(APIView):
     def post(self, request):
+        # type is 'img' or 'doc'
         type = request.GET.get("type")
         if not request.user.is_authenticated:
             return Response({"result": False, "message": "Пользователь не авторизован.", "data": {}})
