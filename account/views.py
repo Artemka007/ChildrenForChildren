@@ -161,7 +161,7 @@ class AccountView(APIView):
     def put(self, request):
         instance = request.user
         data = request.data
-        serializer = UserSerializer(data=data, instance=instance)
+        serializer = UserSerializer(data=QueryDict.copy(data), instance=instance)
         if serializer.is_valid():
             serializer.save()
             return Response({"result": True, "message": "Данные пользователя успешно изменены.", "data": {}})
