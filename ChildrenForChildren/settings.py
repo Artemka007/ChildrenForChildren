@@ -37,6 +37,14 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'channels',
+    'main',
+    'account',
+    'ads',
+    'chat',
+    'events',
+    'news',
+    'offers',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -46,13 +54,6 @@ INSTALLED_APPS = [
     'rest_auth',
     'rest_framework',
     'rest_framework.authtoken',
-    'channels',
-    'main',
-    'account',
-    'ads',
-    'chat',
-    'events',
-    'news',
 ]
 
 MIDDLEWARE = [

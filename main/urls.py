@@ -1,5 +1,7 @@
 from django.urls import path
 from .views import index, index_for_reset_password
+from offers.views import *
+
 
 urlpatterns = [
     path("", index),

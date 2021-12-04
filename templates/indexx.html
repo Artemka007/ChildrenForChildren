@@ -1,0 +1,17 @@
+
+Тестовый список
+<hr>
+<p><a href='http://127.0.0.1:8000/offers/edit/'>Редактировать/добавить запрос</a></p>
+{%  for i in AllOfers  %}
+
+    {{ i.define_type_of_request }}</br>
+    {{ i.about }}</br>
+    {{ i.back }}</br>
+    {{ i.date }}</br>
+    {{ i.user }}</br>
+    {{ i.views_amoun }}</br>
+
+
+{%  endfor  %}
+
+<hr><br>
