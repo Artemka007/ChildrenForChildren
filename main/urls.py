@@ -8,6 +8,7 @@ urlpatterns = [
     path("users", index),
     path("login", index),
     path("logout", index),
+    path("offers", index),
     path("profile", index),
     path("register", index),
     path("reset-password", index),
