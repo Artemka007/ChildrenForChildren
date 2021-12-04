@@ -17,5 +17,5 @@ class OffersForm(forms.ModelForm):
             "about",
             "back",
             "is_published",
-            
         ]
+        # fields = '__all__' is so simple and include the date and user fields if you want include it

@@ -5,14 +5,10 @@ from django.shortcuts import render
 from .models import OffersMain
 from .forms import OffersForm
 
-
 def indexx(request):
     AllOfers = OffersMain.objects.all()
     return render(request, "indexx.html", {'AllOfers': AllOfers})
 
-
- 
- 
 def create_view(request):
     # dictionary for initial data with
     # field names as keys

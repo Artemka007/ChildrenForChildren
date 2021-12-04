@@ -4,7 +4,7 @@ from django.contrib.auth.models import User
 
 
 
-class OffersMain(models.Model): #main module
+class OffersMain(models.Model):
     
     TYPE_OF_OFFER = (
         ('offers', 'предложения'),

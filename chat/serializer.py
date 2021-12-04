@@ -1,5 +1,3 @@
-from django.db.models import fields
-from django.db.models.base import Model
 from rest_framework.serializers import ModelSerializer
 
 from .models import Chat, Message, DocFileUpload, ImgFileUpload
