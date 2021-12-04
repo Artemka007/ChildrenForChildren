@@ -25,6 +25,7 @@ import { ProgressBarComponent } from './progress-bar/progress-bar.component';
 import { ImageSliderComponent } from './image-slider/image-slider.component';
 import { SearchUsersComponent } from './search-users/search-users.component';
 import { HamburgerComponent } from './hamburger/hamburger.component';
+import { OffersComponent } from './offers/offers.component';
 
 @NgModule({
   declarations: [
@@ -45,7 +46,8 @@ import { HamburgerComponent } from './hamburger/hamburger.component';
     ProgressBarComponent,
     ImageSliderComponent,
     SearchUsersComponent,
-    HamburgerComponent
+    HamburgerComponent,
+    OffersComponent
   ],
   imports: [
     BrowserModule,
