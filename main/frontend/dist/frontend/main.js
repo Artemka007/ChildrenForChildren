@@ -3044,7 +3044,7 @@ function RegisterComponent_span_41_Template(rf, ctx) { if (rf & 1) {
 function RegisterComponent_select_46_Template(rf, ctx) { if (rf & 1) {
     const _r42 = _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵgetCurrentView"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementStart"](0, "select", 33, 34);
-    _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵlistener"]("ngModelChange", function RegisterComponent_select_46_Template_select_ngModelChange_0_listener($event) { _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵrestoreView"](_r42); const ctx_r41 = _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵnextContext"](); return ctx_r41.registerFormGroup.profile.user_in_school_status = $event; });
+    _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵlistener"]("ngModelChange", function RegisterComponent_select_46_Template_select_ngModelChange_0_listener($event) { _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵrestoreView"](_r42); const ctx_r41 = _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵnextContext"](); return ctx_r41.registerFormGroup.user_in_school_status = $event; });
     _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementStart"](2, "option", 35);
     _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵtext"](3, " \u0423\u0447\u0435\u043D\u0438\u043A ");
     _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementEnd"]();
@@ -3057,7 +3057,7 @@ function RegisterComponent_select_46_Template(rf, ctx) { if (rf & 1) {
     _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementEnd"]();
 } if (rf & 2) {
     const ctx_r23 = _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵnextContext"]();
-    _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵproperty"]("name", "user_in_school_status")("ngModel", ctx_r23.registerFormGroup.profile.user_in_school_status);
+    _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵproperty"]("name", "user_in_school_status")("ngModel", ctx_r23.registerFormGroup.user_in_school_status);
 } }
 function RegisterComponent_span_50_Template(rf, ctx) { if (rf & 1) {
     _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementStart"](0, "span");
@@ -3118,18 +3118,16 @@ class RegisterComponent {
             email: "",
             first_name: "",
             last_name: "",
+            phone: "",
+            patronymic: "",
+            age: undefined,
+            status: undefined,
+            user_in_school_status: "student",
+            country: undefined,
+            city: undefined,
+            about_me: undefined,
             password: "",
             password2: "",
-            profile: {
-                phone: "",
-                patronymic: "",
-                age: undefined,
-                status: undefined,
-                user_in_school_status: "student",
-                country: undefined,
-                city: undefined,
-                about_me: undefined
-            }
         };
         this.isLoading = false;
         this.user_in_school_status_options = [
@@ -3194,27 +3192,27 @@ RegisterComponent.ɵcmp = /*@__PURE__*/ _angular_core__WEBPACK_IMPORTED_MODULE_2
         _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementEnd"]();
         _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementStart"](28, "div", 7);
         _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementStart"](29, "input", 8, 15);
-        _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵlistener"]("ngModelChange", function RegisterComponent_Template_input_ngModelChange_29_listener($event) { return ctx.registerFormGroup.profile.patronymic = $event; });
+        _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵlistener"]("ngModelChange", function RegisterComponent_Template_input_ngModelChange_29_listener($event) { return ctx.registerFormGroup.patronymic = $event; });
         _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementEnd"]();
         _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵtemplate"](31, RegisterComponent_span_31_Template, 2, 0, "span", 10);
         _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵtemplate"](32, RegisterComponent_span_32_Template, 2, 0, "span", 10);
         _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementEnd"]();
         _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementStart"](33, "div", 7);
         _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementStart"](34, "input", 8, 16);
-        _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵlistener"]("ngModelChange", function RegisterComponent_Template_input_ngModelChange_34_listener($event) { return ctx.registerFormGroup.profile.phone = $event; });
+        _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵlistener"]("ngModelChange", function RegisterComponent_Template_input_ngModelChange_34_listener($event) { return ctx.registerFormGroup.phone = $event; });
         _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementEnd"]();
         _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵtemplate"](36, RegisterComponent_span_36_Template, 2, 0, "span", 10);
         _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵtemplate"](37, RegisterComponent_span_37_Template, 2, 0, "span", 10);
         _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementEnd"]();
         _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementStart"](38, "div", 7);
         _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementStart"](39, "input", 17, 18);
-        _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵlistener"]("ngModelChange", function RegisterComponent_Template_input_ngModelChange_39_listener($event) { return ctx.registerFormGroup.profile.age = $event; });
+        _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵlistener"]("ngModelChange", function RegisterComponent_Template_input_ngModelChange_39_listener($event) { return ctx.registerFormGroup.age = $event; });
         _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementEnd"]();
         _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵtemplate"](41, RegisterComponent_span_41_Template, 2, 0, "span", 10);
         _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementEnd"]();
         _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementStart"](42, "div", 7);
         _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementStart"](43, "input", 19, 20);
-        _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵlistener"]("ngModelChange", function RegisterComponent_Template_input_ngModelChange_43_listener($event) { return ctx.registerFormGroup.profile.status = $event; });
+        _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵlistener"]("ngModelChange", function RegisterComponent_Template_input_ngModelChange_43_listener($event) { return ctx.registerFormGroup.status = $event; });
         _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementEnd"]();
         _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementEnd"]();
         _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementStart"](45, "div", 7);
@@ -3222,25 +3220,25 @@ RegisterComponent.ɵcmp = /*@__PURE__*/ _angular_core__WEBPACK_IMPORTED_MODULE_2
         _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementEnd"]();
         _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementStart"](47, "div", 7);
         _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementStart"](48, "input", 22, 23);
-        _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵlistener"]("ngModelChange", function RegisterComponent_Template_input_ngModelChange_48_listener($event) { return ctx.registerFormGroup.profile.country = $event; });
+        _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵlistener"]("ngModelChange", function RegisterComponent_Template_input_ngModelChange_48_listener($event) { return ctx.registerFormGroup.country = $event; });
         _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementEnd"]();
         _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵtemplate"](50, RegisterComponent_span_50_Template, 2, 0, "span", 10);
         _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementEnd"]();
         _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementStart"](51, "div", 7);
         _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementStart"](52, "input", 22, 24);
-        _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵlistener"]("ngModelChange", function RegisterComponent_Template_input_ngModelChange_52_listener($event) { return ctx.registerFormGroup.profile.city = $event; });
+        _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵlistener"]("ngModelChange", function RegisterComponent_Template_input_ngModelChange_52_listener($event) { return ctx.registerFormGroup.city = $event; });
         _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementEnd"]();
         _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵtemplate"](54, RegisterComponent_span_54_Template, 2, 0, "span", 10);
         _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementEnd"]();
         _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementStart"](55, "div", 7);
         _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementStart"](56, "input", 22, 25);
-        _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵlistener"]("ngModelChange", function RegisterComponent_Template_input_ngModelChange_56_listener($event) { return ctx.registerFormGroup.profile.district = $event; });
+        _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵlistener"]("ngModelChange", function RegisterComponent_Template_input_ngModelChange_56_listener($event) { return ctx.registerFormGroup.district = $event; });
         _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementEnd"]();
         _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵtemplate"](58, RegisterComponent_span_58_Template, 2, 0, "span", 10);
         _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementEnd"]();
         _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementStart"](59, "div", 7);
         _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementStart"](60, "textarea", 19, 26);
-        _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵlistener"]("ngModelChange", function RegisterComponent_Template_textarea_ngModelChange_60_listener($event) { return ctx.registerFormGroup.profile.about_me = $event; });
+        _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵlistener"]("ngModelChange", function RegisterComponent_Template_textarea_ngModelChange_60_listener($event) { return ctx.registerFormGroup.about_me = $event; });
         _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementEnd"]();
         _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementEnd"]();
         _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementStart"](62, "div", 7);
@@ -3306,39 +3304,39 @@ RegisterComponent.ɵcmp = /*@__PURE__*/ _angular_core__WEBPACK_IMPORTED_MODULE_2
         _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵadvance"](1);
         _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵproperty"]("ngIf", (_r11.errors == null ? null : _r11.errors.maxlength) && _r11.touched);
         _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵadvance"](2);
-        _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵproperty"]("name", "patronymic")("placeholder", "\u041E\u0442\u0447\u0435\u0441\u0442\u0432\u043E")("maxLength", 64)("ngModel", ctx.registerFormGroup.profile.patronymic);
+        _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵproperty"]("name", "patronymic")("placeholder", "\u041E\u0442\u0447\u0435\u0441\u0442\u0432\u043E")("maxLength", 64)("ngModel", ctx.registerFormGroup.patronymic);
         _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵadvance"](2);
         _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵproperty"]("ngIf", (_r14.errors == null ? null : _r14.errors.required) && _r14.touched);
         _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵadvance"](1);
         _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵproperty"]("ngIf", (_r14.errors == null ? null : _r14.errors.maxlength) && _r14.touched);
         _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵadvance"](2);
-        _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵproperty"]("name", "phone")("placeholder", "\u0422\u0435\u043B\u0435\u0444\u043E\u043D")("maxLength", 16)("ngModel", ctx.registerFormGroup.profile.phone);
+        _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵproperty"]("name", "phone")("placeholder", "\u0422\u0435\u043B\u0435\u0444\u043E\u043D")("maxLength", 16)("ngModel", ctx.registerFormGroup.phone);
         _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵadvance"](2);
         _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵproperty"]("ngIf", (_r17.errors == null ? null : _r17.errors.required) && _r17.touched);
         _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵadvance"](1);
         _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵproperty"]("ngIf", (_r17.errors == null ? null : _r17.errors.maxlength) && _r17.touched);
         _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵadvance"](2);
-        _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵproperty"]("name", "age")("placeholder", "\u0412\u043E\u0437\u0440\u0430\u0441\u0442")("ngModel", ctx.registerFormGroup.profile.age)("type", "number");
+        _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵproperty"]("name", "age")("placeholder", "\u0412\u043E\u0437\u0440\u0430\u0441\u0442")("ngModel", ctx.registerFormGroup.age)("type", "number");
         _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵadvance"](2);
         _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵproperty"]("ngIf", (_r20.errors == null ? null : _r20.errors.required) && _r20.touched);
         _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵadvance"](2);
-        _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵproperty"]("name", "status")("placeholder", "\u0421\u0442\u0430\u0442\u0443\u0441")("ngModel", ctx.registerFormGroup.profile.status);
+        _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵproperty"]("name", "status")("placeholder", "\u0421\u0442\u0430\u0442\u0443\u0441")("ngModel", ctx.registerFormGroup.status);
         _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵadvance"](3);
         _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵproperty"]("ngIf", ctx.user_in_school_status_options);
         _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵadvance"](2);
-        _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵproperty"]("name", "country")("placeholder", "\u0421\u0442\u0440\u0430\u043D\u0430")("ngModel", ctx.registerFormGroup.profile.country);
+        _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵproperty"]("name", "country")("placeholder", "\u0421\u0442\u0440\u0430\u043D\u0430")("ngModel", ctx.registerFormGroup.country);
         _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵadvance"](2);
         _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵproperty"]("ngIf", (_r24.errors == null ? null : _r24.errors.maxlength) && _r17.touched);
         _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵadvance"](2);
-        _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵproperty"]("name", "city")("placeholder", "\u0413\u043E\u0440\u043E\u0434")("ngModel", ctx.registerFormGroup.profile.city);
+        _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵproperty"]("name", "city")("placeholder", "\u0413\u043E\u0440\u043E\u0434")("ngModel", ctx.registerFormGroup.city);
         _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵadvance"](2);
         _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵproperty"]("ngIf", (_r26.errors == null ? null : _r26.errors.maxlength) && _r17.touched);
         _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵadvance"](2);
-        _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵproperty"]("name", "district")("placeholder", "\u0420\u0430\u0439\u043E\u043D/\u0423\u043B\u0438\u0446\u0430")("ngModel", ctx.registerFormGroup.profile.district);
+        _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵproperty"]("name", "district")("placeholder", "\u0420\u0430\u0439\u043E\u043D/\u0423\u043B\u0438\u0446\u0430")("ngModel", ctx.registerFormGroup.district);
         _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵadvance"](2);
         _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵproperty"]("ngIf", (_r28.errors == null ? null : _r28.errors.maxlength) && _r17.touched);
         _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵadvance"](2);
-        _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵproperty"]("name", "about_me")("placeholder", "\u041D\u0430\u043F\u0438\u0448\u0438\u0442\u0435 \u043D\u0435\u043C\u043D\u043E\u0433\u043E \u043E \u0441\u0435\u0431\u0435, \u0447\u0435\u043C \u0432\u044B \u0437\u0430\u043D\u0438\u043C\u0430\u0435\u0442\u0435\u0441\u044C, \u0412\u0430\u0448\u0438 \u0445\u043E\u0431\u0431\u0438, \u043B\u044E\u0431\u0438\u043C\u0430\u044F \u043D\u0430\u0441\u0442\u043E\u043B\u043A\u0430 \u0438 \u0442.\u0434.")("ngModel", ctx.registerFormGroup.profile.about_me);
+        _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵproperty"]("name", "about_me")("placeholder", "\u041D\u0430\u043F\u0438\u0448\u0438\u0442\u0435 \u043D\u0435\u043C\u043D\u043E\u0433\u043E \u043E \u0441\u0435\u0431\u0435, \u0447\u0435\u043C \u0432\u044B \u0437\u0430\u043D\u0438\u043C\u0430\u0435\u0442\u0435\u0441\u044C, \u0412\u0430\u0448\u0438 \u0445\u043E\u0431\u0431\u0438, \u043B\u044E\u0431\u0438\u043C\u0430\u044F \u043D\u0430\u0441\u0442\u043E\u043B\u043A\u0430 \u0438 \u0442.\u0434.")("ngModel", ctx.registerFormGroup.about_me);
         _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵadvance"](3);
         _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵproperty"]("name", "password")("placeholder", "\u041F\u0430\u0440\u043E\u043B\u044C")("type", "password")("ngModel", ctx.registerFormGroup.password);
         _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵadvance"](2);
