@@ -1,0 +1,11 @@
+*.pyc
+__pycache__
+
+venv/
+.vscode
+
+db.sqlite3
+.DS_Store
+
+main/frontend/node_modules/
+ChildrenForChildren/secret.py

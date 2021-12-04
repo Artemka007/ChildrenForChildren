@@ -1,7 +1,7 @@
 "use strict";
 (self["webpackChunkfrontend"] = self["webpackChunkfrontend"] || []).push([["polyfills"],{
 
-/***/ 7761:
+/***/ 4623:
 /*!***********************************************!*\
   !*** ./node_modules/zone.js/fesm2015/zone.js ***!
   \***********************************************/
@@ -2967,14 +2967,14 @@ Zone.__load_patch('PromiseRejectionEvent', (global, Zone) => {
 
 /***/ }),
 
-/***/ 7435:
+/***/ 7344:
 /*!**************************!*\
   !*** ./src/polyfills.ts ***!
   \**************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var zone_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! zone.js */ 7761);
+/* harmony import */ var zone_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! zone.js */ 4623);
 /* harmony import */ var zone_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(zone_js__WEBPACK_IMPORTED_MODULE_0__);
 /**
  * This file includes polyfills needed by Angular and is loaded before the app.
@@ -2994,16 +2994,6 @@ __webpack_require__.r(__webpack_exports__);
 /***************************************************************************************************
  * BROWSER POLYFILLS
  */
-/**
- * IE11 requires the following for NgClass support on SVG elements
- */
-// import 'classlist.js';  // Run `npm install --save classlist.js`.
-/**
- * Web Animations `@angular/platform-browser/animations`
- * Only required if AnimationBuilder is used within the application and using IE/Edge or Safari.
- * Standard animation support in Angular DOES NOT require any polyfills (as of Angular 6.0).
- */
-// import 'web-animations-js';  // Run `npm install --save web-animations-js`.
 /**
  * By default, zone.js will patch all possible macroTask and DomEvents
  * user can disable parts of macroTask/DomEvents patch by setting following flags
@@ -3041,7 +3031,7 @@ __webpack_require__.r(__webpack_exports__);
 },
 /******/ __webpack_require__ => { // webpackRuntimeModules
 /******/ var __webpack_exec__ = (moduleId) => (__webpack_require__(__webpack_require__.s = moduleId))
-/******/ var __webpack_exports__ = (__webpack_exec__(7435));
+/******/ var __webpack_exports__ = (__webpack_exec__(7344));
 /******/ }
 ]);
 //# sourceMappingURL=polyfills.js.map
