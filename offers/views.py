@@ -1,3 +1,4 @@
+from django.core.checks import messages
 from django.http.response import HttpResponse
 from django.shortcuts import render
 from rest_framework import serializers
@@ -22,6 +23,10 @@ class OffersMainView(APIView):
         if id is None:
             AllOfers = OffersMain.objects.all()
             serializer = OfferMainSerializer(AllOfers, many=True)
-            return Response({"result": False, "message": "Параметр id не передан", "data":{'AllOfers': serializer.data}})
+            return Response({"result": True, "message": "Параметр id не передан", "data":{'AllOfers': serializer.data}})
+        
+        offer = OffersMain.objects.get(pk=id)
+        serializer = OfferMainSerializer(offer, many=False)
+        return Response({"result": True, "message": "Всё прошло успешно", "data":{'offer': serializer.data}})
 
         
