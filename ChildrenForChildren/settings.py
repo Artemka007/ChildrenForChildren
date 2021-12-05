@@ -40,7 +40,6 @@ INSTALLED_APPS = [
     'channels',
     'main',
     'account',
-    'ads',
     'chat',
     'events',
     'news',

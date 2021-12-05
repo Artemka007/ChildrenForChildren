@@ -2,8 +2,6 @@ from django.db import models
 from django.http import request
 from django.contrib.auth.models import User
 
-
-
 class OffersMain(models.Model):
     
     TYPE_OF_OFFER = (

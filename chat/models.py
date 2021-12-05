@@ -20,7 +20,7 @@ class Chat(models.Model):
     admins = models.ManyToManyField(get_user_model(), related_name="admin_in_chats", default=[], blank=True)
     banned_list = models.ManyToManyField(get_user_model(), related_name="banned_in_chats", default=[], blank=True)
 
-    # any flags
+    # some flags
     is_group = models.BooleanField(default=False)
     is_private = models.BooleanField(default=False)
 
