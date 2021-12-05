@@ -1,9 +1,12 @@
 from django.http.response import HttpResponse
 from django.shortcuts import render
+from rest_framework import serializers
+from rest_framework.views import APIView, Response
+from .serializers import OfferMainSerializer
 
 # relative import of forms
 from .models import OffersMain
-from .forms import OffersForm
+
 
 
 def indexx(request):
@@ -11,18 +14,15 @@ def indexx(request):
     return render(request, "indexx.html", {'AllOfers': AllOfers})
 
 
- 
- 
-def create_view(request):
-    # dictionary for initial data with
-    # field names as keys
-    context ={}
- 
-    # add the dictionary during initialization
-    form = OffersForm(request.POST or None)
-    if form.is_valid():
-        form.save()
-         
-    context['form']= form
-    return render(request, "update_view.html", context)
+class OffersMainView(APIView):
+    
+    def get(self, request):
+        
+        id = request.GET.get('id')
+        
+        if id is None:
+            AllOfers = OffersMain.objects.all()
+            serializer = OfferMainSerializer(AllOfers, many=True)
+            return Response({"result": False, "message": "Параметр id не передан", "data":{'AllOfers': serializer.data}})
 
+        

@@ -4,6 +4,7 @@ from django.contrib.auth.models import User
 
 
 
+
 class OffersMain(models.Model): #main module
     
     TYPE_OF_OFFER = (
@@ -31,6 +32,8 @@ class OffersMain(models.Model): #main module
     def __str__(self):
         return self.title
 
+        class Meta:
+            ordering = ['created']
     
     
 
