@@ -9,7 +9,7 @@ class OffersForm(forms.ModelForm):
     class Meta:
         # specify model to be used
         model = OffersMain
- 
+
         # specify fields to be used
         fields = [
             "define_type_of_request",

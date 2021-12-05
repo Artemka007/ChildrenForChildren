@@ -23,7 +23,6 @@ class ChatView(APIView):
         # else reurn all chats where the user be
         chats = Chat.objects.filter(users__in=[request.user])
         return Response({"result": True, "message": "Чаты успешно возращены.", "data": {"chats": ChatSerializer(chats, many=True).data}})
-    
     def put(self, request):
         if not request.user.is_authenticated:
             return Response({"result": False, "message": "Пользователь не авторизован.", "data": {}})
