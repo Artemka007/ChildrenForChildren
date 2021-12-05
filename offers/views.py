@@ -8,7 +8,6 @@ from .serializers import OfferMainSerializer
 from .models import OffersMain
 
 
-
 def indexx(request):
     AllOfers = OffersMain.objects.all()
     return render(request, "indexx.html", {'AllOfers': AllOfers})

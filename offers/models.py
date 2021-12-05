@@ -35,19 +35,3 @@ class OffersMain(models.Model): #main module
         class Meta:
             ordering = ['created']
     
-    
-
-
-
-
-    
-
-
-
-    
-    
-
-
-    
-    
-    

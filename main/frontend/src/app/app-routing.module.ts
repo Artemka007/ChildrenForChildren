@@ -4,6 +4,7 @@ import { ChatsComponent } from './chats/chats.component';
 import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './login/login.component';
 import { LogoutComponent } from './logout/logout.component';
+import { OffersComponent } from './offers/offers.component';
 import { PersonalAreaComponent } from './personal-area/personal-area.component';
 import { RegisterComponent } from './register/register.component';
 import { ResetPasswordConfirmComponent } from './reset-password-confirm/reset-password-confirm.component';
@@ -20,6 +21,7 @@ const routes: Routes = [
  {path: "profile", component: PersonalAreaComponent},
  {path: "users", component: SearchUsersComponent},
  {path: "chats", component: ChatsComponent},
+ {path: "offers", component: OffersComponent},
 ];
 
 @NgModule({
