@@ -26,9 +26,7 @@ class OffersTest(TestCase):
         serializer = OfferMainSerializer(data=self.offer)
         serializer.is_valid(raise_exception=True)
         serializer.save()
-        
-        
         response = self.client.get(self.base_url)
         data = response.data
         self.assertTrue(data.get('data')is not None)
-        self.assertEquals(data.get('data').get('AllOfers')[0].get('back'), self.offer.get('back'))
+        self.assertEquals(data.get('data').get('all_offers')[0].get('back'), self.offer.get('back'))
