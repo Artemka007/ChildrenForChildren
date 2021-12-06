@@ -13,28 +13,26 @@
             </select>
         </div>
         <div class="Field">
-            <input [name]="'title'" required [placeholder]="'Ник'" [(ngModel)]="offer.title" #title="ngModel" />
-            <span *ngIf="title.invalid && title.touched">
+            <input [name]="'title'" required [placeholder]="'Заголовок'" [(ngModel)]="offer.title" #title="ngModel" max_length="64" />
+            <span *ngIf="title.errors?.required && title.touched">
                 Обязательное поле.
+            </span>
+            <span *ngIf="title.errors?.max_length && title.touched">
+                Максимальная длина - 64 символа.
             </span>
         </div>
         <div class="Field">
-            <textarea [name]="'about'" required [placeholder]="'О предложении'" [(ngModel)]="offer.about" #about="ngModel"></textarea>
-            <span *ngIf="about.invalid && about.touched">
+            <textarea [name]="'about'" required [placeholder]="'О предложении'" [(ngModel)]="offer.about" #about="ngModel" max_length="1024"></textarea>
+            <span *ngIf="about.errors?.required && about.touched">
                 Обязательное поле.
+            </span>
+            <span *ngIf="title.errors?.max_length && title.touched">
+                Максимальная длина - 1024 символа.
             </span>
         </div>
-        <div class="Field">
-            <input [name]="'back'" required [placeholder]="'Ник'" [(ngModel)]="offer.back" #back="ngModel" />
-            <span *ngIf="back.invalid && back.touched">
-                Обязательное поле.
-            </span>
-        </div>
-        <div class="Field">
-            <input [name]="'title'" required [placeholder]="'Ник'" [(ngModel)]="offer.title" #title="ngModel" />
-            <span *ngIf="title.invalid && title.touched">
-                Обязательное поле.
-            </span>
+        <div class="Field Checkbox">
+            <input id="back" type="checkbox" [name]="'back'" [(ngModel)]="offer.is_published" #back="ngModel" max_length="1024" />
+            <label for="back">Публичный или нет?</label>
         </div>
     </div>
     <button class="Form-Container__Button" [disabled]="createOfferForm.invalid">{{isLoading ? "Загрузка..." : "Создать"}}</button>

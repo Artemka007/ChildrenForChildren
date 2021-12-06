@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { APIResponse } from '../models/api.model';
-import { IOffer } from '../models/offers.model';
+import { IBaseOffer, IOffer } from '../models/offers.model';
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +11,6 @@ export class OffersService {
   constructor(private _http: HttpClient) { }
 
   getAllOffers() {
-    // todo: when api will ready add return sub
     let sub = this._http.get<APIResponse<{offers?: IOffer[]}>>("/api/v1/offers/", {
       headers: {
         "X-CSRFToken": this._getCookie("csrftoken")
@@ -20,8 +19,13 @@ export class OffersService {
     return sub
   }
 
-  createOffer(offer: IOffer) {
-
+  createOffer(offer: IBaseOffer) {
+    let sub = this._http.post<APIResponse<{offers?: IOffer[]}>>("/api/v1/offers/", {offer}, {
+      headers: {
+        "X-CSRFToken": this._getCookie("csrftoken")
+      }
+    })
+    return sub
   }
 
   editOffer(id: number, newOffer: IOffer) {

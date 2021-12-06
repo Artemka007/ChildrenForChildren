@@ -37,4 +37,11 @@ export class CreateOfferComponent implements OnInit {
   ngOnInit() {
   }
 
+  createOffer() {
+    this._offers.createOffer(this.offer).subscribe(data => {
+      if (data.result) this._ui.openWarning({message: "Предложение создано.", class: "ok"})
+      else this._ui.openWarning({message: "Что-то пошло не так. Проверте данные и повторите попытку.", class: "error"})
+    })
+  }
+
 }
