@@ -20,7 +20,7 @@ class OffersMainView(APIView):
         if id is None:
             all_offers = OffersMain.objects.all()
             serializer = OfferMainSerializer(all_offers, many=True)
-            return Response({"result": True, "message": "Параметр id не передан", "data":{"all_offers": serializer.data}})
+            return Response({"result": True, "message": "Параметр id не передан", "data":{"offers": serializer.data}})
         offer = OffersMain.objects.get(pk=id)
         serializer = OfferMainSerializer(offer, many=False)
         return Response({"result": True, "message": "Всё прошло успешно", "data":{"offer": serializer.data}})

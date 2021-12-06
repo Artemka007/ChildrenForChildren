@@ -33,16 +33,27 @@
             height: 40px
             content: url("/media/icons/plus-square.svg")
         &:hover
-            box-shadow: rgba(0,0,0,.50) 0 2px 8px 2px
+            box-shadow: rgba(0,0,0,.40) 0 2px 8px 2px
         &:focus
             box-shadow: rgba(0,0,0,.35) 0 1px 2px 0
         transition: all .2s
-    .Offers
-        +flex-container(row)
+.Offers
+    +flex-container(row)
+    width: 100%
+    height: calc(100% - 90px)
+    padding: 10px
+    .Title
+        font-size: 30px
+        margin-bottom: 10px
+        color: rgba(0,0,0,0.50)
+    .Item
+        +flex-container(column, flex-start, center)
         width: 100%
+        height: 100%
+        max-height: 100%
+        overflow: auto
         padding: 10px
-        .Item
-            +flex-container(column, flex-start, center)
+        offer
             width: 100%
-            &:not(:last-child)
-                border-right: #00000025 solid 2px
+        &:not(:last-child)
+            border-right: #00000025 solid 2px

@@ -1,8 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { APIResponse } from '../models/api.model';
-
-export interface IOffer {}
+import { IOffer } from '../models/offers.model';
 
 @Injectable({
   providedIn: 'root'
@@ -11,14 +10,14 @@ export class OffersService {
 
   constructor(private _http: HttpClient) { }
 
-  getAllOffers(): IOffer[] {
+  getAllOffers() {
     // todo: when api will ready add return sub
-    let sub = this._http.get<APIResponse<{offers: IOffer[]}>>("/api/v1/offers/", {
+    let sub = this._http.get<APIResponse<{offers?: IOffer[]}>>("/api/v1/offers/", {
       headers: {
         "X-CSRFToken": this._getCookie("csrftoken")
       }
     })
-    return []
+    return sub
   }
 
   createOffer(offer: IOffer) {

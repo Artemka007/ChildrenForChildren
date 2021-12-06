@@ -4,6 +4,7 @@ import { Subject } from 'rxjs';
 import { IChat, ICreateMessage, IEditChat } from '../models/chat.model';
 import { WebsocketService } from './websocket.service';
 import { APIResponse } from '../models/api.model';
+import { IUser } from '../models/user.model';
 
 export type WSMessage = {
   readonly action: "send_message"
@@ -39,6 +40,12 @@ export class ChatService {
 
   getChatById(id: number) {
     return this._http.get<APIResponse<{chat?: IChat}>>(`/api/v1/chats/?id=${id}`, {
+      headers: {"X-CSRFToken": this._getCookie("csrftoken")}
+    })
+  }
+
+  getOrCreateChat(users: IUser[]) {
+    return this._http.post<APIResponse<{chat?: IChat}>>(`/api/v1/chats/`, {users}, {
       headers: {"X-CSRFToken": this._getCookie("csrftoken")}
     })
   }
