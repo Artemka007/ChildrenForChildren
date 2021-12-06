@@ -42,5 +42,5 @@ class OffersMainView(APIView):
         
         if serializer.is_valid():
             serializer.save()   
-        return Response(serializer.data) 
+        return Response({'result': True, 'message': 'Вы обновили дату', 'data': {'offer': OfferMainSerializer(serializer.instance).data}}) 
 
