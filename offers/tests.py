@@ -39,4 +39,7 @@ class OffersTest(TestCase):
         self.assertEquals(data.get('result'), True, data.get('message'))
         self.assertTrue(data.get('data').get('offer') is not None)
         
+    def test_update_view(self):
+        pass
+        
         
