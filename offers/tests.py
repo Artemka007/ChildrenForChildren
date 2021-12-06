@@ -36,10 +36,10 @@ class OffersTest(TestCase):
     def test_create(self):
         
         data = self.client.post(self.base_url, self.offer).data
+        self.client.login
         self.assertEquals(data.get('result'), True, data.get('message'))
         self.assertTrue(data.get('data').get('offer') is not None)
         
-    def test_update_view(self):
-        pass
+
         
         

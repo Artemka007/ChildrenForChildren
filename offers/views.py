@@ -40,23 +40,18 @@ class OffersMainView(APIView):
             pdb.set_trace()
             return Response({'result': False, 'message': 'smt went wrong', 'data': {}})
         
-    def put(self, request, pk): #Updata
-        
+    def put(self, request): #Updata
+       # get id in query params
+        id = request.GET.get(id)
+        if not id:
+            return Response({'result': False, 'message': 'Параметр id не передан', 'data': {}})  
         if not request.user.is_authenticated:
             return Response({"result": False, "message": "Пользователь не авторизован.", "data": {}})
-        
-        offer = OffersMain.objects.get(id=pk)
+        offer = OffersMain.objects.get(id=id)
         serializer = OfferMainSerializer(instance=offer, data=request.data)
-        
-        get_id = request.GET.get(id)
-        if id:
-        
-            if serializer.is_valid():
-                serializer.save()   
-                return Response({'result': True, 'message': 'Вы обновили дату', 'data': {'offer': OfferMainSerializer(serializer.instance).data}})  
-            else:
-                return Response({'result': False, 'message': 'smt went wrong', 'data': {}})  
-        
+        if serializer.is_valid():
+             serializer.save()   
+             return Response({'result': True, 'message': 'Вы обновили дату', 'data': {'offer': OfferMainSerializer(serializer.instance).data}})  
         else:
-            return Response({'result': False, 'message': 'Параметр id не передан', 'data': {}})  
+             return Response({'result': False, 'message': 'smt went wrong', 'data': {}})
 
