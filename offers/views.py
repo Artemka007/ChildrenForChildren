@@ -34,5 +34,13 @@ class OffersMainView(APIView):
         else:
             pdb.set_trace()
             return Response({'result': False, 'message': 'smt went wrong', 'data': {}})
-            
+        
+    def update(self, request, pk): #Updata
+        
+        offer = OffersMain.objects.get(id=pk)
+        serializer = OfferMainSerializer(instance=offer, data=request.data)
+        
+        if serializer.is_valid():
+            serializer.save()   
+        return Response({'result': True, 'message': 'Вы обновили дату', 'data': {'offer': OfferMainSerializer(serializer.instance).data}}) 
 
