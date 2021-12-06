@@ -4,9 +4,9 @@ from django.shortcuts import render
 from rest_framework import serializers
 from rest_framework.views import APIView, Response
 from .serializers import OfferMainSerializer
-
-# relative import of forms
 from .models import OffersMain
+import pdb 
+
 
 
 def indexx(request):
@@ -30,3 +30,14 @@ class OffersMainView(APIView):
         return Response({"result": True, "message": "Всё прошло успешно", "data":{'offer': serializer.data}})
 
         
+
+    def post(self, request):    #create view
+        serializer =  OfferMainSerializer(data=request.data)
+        
+        if serializer.is_valid():
+            serializer.save()
+            return Response({"result": True, "message": "Всё прошло успешно", "data":{'offer': OfferMainSerializer(serializer.instance).data}})
+        else:
+            pdb.set_trace()
+            return Response({'result': False, 'message': 'smt went wrong', 'data': {}})
+            

@@ -32,3 +32,5 @@ class OffersTest(TestCase):
         data = response.data
         self.assertTrue(data.get('data')is not None)
         self.assertEquals(data.get('data').get('AllOfers')[0].get('back'), self.offer.get('back'))
+    
+    
