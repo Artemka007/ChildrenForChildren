@@ -20,7 +20,7 @@ export class OffersService {
   }
 
   createOffer(offer: IBaseOffer) {
-    let sub = this._http.post<APIResponse<{offers?: IOffer[]}>>("/api/v1/offers/", {offer}, {
+    let sub = this._http.post<APIResponse<{offers?: IOffer[]}>>("/api/v1/offers/", {...offer}, {
       headers: {
         "X-CSRFToken": this._getCookie("csrftoken")
       }

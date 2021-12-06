@@ -1,7 +1,7 @@
-<form class="Form-Container Login-Form Dialog" #createOfferForm="ngForm">
+<form class="Form-Container Login-Form Dialog" #createOfferForm="ngForm" (ngSubmit)="createOffer()">
     <div class="Header">
         <div class="Title">Создание предложения</div>
-        <button class="Close">&times;</button>
+        <button class="Close" type="button">&times;</button>
     </div>
     <div class="Form-Container__Warning" *ngIf="warning">{{warning}}</div>
     <div class="Form-Container__Fields-Container">
@@ -26,7 +26,16 @@
             <span *ngIf="about.errors?.required && about.touched">
                 Обязательное поле.
             </span>
-            <span *ngIf="title.errors?.max_length && title.touched">
+            <span *ngIf="about.errors?.max_length && about.touched">
+                Максимальная длина - 1024 символа.
+            </span>
+        </div>
+        <div class="Field">
+            <textarea [name]="'back'" required [placeholder]="'О предложении'" [(ngModel)]="offer.back" #back="ngModel" max_length="1024"></textarea>
+            <span *ngIf="back.errors?.required && back.touched">
+                Обязательное поле.
+            </span>
+            <span *ngIf="back.errors?.max_length && back.touched">
                 Максимальная длина - 1024 символа.
             </span>
         </div>

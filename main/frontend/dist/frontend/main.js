@@ -1545,6 +1545,16 @@ function CreateOfferComponent_span_27_Template(rf, ctx) { if (rf & 1) {
     _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵtext"](1, " \u041C\u0430\u043A\u0441\u0438\u043C\u0430\u043B\u044C\u043D\u0430\u044F \u0434\u043B\u0438\u043D\u0430 - 1024 \u0441\u0438\u043C\u0432\u043E\u043B\u0430. ");
     _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementEnd"]();
 } }
+function CreateOfferComponent_span_31_Template(rf, ctx) { if (rf & 1) {
+    _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementStart"](0, "span");
+    _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵtext"](1, " \u041E\u0431\u044F\u0437\u0430\u0442\u0435\u043B\u044C\u043D\u043E\u0435 \u043F\u043E\u043B\u0435. ");
+    _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementEnd"]();
+} }
+function CreateOfferComponent_span_32_Template(rf, ctx) { if (rf & 1) {
+    _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementStart"](0, "span");
+    _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵtext"](1, " \u041C\u0430\u043A\u0441\u0438\u043C\u0430\u043B\u044C\u043D\u0430\u044F \u0434\u043B\u0438\u043D\u0430 - 1024 \u0441\u0438\u043C\u0432\u043E\u043B\u0430. ");
+    _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementEnd"]();
+} }
 class CreateOfferComponent {
     constructor(_store, _offers, _ui) {
         this._store = _store;
@@ -1567,17 +1577,20 @@ class CreateOfferComponent {
     ngOnInit() {
     }
     createOffer() {
+        this.isLoading = true;
         this._offers.createOffer(this.offer).subscribe(data => {
             if (data.result)
                 this._ui.openWarning({ message: "Предложение создано.", class: "ok" });
             else
                 this._ui.openWarning({ message: "Что-то пошло не так. Проверте данные и повторите попытку.", class: "error" });
+            this.isLoading = false;
         });
     }
 }
 CreateOfferComponent.ɵfac = function CreateOfferComponent_Factory(t) { return new (t || CreateOfferComponent)(_angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵdirectiveInject"](_ngrx_store__WEBPACK_IMPORTED_MODULE_3__.Store), _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵdirectiveInject"](_services_offers_service__WEBPACK_IMPORTED_MODULE_0__.OffersService), _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵdirectiveInject"](_services_ui_service__WEBPACK_IMPORTED_MODULE_1__.UiService)); };
-CreateOfferComponent.ɵcmp = /*@__PURE__*/ _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵdefineComponent"]({ type: CreateOfferComponent, selectors: [["create-offer"]], decls: 35, vars: 17, consts: [[1, "Form-Container", "Login-Form", "Dialog"], ["createOfferForm", "ngForm"], [1, "Header"], [1, "Title"], [1, "Close"], ["class", "Form-Container__Warning", 4, "ngIf"], [1, "Form-Container__Fields-Container"], [1, "Field"], ["required", "", 3, "name", "ngModel", "ngModelChange"], ["define_type_of_request", "ngModel"], ["value", "offers"], ["value", "requsts"], ["value", "quastions"], ["required", "", "max_length", "64", 3, "name", "placeholder", "ngModel", "ngModelChange"], ["title", "ngModel"], [4, "ngIf"], ["required", "", "max_length", "1024", 3, "name", "placeholder", "ngModel", "ngModelChange"], ["about", "ngModel"], [1, "Field", "Checkbox"], ["id", "back", "type", "checkbox", "max_length", "1024", 3, "name", "ngModel", "ngModelChange"], ["back", "ngModel"], ["for", "back"], [1, "Form-Container__Button", 3, "disabled"], [1, "Form-Container__Warning"]], template: function CreateOfferComponent_Template(rf, ctx) { if (rf & 1) {
+CreateOfferComponent.ɵcmp = /*@__PURE__*/ _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵdefineComponent"]({ type: CreateOfferComponent, selectors: [["create-offer"]], decls: 40, vars: 22, consts: [[1, "Form-Container", "Login-Form", "Dialog", 3, "ngSubmit"], ["createOfferForm", "ngForm"], [1, "Header"], [1, "Title"], ["type", "button", 1, "Close"], ["class", "Form-Container__Warning", 4, "ngIf"], [1, "Form-Container__Fields-Container"], [1, "Field"], ["required", "", 3, "name", "ngModel", "ngModelChange"], ["define_type_of_request", "ngModel"], ["value", "offers"], ["value", "requsts"], ["value", "quastions"], ["required", "", "max_length", "64", 3, "name", "placeholder", "ngModel", "ngModelChange"], ["title", "ngModel"], [4, "ngIf"], ["required", "", "max_length", "1024", 3, "name", "placeholder", "ngModel", "ngModelChange"], ["about", "ngModel"], ["back", "ngModel"], [1, "Field", "Checkbox"], ["id", "back", "type", "checkbox", "max_length", "1024", 3, "name", "ngModel", "ngModelChange"], ["for", "back"], [1, "Form-Container__Button", 3, "disabled"], [1, "Form-Container__Warning"]], template: function CreateOfferComponent_Template(rf, ctx) { if (rf & 1) {
         _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementStart"](0, "form", 0, 1);
+        _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵlistener"]("ngSubmit", function CreateOfferComponent_Template_form_ngSubmit_0_listener() { return ctx.createOffer(); });
         _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementStart"](2, "div", 2);
         _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementStart"](3, "div", 3);
         _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵtext"](4, "\u0421\u043E\u0437\u0434\u0430\u043D\u0438\u0435 \u043F\u0440\u0435\u0434\u043B\u043E\u0436\u0435\u043D\u0438\u044F");
@@ -1616,23 +1629,31 @@ CreateOfferComponent.ɵcmp = /*@__PURE__*/ _angular_core__WEBPACK_IMPORTED_MODUL
         _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵtemplate"](26, CreateOfferComponent_span_26_Template, 2, 0, "span", 15);
         _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵtemplate"](27, CreateOfferComponent_span_27_Template, 2, 0, "span", 15);
         _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementEnd"]();
-        _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementStart"](28, "div", 18);
-        _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementStart"](29, "input", 19, 20);
-        _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵlistener"]("ngModelChange", function CreateOfferComponent_Template_input_ngModelChange_29_listener($event) { return ctx.offer.is_published = $event; });
+        _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementStart"](28, "div", 7);
+        _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementStart"](29, "textarea", 16, 18);
+        _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵlistener"]("ngModelChange", function CreateOfferComponent_Template_textarea_ngModelChange_29_listener($event) { return ctx.offer.back = $event; });
         _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementEnd"]();
-        _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementStart"](31, "label", 21);
-        _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵtext"](32, "\u041F\u0443\u0431\u043B\u0438\u0447\u043D\u044B\u0439 \u0438\u043B\u0438 \u043D\u0435\u0442?");
+        _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵtemplate"](31, CreateOfferComponent_span_31_Template, 2, 0, "span", 15);
+        _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵtemplate"](32, CreateOfferComponent_span_32_Template, 2, 0, "span", 15);
+        _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementEnd"]();
+        _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementStart"](33, "div", 19);
+        _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementStart"](34, "input", 20, 18);
+        _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵlistener"]("ngModelChange", function CreateOfferComponent_Template_input_ngModelChange_34_listener($event) { return ctx.offer.is_published = $event; });
+        _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementEnd"]();
+        _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementStart"](36, "label", 21);
+        _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵtext"](37, "\u041F\u0443\u0431\u043B\u0438\u0447\u043D\u044B\u0439 \u0438\u043B\u0438 \u043D\u0435\u0442?");
         _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementEnd"]();
         _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementEnd"]();
         _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementEnd"]();
-        _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementStart"](33, "button", 22);
-        _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵtext"](34);
+        _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementStart"](38, "button", 22);
+        _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵtext"](39);
         _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementEnd"]();
         _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementEnd"]();
     } if (rf & 2) {
         const _r0 = _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵreference"](1);
         const _r3 = _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵreference"](20);
         const _r6 = _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵreference"](25);
+        const _r9 = _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵreference"](30);
         _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵadvance"](7);
         _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵproperty"]("ngIf", ctx.warning);
         _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵadvance"](3);
@@ -1648,7 +1669,13 @@ CreateOfferComponent.ɵcmp = /*@__PURE__*/ _angular_core__WEBPACK_IMPORTED_MODUL
         _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵadvance"](2);
         _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵproperty"]("ngIf", (_r6.errors == null ? null : _r6.errors.required) && _r6.touched);
         _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵadvance"](1);
-        _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵproperty"]("ngIf", (_r3.errors == null ? null : _r3.errors.max_length) && _r3.touched);
+        _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵproperty"]("ngIf", (_r6.errors == null ? null : _r6.errors.max_length) && _r6.touched);
+        _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵadvance"](2);
+        _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵproperty"]("name", "back")("placeholder", "\u041E \u043F\u0440\u0435\u0434\u043B\u043E\u0436\u0435\u043D\u0438\u0438")("ngModel", ctx.offer.back);
+        _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵadvance"](2);
+        _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵproperty"]("ngIf", (_r9.errors == null ? null : _r9.errors.required) && _r9.touched);
+        _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵadvance"](1);
+        _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵproperty"]("ngIf", (_r9.errors == null ? null : _r9.errors.max_length) && _r9.touched);
         _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵadvance"](2);
         _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵproperty"]("name", "back")("ngModel", ctx.offer.is_published);
         _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵadvance"](4);
@@ -4510,7 +4537,7 @@ class OffersService {
         return sub;
     }
     createOffer(offer) {
-        let sub = this._http.post("/api/v1/offers/", { offer }, {
+        let sub = this._http.post("/api/v1/offers/", Object.assign({}, offer), {
             headers: {
                 "X-CSRFToken": this._getCookie("csrftoken")
             }
