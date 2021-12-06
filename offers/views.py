@@ -11,25 +11,19 @@ import pdb
 
 def indexx(request):
     AllOfers = OffersMain.objects.all()
-    return render(request, "indexx.html", {'AllOfers': AllOfers})
+    return render(request, "indexx.html", {"AllOfers": AllOfers})
 
 
 class OffersMainView(APIView):
-    
     def get(self, request):
-        
-        id = request.GET.get('id')
-        
+        id = request.GET.get("id")
         if id is None:
-            AllOfers = OffersMain.objects.all()
-            serializer = OfferMainSerializer(AllOfers, many=True)
-            return Response({"result": True, "message": "Параметр id не передан", "data":{'AllOfers': serializer.data}})
-        
+            all_offers = OffersMain.objects.all()
+            serializer = OfferMainSerializer(all_offers, many=True)
+            return Response({"result": True, "message": "Параметр id не передан", "data":{"offers": serializer.data}})
         offer = OffersMain.objects.get(pk=id)
         serializer = OfferMainSerializer(offer, many=False)
-        return Response({"result": True, "message": "Всё прошло успешно", "data":{'offer': serializer.data}})
-
-        
+        return Response({"result": True, "message": "Всё прошло успешно", "data":{"offer": serializer.data}})
 
     def post(self, request):    #create view
         serializer =  OfferMainSerializer(data=request.data)
@@ -41,3 +35,4 @@ class OffersMainView(APIView):
             pdb.set_trace()
             return Response({'result': False, 'message': 'smt went wrong', 'data': {}})
             
+

@@ -53,6 +53,7 @@ INSTALLED_APPS = [
     'rest_auth',
     'rest_framework',
     'rest_framework.authtoken',
+    'ckeditor'
 ]
 
 MIDDLEWARE = [
@@ -156,3 +157,10 @@ EMAIL_USE_TLS = True
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+CKEDITOR_CONFIGS = {
+    'default': {
+        'toolbar': 'full',
+        'maxHeight': 1000,
+    },
+}

@@ -25,7 +25,7 @@ export class ResetPasswordComponent implements OnInit {
       if (data.result) {
         this.warning = {text: data.message, class: "ok"}
       } else {
-        console.error(data.message)
+        this.warning = {text: data.message, class: ""}
       }
     })
   }

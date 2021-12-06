@@ -2,9 +2,6 @@ from django.db import models
 from django.http import request
 from django.contrib.auth.models import User
 
-
-
-
 class OffersMain(models.Model): #main module
     
     TYPE_OF_OFFER = (
@@ -34,4 +31,3 @@ class OffersMain(models.Model): #main module
 
     class Meta:
         ordering = ['date']
-    

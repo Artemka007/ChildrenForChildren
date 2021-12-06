@@ -1,17 +1,15 @@
-<div class="Header">
-    <div class="Header__Title">
-        <div class="Header__Title__Text">IBLS</div>
-        <span></span>
-        <div class="Header__Title__Text" style="font-size: 26px;font-weight: 500;"> Дети детям</div>
+<div class="Header__Title">
+    <div class="Header__Title__Text">IBLS</div>
+    <span></span>
+    <div class="Header__Title__Text" style="font-size: 26px;font-weight: 500;"> Дети детям</div>
+</div>
+<div class="Header__Auth-Container" (mouseenter)="openS()" (mouseleave)="closeS()">
+    <div class="Header__Auth-Container__User-Info">
+        <div class="Header__Auth-Container__User-Info__Ava"><img [src]="'/media/icons/profile.png'" alt="" /></div>
+        <div class="Header__Auth-Container__User-Info__Username">{{user?.username}}</div>
     </div>
-    <div class="Header__Auth-Container" (mouseenter)="openS()" (mouseleave)="closeS()">
-        <div class="Header__Auth-Container__User-Info">
-            <div class="Header__Auth-Container__User-Info__Ava"><img [src]="'/media/icons/profile.png'" alt="" /></div>
-            <div class="Header__Auth-Container__User-Info__Username">{{user?.username}}</div>
-        </div>
-        <div class="Header__Auth-Container__Submenu" *ngIf="submenuIsOpen">
-            <a routerLink="/profile" class="Header__Auth-Container__Submenu__Item LK">Личный кабинет</a>
-            <a routerLink="/logout" class="Header__Auth-Container__Submenu__Item LogOut">Выйти</a>
-        </div>
+    <div class="Header__Auth-Container__Submenu" *ngIf="submenuIsOpen">
+        <a routerLink="/profile" class="Header__Auth-Container__Submenu__Item LK">Личный кабинет</a>
+        <a routerLink="/logout" class="Header__Auth-Container__Submenu__Item LogOut">Выйти</a>
     </div>
 </div>

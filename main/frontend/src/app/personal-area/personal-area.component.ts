@@ -4,6 +4,7 @@ import { Store } from '@ngrx/store';
 import { AppState } from '../business';
 import { Profile, User } from '../models/user.model';
 import { AccountService } from '../services/account.service';
+import { UiService } from '../services/ui.service';
 
 @Component({
   selector: 'personal-area',
@@ -19,7 +20,8 @@ export class PersonalAreaComponent implements OnInit {
     private _router: Router,
     private _route: ActivatedRoute,
     private _store: Store<AppState>,
-    private _account: AccountService
+    private _account: AccountService,
+    private _ui: UiService
   ) { }
 
   ngOnInit(): void {
@@ -47,9 +49,9 @@ export class PersonalAreaComponent implements OnInit {
       let user = this.user.toJSON()
       this._account.editProfile(user).subscribe(data => {
         if (data.result) {
-          console.log(data.message)
+          this._ui.openWarning({message: data.message, class: "ok"})
         } else {
-          console.error(data.message)
+          this._ui.openWarning({message: data.message, class: "error"})
         }
       })
     } 
