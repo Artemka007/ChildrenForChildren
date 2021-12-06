@@ -3,10 +3,10 @@ __pycache__
 
 venv/
 .vscode
-.angular
 
 db.sqlite3
 .DS_Store
 
 main/frontend/node_modules/
+main/frontend/.angular
 ChildrenForChildren/secret.py
