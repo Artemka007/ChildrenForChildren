@@ -20,11 +20,23 @@ export function UIReducer(state: UIState = initialState, action: UIUnion) {
         }
 
         case UIActions.OpenWarning: {
-            let stateCopy = {...initialState}
+            let stateCopy = {...initialState},
+                messagesCopy = [...stateCopy.warningMessages]
             if (action.message){
                 let messageCopy = {...action.message}
                 messageCopy.id = stateCopy.warningMessages.length
-                stateCopy.warningMessages.push(messageCopy)
+                messagesCopy.push(messageCopy)
+                stateCopy.warningMessages = messagesCopy
+            }
+            return stateCopy
+        }
+
+        case UIActions.CloseWarning: {
+            let stateCopy = {...initialState},
+                messagesCopy = [...stateCopy.warningMessages]
+            if (action.message){
+                messagesCopy.splice(action.message.id || -1, 1)
+                stateCopy.warningMessages = messagesCopy
             }
             return stateCopy
         }

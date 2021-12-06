@@ -3,7 +3,8 @@ import { Warning } from "src/app/warning-window/warning-window.component";
 
 export enum UIActions {
     OpenDialog = "[UI Page] Open Dialog Window",
-    OpenWarning = "[UI Page] Open Warning Window"
+    OpenWarning = "[UI Page] Open Warning Window",
+    CloseWarning = "[UI Page] Close Warning Window"
 }
 
 export class OpenDialogWindow implements Action {
@@ -18,4 +19,10 @@ export class OpenWarningWindow implements Action {
     constructor(public message?: Warning) { }
 }
 
-export type UIUnion = OpenDialogWindow | OpenWarningWindow
+export class CloseWarningWindow implements Action {
+    readonly type = UIActions.CloseWarning
+
+    constructor(public message?: Warning) { }
+}
+
+export type UIUnion = OpenDialogWindow | OpenWarningWindow | CloseWarningWindow
