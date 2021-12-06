@@ -1,3 +1,4 @@
+from re import I
 from django.core.checks import messages
 from django.http.response import HttpResponse
 from django.shortcuts import render
@@ -16,6 +17,8 @@ def indexx(request):
 
 class OffersMainView(APIView):
     def get(self, request):
+        if not request.user.is_authenticated:
+            return Response({"result": False, "message": "Пользователь не авторизован.", "data": {}})
         id = request.GET.get("id")
         if id is None:
             all_offers = OffersMain.objects.all()
@@ -26,6 +29,8 @@ class OffersMainView(APIView):
         return Response({"result": True, "message": "Всё прошло успешно", "data":{"offer": serializer.data}})
 
     def post(self, request):    #create view
+        if not request.user.is_authenticated:
+            return Response({"result": False, "message": "Пользователь не авторизован.", "data": {}})
         serializer =  OfferMainSerializer(data=request.data)
         
         if serializer.is_valid():
@@ -35,12 +40,23 @@ class OffersMainView(APIView):
             pdb.set_trace()
             return Response({'result': False, 'message': 'smt went wrong', 'data': {}})
         
-    def update(self, request, pk): #Updata
+    def put(self, request, pk): #Updata
+        
+        if not request.user.is_authenticated:
+            return Response({"result": False, "message": "Пользователь не авторизован.", "data": {}})
         
         offer = OffersMain.objects.get(id=pk)
         serializer = OfferMainSerializer(instance=offer, data=request.data)
         
-        if serializer.is_valid():
-            serializer.save()   
-        return Response({'result': True, 'message': 'Вы обновили дату', 'data': {'offer': OfferMainSerializer(serializer.instance).data}}) 
+        get_id = request.GET.get(id)
+        if id:
+        
+            if serializer.is_valid():
+                serializer.save()   
+                return Response({'result': True, 'message': 'Вы обновили дату', 'data': {'offer': OfferMainSerializer(serializer.instance).data}})  
+            else:
+                return Response({'result': False, 'message': 'smt went wrong', 'data': {}})  
+        
+        else:
+            return Response({'result': False, 'message': 'Параметр id не передан', 'data': {}})  
 
