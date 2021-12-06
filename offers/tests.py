@@ -6,7 +6,7 @@ from django.contrib.auth import get_user_model
 from offers.serializers import OfferMainSerializer
 
 class OffersTest(TestCase):
-    
+
     def setUp(self):
         self.offer = {
             "define_type_of_request": "requsts",
@@ -17,7 +17,7 @@ class OffersTest(TestCase):
             "is_published": True,
             "views_amoun": 0
         }
-        
+
         self.client = APIClient()
         self.base_url = "/api/v1/offers/"
         user = get_user_model().objects.create_user(username="test", email="", password="123")

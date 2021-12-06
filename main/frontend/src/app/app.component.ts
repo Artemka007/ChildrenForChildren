@@ -9,6 +9,7 @@ import { Profile, User } from './models/user.model';
 import { AccountService } from './services/account.service';
 import { ChatService, WSMessage } from './services/chat.service';
 import { WebsocketService } from './services/websocket.service';
+import { Warning } from './warning-window/warning-window.component';
 
 @Component({
   selector: 'app-root',
@@ -19,6 +20,9 @@ export class AppComponent implements OnInit {
   title = 'frontend';
 
   user?: User
+
+  warnings: Warning[] = []
+  dialog?: HTMLDivElement
 
   constructor(
     private _router: Router,
@@ -36,6 +40,8 @@ export class AppComponent implements OnInit {
     })
     this._store.subscribe(data => {
       this.user = data.account.user
+      this.warnings = data.ui.warningMessages
+      this.dialog = data.ui.dialogContent
     })
   }
 

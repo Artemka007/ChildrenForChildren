@@ -10,13 +10,13 @@ export const initialState: AccountState = {
 }
  
 export function accountReducer(state: AccountState = initialState, action: AccountUnion): AccountState {
-    switch (action.type) {
-      case AccountActions.SetUser:
-        return {
-          user: action.user,
-        }
-      default:
-        return state
-    }
+  switch (action.type) {
+    case AccountActions.SetUser:
+      return {
+        user: action.user,
+      }
+    default:
+      return state
+  }
 }
   
