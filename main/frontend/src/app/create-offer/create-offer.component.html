@@ -1,0 +1,41 @@
+<form class="Form-Container Login-Form Dialog" #createOfferForm="ngForm">
+    <div class="Header">
+        <div class="Title">Создание предложения</div>
+        <button class="Close">&times;</button>
+    </div>
+    <div class="Form-Container__Warning" *ngIf="warning">{{warning}}</div>
+    <div class="Form-Container__Fields-Container">
+        <div class="Field">
+            <select [name]="'define_type_of_request'" required [(ngModel)]="offer.define_type_of_request" #define_type_of_request="ngModel">
+                <option value="offers">Предложение помощи</option>
+                <option value="requsts">Запрос помощи</option>
+                <option value="quastions">Вопрос насчет помощи</option>
+            </select>
+        </div>
+        <div class="Field">
+            <input [name]="'title'" required [placeholder]="'Ник'" [(ngModel)]="offer.title" #title="ngModel" />
+            <span *ngIf="title.invalid && title.touched">
+                Обязательное поле.
+            </span>
+        </div>
+        <div class="Field">
+            <textarea [name]="'about'" required [placeholder]="'О предложении'" [(ngModel)]="offer.about" #about="ngModel"></textarea>
+            <span *ngIf="about.invalid && about.touched">
+                Обязательное поле.
+            </span>
+        </div>
+        <div class="Field">
+            <input [name]="'back'" required [placeholder]="'Ник'" [(ngModel)]="offer.back" #back="ngModel" />
+            <span *ngIf="back.invalid && back.touched">
+                Обязательное поле.
+            </span>
+        </div>
+        <div class="Field">
+            <input [name]="'title'" required [placeholder]="'Ник'" [(ngModel)]="offer.title" #title="ngModel" />
+            <span *ngIf="title.invalid && title.touched">
+                Обязательное поле.
+            </span>
+        </div>
+    </div>
+    <button class="Form-Container__Button" [disabled]="createOfferForm.invalid">{{isLoading ? "Загрузка..." : "Создать"}}</button>
+</form>

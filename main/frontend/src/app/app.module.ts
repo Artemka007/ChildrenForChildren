@@ -27,8 +27,8 @@ import { SearchUsersComponent } from './search-users/search-users.component';
 import { HamburgerComponent } from './hamburger/hamburger.component';
 import { OffersComponent } from './offers/offers.component';
 import { OfferComponent } from './offer/offer.component';
-import { DialogWindowComponent } from './dialog-window/dialog-window.component';
 import { WarningWindowComponent } from './warning-window/warning-window.component';
+import { CreateOfferComponent } from './create-offer/create-offer.component';
 
 @NgModule({
   declarations: [
@@ -52,8 +52,8 @@ import { WarningWindowComponent } from './warning-window/warning-window.componen
     HamburgerComponent,
     OffersComponent,
     OfferComponent,
-    DialogWindowComponent,
-    WarningWindowComponent
+    WarningWindowComponent,
+    CreateOfferComponent
   ],
   imports: [
     BrowserModule,

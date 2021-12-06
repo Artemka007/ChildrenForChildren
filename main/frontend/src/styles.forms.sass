@@ -41,25 +41,6 @@
         border-color: var(--lite-blue)
         cursor: not-allowed
 
-=manage-button($w, $h, $fg: #000, $bg: transparent)
-    outline: none
-    border: none
-    background: $bg
-    color: $fg
-    border-radius: 5px
-    width: $w
-    height: $h
-    padding: 5px
-    transition: all .1s
-    font-size: 30px
-    &::before
-        font-size: 30px
-    &:hover
-        box-shadow: #00000070 0 1px 8px 0
-        cursor: pointer
-    &:focus
-        box-shadow: inset #00000050 0 1px 4px 0
-
 .Form-Container
     +flex-container()
     position: fixed
