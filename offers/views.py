@@ -47,11 +47,14 @@ class OffersMainView(APIView):
             return Response({'result': False, 'message': 'Параметр id не передан', 'data': {}})  
         if not request.user.is_authenticated:
             return Response({"result": False, "message": "Пользователь не авторизован.", "data": {}})
-        offer = OffersMain.objects.get(id=id)
-        serializer = OfferMainSerializer(instance=offer, data=request.data)
-        if serializer.is_valid():
-             serializer.save()   
-             return Response({'result': True, 'message': 'Вы обновили дату', 'data': {'offer': OfferMainSerializer(serializer.instance).data}})  
-        else:
-             return Response({'result': False, 'message': 'smt went wrong', 'data': {}})
+        offer = OffersMain.objects.get(pk=id)
+        if offer.user.id == request.user.id:
+            serializer = OfferMainSerializer(instance=offer, data=request.data)
+            if serializer.is_valid():
+                serializer.save()   
+                return Response({'result': True, 'message': 'Вы обновили дату', 'data': {'offer': OfferMainSerializer(serializer.instance).data}})  
+            else:
+                return Response({'result': False, 'message': 'smt went wrong', 'data': {}})
 
+        else:
+            return Response({'result': False, 'message': 'хватит пытаться взломать насБ ты не хакер.', 'data': {}})
