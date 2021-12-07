@@ -24,22 +24,21 @@ class OffersTest(TestCase):
         user = get_user_model().objects.create_user(username="test", email="", password="123")
 
     def test_get_all_offers(self):
+        # first authenticate user
+        self.client.login(username="test", password="123")
+        # and next send request to the server (when user is authenticated)
         serializer = OfferMainSerializer(data=self.offer)
         serializer.is_valid(raise_exception=True)
         serializer.save()
         response = self.client.get(self.base_url)
         data = response.data
-        self.assertTrue(data.get("data")is not None)
+        self.assertTrue(data.get("data") is not None)
         self.assertEquals(data.get("data").get("offers")[0].get("back"), self.offer.get("back"))
-        
-    
+
     def test_create(self):
-        
+        # first authenticate user
+        self.client.login(username="test", password="123")
+        # and next send request to the server (when user is authenticated)
         data = self.client.post(self.base_url, self.offer).data
-        self.client.login
         self.assertEquals(data.get('result'), True, data.get('message'))
         self.assertTrue(data.get('data').get('offer') is not None)
-        
-
-        
-        
