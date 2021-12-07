@@ -29,6 +29,7 @@ import { OffersComponent } from './offers/offers.component';
 import { OfferComponent } from './offer/offer.component';
 import { WarningWindowComponent } from './warning-window/warning-window.component';
 import { CreateOfferComponent } from './create-offer/create-offer.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -61,6 +62,7 @@ import { CreateOfferComponent } from './create-offer/create-offer.component';
     ReactiveFormsModule,
     AppRoutingModule,
     HttpClientModule,
+    BrowserAnimationsModule,
     StoreModule,
     StoreModule.forRoot(reducers)
   ],

@@ -22,7 +22,6 @@ export class AppComponent implements OnInit {
   user?: User
 
   warnings: Warning[] = []
-  dialog?: HTMLDivElement
 
   constructor(
     private _router: Router,
@@ -41,7 +40,6 @@ export class AppComponent implements OnInit {
     this._store.subscribe(data => {
       this.user = data.account.user
       this.warnings = data.ui.warningMessages
-      this.dialog = data.ui.dialogContent
     })
   }
 

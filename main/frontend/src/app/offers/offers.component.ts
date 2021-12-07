@@ -17,6 +17,7 @@ export class OffersComponent implements OnInit {
 
   offers: IOffer[] = []
 
+  createOfferIsOpen: boolean = false
   constructor(private _offers: OffersService, private _store: Store) { }
 
   ngOnInit(): void {
@@ -43,5 +44,9 @@ export class OffersComponent implements OnInit {
 
   search(q: string | object) {
 
+  }
+
+  createOfferClose() {
+    this.createOfferIsOpen = false
   }
 }
