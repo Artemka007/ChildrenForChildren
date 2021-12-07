@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { Store } from '@ngrx/store';
+import { interval } from 'rxjs';
 import { AppState } from '../business';
 import { IBaseOffer } from '../models/offers.model';
 import { OffersService } from '../services/offers.service';
@@ -11,9 +12,13 @@ import { UiService } from '../services/ui.service';
   styleUrls: ['./create-offer.component.sass']
 })
 export class CreateOfferComponent implements OnInit {
+  @Output()
+  onclose = new EventEmitter()
 
   warning?: string
   isLoading: boolean = false
+
+  windowClass: "Close" | "" = ""
 
   offer: IBaseOffer = {
     define_type_of_request: 'offers',
@@ -44,6 +49,11 @@ export class CreateOfferComponent implements OnInit {
       else this._ui.openWarning({message: "Что-то пошло не так. Проверте данные и повторите попытку.", class: "error"})
       this.isLoading = false
     })
+  }
+
+  close() {
+    this.windowClass = "Close"
+    interval(250).subscribe(() => {this.onclose.emit()})
   }
 
 }

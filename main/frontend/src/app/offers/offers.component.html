@@ -1,4 +1,4 @@
-<create-offer></create-offer>
+<create-offer *ngIf="createOfferIsOpen" (onclose)="createOfferClose()"></create-offer>
 <div class="Offers__Filter-Add-New-Offer">
     <form class="Search-Container Offers__Filter" #searchForm="ngForm">
         <i class="Search"></i>
@@ -16,9 +16,9 @@
             </div>
         </div>
     </form>
-    <div class="Add-New-Offer">
+    <button class="Add-New-Offer" (click)="createOfferIsOpen = !createOfferIsOpen">
         <i></i>
-    </div>
+    </button>
 </div>
 <div class="Offers">
     <div class="Item">

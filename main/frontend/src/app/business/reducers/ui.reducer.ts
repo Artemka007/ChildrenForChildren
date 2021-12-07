@@ -3,22 +3,14 @@ import { UIActions, UIUnion } from "../actions/ui.actions";
 
 export interface UIState {
     warningMessages: Warning[]
-    dialogContent?: HTMLDivElement
 }
 
 const initialState: UIState = {
-    warningMessages: [],
-    dialogContent: undefined
+    warningMessages: []
 }
 
 export function UIReducer(state: UIState = initialState, action: UIUnion) {
     switch (action.type) {
-        case UIActions.OpenDialog: {
-            let stateCopy = {...initialState}
-            stateCopy.dialogContent = action.content
-            return stateCopy
-        }
-
         case UIActions.OpenWarning: {
             let stateCopy = {...initialState},
                 messagesCopy = [...stateCopy.warningMessages]
