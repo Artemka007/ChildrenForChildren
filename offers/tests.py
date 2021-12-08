@@ -1,3 +1,4 @@
+from django.db.models.base import Model
 from django.db.models.query_utils import refs_expression
 from django.http import response
 from django.test import TestCase
@@ -44,5 +45,14 @@ class OffersTest(TestCase):
         self.client.login(username="test", password="123")
         # and next send request to the server (when user is authenticated)
         data = self.client.post(self.base_url, self.offer).data
+        self.assertEquals(data.get('result'), True, data.get('message'))
+        self.assertTrue(data.get('data').get('offer') is not None)
+
+    def test_offer_updata(self):
+        self.client.login(username="test", password="123")# log in
+        serializer = OfferMainSerializer(data=self.offer)# reate new Model
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+        data = self.client.put(self.base_url+'?id='+str(serializer.instance.id), self.offer)# put updata requst
         self.assertEquals(data.get('result'), True, data.get('message'))
         self.assertTrue(data.get('data').get('offer') is not None)
