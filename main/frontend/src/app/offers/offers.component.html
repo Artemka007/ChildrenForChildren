@@ -24,15 +24,15 @@
 </div>
 <div class="Offers">
     <div class="Item">
-        <div class="Title">Offers</div>
+        <div class="Title">Запросы</div>
         <offer *ngFor="let i of getAllOffers()" [offer]="i" (openDetail)="openDetail($event)"></offer>
     </div>
     <div class="Item">
-        <div class="Title">Requests</div>
+        <div class="Title">Предложения</div>
         <offer *ngFor="let i of getAllRequests()" [offer]="i" (openDetail)="openDetail($event)"></offer>
     </div>
     <div class="Item">
-        <div class="Title">Questions</div>
+        <div class="Title">Вопросы</div>
         <offer *ngFor="let i of getAllQuestions()" [offer]="i" (openDetail)="openDetail($event)"></offer>
     </div>
 </div>
