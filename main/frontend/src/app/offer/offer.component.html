@@ -1,8 +1,9 @@
-<div class="Offer__Title">
-    {{offer?.title}}</div>
-<div class="Offer__User">{{offer?.user}}</div>
-<div class="Offer__About">{{offer?.about}}</div>
-<div class="Offer__Back">{{offer?.back}}</div>
-<div class="Offer__Actions">
-    <div class="Item-1">Связаться</div>
-</div>
+<ng-container *ngIf="offer">
+    <div class="Offer__Title">{{offer.title}}</div>
+    <div class="Offer__User">{{offer.user}}</div>
+    <div class="Offer__About">{{splitText(offer.about)}}</div>
+    <div class="Offer__Back">{{splitText(offer.back)}}</div>
+    <div class="Offer__Actions">
+        <button class="Item-1" (click)="open()">Подробнее...</button>
+    </div>
+</ng-container>

@@ -61,6 +61,10 @@ html, body {
 }
 
 .Dialog .Header .Close {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   outline: none;
   border: none;
   background: transparent;

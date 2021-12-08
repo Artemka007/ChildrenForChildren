@@ -1,4 +1,6 @@
+<div class="Blackout-Container" *ngIf="createOfferIsOpen || detailOfferIsOpen"></div>
 <create-offer *ngIf="createOfferIsOpen" (onclose)="createOfferClose()"></create-offer>
+<offer-detail *ngIf="detailOfferIsOpen" [offer]="offer" (onclose)="detailOfferClose()"></offer-detail>
 <div class="Offers__Filter-Add-New-Offer">
     <form class="Search-Container Offers__Filter" #searchForm="ngForm">
         <i class="Search"></i>
@@ -23,14 +25,14 @@
 <div class="Offers">
     <div class="Item">
         <div class="Title">Offers</div>
-        <offer *ngFor="let i of getAllOffers()" [offer]="i"></offer>
+        <offer *ngFor="let i of getAllOffers()" [offer]="i" (openDetail)="openDetail($event)"></offer>
     </div>
     <div class="Item">
         <div class="Title">Requests</div>
-        <offer *ngFor="let i of getAllRequests()" [offer]="i"></offer>
+        <offer *ngFor="let i of getAllRequests()" [offer]="i" (openDetail)="openDetail($event)"></offer>
     </div>
     <div class="Item">
         <div class="Title">Questions</div>
-        <offer *ngFor="let i of getAllQuestions()" [offer]="i"></offer>
+        <offer *ngFor="let i of getAllQuestions()" [offer]="i" (openDetail)="openDetail($event)"></offer>
     </div>
 </div>

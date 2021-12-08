@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { IOffer } from '../models/offers.model';
+import { IBaseOffer, IOffer } from '../models/offers.model';
 import { OffersService } from '../services/offers.service';
 
 export type TQuery = string | {}
@@ -18,6 +18,10 @@ export class OffersComponent implements OnInit {
   offers: IOffer[] = []
 
   createOfferIsOpen: boolean = false
+  detailOfferIsOpen: boolean = false
+
+  offer?: IBaseOffer
+
   constructor(private _offers: OffersService, private _store: Store) { }
 
   ngOnInit(): void {
@@ -53,5 +57,15 @@ export class OffersComponent implements OnInit {
   createOfferClose() {
     this.createOfferIsOpen = false
     this.requestToGetAllOffers()
+  }
+
+  detailOfferClose() {
+    this.detailOfferIsOpen = false
+    this.offer = undefined
+  }
+
+  openDetail(offer: IBaseOffer) {
+    this.offer = offer
+    this.detailOfferIsOpen = true
   }
 }

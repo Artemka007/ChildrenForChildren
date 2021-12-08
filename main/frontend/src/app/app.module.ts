@@ -30,6 +30,7 @@ import { OfferComponent } from './offer/offer.component';
 import { WarningWindowComponent } from './warning-window/warning-window.component';
 import { CreateOfferComponent } from './create-offer/create-offer.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { OfferDetailComponent } from './offer-detail/offer-detail.component';
 
 @NgModule({
   declarations: [
@@ -54,7 +55,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     OffersComponent,
     OfferComponent,
     WarningWindowComponent,
-    CreateOfferComponent
+    CreateOfferComponent,
+    OfferDetailComponent
   ],
   imports: [
     BrowserModule,

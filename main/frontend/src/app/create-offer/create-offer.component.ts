@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { interval } from 'rxjs';
 import { AppState } from '../business';
@@ -19,7 +19,10 @@ export class CreateOfferComponent implements OnInit {
   isLoading: boolean = false
 
   windowClass: "Close" | "" = ""
+  @Input()
+  windowTitle: string = "Создать предложение"
 
+  @Input()
   offer: IBaseOffer = {
     define_type_of_request: 'offers',
     title: "",

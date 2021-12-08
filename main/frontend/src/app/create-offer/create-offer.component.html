@@ -1,7 +1,6 @@
-<div class="Blackout-Container"></div>
 <form class="Form-Container Login-Form Dialog" [class]="windowClass" #createOfferForm="ngForm" (ngSubmit)="createOffer()">
     <div class="Header">
-        <div class="Title">Создание предложения</div>
+        <div class="Title">{{windowTitle}}</div>
         <button class="Close" type="button" (click)="close()">&times;</button>
     </div>
     <div class="Form-Container__Warning" *ngIf="warning">{{warning}}</div>
