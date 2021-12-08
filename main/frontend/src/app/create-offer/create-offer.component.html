@@ -32,7 +32,7 @@
             </span>
         </div>
         <div class="Field">
-            <textarea [name]="'back'" required [placeholder]="'О предложении'" [(ngModel)]="offer.back" #back="ngModel" max_length="1024"></textarea>
+            <textarea [name]="'back'" required [placeholder]="'Что вы хотите взамен'" [(ngModel)]="offer.back" #back="ngModel" max_length="1024"></textarea>
             <span *ngIf="back.errors?.required && back.touched">
                 Обязательное поле.
             </span>

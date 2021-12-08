@@ -79,6 +79,8 @@ class RegisterView(APIView):
                 district,
                 password
             ] = self._get_user_data(request=request)
+            if get_user_model().objects.filter(username=username).exists():
+                return Response({"result": False, "message": "Пользователь с таким именем уже существует.", "data": {}})
             # create a user object
             user = get_user_model().objects.create_user(username, email, password)
             # set the user first and last name

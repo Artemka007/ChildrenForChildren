@@ -21,6 +21,10 @@ export class OffersComponent implements OnInit {
   constructor(private _offers: OffersService, private _store: Store) { }
 
   ngOnInit(): void {
+    this.requestToGetAllOffers()
+  }
+
+  requestToGetAllOffers() {
     this._offers.getAllOffers().subscribe(data => {
       if (data.result && data.data.offers) {
         this.offers = data.data.offers
@@ -48,5 +52,6 @@ export class OffersComponent implements OnInit {
 
   createOfferClose() {
     this.createOfferIsOpen = false
+    this.requestToGetAllOffers()
   }
 }

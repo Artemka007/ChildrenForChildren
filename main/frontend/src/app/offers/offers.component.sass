@@ -3,6 +3,7 @@
 
 .Offers__Filter-Add-New-Offer
     +flex-container(row, space-between)
+    padding-top: 15px
     .Offers__Filter
         +flex-container(row, center, center)
         padding: 10px
@@ -42,7 +43,9 @@
 .Offers
     +flex-container(row)
     width: 100%
-    height: calc(100% - 70px)
+    height: calc(100% - 85px)
+    max-height: calc(100% - 85px)
+    overflow: auto
     padding: 5px
     .Title
         font-size: 30px

@@ -17,6 +17,8 @@ class UserSerializer(ModelSerializer):
         fields = ["id", "username", "email", "first_name", "last_name", "profile"]  
 
     def update(self, instance, validated_data):
+        self.validate(validated_data)
+
         instance.username = validated_data['username']
         instance.email = validated_data['email']
         instance.first_name = validated_data['first_name']
@@ -26,6 +28,8 @@ class UserSerializer(ModelSerializer):
 
         profile = validated_data.pop("profile", None)
         if profile is not None:
+            self.profile.validate(profile)
+            
             instance.profile.age = profile['age']
             instance.profile.patronymic = profile['patronymic']
             instance.profile.phone = profile['phone']

@@ -39,10 +39,8 @@ export class WarningWindowComponent implements OnInit {
     this.state = "open"
     this._interval = interval(7000).subscribe(() => {
       this.state = "close"
-      interval(300).subscribe(() => {
-        this._ui.closeWarning(this.warning)
-        this._interval?.unsubscribe()
-      })
+      this._ui.closeWarning(this.warning)
+      this._interval?.unsubscribe()
     })
   }
 

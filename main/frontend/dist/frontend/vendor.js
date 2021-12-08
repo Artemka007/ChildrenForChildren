@@ -5806,7 +5806,7 @@ const ɵPRE_STYLE = '!';
 
 /***/ }),
 
-/***/ 120:
+/***/ 8120:
 /*!***************************************************************!*\
   !*** ./node_modules/@angular/animations/fesm2020/browser.mjs ***!
   \***************************************************************/
@@ -64498,7 +64498,7 @@ const VERSION = new _angular_core__WEBPACK_IMPORTED_MODULE_0__.Version('13.0.3')
 
 /***/ }),
 
-/***/ 650:
+/***/ 2650:
 /*!************************************************************************!*\
   !*** ./node_modules/@angular/platform-browser/fesm2020/animations.mjs ***!
   \************************************************************************/
@@ -64518,7 +64518,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ 4001);
 /* harmony import */ var _angular_platform_browser__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/platform-browser */ 6219);
 /* harmony import */ var _angular_animations__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/animations */ 6755);
-/* harmony import */ var _angular_animations_browser__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/animations/browser */ 120);
+/* harmony import */ var _angular_animations_browser__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/animations/browser */ 8120);
 /* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/common */ 8267);
 /**
  * @license Angular v13.0.3

@@ -45,7 +45,10 @@ export class CreateOfferComponent implements OnInit {
   createOffer() {
     this.isLoading = true
     this._offers.createOffer(this.offer).subscribe(data => {
-      if (data.result) this._ui.openWarning({message: "Предложение создано.", class: "ok"})
+      if (data.result) {
+        this._ui.openWarning({message: "Предложение создано.", class: "ok"})
+        this.close()
+      }
       else this._ui.openWarning({message: "Что-то пошло не так. Проверте данные и повторите попытку.", class: "error"})
       this.isLoading = false
     })
