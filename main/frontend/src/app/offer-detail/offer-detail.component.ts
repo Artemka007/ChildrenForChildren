@@ -38,16 +38,10 @@ export class OfferDetailComponent implements OnInit {
 
   getSameChat() {
     this._chat.getOrCreateChat([this.user?.id || -1, this.offer?.user || -1]).subscribe(data => {
-      if (data.result && data.data.chat) {
+      if (data.result && data.data.chat && data.data.chats) {
         let chat = data.data.chat
-        this._chat.getUserChats().subscribe(data => {
-          if (data.result && data.data.chats) {
-            this._store.dispatch(new SetUserChats(data.data.chats))
-            this._router.navigateByUrl(`/chats?id=${chat}`)
-          } else {
-            this._ui.openWarning({message: data.message, class: "error"})
-          }
-        })
+        this._store.dispatch(new SetUserChats(data.data.chats))
+        this._router.navigateByUrl(`/chats?id=${chat}`)
       } else {
         this._ui.openWarning({message: data.message, class: "error"})
       }

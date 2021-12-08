@@ -289,8 +289,9 @@ export class ChatsComponent implements OnInit {
     return window.innerWidth > 967
   }
 
-  checkUserNotIsBanned() {
-    if (this.chat && this.user) return this.chat?.banned_list.indexOf(this.user?.id) > -1
+  checkUserNotIsBanned(chat?: IChat) {
+    let c = chat || this.chat
+    if (c && this.user) return c.banned_list.indexOf(this.user?.id) === -1
     else return false
   }
 

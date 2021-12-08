@@ -4,7 +4,7 @@
         <div class="Avatar"><img src="/media/icons/profile.png" alt="" /> </div>
         <div class="Main-Info">
             <div class="Name">{{c.title || getOtherUserInChat(c.id)?.first_name + " " + getOtherUserInChat(c.id)?.last_name}}</div>
-            <div class="Status">{{c.messages[c.messages.length - 1].body}}</div>
+            <div class="Status">{{checkUserNotIsBanned(c) ? c.messages[c.messages.length - 1].body : "Вы забанены..."}}</div>
         </div>
     </a>
 </div>
@@ -22,12 +22,13 @@
             </div>
         </header>
         <main class="Chat__Body" #chatBody>
-            <ng-container *ngIf="!checkUserNotIsBanned()">
+            <ng-container *ngIf="checkUserNotIsBanned()">
                 <chat-message *ngFor="let m of chat.messages" [message]="m" [userId]="user?.id || -1" style="padding: 0 10px;" (openSlider)="openImageSlider($event)" #chatMessages></chat-message>
             </ng-container>
+            <div class="Banned" *ngIf="!checkUserNotIsBanned()">Вы забанены модератором чата.</div>
         </main>
         <form class="Chat__Form" #chatForm="ngForm" (ngSubmit)="sendMessage()">
-            <div class="Chat__Form__Fields-Container">
+            <div *ngIf="checkUserNotIsBanned()" class="Chat__Form__Fields-Container">
                 <input (ngModelChange)="writingMessage()" name="body" [(ngModel)]="message.body" placeholder="Введите сообщение" />
                 <ng-container>
                     <input type="file" #imageUpload accept="image/*" (change)="uploadFile($event, 'img')" style="display: none;" />

@@ -61,6 +61,11 @@ html, body {
 }
 
 .Dialog .Header .Close {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  display: inline-flex;
   outline: none;
   border: none;
   background: transparent;
@@ -70,7 +75,7 @@ html, body {
   height: 40px;
   padding: 5px;
   transition: all 0.1s;
-  font-size: 30px;
+  vertical-align: middle;
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -81,6 +86,9 @@ html, body {
 
 .Dialog .Header .Close::before {
   font-size: 30px;
+  width: 30px;
+  height: 30px;
+  flex: 0 0 30px;
 }
 
 .Dialog .Header .Close:hover {

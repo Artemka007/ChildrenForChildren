@@ -42,7 +42,6 @@ class OffersMainView(APIView):
     def put(self, request): #Updata
         
        # get id in query params
-
         id = request.GET.get("id")
         if not id:
             return Response({'result': False, 'message': 'Параметр id не передан', 'data': {}})  

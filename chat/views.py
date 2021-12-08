@@ -1,6 +1,7 @@
 from django.shortcuts import render
 
 from rest_framework.views import APIView, Response
+from django.db.models import Count
 
 from .models import *
 from .serializer import *
@@ -29,8 +30,16 @@ class ChatView(APIView):
         users = request.data.get("users")
         if not users:
             return Response({"result": False, "message": "Параметр users не передан.", "data": {}})
-        chat = Chat.objects.filter(users__in=users).get_or_create()
-        return Response({"result": True, "message": "Все прошло успешно.", "data": {"chat": ChatSerializer(chat).data}})
+        chats = Chat.objects.filter(users__in=users).annotate(users_count=Count('users')).filter(users_count=2)
+        if chats.exists():
+            chat = chats[0]
+        else:
+            chat = Chat.objects.create()
+            chat.users.add(get_user_model().objects.get(pk=users[0]))
+            chat.users.add(get_user_model().objects.get(pk=users[1]))
+        chats = Chat.objects.all()
+        serializer = ChatSerializer(chats, many=True)
+        return Response({"result": True, "message": "Все прошло успешно.", "data": {"chat": chat.id, "chats": serializer.data}})
     def put(self, request):
         if not request.user.is_authenticated:
             return Response({"result": False, "message": "Пользователь не авторизован.", "data": {}})

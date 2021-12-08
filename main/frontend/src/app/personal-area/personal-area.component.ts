@@ -2,8 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { AppState } from '../business';
+import { SetUserChats } from '../business/actions/chats.actions';
 import { Profile, User } from '../models/user.model';
 import { AccountService } from '../services/account.service';
+import { ChatService } from '../services/chat.service';
 import { UiService } from '../services/ui.service';
 
 @Component({
@@ -21,7 +23,8 @@ export class PersonalAreaComponent implements OnInit {
     private _route: ActivatedRoute,
     private _store: Store<AppState>,
     private _account: AccountService,
-    private _ui: UiService
+    private _ui: UiService,
+    private _chat: ChatService
   ) { }
 
   ngOnInit(): void {
@@ -75,6 +78,20 @@ export class PersonalAreaComponent implements OnInit {
     this._account.logout().subscribe(data => {
       if (data.result) this._router.navigateByUrl("/login")
     })
+  }
+
+  goToChat() {
+    if (!this.checkUser()) {
+      this._chat.getOrCreateChat([this.user?.id || -1, this.currentUser?.id || -1]).subscribe(data => {
+        if (data.result && data.data.chat && data.data.chats) {
+          let chat = data.data.chat
+          this._store.dispatch(new SetUserChats(data.data.chats))
+          this._router.navigateByUrl(`/chats?id=${chat}`)
+        } else {
+          this._ui.openWarning({message: data.message, class: "error"})
+        }}
+      )
+    }
   }
 
 }
