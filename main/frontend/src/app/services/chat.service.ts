@@ -44,7 +44,7 @@ export class ChatService {
     })
   }
 
-  getOrCreateChat(users: IUser[]) {
+  getOrCreateChat(users: number[]) {
     return this._http.post<APIResponse<{chat?: IChat}>>(`/api/v1/chats/`, {users}, {
       headers: {"X-CSRFToken": this._getCookie("csrftoken")}
     })

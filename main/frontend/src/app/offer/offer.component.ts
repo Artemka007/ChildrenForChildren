@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { IBaseOffer } from '../models/offers.model';
+import { IBaseOffer, IOffer } from '../models/offers.model';
 
 @Component({
   selector: 'offer',
@@ -8,10 +8,10 @@ import { IBaseOffer } from '../models/offers.model';
 })
 export class OfferComponent implements OnInit {
   @Input()
-  offer?: IBaseOffer
+  offer?: IOffer
 
   @Output()
-  openDetail = new EventEmitter<IBaseOffer>()
+  openDetail = new EventEmitter<IOffer>()
 
   constructor() { }
 
@@ -19,7 +19,7 @@ export class OfferComponent implements OnInit {
   }
 
   splitText(text: string) {
-    return text.length > 100 ? text.substr(0, 100) + "..." : text
+    return text.length > 100 ? text.substr(0, 40) + "..." : text
   }
 
   open() {

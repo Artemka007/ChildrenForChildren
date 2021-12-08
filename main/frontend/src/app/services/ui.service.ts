@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
+import { interval } from 'rxjs';
 import { AppState } from '../business';
 import { CloseWarningWindow, OpenWarningWindow } from '../business/actions/ui.actions';
 import { Warning } from '../warning-window/warning-window.component';
@@ -15,6 +16,7 @@ export class UiService {
 
   openWarning(warning: Warning) {
     this._store.dispatch(new OpenWarningWindow(warning))
+    interval(7000).subscribe(() => {this._store.dispatch(new CloseWarningWindow(warning))})
   }
 
   closeWarning(warning: Warning) {

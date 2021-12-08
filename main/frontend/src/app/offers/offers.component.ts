@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
+import { AppState } from '../business';
 import { IBaseOffer, IOffer } from '../models/offers.model';
+import { User } from '../models/user.model';
 import { OffersService } from '../services/offers.service';
 
 export type TQuery = string | {}
@@ -20,9 +22,15 @@ export class OffersComponent implements OnInit {
   createOfferIsOpen: boolean = false
   detailOfferIsOpen: boolean = false
 
-  offer?: IBaseOffer
+  offer?: IOffer
 
-  constructor(private _offers: OffersService, private _store: Store) { }
+  user?: User
+
+  constructor(private _offers: OffersService, private _store: Store<AppState>) {
+    _store.subscribe(data => {
+      this.user = data.account.user
+    })
+  }
 
   ngOnInit(): void {
     this.requestToGetAllOffers()
@@ -64,7 +72,7 @@ export class OffersComponent implements OnInit {
     this.offer = undefined
   }
 
-  openDetail(offer: IBaseOffer) {
+  openDetail(offer: IOffer) {
     this.offer = offer
     this.detailOfferIsOpen = true
   }

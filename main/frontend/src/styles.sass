@@ -2,7 +2,8 @@ html, body
     margin: 0
     padding: 0
 
-$nav_w:300px
+$nav_w: 300px
+$header_h: 70px
     
 =flex-container($dir: column, $jc: flex-start, $ai: flex-start)
     display: flex
@@ -11,7 +12,6 @@ $nav_w:300px
     align-items: $ai 
 
 =manage-button($w, $h, $fg: #000, $bg: transparent)
-    +flex-container(column, center, center)
     outline: none
     border: none
     background: $bg
@@ -61,6 +61,7 @@ $nav_w:300px
             width: 100%
         .Close
             +manage-button(40px, 40px)
+            +flex-container(row, center, center)
             font-size: 30px
             color: #fff
 

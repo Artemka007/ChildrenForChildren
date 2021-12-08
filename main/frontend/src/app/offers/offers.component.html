@@ -1,6 +1,6 @@
 <div class="Blackout-Container" *ngIf="createOfferIsOpen || detailOfferIsOpen"></div>
 <create-offer *ngIf="createOfferIsOpen" (onclose)="createOfferClose()"></create-offer>
-<offer-detail *ngIf="detailOfferIsOpen" [offer]="offer" (onclose)="detailOfferClose()"></offer-detail>
+<offer-detail *ngIf="detailOfferIsOpen" [offer]="offer" [user]="user?.toJSON()" (onclose)="detailOfferClose()"></offer-detail>
 <div class="Offers__Filter-Add-New-Offer">
     <form class="Search-Container Offers__Filter" #searchForm="ngForm">
         <i class="Search"></i>
