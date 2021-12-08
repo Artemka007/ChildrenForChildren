@@ -286,7 +286,12 @@ export class ChatsComponent implements OnInit {
   }
 
   chatIsOpen() {
-    return window.innerWidth > 767
+    return window.innerWidth > 967
+  }
+
+  checkUserNotIsBanned() {
+    if (this.chat && this.user) return this.chat?.banned_list.indexOf(this.user?.id) > -1
+    else return false
   }
 
   private _subscribeToWSMessages(data: any) {

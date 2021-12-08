@@ -22,7 +22,9 @@
             </div>
         </header>
         <main class="Chat__Body" #chatBody>
-            <chat-message *ngFor="let m of chat.messages" [message]="m" [userId]="user?.id || -1" style="padding: 0 10px;" (openSlider)="openImageSlider($event)" #chatMessages></chat-message>
+            <ng-container *ngIf="!checkUserNotIsBanned()">
+                <chat-message *ngFor="let m of chat.messages" [message]="m" [userId]="user?.id || -1" style="padding: 0 10px;" (openSlider)="openImageSlider($event)" #chatMessages></chat-message>
+            </ng-container>
         </main>
         <form class="Chat__Form" #chatForm="ngForm" (ngSubmit)="sendMessage()">
             <div class="Chat__Form__Fields-Container">

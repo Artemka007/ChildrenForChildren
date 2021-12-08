@@ -24,6 +24,12 @@ class Chat(models.Model):
     is_group = models.BooleanField(default=False)
     is_private = models.BooleanField(default=False)
 
+    # last message date
+    date = models.DateTimeField(auto_now=True)
+    
+    class Meta:
+        ordering = ("date",)
+
 class Message(models.Model):
     user = models.ForeignKey(get_user_model(), on_delete=models.CASCADE, related_name="messages")
     chat = models.ForeignKey(Chat, on_delete=models.CASCADE, related_name="messages")

@@ -17,6 +17,8 @@ export interface IChat {
 
     is_group: boolean
     is_private: boolean
+
+    date: string
 }
 
 export interface IMessage {
