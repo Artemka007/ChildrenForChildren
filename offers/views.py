@@ -60,7 +60,7 @@ class OffersMainView(APIView):
             return Response({'result': False, 'message': 'хватит пытаться взломать нас ты не хакер.', 'data': {}})
         
         
-    def delete(self, request, pk):
+    def delete(self, request):
         id = request.GET.get("id")
         if not id:
             return Response({'result': False, 'message': 'Параметр id не передан', 'data': {}})  
@@ -73,7 +73,7 @@ class OffersMainView(APIView):
         if offer.user.id == request.user.id:
             serializer = OfferMainSerializer(instance=offer, data=request.data)
             if serializer.is_valid():
-                serializer.delete()
+                offer.delete()
                 return Response({'result': True, 'message': 'Вы удалили пост', 'data': {}}) 
             else:
                 return Response({'result': False, 'message': 'smt went wrong', 'data': {}})

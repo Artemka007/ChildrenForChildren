@@ -56,3 +56,12 @@ class OffersTest(TestCase):
         data = self.request.put(self.base_url+'?id='+str(serializer.instance.id), self.offer).data# put updata requst
         self.assertEquals(data.get('result'), True, data.get('message'))
         self.assertTrue(data.get('data').get('offer') is not None)
+        
+    def test_offer_delete(self):
+        self.request.login(username="test", password="123")# log in
+        serializer = OfferMainSerializer(data=self.offer)# reate new Model
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+        data = self.request.delete(self.base_url+'?id='+str(serializer.instance.id), self.offer).data
+        self.assertEquals(data.get('result'), True, data.get('message'))
+        self.assertTrue(data.get('data').get('offer') is None)
