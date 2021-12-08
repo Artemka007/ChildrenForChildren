@@ -37,7 +37,9 @@ class ChatView(APIView):
             chat = Chat.objects.create()
             chat.users.add(get_user_model().objects.get(pk=users[0]))
             chat.users.add(get_user_model().objects.get(pk=users[1]))
-        return Response({"result": True, "message": "Все прошло успешно.", "data": {"chat": chat.id}})
+        chats = Chat.objects.all()
+        serializer = ChatSerializer(chats, many=True)
+        return Response({"result": True, "message": "Все прошло успешно.", "data": {"chat": chat.id, "chats": serializer.data}})
     def put(self, request):
         if not request.user.is_authenticated:
             return Response({"result": False, "message": "Пользователь не авторизован.", "data": {}})

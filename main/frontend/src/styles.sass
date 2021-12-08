@@ -12,6 +12,8 @@ $header_h: 70px
     align-items: $ai 
 
 =manage-button($w, $h, $fg: #000, $bg: transparent)
+    +flex-container(row, center, center)
+    display: inline-flex
     outline: none
     border: none
     background: $bg
@@ -21,9 +23,12 @@ $header_h: 70px
     height: $h
     padding: 5px
     transition: all .1s
-    font-size: 30px
+    vertical-align: middle
     &::before
         font-size: 30px
+        width: 30px
+        height: 30px
+        flex: 0 0 30px
     &:hover
         box-shadow: #00000070 0 1px 8px 0
         cursor: pointer

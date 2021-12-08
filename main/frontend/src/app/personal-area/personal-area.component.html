@@ -1,11 +1,14 @@
 <form class="Profile" *ngIf="user" #editProfileForm="ngForm" (ngSubmit)="endEdit(true)">
     <div class="Profile__Tools-Nav">
-        <span class="Item-1" *ngIf="checkUser()">
-                <button type="button" class="Edit-Btn" *ngIf="!isEditing" (click)="startEdit()"></button>
-                <button type="submit" class="Ok-Edit-Btn" *ngIf="isEditing"></button>
-                <button type="button" class="Not-Edit-Btn" *ngIf="isEditing" (click)="endEdit(false)"></button>
+        <span class="Item" *ngIf="checkUser()">
+            <button type="button" class="Edit-Btn" *ngIf="!isEditing" (click)="startEdit()"></button>
+            <button type="submit" class="Ok-Edit-Btn" *ngIf="isEditing"></button>
+            <button type="button" class="Not-Edit-Btn" *ngIf="isEditing" (click)="endEdit(false)"></button>
+            <button type="button" class="Sign-Out" (click)="logout()"></button>
         </span>
-        <span class="Item-2" *ngIf="checkUser()" type="button"><button (click)="logout()"></button></span>
+        <span class="Item" *ngIf="!checkUser()">
+            <button type="button" class="Chat" (click)="goToChat()"></button>
+        </span>
     </div>
     <main class="Profile__Content">
         <div class="Profile__Content__Status-User-Information">

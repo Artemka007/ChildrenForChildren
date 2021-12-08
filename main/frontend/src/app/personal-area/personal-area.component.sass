@@ -14,14 +14,13 @@
         +flex-container(row)
         width: auto
         padding: 15px 15px 0 0
-        .Item-1
-            border-right: var(--blue) solid 2px
         span
             padding-right: 7px
             margin-right: 7px
         button
             +manage-button(40px, 40px)
-        .Item-1
+            margin-right: 10px
+        .Item
             +flex-container(row)
             .Edit-Btn
                 &::before
@@ -33,8 +32,10 @@
             .Not-Edit-Btn
                 &::before
                     content: url("/media/icons/times-circle.svg")
-        .Item-2
-            button
+            .Chat
+                &::before
+                    content: url("/media/icons/message.svg")
+            .Sign-Out
                 &::before
                     content: url("/media/icons/sign-out-alt.svg")
             
