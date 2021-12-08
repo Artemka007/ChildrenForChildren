@@ -1,3 +1,4 @@
+from django.db.models.base import Model
 from django.db.models.query_utils import refs_expression
 from django.http import response
 from django.test import TestCase
@@ -20,29 +21,38 @@ class OffersTest(TestCase):
             "views_amoun": 0
         }
 
-        self.client = APIClient()
+        self.request= APIClient()
         self.base_url = "/api/v1/offers/"
         user = get_user_model().objects.create_user(username="test", email="", password="123")
         
 
     def test_get_all_offers(self):
 
-        self.client.login(username="test", password="123")
+        self.request.login(username="test", password="123")
 
         # first authenticate user
 
         serializer = OfferMainSerializer(data=self.offer)
         serializer.is_valid(raise_exception=True)
         serializer.save()
-        response = self.client.get(self.base_url)
+        response = self.request.get(self.base_url)
         data = response.data
         self.assertTrue(data.get("data") is not None)
         self.assertEquals(data.get("data").get("offers")[0].get("back"), self.offer.get("back"))
         
     def test_create(self):
         # first authenticate user
-        self.client.login(username="test", password="123")
+        self.request.login(username="test", password="123")
         # and next send request to the server (when user is authenticated)
-        data = self.client.post(self.base_url, self.offer).data
+        data = self.request.post(self.base_url, self.offer).data
+        self.assertEquals(data.get('result'), True, data.get('message'))
+        self.assertTrue(data.get('data').get('offer') is not None)
+
+    def test_offer_updata(self):
+        self.request.login(username="test", password="123")# log in
+        serializer = OfferMainSerializer(data=self.offer)# reate new Model
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+        data = self.request.put(self.base_url+'?id='+str(serializer.instance.id), self.offer).data# put updata requst
         self.assertEquals(data.get('result'), True, data.get('message'))
         self.assertTrue(data.get('data').get('offer') is not None)
