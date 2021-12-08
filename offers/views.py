@@ -37,11 +37,11 @@ class OffersMainView(APIView):
             serializer.save()
             return Response({"result": True, "message": "Всё прошло успешно", "data":{'offer': OfferMainSerializer(serializer.instance).data}})
         else:
-            pdb.set_trace()
             return Response({'result': False, 'message': 'smt went wrong', 'data': {}})
         
     def put(self, request): #Updata
        # get id in query params
+        pdb.set_trace()
         id = request.GET.get("id")
         if not id:
             return Response({'result': False, 'message': 'Параметр id не передан', 'data': {}})  

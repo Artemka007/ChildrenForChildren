@@ -29,7 +29,7 @@ class ChatView(APIView):
         users = request.data.get("users")
         if not users:
             return Response({"result": False, "message": "Параметр users не передан.", "data": {}})
-        chat = Chat.objects.get_or_create(users__pk=[users])
+        chat = Chat.objects.filter(users__in=users).get_or_create()
         return Response({"result": True, "message": "Все прошло успешно.", "data": {"chat": ChatSerializer(chat).data}})
     def put(self, request):
         if not request.user.is_authenticated:
