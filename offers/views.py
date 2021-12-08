@@ -42,7 +42,7 @@ class OffersMainView(APIView):
     def put(self, request): #Updata
         
        # get id in query params
-        pdb.set_trace()
+
         id = request.GET.get("id")
         if not id:
             return Response({'result': False, 'message': 'Параметр id не передан', 'data': {}})  
@@ -58,4 +58,31 @@ class OffersMainView(APIView):
                 return Response({'result': False, 'message': 'smt went wrong', 'data': {}})
 
         else:
-            return Response({'result': False, 'message': 'хватит пытаться взломать насБ ты не хакер.', 'data': {}})
+            return Response({'result': False, 'message': 'хватит пытаться взломать нас ты не хакер.', 'data': {}})
+        
+        
+    def delete(self, request, pk):
+        id = request.GET.get("id")
+        if not id:
+            return Response({'result': False, 'message': 'Параметр id не передан', 'data': {}})  
+        
+        if not request.user.is_authenticated:
+            return Response({"result": False, "message": "Пользователь не авторизован.", "data": {}})
+        
+        
+        offer = OffersMain.objects.get(pk=int(id))
+        if offer.user.id == request.user.id:
+            serializer = OfferMainSerializer(instance=offer, data=request.data)
+            if serializer.is_valid():
+                serializer.delete()
+                return Response({'result': True, 'message': 'Вы удалили пост', 'data': {}}) 
+            else:
+                return Response({'result': False, 'message': 'smt went wrong', 'data': {}})
+
+        else:
+            return Response({'result': False, 'message': 'хватит пытаться взломать нас ты не хакер.', 'data': {}})
+        
+        
+        
+        
+        
