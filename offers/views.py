@@ -7,8 +7,12 @@ from rest_framework.views import APIView, Response
 from .serializers import OfferMainSerializer
 from .models import OffersMain
 import pdb 
+from rest_framework.filters import DjangoFilterBackend
 
-
+from rest_framework.filters import SearchFilter, OrderingFilter
+from rest_framework.viewsets import ModelViewSet
+from .models import Introduction
+from .serializers import IntroductionSerializer
 
 def indexx(request):
     AllOfers = OffersMain.objects.all()
@@ -82,6 +86,14 @@ class OffersMainView(APIView):
             return Response({'result': False, 'message': 'хватит пытаться взломать нас ты не хакер.', 'data': {}})
         
         
-        
-        
-        
+
+
+# filter class
+class OfferFilters(ModelViewSet):
+    queryset = OffersMain.objects.all()#get offer from DB
+    serializer_class = OfferMainSerializer# serializer_class
+    filter_backends = [DjangoFilterBackend, SearchFilter, OrderingFilter]#filters
+    filterset_fields = ['id', 'title']#filters
+    search_fields = ['=title', 'about']#filters
+    ordering_fields = ['title', 'id']#filters
+    ordering = ['id']#filters
