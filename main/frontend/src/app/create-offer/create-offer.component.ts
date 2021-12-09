@@ -2,7 +2,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { interval } from 'rxjs';
 import { AppState } from '../business';
-import { IBaseOffer } from '../models/offers.model';
+import { IBaseOffer, IOffer } from '../models/offers.model';
 import { OffersService } from '../services/offers.service';
 import { UiService } from '../services/ui.service';
 
@@ -12,6 +12,9 @@ import { UiService } from '../services/ui.service';
   styleUrls: ['./create-offer.component.sass']
 })
 export class CreateOfferComponent implements OnInit {
+  @Input()
+  action: "create" | "edit" = "create"
+
   @Output()
   onclose = new EventEmitter()
 
@@ -20,16 +23,17 @@ export class CreateOfferComponent implements OnInit {
 
   windowClass: "Close" | "" = ""
   @Input()
-  windowTitle: string = "Создать предложение"
+  windowTitle: string = ""
 
   @Input()
-  offer: IBaseOffer = {
+  offer: IOffer = {
     define_type_of_request: 'offers',
     title: "",
     about: "",
     back: "",
     user: -1,
-    is_published: true
+    is_published: true,
+    views_amoun: 0
   }
 
   constructor(
@@ -38,7 +42,7 @@ export class CreateOfferComponent implements OnInit {
     private _ui: UiService
   ) {
     _store.subscribe(data => {
-      this.offer.user = data.account.user?.id || -1
+      if(this.offer)this.offer.user = data.account.user?.id || -1
     })
   }
 
@@ -47,7 +51,19 @@ export class CreateOfferComponent implements OnInit {
 
   createOffer() {
     this.isLoading = true
-    this._offers.createOffer(this.offer).subscribe(data => {
+    this.offer && this._offers.createOffer(this.offer).subscribe(data => {
+      if (data.result) {
+        this._ui.openWarning({message: "Предложение создано.", class: "ok"})
+        this.close()
+      }
+      else this._ui.openWarning({message: "Что-то пошло не так. Проверте данные и повторите попытку.", class: "error"})
+      this.isLoading = false
+    })
+  }
+
+  updateOffer() {
+    this.isLoading = true
+    this.offer && this._offers.editOffer(this.offer.id || -1, this.offer).subscribe(data => {
       if (data.result) {
         this._ui.openWarning({message: "Предложение создано.", class: "ok"})
         this.close()

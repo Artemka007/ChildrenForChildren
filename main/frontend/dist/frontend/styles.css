@@ -76,6 +76,8 @@ html, body {
   padding: 5px;
   transition: all 0.1s;
   vertical-align: middle;
+  font-size: 30px;
+  flex: 0 0 40px;
   display: flex;
   flex-direction: row;
   justify-content: center;

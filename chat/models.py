@@ -25,7 +25,7 @@ class Chat(models.Model):
     is_private = models.BooleanField(default=False)
 
     # last message date
-    date = models.DateTimeField(auto_now=True)
+    date = models.DateTimeField(auto_now_add=True)
     
     class Meta:
         ordering = ("date",)

@@ -1,9 +1,9 @@
 from django.contrib.auth import authenticate, login, get_user_model, logout
 from django.db.models import Value as V
 from django.db.models.functions import Concat
-from django.db.models.query import QuerySet, Q
+from django.db.models.query import  Q
 from django.http.request import QueryDict
-from rest_auth.app_settings import PasswordResetConfirmSerializer
+from rest_auth.serializers import PasswordResetConfirmSerializer
 from rest_framework.generics import GenericAPIView
 from rest_framework.permissions import AllowAny
 from rest_framework.views import APIView, Response

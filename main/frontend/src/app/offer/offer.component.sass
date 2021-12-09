@@ -35,7 +35,7 @@
     .Offer__Actions
         +flex-container(row)
         font-size: 20px
-        .Item-1
+        .Item
             cursor: pointer
             color: var(--lite-blue)
             text-decoration: none
@@ -43,5 +43,8 @@
             outline: none
             border: none
             font-size: 20px
+            padding: 3px 10px
+            &:not(:last-child)
+                border-right: var(--blue) solid 1px
             &:hover
                 text-decoration: underline

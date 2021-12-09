@@ -1,4 +1,4 @@
-<form class="Form-Container Login-Form Dialog" [class]="windowClass" #createOfferForm="ngForm" (ngSubmit)="createOffer()">
+<form *ngIf="offer" class="Form-Container Login-Form Dialog" [class]="windowClass" #createOfferForm="ngForm" (ngSubmit)="action === 'edit' ? updateOffer() : createOffer()">
     <div class="Header">
         <div class="Title">{{windowTitle}}</div>
         <button class="Close" type="button" (click)="close()">&times;</button>
@@ -40,9 +40,9 @@
             </span>
         </div>
         <div class="Field Checkbox">
-            <input id="back" type="checkbox" [name]="'back'" [(ngModel)]="offer.is_published" #back="ngModel" max_length="1024" />
-            <label for="back">Публичный или нет?</label>
+            <input id="is_published" type="checkbox" [name]="'is_published'" [(ngModel)]="offer.is_published" #is_published="ngModel" max_length="1024" />
+            <label for="is_published">Публичный или нет?</label>
         </div>
     </div>
-    <button class="Form-Container__Button" [disabled]="createOfferForm.invalid">{{isLoading ? "Загрузка..." : "Создать"}}</button>
+    <button class="Form-Container__Button" [disabled]="createOfferForm.invalid">{{isLoading ? "Загрузка..." : action === "edit" ? "Изменить" : "Создать"}}</button>
 </form>

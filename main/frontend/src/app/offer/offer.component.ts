@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { IBaseOffer, IOffer } from '../models/offers.model';
+import { IOffer } from '../models/offers.model';
+import { User } from '../models/user.model';
 
 @Component({
   selector: 'offer',
@@ -10,8 +11,14 @@ export class OfferComponent implements OnInit {
   @Input()
   offer?: IOffer
 
+  @Input()
+  user?: User
+
   @Output()
   openDetail = new EventEmitter<IOffer>()
+
+  @Output()
+  openEdit = new EventEmitter<IOffer>()
 
   constructor() { }
 
@@ -24,5 +31,13 @@ export class OfferComponent implements OnInit {
 
   open() {
     this.openDetail.emit(this.offer)
+  }
+
+  edit() {
+    this.offer && this.openEdit.emit({...this.offer})
+  }
+
+  userIsEqualAuthor() {
+    return this.offer?.user === this.user?.id
   }
 }

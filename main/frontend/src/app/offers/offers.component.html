@@ -1,5 +1,6 @@
 <div class="Blackout-Container" *ngIf="createOfferIsOpen || detailOfferIsOpen"></div>
-<create-offer *ngIf="createOfferIsOpen" (onclose)="createOfferClose()"></create-offer>
+<create-offer *ngIf="createOfferIsOpen && offer" (onclose)="createOfferClose()" [offer]="offer" [action]="action" [windowTitle]="'Редактировать предложение'"></create-offer>
+<create-offer *ngIf="createOfferIsOpen && !offer" (onclose)="createOfferClose()" [action]="action" [windowTitle]="'Создать предложение'"></create-offer>
 <offer-detail *ngIf="detailOfferIsOpen" [offer]="offer" [user]="user?.toJSON()" (onclose)="detailOfferClose()"></offer-detail>
 <div class="Offers__Filter-Add-New-Offer">
     <form class="Search-Container Offers__Filter" #searchForm="ngForm">
@@ -18,21 +19,21 @@
             </div>
         </div>
     </form>
-    <button class="Add-New-Offer" (click)="createOfferIsOpen = !createOfferIsOpen">
+    <button class="Add-New-Offer" (click)="createOfferOpen('create')">
         <i></i>
     </button>
 </div>
 <div class="Offers">
     <div class="Item">
         <div class="Title">Запросы</div>
-        <offer *ngFor="let i of getAllOffers()" [offer]="i" (openDetail)="openDetail($event)"></offer>
+        <offer *ngFor="let i of getAllOffers()" [offer]="i" [user]="user" (openDetail)="openDetail($event)" (openEdit)="createOfferOpen('edit', $event)"></offer>
     </div>
     <div class="Item">
         <div class="Title">Предложения</div>
-        <offer *ngFor="let i of getAllRequests()" [offer]="i" (openDetail)="openDetail($event)"></offer>
+        <offer *ngFor="let i of getAllRequests()" [offer]="i" [user]="user" (openDetail)="openDetail($event)" (openEdit)="createOfferOpen('edit', $event)"></offer>
     </div>
     <div class="Item">
         <div class="Title">Вопросы</div>
-        <offer *ngFor="let i of getAllQuestions()" [offer]="i" (openDetail)="openDetail($event)"></offer>
+        <offer *ngFor="let i of getAllQuestions()" [offer]="i" [user]="user" (openDetail)="openDetail($event)" (openEdit)="createOfferOpen('edit', $event)"></offer>
     </div>
 </div>
