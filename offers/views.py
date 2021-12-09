@@ -98,11 +98,14 @@ class OfferFilters(ModelViewSet):
 
 class FilterOffers(APIView):
     def post(self, request):
-        '''
-        Метод принимает q в теле запроса
-        и если это строка, то делает поиск
-        предложений по ней, а иначе берет 
-        данные из объекта и делает поиск по
-        этим данным.
-        '''
-        pass
+        q = request.data.get('q')
+        
+    def search(self, q):
+        if q is None:
+            return None
+        
+        if isinstance(q, str):
+            offer = OffersMain.objects.all()
+            
+
+
