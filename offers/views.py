@@ -9,7 +9,7 @@ from .models import OffersMain
 import pdb 
 from rest_framework.filters import DjangoFilterBackend
 
-from rest_framework.filters import SearchFilter, OrderingFilter
+from rest_framework.filters import SearchFilter, OrderingFdjango-filter ilter
 from rest_framework.viewsets import ModelViewSet
 from .models import Introduction
 from .serializers import IntroductionSerializer
