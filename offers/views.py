@@ -7,12 +7,6 @@ from rest_framework.views import APIView, Response
 from .serializers import OfferMainSerializer
 from .models import OffersMain
 import pdb 
-from rest_framework.filters import DjangoFilterBackend
-
-from rest_framework.filters import SearchFilter, OrderingFdjango-filter ilter
-from rest_framework.viewsets import ModelViewSet
-from .models import Introduction
-from .serializers import IntroductionSerializer
 
 def indexx(request):
     AllOfers = OffersMain.objects.all()
@@ -75,25 +69,12 @@ class OffersMainView(APIView):
         
         offer = OffersMain.objects.get(pk=int(id))
         if offer.user.id == request.user.id:
-            serializer = OfferMainSerializer(instance=offer, data=request.data)
-            if serializer.is_valid():
-                offer.delete()
-                return Response({'result': True, 'message': 'Вы удалили пост', 'data': {}}) 
-            else:
-                return Response({'result': False, 'message': 'smt went wrong', 'data': {}})
+            offer.delete
+            return Response({'result': True, 'message': 'Вы удалили пост', 'data': {}}) 
+
 
         else:
             return Response({'result': False, 'message': 'хватит пытаться взломать нас ты не хакер.', 'data': {}})
         
         
 
-
-# filter class
-class OfferFilters(ModelViewSet):
-    queryset = OffersMain.objects.all()#get offer from DB
-    serializer_class = OfferMainSerializer# serializer_class
-    filter_backends = [DjangoFilterBackend, SearchFilter, OrderingFilter]#filters
-    filterset_fields = ['id', 'title']#filters
-    search_fields = ['=title', 'about']#filters
-    ordering_fields = ['title', 'id']#filters
-    ordering = ['id']#filters

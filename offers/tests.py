@@ -39,7 +39,7 @@ class OffersTest(TestCase):
         data = response.data
         self.assertTrue(data.get("data") is not None)
         self.assertEquals(data.get("data").get("offers")[0].get("back"), self.offer.get("back"))
-        
+        ][\
     def test_create(self):
         # first authenticate user
         self.request.login(username="test", password="123")
@@ -64,4 +64,4 @@ class OffersTest(TestCase):
         serializer.save()
         data = self.request.delete(self.base_url+'?id='+str(serializer.instance.id), self.offer).data
         self.assertEquals(data.get('result'), True, data.get('message'))
-        self.assertTrue(data.get('data').get('offer') is None)
+        
