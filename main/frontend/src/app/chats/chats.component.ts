@@ -6,7 +6,7 @@ import { Store } from '@ngrx/store';
 import { AppState } from '../business';
 import { IUser, User } from '../models/user.model';
 import { SetUserChats } from '../business/actions/chats.actions';
-import { ChatMessageComponent } from '../chat-message/chat-message.component';
+import { ChatMessageComponent } from './chat-message/chat-message.component';
 import { HttpEventType } from '@angular/common/http';
 import { Subscription } from 'rxjs';
 
@@ -273,20 +273,20 @@ export class ChatsComponent implements OnInit {
 
   setChatNavIsOpen() {
     this.chatNavIsOpen = !this.chatNavIsOpen
-    if (this.chatNavIsOpen && window.innerWidth < 1043) {
+    if (this.chatNavIsOpen && window.innerWidth < 1183) {
       this.chatInfoIsOpen = false
     }
   }
 
   setChatInfoIsOpen() {
     this.chatInfoIsOpen = !this.chatInfoIsOpen
-    if (this.chatInfoIsOpen && window.innerWidth < 1043) {
+    if (this.chatInfoIsOpen && window.innerWidth < 1183) {
       this.chatNavIsOpen = false
     }
   }
 
   chatIsOpen() {
-    return window.innerWidth > 1183
+    return window.innerWidth > 1083
   }
 
   checkUserNotIsBanned(chat?: IChat) {

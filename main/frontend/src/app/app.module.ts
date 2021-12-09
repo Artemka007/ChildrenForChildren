@@ -6,31 +6,30 @@ import { StoreModule } from '@ngrx/store';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
-import { NavbarComponent } from './navbar/navbar.component';
-import { HeadComponent } from './head/head.component';
+import { NavbarComponent } from './ui/navbar/navbar.component';
+import { HeadComponent } from './ui/head/head.component';
 import { reducers } from './business';
-import { LoginComponent } from './login/login.component';
-import { LogoutComponent } from './logout/logout.component';
-import { RegisterComponent } from './register/register.component';
+import { LoginComponent } from './auth/login/login.component';
+import { LogoutComponent } from './auth/logout/logout.component';
+import { RegisterComponent } from './auth/register/register.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { ResetPasswordComponent } from './reset-password/reset-password.component';
-import { ResetPasswordConfirmComponent } from './reset-password-confirm/reset-password-confirm.component';
-import { AccountNavComponent } from './account-nav/account-nav.component';
-import { PersonalAreaComponent } from './personal-area/personal-area.component';
-import { FormSwitcherComponent } from './form-switcher/form-switcher.component';
+import { ResetPasswordComponent } from './auth/reset-password/reset-password.component';
+import { ResetPasswordConfirmComponent } from './auth/reset-password-confirm/reset-password-confirm.component';
+import { AccountNavComponent } from './auth/account-nav/account-nav.component';
+import { PersonalAreaComponent } from './auth/personal-area/personal-area.component';
 import { ChatsComponent } from './chats/chats.component';
 import { Subject } from 'rxjs';
-import { ChatMessageComponent } from './chat-message/chat-message.component';
-import { ProgressBarComponent } from './progress-bar/progress-bar.component';
-import { ImageSliderComponent } from './image-slider/image-slider.component';
+import { ChatMessageComponent } from './chats/chat-message/chat-message.component';
+import { ProgressBarComponent } from './ui/progress-bar/progress-bar.component';
+import { ImageSliderComponent } from './ui/image-slider/image-slider.component';
 import { SearchUsersComponent } from './search-users/search-users.component';
-import { HamburgerComponent } from './hamburger/hamburger.component';
+import { HamburgerComponent } from './ui/hamburger/hamburger.component';
 import { OffersComponent } from './offers/offers.component';
-import { OfferComponent } from './offer/offer.component';
-import { WarningWindowComponent } from './warning-window/warning-window.component';
-import { CreateOfferComponent } from './create-offer/create-offer.component';
+import { OfferComponent } from './offers/offer/offer.component';
+import { WarningWindowComponent } from './ui/warning-window/warning-window.component';
+import { OfferActionComponent } from './offers/offer-action/offer-action.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { OfferDetailComponent } from './offer-detail/offer-detail.component';
+import { OfferDetailComponent } from './offers/offer-detail/offer-detail.component';
 
 @NgModule({
   declarations: [
@@ -45,7 +44,6 @@ import { OfferDetailComponent } from './offer-detail/offer-detail.component';
     ResetPasswordConfirmComponent,
     AccountNavComponent,
     PersonalAreaComponent,
-    FormSwitcherComponent,
     ChatsComponent,
     ChatMessageComponent,
     ProgressBarComponent,
@@ -55,7 +53,7 @@ import { OfferDetailComponent } from './offer-detail/offer-detail.component';
     OffersComponent,
     OfferComponent,
     WarningWindowComponent,
-    CreateOfferComponent,
+    OfferActionComponent,
     OfferDetailComponent
   ],
   imports: [

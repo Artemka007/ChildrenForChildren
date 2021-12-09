@@ -1,0 +1,88 @@
+@import "src/styles.sass"
+
+=ava-logo($s)
+    +flex-container(row, center, center)
+    width: $s
+    height: $s
+    border-radius: 100%
+    margin-right: 10px
+    img
+        width: $s
+        height: $s
+
+=i($url)
+    height: 24px
+    width: 24px
+    font-size: 24px
+    margin-right: 5px
+    content: url($url)
+
+:host
+    +flex-container(row, space-between, center)
+    width: 100%
+    background: #fff
+    height: $header_h
+    @media screen and ( max-width: 1470px )
+        justify-content: flex-end
+    .Header__Title
+        +flex-container(row, flex-start, center)
+        @media screen and ( max-width: 1470px )
+            display: none
+        span
+            width: 1px
+            height: 50px
+            background: var(--blue)
+            margin: 0 10px
+        .Header__Title__Text
+            color: var(--blue)
+            font-size: 30px
+            font-family: 'Roboto',Arial,sans-serif
+            line-height: 1.55
+            font-weight: 700
+            background-position: center center
+            border-color: transparent
+            border-style: solid
+    .Header__Auth-Container
+        +flex-container(row, flex-start, center)
+        margin-right: 10px
+        height: 100%
+        .Header__Auth-Container__User-Info
+            +flex-container(row, flex-start, center)
+            color: #000
+            &:hover
+                cursor: pointer
+                .Header__Auth-Container__User-Info__Username
+                    color: #6765FF
+            .Header__Auth-Container__User-Info__Ava
+                +ava-logo(40px)
+            .Header__Auth-Container__User-Info__Username
+                font-size: 18px
+                color: #000000
+        .Header__Auth-Container__Submenu
+            +flex-container(column, center, center)
+            position: absolute
+            top: 65px
+            right: 0
+            background: #fff
+            box-shadow: #00000025 0 2px 4px 0
+            border-radius: 10px
+            padding: 10px 0
+            width: 200px
+            color: #000
+            .Header__Auth-Container__Submenu__Item
+                +flex-container(row, center, center)
+                padding: 10px 0
+                border-bottom: #000 solid 1px
+                width: 100%
+                cursor: pointer
+                font-size: 16px
+                &.LK
+                    color: #000
+                    &::before
+                        +i("/media/icons/user-circle.svg")
+                &.LogOut
+                    color: #000
+                    &::before
+                        +i("/media/icons/sign-out-alt.svg")
+                &:hover
+                    color: var(--blue)

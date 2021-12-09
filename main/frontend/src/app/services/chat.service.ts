@@ -4,7 +4,13 @@ import { Subject } from 'rxjs';
 import { IChat, ICreateMessage, IEditChat } from '../models/chat.model';
 import { WebsocketService } from './websocket.service';
 import { APIResponse } from '../models/api.model';
-import { IUser } from '../models/user.model';
+import { IUser, User } from '../models/user.model';
+import { IOffer } from '../models/offers.model';
+import { Store } from '@ngrx/store';
+import { AppState } from '../business';
+import { SetUserChats } from '../business/actions/chats.actions';
+import { Router } from '@angular/router';
+import { UiService } from './ui.service';
 
 export type WSMessage = {
   readonly action: "send_message"
@@ -25,7 +31,10 @@ export class ChatService {
   constructor(
     private _messages: Subject<WSMessage>,
     private _http: HttpClient, 
-    private _ws: WebsocketService
+    private _ws: WebsocketService,
+    private _store: Store<AppState>,
+    private _router: Router,
+    private _ui: UiService
   ) { }
 
   connectToMessages(id: number) {
@@ -51,19 +60,19 @@ export class ChatService {
   }
 
   editChat(chat: IEditChat, chatId: number, action?: "remove_user") {
-    return this._http.put<APIResponse<{chat?: IChat}>>(`/api/v1/chats/?id=${chatId}&action=${action}`, {csrfmiddlewaretoken: this._getCookie("csrftoken"), ...chat}, {
+    return this._http.put<APIResponse<{chat?: IChat}>>(`/api/v1/chats/?id=${chatId}&action=${action}`, {...chat}, {
       headers: {"X-CSRFToken": this._getCookie("csrftoken")}
     })
   }
 
   signout(id: number) {
-    return this._http.put<APIResponse<{chat?: IChat}>>(`/api/v1/chats/?id=${id}&action=remove_user`, {csrfmiddlewaretoken: this._getCookie("csrftoken"), id}, {
+    return this._http.put<APIResponse<{chat?: IChat}>>(`/api/v1/chats/?id=${id}&action=remove_user`, {id}, {
       headers: {"X-CSRFToken": this._getCookie("csrftoken")}
     })
   }
 
   ban(id: number, userId: number) {
-    return this._http.put<APIResponse<{chat?: IChat}>>(`/api/v1/chats/?id=${id}&userId=${userId}&action=ban_user`, {csrfmiddlewaretoken: this._getCookie("csrftoken"), id}, {
+    return this._http.put<APIResponse<{chat?: IChat}>>(`/api/v1/chats/?id=${id}&userId=${userId}&action=ban_user`, {id}, {
       headers: {"X-CSRFToken": this._getCookie("csrftoken")}
     })
   }
@@ -96,6 +105,18 @@ export class ChatService {
 
   subscribeToMessages() {
     return this._messages
+  }
+
+  getMutualChat(firstUser?: number, lastUser?: number) {
+    this.getOrCreateChat([firstUser || -1, lastUser || -1]).subscribe(data => {
+      if (data.result && data.data.chat && data.data.chats) {
+        let chat = data.data.chat
+        this._store.dispatch(new SetUserChats(data.data.chats))
+        this._router.navigateByUrl(`/chats?id=${chat}`)
+      } else {
+        this._ui.openWarning({message: data.message, class: "error"})
+      }
+    })
   }
   
   private _getCookie(name: string): string {

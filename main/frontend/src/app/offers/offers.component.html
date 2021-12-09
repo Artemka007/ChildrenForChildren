@@ -1,6 +1,6 @@
 <div class="Blackout-Container" *ngIf="createOfferIsOpen || detailOfferIsOpen"></div>
-<create-offer *ngIf="createOfferIsOpen && offer" (onclose)="createOfferClose()" [offer]="offer" [action]="action" [windowTitle]="'Редактировать предложение'"></create-offer>
-<create-offer *ngIf="createOfferIsOpen && !offer" (onclose)="createOfferClose()" [action]="action" [windowTitle]="'Создать предложение'"></create-offer>
+<offer-action *ngIf="createOfferIsOpen && offer" (onclose)="createOfferClose()" [offer]="offer" [action]="action" [windowTitle]="'Редактировать предложение'"></offer-action>
+<offer-action *ngIf="createOfferIsOpen && !offer" (onclose)="createOfferClose()" [action]="action" [windowTitle]="'Создать предложение'"></offer-action>
 <offer-detail *ngIf="detailOfferIsOpen" [offer]="offer" [user]="user?.toJSON()" (onclose)="detailOfferClose()"></offer-detail>
 <div class="Offers__Filter-Add-New-Offer">
     <form class="Search-Container Offers__Filter" #searchForm="ngForm">

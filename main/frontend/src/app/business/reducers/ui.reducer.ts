@@ -1,4 +1,4 @@
-import { Warning } from "src/app/warning-window/warning-window.component";
+import { Warning } from "src/app/ui/warning-window/warning-window.component";
 import { UIActions, UIUnion } from "../actions/ui.actions";
 
 export interface UIState {

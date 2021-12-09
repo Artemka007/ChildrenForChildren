@@ -31,10 +31,12 @@ $header_h: 70px
         width: 30px
         height: 30px
         flex: 0 0 30px
-    &:hover
+    &:disabled
+        cursor: not-allowed
+    &:hover:not(:disabled)
         box-shadow: #00000070 0 1px 8px 0
         cursor: pointer
-    &:focus
+    &:focus:not(:disabled)
         box-shadow: inset #00000050 0 1px 4px 0
 
 .Row

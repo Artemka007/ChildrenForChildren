@@ -1,0 +1,112 @@
+@import "src/styles.sass"
+
+=link-i($url)
+    width: 30px
+    height: 30px
+    font-size: 30px
+    content: url($url)
+.Blackout
+    background: #00000050
+    position: fixed
+    top: 0
+    left: 0
+    width: 100%
+    height: 100vh
+    z-index: 100
+.Hanburger-Container
+    position: absolute
+    border-radius: 0 5px 5px 0
+    background: #fff
+    padding: 5px 0
+    box-shadow: #00000025 4px 0 4px 0
+    top: 0
+    left: 0
+.Navbar
+    +flex-container()
+    position: fixed
+    top: 0
+    left: 0
+    font-family: 'Rubik', Verdana, Geneva, Tahoma, sans-serif
+    margin: 0
+    box-shadow: #00000025 2px 0 8px 0
+    height: 100%
+    padding: 0 0 0 10px
+    width: $nav_w
+    list-style-type: none
+    background: #fff
+    z-index: 1000
+    transition: left .2s, width .2s
+    &.Close
+        width: 0
+        left: -300px
+    .Navbar__Item
+        +flex-container()
+        margin-top: 10px
+        width: 100%
+        .Main-Link
+            +flex-container(row, flex-start, center)
+            width: 100%
+            &.Home-Main-Link
+                &::before
+                    +link-i("/media/icons/home.svg")
+            &.News-Main-Link
+                &::before
+                    +link-i("/media/icons/info.svg")
+            &.Ads-Main-Link
+                &::before
+                    +link-i("/media/icons/ad.svg")
+            &.Users-Main-Link
+                &::before
+                    +link-i("/media/icons/users-alt.svg")
+            &.Chats-Main-Link
+                &::before
+                    +link-i("/media/icons/message.svg")
+            .Main-Link__Text
+                text-decoration: none
+                font-size: 20px
+                color: #00000070
+                transition: color .1s
+                cursor: pointer
+                width: 100%
+                margin-left: 10px
+                &:hover,
+                &.active
+                    color: var(--blue)
+            .Main-Link__OpenClose-Arrow
+                content: url("/media/icons/angle-down.svg")
+                font-size: 40px
+                width: 40px
+                height: 40px
+                transform-origin: 50%
+                cursor: pointer
+                &.Rotated
+                    transform: rotate(180deg)
+        .Links-Container
+            +flex-container()
+            width: calc(100% - 20px)
+            padding-inline-start: 20px
+            .Item
+                +flex-container(row, flex-start, center)
+                width: 100%
+                a
+                    color: #00000070
+                    text-decoration: none
+                    width: 100%
+                    padding: 10px 0
+                    &.active,
+                    &:hover
+                        color: var(--blue)
+                        border-bottom: var(--blue) solid 1px
+                &:hover,
+                &.active
+                    &::before
+                        background: var(--blue)
+                &::before
+                    content: ""
+                    width: 5px
+                    height: 5px
+                    background: #00000070
+                    margin-right: 10px
+                    border-radius: 100%
+
+

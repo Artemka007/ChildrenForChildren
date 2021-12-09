@@ -38,7 +38,12 @@ export class OffersService {
   }
 
   delteOffer(id: number) {
-
+    let sub = this._http.delete<APIResponse<{offers?: IOffer[]}>>("/api/v1/offers/?id=" + id, {
+      headers: {
+        "X-CSRFToken": this._getCookie("csrftoken")
+      }
+    })
+    return sub
   }
 
   filterOffers() {

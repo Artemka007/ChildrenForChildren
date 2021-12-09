@@ -1,0 +1,15 @@
+<div class="Offer-Detail Dialog" *ngIf="offer">
+    <div class="Header">
+        <div class="Title">{{offer.title}}</div>
+        <button class="Close" type="button" (click)="close()">&times;</button>
+    </div>
+    <div class="Offer__User">{{offer.user}}</div>
+    <pre class="Offer__About">{{offer.about}}</pre>
+    <pre class="Offer__Back">{{offer.back}}</pre>
+    <div class="Offer__Deps">
+        <div class="Offer__Actions">
+            <div class="Item-1" *ngIf="!userIsEqualAuthor()" (click)="getMutualChat()">Написать...</div>
+        </div>
+        <div class="Offer__Views">{{offer.views_amoun}}</div>
+    </div>
+</div>

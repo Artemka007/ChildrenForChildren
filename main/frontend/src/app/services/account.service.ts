@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { APIResponse } from '../models/api.model';
-import { IUser } from '../models/user.model';
+import { IUser, Profile, User } from '../models/user.model';
 
 export interface ILoginData {
   username: string
@@ -62,7 +62,7 @@ export class AccountService {
   getUser(query?: {id: number}) {
     let token = this._getCookie("csrftoken")
     return this._http.get<APIResponse<{user?: IUser}>>(`/api/v1/account/${query?.id ? "?id=" + query?.id : ""}`, {
-      headers: {"XCSRF-Token": token}
+      headers: {"X-CSRFToken": token}
     })
   }
 
@@ -75,44 +75,55 @@ export class AccountService {
 
   login(data: ILoginData) {
     let token = this._getCookie("csrftoken")
-    return this._http.post<APIResponse<{user?: IUser}>>("/api/v1/account/login/", {csrfmiddlewaretoken: token, ...data}, {
+    return this._http.post<APIResponse<{user?: IUser}>>("/api/v1/account/login/", {...data}, {
       headers: {"X-CSRFToken": token}
     })
   }
 
   register(data: IRegisterData) {
     let token = this._getCookie("csrftoken")
-    return this._http.post<APIResponse<{user?: IUser}>>("/api/v1/account/register/", {csrfmiddlewaretoken: token, ...data}, {
+    return this._http.post<APIResponse<{user?: IUser}>>("/api/v1/account/register/", {...data}, {
       headers: {"X-CSRFToken": token}
     })
   }
 
   editProfile(data: IEditProfileData) {
     let token = this._getCookie("csrftoken")
-    return this._http.put<APIResponse<{errors?: [{[key: string]: string}]}>>("/api/v1/account/", {csrfmiddlewaretoken: token, ...data}, {
+    return this._http.put<APIResponse<{errors?: [{[key: string]: string}]}>>("/api/v1/account/", {...data}, {
       headers: {"X-CSRFToken": token}
     })
   }
 
   resetPassword(data: IResetPasswordData) {
     let token = this._getCookie("csrftoken")
-    return this._http.post<APIResponse>("/api/v1/account/password/reset/", {csrfmiddlewaretoken: token, ...data}, {
+    return this._http.post<APIResponse>("/api/v1/account/password/reset/", {...data}, {
       headers: {"X-CSRFToken": token}
     })
   }
 
   resetPasswordConfirm(data: IResetPasswordConfirmData) {
     let token = this._getCookie("csrftoken")
-    return this._http.post<APIResponse>(`/api/v1/account/password/reset/confirm/${data.uid}/${data.token}/`, {csrfmiddlewaretoken: token, ...data}, {
+    return this._http.post<APIResponse>(`/api/v1/account/password/reset/confirm/${data.uid}/${data.token}/`, {...data}, {
       headers: {"X-CSRFToken": token}
     })
   }
 
   searchUser(q: SearchUserQuery) {
     let token = this._getCookie("csrftoken")
-    return this._http.post<APIResponse<{users?: IUser[]}>>(`/api/v1/account/search/`, {csrfmiddlewaretoken: token, q}, {
+    return this._http.post<APIResponse<{users?: IUser[]}>>(`/api/v1/account/search/`, {q}, {
       headers: {"X-CSRFToken": token}
     })
+  }
+
+  responseUserToUser(data: {user?: IUser}) {
+    if (data.user) {
+      let {id, username, email, first_name, last_name, profile} = data.user
+      let {patronymic, phone, age, status, user_in_school_status, city, country, about_me, district} = profile
+      let p = new Profile(profile.id, profile.user, phone, patronymic, age, user_in_school_status, status, country, city, about_me, district)
+      return new User(id, username, email, first_name, last_name, p)
+    } else {
+      return undefined
+    }
   }
 
   private _getCookie(name: string): string {

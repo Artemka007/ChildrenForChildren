@@ -1,0 +1,52 @@
+@import "src/styles.sass"
+@import "src/styles.forms.sass"
+
+:host
+    +flex-container()
+    padding: 10px
+    border-radius: 5px
+    background: #fff
+    box-shadow: #00000040 0 1px 4px 0
+    width: 100%
+    margin-bottom: 15px
+    .Offer__Title
+        width: 100%
+        text-align: center
+        font-size: 26px
+    .Offer__About,
+    .Offer__Back,
+    .Offer__User
+        +flex-container(row)
+        font-size: 18px
+        margin: 7px 0
+        width: 100%
+        &::before
+            flex: 0 0 30px
+            font-size: 30px
+            width: 35px
+            height: 30px
+            padding-right: 5px
+    .Offer__About::before
+        content: url("/media/icons/info.svg")
+    .Offer__Back::before
+        content: url("/media/icons/back.svg")
+    .Offer__User::before
+        content: url("/media/icons/user-circle.svg")
+    .Offer__Actions
+        +flex-container(row)
+        font-size: 20px
+        .Item
+            cursor: pointer
+            color: var(--lite-blue)
+            text-decoration: none
+            background: transparent
+            outline: none
+            border: none
+            font-size: 20px
+            padding: 3px 10px
+            &.Delete
+                color: var(--red)
+            &:not(:last-child)
+                border-right: var(--blue) solid 1px
+            &:hover
+                text-decoration: underline
