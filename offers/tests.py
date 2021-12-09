@@ -4,7 +4,6 @@ from django.http import response
 from django.test import TestCase
 from rest_framework.test import APIClient
 from django.contrib.auth import get_user_model
-from account.models import Profile
 
 from offers.serializers import OfferMainSerializer
 

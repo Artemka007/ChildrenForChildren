@@ -4,7 +4,7 @@ import { Store } from '@ngrx/store';
 import { AppState } from './business';
 import { SetUser } from './business/actions/account.actions';
 import { SetUserChats } from './business/actions/chats.actions';
-import { Profile, User } from './models/user.model';
+import { User } from './models/user.model';
 import { AccountService } from './services/account.service';
 import { ChatService } from './services/chat.service';
 import { Warning } from './ui/warning-window/warning-window.component';

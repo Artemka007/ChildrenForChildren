@@ -4,7 +4,7 @@ from django.test import TestCase
 import pdb as _
 from rest_framework.test import APIClient
 
-from account.models import Profile
+from account.models import CustomUser
 
 class TestAccountView(TestCase):
     def setUp(self):
@@ -83,22 +83,18 @@ class TestAccountView(TestCase):
         })
         return response.data, user
     
-    def _create_user(self, u:object):
-        user = get_user_model().objects.create_user(u["username"], u["email"], u["password"])
-        user.first_name = u["first_name"]
-        user.last_name = u["last_name"]
+    def _create_user(self, user1):
+        user = get_user_model().objects.create_user(user1["username"], user1["email"], user1["password"])
+        user.first_name = user1["first_name"]
+        user.last_name = user1["last_name"]
+        user.phone=user1["phone"], 
+        #user.age=user1["age"], 
+        user.status=user1["status"], 
+        user.user_in_school_status=user1["user_in_school_status"], 
+        user.about_me=user1["about_me"], 
+        user.city=user1["city"], 
+        user.country=user1["country"], 
+        user.district=user1["district"], 
+        user.patronymic=user1["patronymic"]
         user.save()
-        profile = Profile.objects.create(
-            user=user, 
-            phone=u["phone"], 
-            age=u["age"], 
-            status=u["status"], 
-            user_in_school_status=u["user_in_school_status"], 
-            about_me=u["about_me"], 
-            city=u["city"], 
-            country=u["country"], 
-            district=u["district"], 
-            patronymic=u["patronymic"]
-        )
-        profile.save()
         return user

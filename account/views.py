@@ -10,7 +10,7 @@ from rest_auth.serializers import PasswordResetSerializer
 from rest_auth.views import sensitive_post_parameters_m
 
 from .serializer import UserSerializer
-from .models import Profile
+#from .models import Profile
 
 class LoginView(APIView):
     '''
@@ -46,16 +46,15 @@ class RegisterView(APIView):
     * email*: str
     * first_name*: str
     * last_name*: str
-    * profile*:
-    * - patronymic: str
-    * - phone*: str
-    * - age*: str
-    * - status: str
-    * - user_in_school_status: str
-    * - about_me: str
-    * - city: str
-    * - country: str
-    * - district: str
+    * patronymic: str
+    * phone*: str
+    * age*: str
+    * status: str
+    * user_in_school_status: str
+    * about_me: str
+    * city: str
+    * country: str
+    * district: str
     * password*: str
     * password2*: str
     '''
@@ -85,22 +84,18 @@ class RegisterView(APIView):
             # set the user first and last name
             user.first_name = first_name
             user.last_name = last_name
-            user.save()
             # create profile object with foreign key to user
-            profile = Profile.objects.create(
-                user=user, 
-                phone=phone, 
-                age=age, 
-                status=status, 
-                user_in_school_status=user_in_school_status, 
-                about_me=about_me, 
-                city=city, 
-                country=country, 
-                district=district, 
-                patronymic=patronymic
-            )
+            user.phone=phone
+            user.age=age
+            user.status=status
+            user.user_in_school_status=user_in_school_status
+            user.about_me=about_me
+            user.city=city
+            user.country=country
+            user.district=district
+            user.patronymic=patronymic
             # save profile object
-            profile.save()
+            user.save()
             return Response({"result": True, "message": "Пользователь успешно зарегистрирован.", "data": {}}, 201)
         except Exception as e:
             return Response({"result": False, "message": e.__str__(), "data": {}})
@@ -212,11 +207,11 @@ class SearchUserView(APIView):
             if last_name:
                 users = users.filter(last_name__contains=last_name)
             if country:
-                users = users.filter(profile__country__contains=country)
+                users = users.filter(country__contains=country)
             if city:
-                users = users.filter(profile__city__contains=city)
+                users = users.filter(city__contains=city)
             if district:
-                users = users.filter(profile__district__contains=district)
+                users = users.filter(district__contains=district)
         return UserSerializer(users, many=True).data
 
 class PasswordResetView(GenericAPIView):

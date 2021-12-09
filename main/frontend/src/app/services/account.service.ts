@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { APIResponse } from '../models/api.model';
-import { IUser, Profile, User } from '../models/user.model';
+import { IUser, User } from '../models/user.model';
 
 export interface ILoginData {
   username: string
@@ -117,10 +117,8 @@ export class AccountService {
 
   responseUserToUser(data: {user?: IUser}) {
     if (data.user) {
-      let {id, username, email, first_name, last_name, profile} = data.user
-      let {patronymic, phone, age, status, user_in_school_status, city, country, about_me, district} = profile
-      let p = new Profile(profile.id, profile.user, phone, patronymic, age, user_in_school_status, status, country, city, about_me, district)
-      return new User(id, username, email, first_name, last_name, p)
+      let {id, username, email, first_name, last_name, patronymic, phone, age, status, user_in_school_status, country, city, district, about_me} = data.user
+      return new User(id, username, email, first_name, last_name, patronymic, phone, age, status, user_in_school_status, country, city, district, about_me)
     } else {
       return undefined
     }

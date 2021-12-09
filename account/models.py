@@ -1,26 +1,24 @@
 from django.contrib.auth import get_user_model
+from django.contrib.auth.models import AbstractUser, UserManager
 from django.db import models
+from django.core.mail import send_mail
+from django.db import models
+from django.utils import timezone
 
-class Profile(models.Model):
-    '''
-    The model that describe a user
-    '''
-    # choices for know who is user in this site
-    CHOICES = (
+class CustomUser(AbstractUser):
+    USER_IN_SCHOOL_STATUS = (
         ('student', 'ученик'),
         ('teacher', 'учитель'),
         ('parent', 'родитель'),
         ('moderator', 'модератор'),
         ('admin', 'админ'),
     )
-    # foreign key to user id
-    user = models.OneToOneField(get_user_model(), on_delete=models.CASCADE, related_name="profile")
     # user general data
     patronymic = models.CharField(max_length=64)
     phone = models.CharField(max_length=16)
-    age = models.PositiveSmallIntegerField()
+    age = models.PositiveSmallIntegerField(null=True, blank=True)
     status = models.CharField(max_length=256, null=True, blank=True)
-    user_in_school_status = models.CharField(max_length=32, default="student", choices=CHOICES)
+    user_in_school_status = models.CharField(max_length=32, default="student", choices=USER_IN_SCHOOL_STATUS)
     # user location (country, city and district with street)
     country = models.CharField(max_length=128, null=True, blank=True)
     city = models.CharField(max_length=128, null=True, blank=True)

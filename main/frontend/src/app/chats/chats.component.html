@@ -84,7 +84,7 @@
                 <div class="Avatar"><img src="/media/icons/profile.png" alt="" /> </div>
                 <div class="Main-Info">
                     <div class="Name">{{u.id === user?.id ? "Вы" : u.first_name + " " + u.last_name}}</div>
-                    <div class="Status">{{u.profile.status || "online"}}</div>
+                    <div class="Status">{{u.status || "online"}}</div>
                 </div>
                 <span class="Chat-Status" *ngIf="checkUserIsAdmin(u.id)">admin</span>
                 <span class="Chat-Status" *ngIf="checkUserIsModer(u.id)">moder</span>

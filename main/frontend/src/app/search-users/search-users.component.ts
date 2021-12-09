@@ -37,9 +37,9 @@ export class SearchUsersComponent implements OnInit {
 
   getUserStatus(u: IUser) {
     let s = ""
-    if(u.profile.status) s = u.profile.status
-    else if(u.profile.city && u.profile.country) s = u.profile.city + ", " + u.profile.country
-    else s = u.profile.phone
+    if(u.status) s = u.status
+    else if(u.city && u.country) s = u.city + ", " + u.country
+    else s = u.phone
     return s.substr(0, 100)
   }
 

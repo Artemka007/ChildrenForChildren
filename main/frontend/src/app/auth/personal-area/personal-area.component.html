@@ -16,11 +16,11 @@
                 <div class="Avatar"><img src="/media/icons/profile.png" alt="" /> </div>
                 <div class="Username-Status">
                     <div class="Username">{{user.fullName}}</div>
-                    <div class="Status">{{user.profile?.status || "Статус не указан"}}</div>
+                    <div class="Status">{{user?.status || "Статус не указан"}}</div>
                 </div>
             </div>
             <div class="Item-2">
-                <div class="User-In-School-Status">{{checkUserInSchoolStatus(user.profile.user_in_school_status)}}</div>
+                <div class="User-In-School-Status">{{checkUserInSchoolStatus(user.user_in_school_status)}}</div>
                 <div class="Online-Status">online</div>
             </div>
         </div>
@@ -45,49 +45,49 @@
                 </div>
                 <div class="Item">
                     <div class="Key">Отчество:</div>
-                    <div class="Description" *ngIf="!isEditing">{{user.profile.patronymic || "Отчество не указано."}}</div>
+                    <div class="Description" *ngIf="!isEditing">{{user.patronymic || "Отчество не указано."}}</div>
                     <div class="Field" *ngIf="isEditing && checkUser()">
-                        <input name="patronymic" required maxlength="64" class="Edit-Description" [(ngModel)]="user.profile.patronymic" #patronymic="ngModel" />
+                        <input name="patronymic" required maxlength="64" class="Edit-Description" [(ngModel)]="user.patronymic" #patronymic="ngModel" />
                         <span class="Validator" *ngIf="patronymic.errors?.required">Обязательное поле.</span>
                     </div>
                 </div>
                 <div class="Item">
                     <div class="Key">Возраст:</div>
-                    <div class="Description" *ngIf="!isEditing">{{user.profile.age + " лет"}}</div>
+                    <div class="Description" *ngIf="!isEditing">{{user.age + " лет"}}</div>
                     <div class="Field" *ngIf="isEditing && checkUser()">
-                        <input name="age" required type="number" class="Edit-Description" [(ngModel)]="user.profile.age" #age="ngModel" max="128" />
+                        <input name="age" required type="number" class="Edit-Description" [(ngModel)]="user.age" #age="ngModel" max="128" />
                         <span class="Validator" *ngIf="age.errors?.required">Обязательное поле.</span>
                     </div>
                 </div>
                 <div class="Item">
                     <div class="Key">Страна:</div>
-                    <div class="Description" *ngIf="!isEditing">{{user.profile?.country || "Страна не указана."}}</div>
+                    <div class="Description" *ngIf="!isEditing">{{user?.country || "Страна не указана."}}</div>
                     <div class="Field" *ngIf="isEditing && checkUser()">
-                        <input name="country" class="Edit-Description" [(ngModel)]="user.profile.country" #country="ngModel" maxlength="128" />
+                        <input name="country" class="Edit-Description" [(ngModel)]="user.country" #country="ngModel" maxlength="128" />
                         <span class="Validator" *ngIf="country.errors?.maxlength">Максимальная длина - 128 символов.</span>
                     </div>
                 </div>
                 <div class="Item">
                     <div class="Key">Город:</div>
-                    <div class="Description" *ngIf="!isEditing">{{user.profile?.city || "Город не указан."}}</div>
+                    <div class="Description" *ngIf="!isEditing">{{user?.city || "Город не указан."}}</div>
                     <div class="Field" *ngIf="isEditing && checkUser()">
-                        <input name="city" maxlength="64" class="Edit-Description" [(ngModel)]="user.profile.city" #city="ngModel" maxlength="128" />
+                        <input name="city" maxlength="64" class="Edit-Description" [(ngModel)]="user.city" #city="ngModel" maxlength="128" />
                         <span class="Validator" *ngIf="city.errors?.maxlength">Максимальная длина - 128 символов.</span>
                     </div>
                 </div>
                 <div class="Item">
                     <div class="Key">Район/Улица:</div>
-                    <div class="Description" *ngIf="!isEditing">{{user.profile?.district || "Район/Улица не указаны."}}</div>
+                    <div class="Description" *ngIf="!isEditing">{{user?.district || "Район/Улица не указаны."}}</div>
                     <div class="Field" *ngIf="isEditing && checkUser()">
-                        <input name="district" maxlength="64" class="Edit-Description" [(ngModel)]="user.profile.district" #district="ngModel" maxlength="128" />
+                        <input name="district" maxlength="64" class="Edit-Description" [(ngModel)]="user.district" #district="ngModel" maxlength="128" />
                         <span class="Validator" *ngIf="district.errors?.maxlength">Максимальная длина - 128 символов.</span>
                     </div>
                 </div>
                 <div class="Item">
                     <div class="Key">О себе:</div>
-                    <div class="Description" *ngIf="!isEditing">{{user.profile?.about_me || "О себе не написано."}}</div>
+                    <div class="Description" *ngIf="!isEditing">{{user?.about_me || "О себе не написано."}}</div>
                     <div class="Field" *ngIf="isEditing && checkUser()">
-                        <textarea name="about_me" maxlength="64" class="Edit-Description" [(ngModel)]="user.profile.about_me" #about_me="ngModel"></textarea>
+                        <textarea name="about_me" maxlength="64" class="Edit-Description" [(ngModel)]="user.about_me" #about_me="ngModel"></textarea>
                     </div>
                 </div>
             </div>
@@ -105,9 +105,9 @@
                 </div>
                 <div class="Item">
                     <div class="Key">Телефон:</div>
-                    <div class="Description" *ngIf="!isEditing">{{user.profile?.phone || "Телефон не указан."}}</div>
+                    <div class="Description" *ngIf="!isEditing">{{user?.phone || "Телефон не указан."}}</div>
                     <div class="Field" *ngIf="isEditing && checkUser()">
-                        <input name="phone" required maxlength="16" class="Edit-Description" [(ngModel)]="user.profile.phone" #phone="ngModel" />
+                        <input name="phone" required maxlength="16" class="Edit-Description" [(ngModel)]="user.phone" #phone="ngModel" />
                         <span class="Validator" *ngIf="phone.errors?.required">Обязательное поле.</span>
                     </div>
                 </div>

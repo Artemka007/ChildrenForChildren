@@ -4,14 +4,8 @@ export interface IUser {
   readonly email: string
   readonly first_name: string
   readonly last_name: string
-  readonly profile: IProfile
-}
-
-export interface IProfile {
-  readonly id: number
-  readonly user: number
-  readonly phone: string
   readonly patronymic: string
+  readonly phone: string
   readonly age: number
   readonly status?: string
   readonly user_in_school_status: "student" | "teacher" | "parent" | "admin" | "moderator"
@@ -28,7 +22,15 @@ export class User {
     private _email: string,
     private _first_name: string,
     private _last_name: string,
-    private _profile: Profile
+    private _patronymic: string,
+    private _phone: string,
+    private _age: number,
+    private _status?: string,
+    private _user_in_school_status: "student" | "teacher" | "parent" | "admin" | "moderator" = "student",
+    private _country?: string,
+    private _city?: string,
+    private _district?: string,
+    private _about_me?: string
   ) { }
 
   get id() {
@@ -70,67 +72,8 @@ export class User {
   get fullName() {
     return this._first_name + " " + this._last_name
   }
-
-  get profile() {
-    return this._profile
-  }
-
-  set profile(profile: Profile) {
-    this._profile = profile
-  }
-
-  toJSON(): IUser {
-    let {id, username, email, firstName, lastName, profile} = this
-    let {userId, patronymic, phone, age, status, user_in_school_status, city, country, about_me, district} = profile
-    let JSONUser = {
-      id, 
-      username, 
-      email, 
-      first_name: firstName, 
-      last_name: lastName, 
-      profile: {
-        id: profile.id,
-        user: userId,
-        patronymic,
-        phone,
-        age,
-        status,
-        user_in_school_status,
-        city,
-        country,
-        about_me,
-        district
-      }
-    }
-    return JSONUser
-  }
-  copy() {
-    return {...this}
-  }
-}
-
-export class Profile {
-  constructor(
-    private _id: number,
-    private _user: number,
-    private _phone: string,
-    private _patronymic: string,
-    private _age: number,
-    private _user_in_school_status: "student" | "teacher" | "parent" | "admin" | "moderator",
-    private _status?: string,
-    private _country?: string,
-    private _city?: string,
-    private _about_me?: string,
-    private _district?: string
-  ) { }
-  get id() {
-    return this._id
-  }
-
-  get userId() {
-    return this._user
-  }
-
+  
+  
   get phone() {
     return this._phone
   }
@@ -201,5 +144,25 @@ export class Profile {
   
   set about_me(about_me: string | undefined) {
     this._about_me = about_me
+  }
+  toJSON(): IUser {
+    let {id, username, email, firstName, lastName, patronymic, phone, age, status, user_in_school_status, city, country, about_me, district} = this
+    let JSONUser = {
+      id, 
+      username, 
+      email, 
+      first_name: firstName, 
+      last_name: lastName, 
+      patronymic,
+      phone,
+      age,
+      status,
+      user_in_school_status,
+      city,
+      country,
+      about_me,
+      district
+    }
+    return JSONUser
   }
 }

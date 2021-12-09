@@ -664,7 +664,7 @@ function PersonalAreaComponent_form_0_div_37_Template(rf, ctx) { if (rf & 1) {
 } if (rf & 2) {
     const ctx_r8 = _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵnextContext"](2);
     _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵadvance"](1);
-    _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵtextInterpolate"](ctx_r8.user.profile.patronymic || "\u041E\u0442\u0447\u0435\u0441\u0442\u0432\u043E \u043D\u0435 \u0443\u043A\u0430\u0437\u0430\u043D\u043E.");
+    _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵtextInterpolate"](ctx_r8.user.patronymic || "\u041E\u0442\u0447\u0435\u0441\u0442\u0432\u043E \u043D\u0435 \u0443\u043A\u0430\u0437\u0430\u043D\u043E.");
 } }
 function PersonalAreaComponent_form_0_div_38_span_3_Template(rf, ctx) { if (rf & 1) {
     _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵelementStart"](0, "span", 39);
@@ -675,7 +675,7 @@ function PersonalAreaComponent_form_0_div_38_Template(rf, ctx) { if (rf & 1) {
     const _r46 = _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵgetCurrentView"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵelementStart"](0, "div", 35);
     _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵelementStart"](1, "input", 42, 43);
-    _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵlistener"]("ngModelChange", function PersonalAreaComponent_form_0_div_38_Template_input_ngModelChange_1_listener($event) { _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵrestoreView"](_r46); const ctx_r45 = _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵnextContext"](2); return ctx_r45.user.profile.patronymic = $event; });
+    _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵlistener"]("ngModelChange", function PersonalAreaComponent_form_0_div_38_Template_input_ngModelChange_1_listener($event) { _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵrestoreView"](_r46); const ctx_r45 = _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵnextContext"](2); return ctx_r45.user.patronymic = $event; });
     _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵelementEnd"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵtemplate"](3, PersonalAreaComponent_form_0_div_38_span_3_Template, 2, 0, "span", 38);
     _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵelementEnd"]();
@@ -683,7 +683,7 @@ function PersonalAreaComponent_form_0_div_38_Template(rf, ctx) { if (rf & 1) {
     const _r43 = _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵreference"](2);
     const ctx_r9 = _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵnextContext"](2);
     _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵadvance"](1);
-    _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵproperty"]("ngModel", ctx_r9.user.profile.patronymic);
+    _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵproperty"]("ngModel", ctx_r9.user.patronymic);
     _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵadvance"](2);
     _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵproperty"]("ngIf", _r43.errors == null ? null : _r43.errors.required);
 } }
@@ -694,7 +694,7 @@ function PersonalAreaComponent_form_0_div_42_Template(rf, ctx) { if (rf & 1) {
 } if (rf & 2) {
     const ctx_r10 = _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵnextContext"](2);
     _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵadvance"](1);
-    _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵtextInterpolate"](ctx_r10.user.profile.age + " \u043B\u0435\u0442");
+    _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵtextInterpolate"](ctx_r10.user.age + " \u043B\u0435\u0442");
 } }
 function PersonalAreaComponent_form_0_div_43_span_3_Template(rf, ctx) { if (rf & 1) {
     _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵelementStart"](0, "span", 39);
@@ -705,7 +705,7 @@ function PersonalAreaComponent_form_0_div_43_Template(rf, ctx) { if (rf & 1) {
     const _r50 = _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵgetCurrentView"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵelementStart"](0, "div", 35);
     _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵelementStart"](1, "input", 44, 45);
-    _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵlistener"]("ngModelChange", function PersonalAreaComponent_form_0_div_43_Template_input_ngModelChange_1_listener($event) { _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵrestoreView"](_r50); const ctx_r49 = _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵnextContext"](2); return ctx_r49.user.profile.age = $event; });
+    _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵlistener"]("ngModelChange", function PersonalAreaComponent_form_0_div_43_Template_input_ngModelChange_1_listener($event) { _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵrestoreView"](_r50); const ctx_r49 = _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵnextContext"](2); return ctx_r49.user.age = $event; });
     _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵelementEnd"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵtemplate"](3, PersonalAreaComponent_form_0_div_43_span_3_Template, 2, 0, "span", 38);
     _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵelementEnd"]();
@@ -713,7 +713,7 @@ function PersonalAreaComponent_form_0_div_43_Template(rf, ctx) { if (rf & 1) {
     const _r47 = _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵreference"](2);
     const ctx_r11 = _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵnextContext"](2);
     _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵadvance"](1);
-    _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵproperty"]("ngModel", ctx_r11.user.profile.age);
+    _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵproperty"]("ngModel", ctx_r11.user.age);
     _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵadvance"](2);
     _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵproperty"]("ngIf", _r47.errors == null ? null : _r47.errors.required);
 } }
@@ -724,7 +724,7 @@ function PersonalAreaComponent_form_0_div_47_Template(rf, ctx) { if (rf & 1) {
 } if (rf & 2) {
     const ctx_r12 = _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵnextContext"](2);
     _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵadvance"](1);
-    _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵtextInterpolate"]((ctx_r12.user.profile == null ? null : ctx_r12.user.profile.country) || "\u0421\u0442\u0440\u0430\u043D\u0430 \u043D\u0435 \u0443\u043A\u0430\u0437\u0430\u043D\u0430.");
+    _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵtextInterpolate"]((ctx_r12.user == null ? null : ctx_r12.user.country) || "\u0421\u0442\u0440\u0430\u043D\u0430 \u043D\u0435 \u0443\u043A\u0430\u0437\u0430\u043D\u0430.");
 } }
 function PersonalAreaComponent_form_0_div_48_span_3_Template(rf, ctx) { if (rf & 1) {
     _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵelementStart"](0, "span", 39);
@@ -735,7 +735,7 @@ function PersonalAreaComponent_form_0_div_48_Template(rf, ctx) { if (rf & 1) {
     const _r54 = _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵgetCurrentView"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵelementStart"](0, "div", 35);
     _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵelementStart"](1, "input", 46, 47);
-    _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵlistener"]("ngModelChange", function PersonalAreaComponent_form_0_div_48_Template_input_ngModelChange_1_listener($event) { _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵrestoreView"](_r54); const ctx_r53 = _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵnextContext"](2); return ctx_r53.user.profile.country = $event; });
+    _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵlistener"]("ngModelChange", function PersonalAreaComponent_form_0_div_48_Template_input_ngModelChange_1_listener($event) { _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵrestoreView"](_r54); const ctx_r53 = _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵnextContext"](2); return ctx_r53.user.country = $event; });
     _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵelementEnd"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵtemplate"](3, PersonalAreaComponent_form_0_div_48_span_3_Template, 2, 0, "span", 38);
     _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵelementEnd"]();
@@ -743,7 +743,7 @@ function PersonalAreaComponent_form_0_div_48_Template(rf, ctx) { if (rf & 1) {
     const _r51 = _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵreference"](2);
     const ctx_r13 = _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵnextContext"](2);
     _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵadvance"](1);
-    _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵproperty"]("ngModel", ctx_r13.user.profile.country);
+    _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵproperty"]("ngModel", ctx_r13.user.country);
     _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵadvance"](2);
     _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵproperty"]("ngIf", _r51.errors == null ? null : _r51.errors.maxlength);
 } }
@@ -754,7 +754,7 @@ function PersonalAreaComponent_form_0_div_52_Template(rf, ctx) { if (rf & 1) {
 } if (rf & 2) {
     const ctx_r14 = _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵnextContext"](2);
     _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵadvance"](1);
-    _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵtextInterpolate"]((ctx_r14.user.profile == null ? null : ctx_r14.user.profile.city) || "\u0413\u043E\u0440\u043E\u0434 \u043D\u0435 \u0443\u043A\u0430\u0437\u0430\u043D.");
+    _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵtextInterpolate"]((ctx_r14.user == null ? null : ctx_r14.user.city) || "\u0413\u043E\u0440\u043E\u0434 \u043D\u0435 \u0443\u043A\u0430\u0437\u0430\u043D.");
 } }
 function PersonalAreaComponent_form_0_div_53_span_3_Template(rf, ctx) { if (rf & 1) {
     _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵelementStart"](0, "span", 39);
@@ -765,7 +765,7 @@ function PersonalAreaComponent_form_0_div_53_Template(rf, ctx) { if (rf & 1) {
     const _r58 = _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵgetCurrentView"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵelementStart"](0, "div", 35);
     _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵelementStart"](1, "input", 48, 49);
-    _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵlistener"]("ngModelChange", function PersonalAreaComponent_form_0_div_53_Template_input_ngModelChange_1_listener($event) { _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵrestoreView"](_r58); const ctx_r57 = _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵnextContext"](2); return ctx_r57.user.profile.city = $event; });
+    _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵlistener"]("ngModelChange", function PersonalAreaComponent_form_0_div_53_Template_input_ngModelChange_1_listener($event) { _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵrestoreView"](_r58); const ctx_r57 = _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵnextContext"](2); return ctx_r57.user.city = $event; });
     _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵelementEnd"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵtemplate"](3, PersonalAreaComponent_form_0_div_53_span_3_Template, 2, 0, "span", 38);
     _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵelementEnd"]();
@@ -773,7 +773,7 @@ function PersonalAreaComponent_form_0_div_53_Template(rf, ctx) { if (rf & 1) {
     const _r55 = _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵreference"](2);
     const ctx_r15 = _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵnextContext"](2);
     _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵadvance"](1);
-    _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵproperty"]("ngModel", ctx_r15.user.profile.city);
+    _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵproperty"]("ngModel", ctx_r15.user.city);
     _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵadvance"](2);
     _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵproperty"]("ngIf", _r55.errors == null ? null : _r55.errors.maxlength);
 } }
@@ -784,7 +784,7 @@ function PersonalAreaComponent_form_0_div_57_Template(rf, ctx) { if (rf & 1) {
 } if (rf & 2) {
     const ctx_r16 = _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵnextContext"](2);
     _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵadvance"](1);
-    _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵtextInterpolate"]((ctx_r16.user.profile == null ? null : ctx_r16.user.profile.district) || "\u0420\u0430\u0439\u043E\u043D/\u0423\u043B\u0438\u0446\u0430 \u043D\u0435 \u0443\u043A\u0430\u0437\u0430\u043D\u044B.");
+    _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵtextInterpolate"]((ctx_r16.user == null ? null : ctx_r16.user.district) || "\u0420\u0430\u0439\u043E\u043D/\u0423\u043B\u0438\u0446\u0430 \u043D\u0435 \u0443\u043A\u0430\u0437\u0430\u043D\u044B.");
 } }
 function PersonalAreaComponent_form_0_div_58_span_3_Template(rf, ctx) { if (rf & 1) {
     _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵelementStart"](0, "span", 39);
@@ -795,7 +795,7 @@ function PersonalAreaComponent_form_0_div_58_Template(rf, ctx) { if (rf & 1) {
     const _r62 = _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵgetCurrentView"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵelementStart"](0, "div", 35);
     _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵelementStart"](1, "input", 50, 51);
-    _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵlistener"]("ngModelChange", function PersonalAreaComponent_form_0_div_58_Template_input_ngModelChange_1_listener($event) { _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵrestoreView"](_r62); const ctx_r61 = _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵnextContext"](2); return ctx_r61.user.profile.district = $event; });
+    _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵlistener"]("ngModelChange", function PersonalAreaComponent_form_0_div_58_Template_input_ngModelChange_1_listener($event) { _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵrestoreView"](_r62); const ctx_r61 = _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵnextContext"](2); return ctx_r61.user.district = $event; });
     _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵelementEnd"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵtemplate"](3, PersonalAreaComponent_form_0_div_58_span_3_Template, 2, 0, "span", 38);
     _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵelementEnd"]();
@@ -803,7 +803,7 @@ function PersonalAreaComponent_form_0_div_58_Template(rf, ctx) { if (rf & 1) {
     const _r59 = _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵreference"](2);
     const ctx_r17 = _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵnextContext"](2);
     _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵadvance"](1);
-    _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵproperty"]("ngModel", ctx_r17.user.profile.district);
+    _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵproperty"]("ngModel", ctx_r17.user.district);
     _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵadvance"](2);
     _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵproperty"]("ngIf", _r59.errors == null ? null : _r59.errors.maxlength);
 } }
@@ -814,19 +814,19 @@ function PersonalAreaComponent_form_0_div_62_Template(rf, ctx) { if (rf & 1) {
 } if (rf & 2) {
     const ctx_r18 = _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵnextContext"](2);
     _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵadvance"](1);
-    _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵtextInterpolate"]((ctx_r18.user.profile == null ? null : ctx_r18.user.profile.about_me) || "\u041E \u0441\u0435\u0431\u0435 \u043D\u0435 \u043D\u0430\u043F\u0438\u0441\u0430\u043D\u043E.");
+    _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵtextInterpolate"]((ctx_r18.user == null ? null : ctx_r18.user.about_me) || "\u041E \u0441\u0435\u0431\u0435 \u043D\u0435 \u043D\u0430\u043F\u0438\u0441\u0430\u043D\u043E.");
 } }
 function PersonalAreaComponent_form_0_div_63_Template(rf, ctx) { if (rf & 1) {
     const _r65 = _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵgetCurrentView"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵelementStart"](0, "div", 35);
     _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵelementStart"](1, "textarea", 52, 53);
-    _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵlistener"]("ngModelChange", function PersonalAreaComponent_form_0_div_63_Template_textarea_ngModelChange_1_listener($event) { _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵrestoreView"](_r65); const ctx_r64 = _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵnextContext"](2); return ctx_r64.user.profile.about_me = $event; });
+    _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵlistener"]("ngModelChange", function PersonalAreaComponent_form_0_div_63_Template_textarea_ngModelChange_1_listener($event) { _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵrestoreView"](_r65); const ctx_r64 = _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵnextContext"](2); return ctx_r64.user.about_me = $event; });
     _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵelementEnd"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵelementEnd"]();
 } if (rf & 2) {
     const ctx_r19 = _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵnextContext"](2);
     _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵadvance"](1);
-    _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵproperty"]("ngModel", ctx_r19.user.profile.about_me);
+    _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵproperty"]("ngModel", ctx_r19.user.about_me);
 } }
 function PersonalAreaComponent_form_0_div_71_Template(rf, ctx) { if (rf & 1) {
     _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵelementStart"](0, "div", 34);
@@ -865,7 +865,7 @@ function PersonalAreaComponent_form_0_div_76_Template(rf, ctx) { if (rf & 1) {
 } if (rf & 2) {
     const ctx_r22 = _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵnextContext"](2);
     _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵadvance"](1);
-    _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵtextInterpolate"]((ctx_r22.user.profile == null ? null : ctx_r22.user.profile.phone) || "\u0422\u0435\u043B\u0435\u0444\u043E\u043D \u043D\u0435 \u0443\u043A\u0430\u0437\u0430\u043D.");
+    _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵtextInterpolate"]((ctx_r22.user == null ? null : ctx_r22.user.phone) || "\u0422\u0435\u043B\u0435\u0444\u043E\u043D \u043D\u0435 \u0443\u043A\u0430\u0437\u0430\u043D.");
 } }
 function PersonalAreaComponent_form_0_div_77_span_3_Template(rf, ctx) { if (rf & 1) {
     _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵelementStart"](0, "span", 39);
@@ -876,7 +876,7 @@ function PersonalAreaComponent_form_0_div_77_Template(rf, ctx) { if (rf & 1) {
     const _r73 = _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵgetCurrentView"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵelementStart"](0, "div", 35);
     _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵelementStart"](1, "input", 56, 57);
-    _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵlistener"]("ngModelChange", function PersonalAreaComponent_form_0_div_77_Template_input_ngModelChange_1_listener($event) { _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵrestoreView"](_r73); const ctx_r72 = _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵnextContext"](2); return ctx_r72.user.profile.phone = $event; });
+    _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵlistener"]("ngModelChange", function PersonalAreaComponent_form_0_div_77_Template_input_ngModelChange_1_listener($event) { _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵrestoreView"](_r73); const ctx_r72 = _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵnextContext"](2); return ctx_r72.user.phone = $event; });
     _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵelementEnd"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵtemplate"](3, PersonalAreaComponent_form_0_div_77_span_3_Template, 2, 0, "span", 38);
     _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵelementEnd"]();
@@ -884,7 +884,7 @@ function PersonalAreaComponent_form_0_div_77_Template(rf, ctx) { if (rf & 1) {
     const _r70 = _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵreference"](2);
     const ctx_r23 = _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵnextContext"](2);
     _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵadvance"](1);
-    _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵproperty"]("ngModel", ctx_r23.user.profile.phone);
+    _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵproperty"]("ngModel", ctx_r23.user.phone);
     _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵadvance"](2);
     _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵproperty"]("ngIf", _r70.errors == null ? null : _r70.errors.required);
 } }
@@ -1017,9 +1017,9 @@ function PersonalAreaComponent_form_0_Template(rf, ctx) { if (rf & 1) {
     _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵadvance"](8);
     _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵtextInterpolate"](ctx_r0.user.fullName);
     _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵadvance"](2);
-    _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵtextInterpolate"]((ctx_r0.user.profile == null ? null : ctx_r0.user.profile.status) || "\u0421\u0442\u0430\u0442\u0443\u0441 \u043D\u0435 \u0443\u043A\u0430\u0437\u0430\u043D");
+    _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵtextInterpolate"]((ctx_r0.user == null ? null : ctx_r0.user.status) || "\u0421\u0442\u0430\u0442\u0443\u0441 \u043D\u0435 \u0443\u043A\u0430\u0437\u0430\u043D");
     _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵadvance"](3);
-    _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵtextInterpolate"](ctx_r0.checkUserInSchoolStatus(ctx_r0.user.profile.user_in_school_status));
+    _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵtextInterpolate"](ctx_r0.checkUserInSchoolStatus(ctx_r0.user.user_in_school_status));
     _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵadvance"](10);
     _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵproperty"]("ngIf", !ctx_r0.isEditing);
     _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵadvance"](1);
@@ -2535,7 +2535,7 @@ function ChatsComponent_div_3_form_2_div_7_a_1_Template(rf, ctx) { if (rf & 1) {
     _angular_core__WEBPACK_IMPORTED_MODULE_6__["ɵɵadvance"](5);
     _angular_core__WEBPACK_IMPORTED_MODULE_6__["ɵɵtextInterpolate"](u_r67.id === (ctx_r66.user == null ? null : ctx_r66.user.id) ? "\u0412\u044B" : u_r67.first_name + " " + u_r67.last_name);
     _angular_core__WEBPACK_IMPORTED_MODULE_6__["ɵɵadvance"](2);
-    _angular_core__WEBPACK_IMPORTED_MODULE_6__["ɵɵtextInterpolate"](u_r67.profile.status || "online");
+    _angular_core__WEBPACK_IMPORTED_MODULE_6__["ɵɵtextInterpolate"](u_r67.status || "online");
     _angular_core__WEBPACK_IMPORTED_MODULE_6__["ɵɵadvance"](1);
     _angular_core__WEBPACK_IMPORTED_MODULE_6__["ɵɵproperty"]("ngIf", ctx_r66.checkUserIsAdmin(u_r67.id));
     _angular_core__WEBPACK_IMPORTED_MODULE_6__["ɵɵadvance"](1);
@@ -3080,17 +3080,24 @@ HomeComponent.ɵcmp = /*@__PURE__*/ _angular_core__WEBPACK_IMPORTED_MODULE_1__["
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "User": () => (/* binding */ User),
-/* harmony export */   "Profile": () => (/* binding */ Profile)
+/* harmony export */   "User": () => (/* binding */ User)
 /* harmony export */ });
 class User {
-    constructor(_id, _username, _email, _first_name, _last_name, _profile) {
+    constructor(_id, _username, _email, _first_name, _last_name, _patronymic, _phone, _age, _status, _user_in_school_status = "student", _country, _city, _district, _about_me) {
         this._id = _id;
         this._username = _username;
         this._email = _email;
         this._first_name = _first_name;
         this._last_name = _last_name;
-        this._profile = _profile;
+        this._patronymic = _patronymic;
+        this._phone = _phone;
+        this._age = _age;
+        this._status = _status;
+        this._user_in_school_status = _user_in_school_status;
+        this._country = _country;
+        this._city = _city;
+        this._district = _district;
+        this._about_me = _about_me;
     }
     get id() {
         return this._id;
@@ -3121,61 +3128,6 @@ class User {
     }
     get fullName() {
         return this._first_name + " " + this._last_name;
-    }
-    get profile() {
-        return this._profile;
-    }
-    set profile(profile) {
-        this._profile = profile;
-    }
-    toJSON() {
-        let { id, username, email, firstName, lastName, profile } = this;
-        let { userId, patronymic, phone, age, status, user_in_school_status, city, country, about_me, district } = profile;
-        let JSONUser = {
-            id,
-            username,
-            email,
-            first_name: firstName,
-            last_name: lastName,
-            profile: {
-                id: profile.id,
-                user: userId,
-                patronymic,
-                phone,
-                age,
-                status,
-                user_in_school_status,
-                city,
-                country,
-                about_me,
-                district
-            }
-        };
-        return JSONUser;
-    }
-    copy() {
-        return Object.assign({}, this);
-    }
-}
-class Profile {
-    constructor(_id, _user, _phone, _patronymic, _age, _user_in_school_status, _status, _country, _city, _about_me, _district) {
-        this._id = _id;
-        this._user = _user;
-        this._phone = _phone;
-        this._patronymic = _patronymic;
-        this._age = _age;
-        this._user_in_school_status = _user_in_school_status;
-        this._status = _status;
-        this._country = _country;
-        this._city = _city;
-        this._about_me = _about_me;
-        this._district = _district;
-    }
-    get id() {
-        return this._id;
-    }
-    get userId() {
-        return this._user;
     }
     get phone() {
         return this._phone;
@@ -3230,6 +3182,26 @@ class Profile {
     }
     set about_me(about_me) {
         this._about_me = about_me;
+    }
+    toJSON() {
+        let { id, username, email, firstName, lastName, patronymic, phone, age, status, user_in_school_status, city, country, about_me, district } = this;
+        let JSONUser = {
+            id,
+            username,
+            email,
+            first_name: firstName,
+            last_name: lastName,
+            patronymic,
+            phone,
+            age,
+            status,
+            user_in_school_status,
+            city,
+            country,
+            about_me,
+            district
+        };
+        return JSONUser;
     }
 }
 
@@ -4068,12 +4040,12 @@ class SearchUsersComponent {
     }
     getUserStatus(u) {
         let s = "";
-        if (u.profile.status)
-            s = u.profile.status;
-        else if (u.profile.city && u.profile.country)
-            s = u.profile.city + ", " + u.profile.country;
+        if (u.status)
+            s = u.status;
+        else if (u.city && u.country)
+            s = u.city + ", " + u.country;
         else
-            s = u.profile.phone;
+            s = u.phone;
         return s.substr(0, 100);
     }
 }
@@ -4179,10 +4151,8 @@ class AccountService {
     }
     responseUserToUser(data) {
         if (data.user) {
-            let { id, username, email, first_name, last_name, profile } = data.user;
-            let { patronymic, phone, age, status, user_in_school_status, city, country, about_me, district } = profile;
-            let p = new _models_user_model__WEBPACK_IMPORTED_MODULE_0__.Profile(profile.id, profile.user, phone, patronymic, age, user_in_school_status, status, country, city, about_me, district);
-            return new _models_user_model__WEBPACK_IMPORTED_MODULE_0__.User(id, username, email, first_name, last_name, p);
+            let { id, username, email, first_name, last_name, patronymic, phone, age, status, user_in_school_status, country, city, district, about_me } = data.user;
+            return new _models_user_model__WEBPACK_IMPORTED_MODULE_0__.User(id, username, email, first_name, last_name, patronymic, phone, age, status, user_in_school_status, country, city, district, about_me);
         }
         else {
             return undefined;
