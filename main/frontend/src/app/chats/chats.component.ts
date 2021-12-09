@@ -286,7 +286,7 @@ export class ChatsComponent implements OnInit {
   }
 
   chatIsOpen() {
-    return window.innerWidth > 967
+    return window.innerWidth > 1183
   }
 
   checkUserNotIsBanned(chat?: IChat) {

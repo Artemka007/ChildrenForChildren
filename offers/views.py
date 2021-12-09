@@ -62,16 +62,21 @@ class OffersMainView(APIView):
         
         
     def delete(self, request):
+        # get id in query params
         id = request.GET.get("id")
         if not id:
             return Response({'result': False, 'message': 'Параметр id не передан', 'data': {}})
         if not request.user.is_authenticated:
             return Response({"result": False, "message": "Пользователь не авторизован.", "data": {}})
+        # get offer by id
         offer = OffersMain.objects.get(pk=int(id))
         if offer.user.id == request.user.id:
             try:
                 offer.delete()
-                return Response({'result': True, 'message': 'Вы удалили пост', 'data': {}}) 
+                offers = OffersMain.objects.all()
+                serializer = OfferMainSerializer(offers, many=True)
+                # return offers for frontend
+                return Response({'result': True, 'message': 'Вы удалили пост', 'data': {'offers': serializer.data}}) 
             except Exception as e:
                 return Response({'result': False, 'message': e.__str__(), 'data': {}})
         else:
