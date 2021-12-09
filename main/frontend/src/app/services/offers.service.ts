@@ -28,12 +28,22 @@ export class OffersService {
     return sub
   }
 
-  editOffer(id: number, newOffer: IOffer) {
-
+  editOffer(id: number, newOffer: IBaseOffer) {
+    let sub = this._http.put<APIResponse<{offers?: IOffer[]}>>("/api/v1/offers/?id=" + id, {...newOffer}, {
+      headers: {
+        "X-CSRFToken": this._getCookie("csrftoken")
+      }
+    })
+    return sub
   }
 
   delteOffer(id: number) {
-
+    let sub = this._http.delete<APIResponse<{offers?: IOffer[]}>>("/api/v1/offers/?id=" + id, {
+      headers: {
+        "X-CSRFToken": this._getCookie("csrftoken")
+      }
+    })
+    return sub
   }
 
   filterOffers() {

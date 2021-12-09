@@ -39,7 +39,7 @@ class OffersTest(TestCase):
         data = response.data
         self.assertTrue(data.get("data") is not None)
         self.assertEquals(data.get("data").get("offers")[0].get("back"), self.offer.get("back"))
-        ][\
+        
     def test_create(self):
         # first authenticate user
         self.request.login(username="test", password="123")

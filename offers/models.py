@@ -16,7 +16,7 @@ class OffersMain(models.Model): #main module
     title = models.CharField( max_length=64, verbose_name='Имя предложения') # the tittle of the offer
     about = models.TextField(verbose_name="Описание предложения....")# the content of the offer
     back = models.TextField(verbose_name='Что вы хотите в замен?')# what do you want back
-    date = models.DateTimeField(auto_now=True)# when the is was published/chenged
+    date = models.DateTimeField(auto_now_add=True)# when the is was published/chenged
     
     # user
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='offers') # by who published
@@ -30,4 +30,4 @@ class OffersMain(models.Model): #main module
         return self.title
 
     class Meta:
-        ordering = ['date']
+        ordering = ('date',)

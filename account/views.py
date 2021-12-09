@@ -1,9 +1,8 @@
 from django.contrib.auth import authenticate, login, get_user_model, logout
 from django.db.models import Value as V
 from django.db.models.functions import Concat
-from django.db.models.query import QuerySet, Q
-from django.http.request import QueryDict
-from rest_auth.app_settings import PasswordResetConfirmSerializer
+from django.db.models.query import Q
+from rest_auth.serializers import PasswordResetConfirmSerializer
 from rest_framework.generics import GenericAPIView
 from rest_framework.permissions import AllowAny
 from rest_framework.views import APIView, Response
@@ -161,9 +160,9 @@ class AccountView(APIView):
                 return Response({"result": False, "message": "Пользователь с таким id не найден.", "data": {"user": None}})
         return Response({"result": True, "message": "Данные пользователя отправлены в ответе.", "data": {"user": UserSerializer(user).data}}, 200)
     def put(self, request):
-        instance = request.user
+        user = request.user
         data = request.data
-        serializer = UserSerializer(data=data, instance=instance)
+        serializer = UserSerializer(user, data=data)
         if serializer.is_valid():
             serializer.save()
             return Response({"result": True, "message": "Данные пользователя успешно изменены.", "data": {}})
@@ -213,26 +212,28 @@ class SearchUserView(APIView):
             if last_name:
                 users = users.filter(last_name__contains=last_name)
             if country:
-                users = users.filter(country__contains=country)
+                users = users.filter(profile__country__contains=country)
             if city:
-                users = users.filter(city__contains=city)
+                users = users.filter(profile__city__contains=city)
             if district:
-                users = users.filter(district__contains=district)
+                users = users.filter(profile__district__contains=district)
         return UserSerializer(users, many=True).data
 
 class PasswordResetView(GenericAPIView):
-    '''The generic view that resep password'''
+    '''The generic view that reset password'''
     serializer_class = PasswordResetSerializer
     permission_classes = (AllowAny,)
 
     def post(self, request, *args, **kwargs):
         try:
+            if not get_user_model().objects.filter(email=request.data.get('email'))[0]:
+                return Response({"result": False, "message": "Пользователь с таким email не существует.", "data": {}})
             serializer = self.get_serializer(data=request.data)
             serializer.is_valid(raise_exception=True)
             serializer.save()
             return Response({"result": True, "message": "Вам на почту выслано письмо с ссылкой для сброса пароля."})
         except Exception as e:
-            return Response({"result": False, "message": e.__str__()})
+            return Response({"result": False, "message": e.__str__(), "data": {}})
 
 class PasswordResetConfirmView(GenericAPIView):
     serializer_class = PasswordResetConfirmSerializer

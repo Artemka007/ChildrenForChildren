@@ -4,12 +4,10 @@ import { Store } from '@ngrx/store';
 import { AppState } from './business';
 import { SetUser } from './business/actions/account.actions';
 import { SetUserChats } from './business/actions/chats.actions';
-import { IChat } from './models/chat.model';
 import { Profile, User } from './models/user.model';
 import { AccountService } from './services/account.service';
-import { ChatService, WSMessage } from './services/chat.service';
-import { WebsocketService } from './services/websocket.service';
-import { Warning } from './warning-window/warning-window.component';
+import { ChatService } from './services/chat.service';
+import { Warning } from './ui/warning-window/warning-window.component';
 
 @Component({
   selector: 'app-root',
@@ -28,6 +26,7 @@ export class AppComponent implements OnInit {
     private _store: Store<AppState>,
     private _accountService: AccountService,
     private _chatService: ChatService,
+    private _account: AccountService
   ) {
     this._getUser()
     this._getChats()
@@ -49,18 +48,8 @@ export class AppComponent implements OnInit {
   private _getUser() {
     this._accountService.getUser().subscribe(data => {
       let JSONUser = data.data.user
-      if (!JSONUser) {
-        let path = location.pathname.split("/")[1]
-        if (location.pathname === "/" || path === "home" || path === "news" || path === "events" || path === "chats" || path === "chat" || path === "profile") {
-          console.log(location.pathname.split("/")[1])
-          this._router.navigateByUrl("login")
-        }
-      }
-      else {
-        let {id, username, email, first_name, last_name, profile} = JSONUser
-        let {user, patronymic, age, phone, user_in_school_status, status, country, city, about_me} = profile
-        let p = new Profile(profile.id, user, phone, patronymic, age, user_in_school_status, status, country, city, about_me)
-        let u = new User(id, username, email, first_name, last_name, p)
+      if (JSONUser) {
+        let u = this._account.responseUserToUser(data.data)
         this._store.dispatch(new SetUser(u))
         this.user = u
         if (location.pathname === "/") {

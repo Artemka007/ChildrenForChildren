@@ -8,6 +8,7 @@ export interface IBaseOffer {
 }
 
 export interface IOffer extends IBaseOffer {
+    id?: number
     user: number
     views_amoun: number
 }

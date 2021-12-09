@@ -3,7 +3,7 @@ import { Store } from '@ngrx/store';
 import { interval } from 'rxjs';
 import { AppState } from '../business';
 import { CloseWarningWindow, OpenWarningWindow } from '../business/actions/ui.actions';
-import { Warning } from '../warning-window/warning-window.component';
+import { Warning } from '../ui/warning-window/warning-window.component';
 
 @Injectable({
   providedIn: 'root'

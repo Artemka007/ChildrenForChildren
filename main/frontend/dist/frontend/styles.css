@@ -76,6 +76,8 @@ html, body {
   padding: 5px;
   transition: all 0.1s;
   vertical-align: middle;
+  font-size: 30px;
+  flex: 0 0 40px;
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -91,12 +93,16 @@ html, body {
   flex: 0 0 30px;
 }
 
-.Dialog .Header .Close:hover {
+.Dialog .Header .Close:disabled {
+  cursor: not-allowed;
+}
+
+.Dialog .Header .Close:hover:not(:disabled) {
   box-shadow: #00000070 0 1px 8px 0;
   cursor: pointer;
 }
 
-.Dialog .Header .Close:focus {
+.Dialog .Header .Close:focus:not(:disabled) {
   box-shadow: inset #00000050 0 1px 4px 0;
 }
 

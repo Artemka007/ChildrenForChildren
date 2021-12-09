@@ -1,5 +1,5 @@
 import { Action } from "@ngrx/store";
-import { Warning } from "src/app/warning-window/warning-window.component";
+import { Warning } from "src/app/ui/warning-window/warning-window.component";
 
 export enum UIActions {
     OpenWarning = "[UI Page] Open Warning Window",

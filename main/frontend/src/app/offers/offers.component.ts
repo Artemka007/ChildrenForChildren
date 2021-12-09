@@ -26,6 +26,8 @@ export class OffersComponent implements OnInit {
 
   user?: User
 
+  action: "edit" | "create" = "create"
+
   constructor(private _offers: OffersService, private _store: Store<AppState>) {
     _store.subscribe(data => {
       this.user = data.account.user
@@ -62,9 +64,16 @@ export class OffersComponent implements OnInit {
 
   }
 
+  createOfferOpen(action?: "edit" | "create", offer?: IOffer) {
+    this.action = action || "create"
+    this.createOfferIsOpen = true
+    this.offer = offer
+  }
+
   createOfferClose() {
     this.createOfferIsOpen = false
     this.requestToGetAllOffers()
+    this.offer = undefined
   }
 
   detailOfferClose() {
