@@ -63,4 +63,4 @@ class OffersTest(TestCase):
         serializer.save()
         data = self.request.delete(self.base_url+'?id='+str(serializer.instance.id), self.offer).data
         self.assertEquals(data.get('result'), True, data.get('message'))
-        self.assertTrue(data.get('data').get('offer') is None)
+        
