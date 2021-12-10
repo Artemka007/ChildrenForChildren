@@ -2,6 +2,7 @@ from django.db.models.base import Model
 from django.db.models.query_utils import refs_expression
 from django.http import response
 from django.test import TestCase
+from rest_framework import serializers
 from rest_framework.test import APIClient
 from django.contrib.auth import get_user_model
 
@@ -22,6 +23,7 @@ class OffersTest(TestCase):
 
         self.request= APIClient()
         self.base_url = "/api/v1/offers/"
+        
         user = get_user_model().objects.create_user(username="test", email="", password="123")
         
 
@@ -63,4 +65,11 @@ class OffersTest(TestCase):
         serializer.save()
         data = self.request.delete(self.base_url+'?id='+str(serializer.instance.id), self.offer).data
         self.assertEquals(data.get('result'), True, data.get('message'))
-        
+    
+    def test_filters(self):
+        serializer = OfferMainSerializer(data=self.offer)
+        serializer.is_valid()
+        serializer.save()
+        data = self.request.post(self.base_url+'filter/', {'q': 'test'}).data
+        self.assertEquals(data.get('result'), True, data.get('message'))
+        self.assertTrue(data.get('data').get('offers') != [])
