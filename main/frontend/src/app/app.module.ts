@@ -30,6 +30,7 @@ import { WarningWindowComponent } from './ui/warning-window/warning-window.compo
 import { OfferActionComponent } from './offers/offer-action/offer-action.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { OfferDetailComponent } from './offers/offer-detail/offer-detail.component';
+import { ChatUploadFilesComponent } from './chats/chat-upload-files/chat-upload-files.component';
 
 @NgModule({
   declarations: [
@@ -54,7 +55,8 @@ import { OfferDetailComponent } from './offers/offer-detail/offer-detail.compone
     OfferComponent,
     WarningWindowComponent,
     OfferActionComponent,
-    OfferDetailComponent
+    OfferDetailComponent,
+    ChatUploadFilesComponent
   ],
   imports: [
     BrowserModule,

@@ -1,5 +1,5 @@
 import { Component, ElementRef, OnInit, QueryList, ViewChild, ViewChildren } from '@angular/core';
-import { IChat, ICreateChat, ICreateMessage, IEditChat } from '../models/chat.model';
+import { IChat, ICreateMessage, IEditChat } from '../models/chat.model';
 import { ChatService } from '../services/chat.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
@@ -8,7 +8,9 @@ import { IUser, User } from '../models/user.model';
 import { SetUserChats } from '../business/actions/chats.actions';
 import { ChatMessageComponent } from './chat-message/chat-message.component';
 import { HttpEventType } from '@angular/common/http';
-import { Subscription } from 'rxjs';
+import { interval, Subscription } from 'rxjs';
+import { take } from 'rxjs/operators';
+import { UiService } from '../services/ui.service';
 
 @Component({
   selector: 'chats',
@@ -65,7 +67,8 @@ export class ChatsComponent implements OnInit {
     private _router: Router,
     private _route: ActivatedRoute,
     private _chat: ChatService,
-    private _store: Store<AppState>
+    private _store: Store<AppState>,
+    private _ui: UiService
   ) {
     _store.subscribe(data => {
       this.user = data.account.user
@@ -93,22 +96,18 @@ export class ChatsComponent implements OnInit {
     this._route.queryParams.subscribe(p => {
       let id = parseInt(p["id"])
       if (id) {
-        this.connect(id)
+        this._chat.connectToMessages(id)
+        this._chat.subscribeToMessages().subscribe(data => {
+          this._subscribeToWSMessages(data)
+        })
       }
-    })
-  }
-
-  connect(id: number) {
-    this._chat.connectToMessages(id)
-    this._chat.subscribeToMessages().subscribe(data => {
-      this._subscribeToWSMessages(data)
     })
   }
 
   getChatTitle() {
     if (this.user && this.chat) {
       if (this.chat.title) return this.chat.title
-      else if (this.chat.is_group) return "Чат 1"
+      else if (this.chat.is_group) return "Без названия"
       else {
         let user = this.chat.users.filter(i => i.id !== this.user?.id)[0]
         return user.first_name + " " + user.last_name
@@ -122,30 +121,36 @@ export class ChatsComponent implements OnInit {
   }
 
   uploadFile(event: Event, type: "img" | "doc") {
+    // get input with file in event
     let el = event.target as HTMLInputElement
+    // get files in input
     let fileList: FileList | null = el.files
+    // create form data for add files in it
     let fd = new FormData()
     if (fileList) {
+      // get file in list
       let f = fileList[0]
       if (f.name.length > 100) {
-        console.error("Длина названия файла не может быть больше 100 символов.")
-      } else {
-        let uf = {type, name: f.name, progress: 0}
-        fd.append("file", f)
-        this.uploadigFiles.push(uf)
-        let uploadingFilesLastId = this.uploadigFiles.length - 1
-        this.uploadSubscription = this._chat.uploadFile(fd, type).subscribe(data => {
-          if (data.type === HttpEventType.UploadProgress && data.total) {
-            this.uploadigFiles[uploadingFilesLastId].progress = Math.round(data.loaded / data.total * 100)
-          } else if (data.type === HttpEventType.Response) {
-            if (data.body?.data.id) {
-              type === "img" && this.message['imgs'].push(data.body?.data.id)
-              type === "doc" && this.message['docs'].push(data.body?.data.id)
-              this.uploadigFiles[uploadingFilesLastId].id = data.body.data.id
-            }
+        // django does not support files with large name
+        this._ui.openWarning({"message": "Длина названия файла не может быть больше 100 символов.", "class": "error"})
+        return
+      }
+      // create upload file dor add to upload files array
+      let uploadFile = {type, name: f.name, progress: 0}
+      fd.append("file", f)
+      this.uploadigFiles.push(uploadFile)
+      let uploadingFilesLastId = this.uploadigFiles.length - 1
+      this.uploadSubscription = this._chat.uploadFile(fd, type).subscribe(data => {
+        if (data.type === HttpEventType.UploadProgress && data.total) {
+          this.uploadigFiles[uploadingFilesLastId].progress = Math.round(data.loaded / data.total * 100)
+        } else if (data.type === HttpEventType.Response) {
+          if (data.body?.data.id) {
+            type === "img" && this.message['imgs'].push(data.body?.data.id)
+            type === "doc" && this.message['docs'].push(data.body?.data.id)
+            this.uploadigFiles[uploadingFilesLastId].id = data.body.data.id
           }
-        })
-       }
+        }
+      })
     }
   }
 
@@ -318,11 +323,9 @@ export class ChatsComponent implements OnInit {
         if (id === -1) {
           this.writingUsers.push(data.user)
         }
-        if (this.intervalRef) clearInterval(this.intervalRef)
-        this.intervalRef = setInterval(() => {
+        interval(2000).pipe(take(1)).subscribe(() => {
           this.writingUsers.splice(id, 1)
-        }, 2000)
-        console.log(id)
+        })
         break
       }
 

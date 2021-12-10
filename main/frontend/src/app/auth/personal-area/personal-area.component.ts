@@ -57,7 +57,7 @@ export class PersonalAreaComponent implements OnInit {
     this.isEditing = false
   }
 
-  checkUserInSchoolStatus(status: "student" | "admin" | "teacher" | "parent" | "moderator") {
+  checkUserInSchoolStatus(status?: "student" | "admin" | "teacher" | "parent" | "moderator") {
     if (status === "student") return "Ученик"
     else if (status === "admin") return "Админ"
     else if (status === "teacher") return "Учитель"

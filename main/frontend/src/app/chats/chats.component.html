@@ -4,7 +4,7 @@
         <div class="Avatar"><img src="/media/icons/profile.png" alt="" /> </div>
         <div class="Main-Info">
             <div class="Name">{{c.title || getOtherUserInChat(c.id)?.first_name + " " + getOtherUserInChat(c.id)?.last_name}}</div>
-            <div class="Status">{{checkUserNotIsBanned(c) ? c.messages[c.messages.length - 1].body : "Вы забанены..."}}</div>
+            <div class="Status">{{checkUserNotIsBanned(c) ? c.messages[c.messages.length - 1]?.body ? c.messages[c.messages.length - 1]?.body : "Сообзений пока нету." : "Вы забанены..."}}</div>
         </div>
     </a>
 </div>
@@ -21,18 +21,19 @@
                 </div>
             </div>
         </header>
-        <main class="Chat__Body" #chatBody>
-            <ng-container *ngIf="checkUserNotIsBanned()">
+        <main class="Chat__Body" #chatBody [style.justifyContent]="checkUserNotIsBanned() && chat.messages.length > 0 ? 'flex-end' : 'center'">
+            <ng-container *ngIf="checkUserNotIsBanned() && chat.messages.length > 0">
                 <chat-message *ngFor="let m of chat.messages" [message]="m" [userId]="user?.id || -1" style="padding: 0 10px;" (openSlider)="openImageSlider($event)" #chatMessages></chat-message>
             </ng-container>
             <div class="Banned" *ngIf="!checkUserNotIsBanned()">Вы забанены модератором чата.</div>
+            <div class="Banned" *ngIf="chat.messages.length === 0">Сообщений пока что нет.</div>
         </main>
-        <form class="Chat__Form" #chatForm="ngForm" (ngSubmit)="sendMessage()">
-            <div *ngIf="checkUserNotIsBanned()" class="Chat__Form__Fields-Container">
+        <form class="Chat__Form" #chatForm="ngForm" (ngSubmit)="sendMessage()" *ngIf="checkUserNotIsBanned()">
+            <div class="Chat__Form__Fields-Container">
                 <input (ngModelChange)="writingMessage()" name="body" [(ngModel)]="message.body" placeholder="Введите сообщение" />
                 <ng-container>
-                    <input type="file" #imageUpload accept="image/*" (change)="uploadFile($event, 'img')" style="display: none;" />
-                    <input type="file" #fileUpload accept="application/msword, text/plain, application/pdf" (change)="uploadFile($event, 'doc')" style="display: none;" />
+                    <input #uploadImg type="file" #imageUpload accept="image/*" style="display: none;" />
+                    <input #uploadDoc type="file" #fileUpload accept="application/msword, text/plain, application/pdf" style="display: none;" />
                 </ng-container>
                 <div class="Actions">
                     <button type="button" (click)="imageUpload.click()" class="Upload-Img"><i></i></button>
@@ -41,19 +42,7 @@
                 <button class="Send"><i></i></button>
             </div>
             <div class="Chat__Form__Upload-Files">
-                <div class="Item" *ngFor="let i of uploadigFiles">
-                    <div class="Icon">
-                        <i [class]="i.type === 'img' ? 'Upload-Img' : 'Upload-Doc'"></i>
-                    </div>
-                    <div class="Name">{{i.name}}</div>
-                    <progress-bar [progress]="i.progress" [progressColor]="i.progressColor"></progress-bar>
-                    <div class="Progress-Bar-Procents">{{i.progress.toString() + "%"}}</div>
-                    <div class="Actions">
-                        <button type="button" *ngIf="i.progress < 100" [class]="'Break-Upload'" (click)="breakUpload()"><i></i></button>
-                        <button type="button" *ngIf="i.progress === 100" [class]="'Delete-File'" (click)="deleteUploadedFile(i.type, i.id)"><i></i></button>
-                    </div>
-                </div>
-                <div class="Item" *ngFor="let d of message.docs"></div>
+                <chat-upload-files [message]="message" [inputs]="[{'type': 'img', el: uploadImg}, {'type': 'doc', el: uploadDoc}]"></chat-upload-files>
             </div>
         </form>
     </div>

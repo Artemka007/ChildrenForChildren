@@ -1,0 +1,44 @@
+@import "src/styles.sass"
+@import "src/styles.forms.sass"
+
+:host
+    +flex-container()
+    width: 100%
+    height: auto
+    .Item
+        +flex-container(row, flex-start, center)
+        width: 100%
+        height: auto
+        padding: 10px
+        border-top: var(--blue) solid 1px
+        .Icon
+            +flex-container(row)
+            flex: 0 0 50px
+            height: 50px
+            width: 50px
+            padding: 10px
+            border-radius: 100%
+            background: var(--blue)
+            i
+                font-size: 30px
+            .Upload-Doc
+                content: url("/media/icons/file-upload-white.svg")
+            .Upload-Img
+                content: url("/media/icons/image-upload-white.svg")
+        .Name
+            width: auto
+            height: auto
+            margin: 0 10px
+        .Actions
+            +flex-container(row)
+            .Break-Upload,
+            .Delete-File
+                +manage-button(40px, 40px)
+                i
+                    font-size: 30px
+            .Break-Upload
+                i
+                    content: url("/media/icons/red-times-circle.svg")
+            .Delete-File
+                i
+                    content: url("/media/icons/trash-alt.svg")

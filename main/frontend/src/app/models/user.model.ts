@@ -8,7 +8,7 @@ export interface IUser {
   readonly phone: string
   readonly age: number
   readonly status?: string
-  readonly user_in_school_status: "student" | "teacher" | "parent" | "admin" | "moderator"
+  readonly user_in_school_status?: "student" | "teacher" | "parent" | "admin" | "moderator"
   readonly country?: string
   readonly city?: string
   readonly district?: string
@@ -26,7 +26,7 @@ export class User {
     private _phone: string,
     private _age: number,
     private _status?: string,
-    private _user_in_school_status: "student" | "teacher" | "parent" | "admin" | "moderator" = "student",
+    private _user_in_school_status?: "student" | "teacher" | "parent" | "admin" | "moderator",
     private _country?: string,
     private _city?: string,
     private _district?: string,
@@ -110,7 +110,7 @@ export class User {
     return this._user_in_school_status
   }
   
-  set user_in_school_status(user_in_school_status: "student" | "teacher" | "parent" | "admin" | "moderator") {
+  set user_in_school_status(user_in_school_status: "student" | "teacher" | "parent" | "admin" | "moderator" | undefined) {
     this._user_in_school_status = user_in_school_status
   }
 
