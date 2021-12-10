@@ -109,11 +109,11 @@ class FilterOffers(APIView):
             return []
         offers = OffersMain.objects.all()
         if isinstance(q, str):
-            offers = offers.filter(Q(about__comtains=q) | Q(title__comtains=q))
+            offers = offers.filter(Q(about__contains=q) | Q(title__contains=q))
         else:
             about = q.get('about') 
             if about is not None:
-                offers = offers.filter(about__comtains=about)
+                offers = offers.filter(about__contains=about)
             title = q.get('title')
             if title is not None:
                 offers = offers.filter(title__contains=title)
