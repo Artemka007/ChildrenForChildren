@@ -88,7 +88,7 @@ class TestAccountView(TestCase):
         user.first_name = user1["first_name"]
         user.last_name = user1["last_name"]
         user.phone=user1["phone"], 
-        #user.age=user1["age"], 
+        user.age=user1["age"], 
         user.status=user1["status"], 
         user.user_in_school_status=user1["user_in_school_status"], 
         user.about_me=user1["about_me"], 

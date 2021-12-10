@@ -5,7 +5,10 @@ import { IBaseOffer, IOffer } from '../models/offers.model';
 import { User } from '../models/user.model';
 import { OffersService } from '../services/offers.service';
 
-export type TQuery = string | {}
+export type TQuery = string | {
+  title: string,
+  about: string
+}
 
 @Component({
   selector: 'offers',
@@ -15,7 +18,10 @@ export type TQuery = string | {}
 export class OffersComponent implements OnInit {
   detailsIsOpen: boolean = false
   q: string = ""
-  qDetails: TQuery = {}
+  qDetails = {
+    title: "",
+    about: ""
+  }
 
   offers: IOffer[] = []
 
@@ -60,8 +66,11 @@ export class OffersComponent implements OnInit {
     return this.offers?.filter(i => i.define_type_of_request == "quastions")
   }
 
-  search(q: string | object) {
-
+  search(q: TQuery) {
+    this._offers.filterOffers(q).subscribe(data => {
+      if (data.data.offers) this.offers = data.data.offers
+      else console.error(data.message)
+    })
   }
 
   createOfferOpen(action?: "edit" | "create", offer?: IOffer) {

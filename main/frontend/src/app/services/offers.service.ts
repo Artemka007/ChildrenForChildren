@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { APIResponse } from '../models/api.model';
 import { IBaseOffer, IOffer } from '../models/offers.model';
+import { TQuery } from '../offers/offers.component';
 
 @Injectable({
   providedIn: 'root'
@@ -46,8 +47,13 @@ export class OffersService {
     return sub
   }
 
-  filterOffers() {
-
+  filterOffers(q: TQuery) {
+    let sub = this._http.post<APIResponse<{offers?: IOffer[]}>>("/api/v1/offers/filter/", {q}, {
+      headers: {
+        "X-CSRFToken": this._getCookie("csrftoken")
+      }
+    })
+    return sub
   }
   
   private _getCookie(name: string): string {

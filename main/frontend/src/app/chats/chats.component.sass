@@ -96,13 +96,15 @@
                 +flex-container(row, flex-start, center)
                 width: 100%
                 height: 100%
-                input
+                input,
+                textarea
                     width: 100%
                     font-size: 16px
-                    padding: 12px 15px
+                    padding: 10px 15px
                     border: #00000050 solid 1px
                     border-radius: 10px
                     margin-right: 10px
+                    resize: none
                     &:focus
                         border-color: var(--lite-blue)
                 button
@@ -147,13 +149,6 @@
             transition: opacity .2s, z-index .2s, width .2s
         .Main-Info
             +flex-container(column, flex-start, center)
-            input,
-            textarea
-                +field()
-            textarea
-                resize: vertical
-                min-height: 100px
-                max-height: 300px
             .Chat-Ava
                 width: 200px
                 height: 200px

@@ -71,8 +71,9 @@ import { ChatCreateComponent } from './chats/chat-create/chat-create.component';
     StoreModule.forRoot(reducers)
   ],
   providers: [
-    Subject
+    Subject,
   ],
+  exports: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

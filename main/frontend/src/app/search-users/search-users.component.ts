@@ -47,7 +47,7 @@ export class SearchUsersComponent implements OnInit {
     if(u.status) s = u.status
     else if(u.city && u.country) s = u.city + ", " + u.country
     else s = u.phone
-    return s.substr(0, 100)
+    return s.substring(0, 100)
   }
 
   select(id: number) {

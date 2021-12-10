@@ -12,7 +12,10 @@
                 <div class="Title">Расширеный поиск</div>
                 <form class="Items-Container" #detailsSearchForm="ngForm" (ngSubmit)="search(qDetails)">
                     <div class="Item">
-                        <input name="username" placeholder="Ник" />
+                        <input name="title" [(ngModel)]="qDetails.title" placeholder="Заголовок" />
+                    </div>
+                    <div class="Item">
+                        <input name="title" [(ngModel)]="qDetails.about" placeholder="О приложении" />
                     </div>
                     <button class="Button">Поиск</button>
                 </form>

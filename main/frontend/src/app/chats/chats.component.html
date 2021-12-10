@@ -32,7 +32,7 @@
         </main>
         <form class="Chat__Form" #chatForm="ngForm" (ngSubmit)="sendMessage()" *ngIf="checkUserNotIsBanned()">
             <div class="Chat__Form__Fields-Container">
-                <input (ngModelChange)="writingMessage()" name="body" [(ngModel)]="message.body" placeholder="Введите сообщение" />
+                <textarea #messageField (ngModelChange)="writingMessage();autogrow()" name="body" [(ngModel)]="message.body" placeholder="Введите сообщение" style="max-height: 300px;"></textarea>
                 <ng-container>
                     <input #uploadImg type="file" #imageUpload accept="image/*" style="display: none;" />
                     <input #uploadDoc type="file" #fileUpload accept="application/msword, text/plain, application/pdf" style="display: none;" />

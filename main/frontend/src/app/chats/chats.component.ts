@@ -24,7 +24,10 @@ export class ChatsComponent implements OnInit {
   @ViewChildren("chatMessage")
   chatMessages?: QueryList<ChatMessageComponent>
 
-  intervalRef?: any
+  @ViewChild("messageField")
+  messageField?: ElementRef<HTMLTextAreaElement>
+  
+  fieldHeight: number = 0
 
   writingUsers: IUser[] = []
 
@@ -85,6 +88,7 @@ export class ChatsComponent implements OnInit {
             this.chatForEdit = {photo: undefined, title, about, users: users.map(i => {return i.id}), moderators, banned_list, is_private}
             this.message["chat"] = id
             this.chatBody && this.scroll(this.chatBody.nativeElement)
+            this.autogrow()
             this._chat.readMessage(id)
           } else  {
             this._chat.getChatById(id).subscribe(data => {
@@ -151,6 +155,16 @@ export class ChatsComponent implements OnInit {
   writingMessage() {
     this._chat.writingMessage(this.user?.id || -1)
   }
+
+  autogrow(){
+    if (this.messageField) {
+      let textArea = this.messageField.nativeElement
+      textArea.style.overflow = 'hidden';
+      textArea.style.height = '0px';
+      textArea.style.height = textArea.scrollHeight + 'px';
+    }
+  }
+  
 
   scroll(el: HTMLElement) {
     el.scrollTop = el.scrollHeight
