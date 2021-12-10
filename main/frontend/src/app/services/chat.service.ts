@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
-import { IChat, ICreateMessage, IEditChat } from '../models/chat.model';
+import { IChat, ICreateChat, ICreateMessage, IEditChat } from '../models/chat.model';
 import { WebsocketService } from './websocket.service';
 import { APIResponse } from '../models/api.model';
 import { IUser, User } from '../models/user.model';
@@ -55,6 +55,12 @@ export class ChatService {
 
   getOrCreateChat(users: number[]) {
     return this._http.post<APIResponse<{chat?: IChat, chats?: IChat[]}>>(`/api/v1/chats/`, {users}, {
+      headers: {"X-CSRFToken": this._getCookie("csrftoken")}
+    })
+  }
+
+  createGroupChat(chat: ICreateChat) {
+    return this._http.post<APIResponse<{chat?: IChat, chats?: IChat[], errors?: {[key: string]: string}[]}>>(`/api/v1/chats/`, chat, {
       headers: {"X-CSRFToken": this._getCookie("csrftoken")}
     })
   }

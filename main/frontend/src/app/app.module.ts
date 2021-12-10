@@ -31,6 +31,7 @@ import { OfferActionComponent } from './offers/offer-action/offer-action.compone
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { OfferDetailComponent } from './offers/offer-detail/offer-detail.component';
 import { ChatUploadFilesComponent } from './chats/chat-upload-files/chat-upload-files.component';
+import { ChatCreateComponent } from './chats/chat-create/chat-create.component';
 
 @NgModule({
   declarations: [
@@ -56,7 +57,8 @@ import { ChatUploadFilesComponent } from './chats/chat-upload-files/chat-upload-
     WarningWindowComponent,
     OfferActionComponent,
     OfferDetailComponent,
-    ChatUploadFilesComponent
+    ChatUploadFilesComponent,
+    ChatCreateComponent
   ],
   imports: [
     BrowserModule,

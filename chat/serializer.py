@@ -46,3 +46,9 @@ class CreateMessageSerializer(ModelSerializer):
     class Meta:
         model = Message
         fields = ["user", "chat", "body", "reply_to_message", "is_forwarded", "imgs", "docs"]
+    
+    def create(self, validate_data):
+        message = super().create(validate_data)
+        message.chat.last_action = message.date
+        message.chat.save()
+        return message

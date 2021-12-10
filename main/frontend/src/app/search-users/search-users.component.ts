@@ -1,13 +1,20 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit, EventEmitter, Output } from '@angular/core';
+import { Router } from '@angular/router';
 import { IUser } from '../models/user.model';
 import { AccountService, SearchUserQuery } from '../services/account.service';
 
 @Component({
-  selector: 'app-search-users',
+  selector: 'search-users',
   templateUrl: './search-users.component.html',
   styleUrls: ['./search-users.component.sass']
 })
 export class SearchUsersComponent implements OnInit {
+  @Output()
+  onuserselect = new EventEmitter()
+
+  @Input()
+  isDialog: boolean = false
+
   detailsIsOpen: boolean = false
 
   users: IUser[] = []
@@ -22,7 +29,7 @@ export class SearchUsersComponent implements OnInit {
     district: "",
   }
 
-  constructor(private _account: AccountService) { }
+  constructor(private _account: AccountService, private _router: Router) { }
 
   ngOnInit(): void {
     this.search("")
@@ -41,6 +48,10 @@ export class SearchUsersComponent implements OnInit {
     else if(u.city && u.country) s = u.city + ", " + u.country
     else s = u.phone
     return s.substr(0, 100)
+  }
+
+  select(id: number) {
+    this.isDialog ? this.onuserselect.emit(id) : this._router.navigateByUrl("/profile?id="+id)
   }
 
 }

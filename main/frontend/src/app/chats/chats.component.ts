@@ -9,7 +9,7 @@ import { SetUserChats } from '../business/actions/chats.actions';
 import { ChatMessageComponent } from './chat-message/chat-message.component';
 import { HttpEventType } from '@angular/common/http';
 import { interval, Subscription } from 'rxjs';
-import { take } from 'rxjs/operators';
+import { map, take } from 'rxjs/operators';
 import { UiService } from '../services/ui.service';
 
 @Component({
@@ -56,8 +56,7 @@ export class ChatsComponent implements OnInit {
     is_private: false,
   }
   isEditing: boolean = false
-
-  uploadSubscription?: Subscription
+  isCreating: boolean = false
 
   imageIdForImageSlider: number = 0
   imagesForImageSlider: string[] = []
@@ -70,6 +69,9 @@ export class ChatsComponent implements OnInit {
     private _store: Store<AppState>,
     private _ui: UiService
   ) {
+    this.chatMessages?.changes.subscribe(i => {
+      this.chatBody && this.scroll(this.chatBody.nativeElement)
+    })
     _store.subscribe(data => {
       this.user = data.account.user
       this.chats = data.chats.chats
@@ -84,6 +86,16 @@ export class ChatsComponent implements OnInit {
             this.message["chat"] = id
             this.chatBody && this.scroll(this.chatBody.nativeElement)
             this._chat.readMessage(id)
+          } else  {
+            this._chat.getChatById(id).subscribe(data => {
+              if (data.data.chat) {
+                if (data.data.chat.users.map(i => i.id).includes(this.user?.id || -1) || data.data.chat.is_group) {
+                  this.chat = data.data.chat
+                } else {
+                  this._router.navigateByUrl("/chats")
+                }
+              } else this._ui.openWarning({"class": "error", "message": data.message})
+            })
           }
         } else {
           this.chatNavIsOpen = true
@@ -104,6 +116,10 @@ export class ChatsComponent implements OnInit {
     })
   }
 
+  checkUserIsInChat() {
+    return this.chat?.users.map(i => i.id).includes(this.user?.id || -1)
+  }
+
   getChatTitle() {
     if (this.user && this.chat) {
       if (this.chat.title) return this.chat.title
@@ -118,58 +134,6 @@ export class ChatsComponent implements OnInit {
 
   sendMessage() {
     this._chat.sendMessage(this.message)
-  }
-
-  uploadFile(event: Event, type: "img" | "doc") {
-    // get input with file in event
-    let el = event.target as HTMLInputElement
-    // get files in input
-    let fileList: FileList | null = el.files
-    // create form data for add files in it
-    let fd = new FormData()
-    if (fileList) {
-      // get file in list
-      let f = fileList[0]
-      if (f.name.length > 100) {
-        // django does not support files with large name
-        this._ui.openWarning({"message": "Длина названия файла не может быть больше 100 символов.", "class": "error"})
-        return
-      }
-      // create upload file dor add to upload files array
-      let uploadFile = {type, name: f.name, progress: 0}
-      fd.append("file", f)
-      this.uploadigFiles.push(uploadFile)
-      let uploadingFilesLastId = this.uploadigFiles.length - 1
-      this.uploadSubscription = this._chat.uploadFile(fd, type).subscribe(data => {
-        if (data.type === HttpEventType.UploadProgress && data.total) {
-          this.uploadigFiles[uploadingFilesLastId].progress = Math.round(data.loaded / data.total * 100)
-        } else if (data.type === HttpEventType.Response) {
-          if (data.body?.data.id) {
-            type === "img" && this.message['imgs'].push(data.body?.data.id)
-            type === "doc" && this.message['docs'].push(data.body?.data.id)
-            this.uploadigFiles[uploadingFilesLastId].id = data.body.data.id
-          }
-        }
-      })
-    }
-  }
-
-  breakUpload() {
-    this.uploadSubscription?.unsubscribe()
-    let uploadingFilesLastId = this.uploadigFiles.length - 1
-    this.uploadigFiles.splice(uploadingFilesLastId, 1)
-  }
-
-  deleteUploadedFile(type: "img" | "doc", id?: number) {
-    id && this._chat.deleteUploadedFile(id, type).subscribe(data => {
-      if (type === 'img') {
-        this.message['imgs'].splice(this.message.imgs.indexOf(id), 1)
-      } else if (type === 'doc') {
-        this.message['docs'].splice(this.message.docs.indexOf(id), 1)
-      }
-      let uf = this.uploadigFiles.find(i => i.id === id)
-      uf && this.uploadigFiles.splice(this.uploadigFiles.indexOf(uf), 1)
-    })
   }
 
   openImageSlider(data: {id: number, urls: string[]}) {
@@ -222,7 +186,7 @@ export class ChatsComponent implements OnInit {
           this.chatForEdit = {photo: undefined, title, about, users: users.map(i => {return i.id}), moderators, banned_list, is_private}
         }
       }
-      else console.error(data.message)
+      else this._ui.openWarning({"class": "error", "message": data.message})
     })
     this.stopEditing()
   }
@@ -233,7 +197,7 @@ export class ChatsComponent implements OnInit {
         this.chat = data.data.chat
         this.chatForEdit.banned_list = data.data.chat?.banned_list || this.chatForEdit.banned_list
       }
-      else console.error(data.message)
+      else this._ui.openWarning({"class": "error", "message": data.message})
     })
   }
 
@@ -244,7 +208,7 @@ export class ChatsComponent implements OnInit {
         this.chatForEdit.banned_list = data.data.chat?.banned_list || this.chatForEdit.banned_list
         console.log(data.data.chat)
       }
-      else console.error(data.message)
+      else this._ui.openWarning({"class": "error", "message": data.message})
     })
   }
 
@@ -263,7 +227,7 @@ export class ChatsComponent implements OnInit {
   checkUserCanEditChat() {
     switch (this.chat?.who_can_edit_chat) {
       case "everybody": return true
-      case "admins_and_moders": return this.checkUserIsAdmin() || this.checkUserIsModer
+      case "admins_and_moders": return this.checkUserIsAdmin() || this.checkUserIsModer()
       case "admins": return this.checkUserIsAdmin()
       default: return false
     }
@@ -291,7 +255,7 @@ export class ChatsComponent implements OnInit {
   }
 
   chatIsOpen() {
-    return window.innerWidth > 1083
+    return window.innerWidth > 1183
   }
 
   checkUserNotIsBanned(chat?: IChat) {
@@ -300,20 +264,19 @@ export class ChatsComponent implements OnInit {
     else return false
   }
 
+  copyLink() {
+    window.navigator.clipboard.writeText(`${this.user?.firstName} ${this.user?.lastName} приглашает Вас в группу "${this.chat?.title}".\nСсылка на группу: ${location.href}`)
+    this._ui.openWarning({"class": "ok", "message": "Приглашение скопированно в буфер обмена."})
+  }
+
   private _subscribeToWSMessages(data: any) {
     switch (data.action) {
       case "send_message": {
         if (data.message) {
-          let chatsCopy = [...this.chats]
-          let messageCopy = {...data.message}
-          let chat = chatsCopy.find(i => i.id === data.message.chat)
-          if (chat) {
-            let chatCopy = {...chat}
-            let id = chatsCopy.indexOf(chat)
-            chatCopy.messages = [...chatCopy.messages, messageCopy]
-            chatsCopy.splice(id, 1, chatCopy)
-          }
-          this._store.dispatch(new SetUserChats(chatsCopy))
+          this._chat.getUserChats().subscribe(data => {
+            if (data.data.chats) this._store.dispatch(new SetUserChats(data.data.chats))
+            else this._ui.openWarning({"class": "error", "message": data.message})
+          })
         }
         break
       }

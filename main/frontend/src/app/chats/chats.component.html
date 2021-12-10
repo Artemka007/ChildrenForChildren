@@ -1,12 +1,14 @@
 <image-slider *ngIf="imageSliderIsOpen" [urls]="imagesForImageSlider" [id]="imageIdForImageSlider" (close)="closeImageSlider()"></image-slider>
-<div class="All-Chats Shadow-Right" [ngClass]="{'Close': !chatNavIsOpen}">
+<chat-create *ngIf="isCreating" (onclose)="isCreating = false" [user]="user"></chat-create>
+<div #allChats class="All-Chats Shadow-Right" [ngClass]="{'Close': !chatNavIsOpen}">
     <a [routerLink]="'/chats'" [queryParams]="{id: c.id}" *ngFor="let c of chats" class="Item" (click)="chatNavIsOpen = false">
         <div class="Avatar"><img src="/media/icons/profile.png" alt="" /> </div>
         <div class="Main-Info">
             <div class="Name">{{c.title || getOtherUserInChat(c.id)?.first_name + " " + getOtherUserInChat(c.id)?.last_name}}</div>
-            <div class="Status">{{checkUserNotIsBanned(c) ? c.messages[c.messages.length - 1]?.body ? c.messages[c.messages.length - 1]?.body : "Сообзений пока нету." : "Вы забанены..."}}</div>
+            <div class="Status">{{checkUserNotIsBanned(c) ? c.messages[c.messages.length - 1]?.body ? c.messages[c.messages.length - 1]?.body : "Сообщений пока что нет." : "Вы забанены..."}}</div>
         </div>
     </a>
+    <button class="Add-Chat" [style.left]="(allChats.getClientRects()[0]['left'] + 30).toString() + 'px'" (click)="isCreating = true"></button>
 </div>
 <div *ngIf="chat" class="Chat">
     <div class="Chat__Container" *ngIf="chatIsOpen() || (!chatInfoIsOpen && !chatNavIsOpen)">
@@ -41,12 +43,10 @@
                 </div>
                 <button class="Send"><i></i></button>
             </div>
-            <div class="Chat__Form__Upload-Files">
-                <chat-upload-files [message]="message" [inputs]="[{'type': 'img', el: uploadImg}, {'type': 'doc', el: uploadDoc}]"></chat-upload-files>
-            </div>
+            <chat-upload-files [message]="message" [inputs]="[{'type': 'img', el: uploadImg}, {'type': 'doc', el: uploadDoc}]"></chat-upload-files>
         </form>
     </div>
-    <form class="Chat__Information Shadow-Left" *ngIf="chat.is_group && chatInfoIsOpen" #chatEditForm="ngForm" (ngSubmit)="editChat()">
+    <form class="Chat__Information Shadow-Left" [ngClass]="{'Close': !chatInfoIsOpen}" *ngIf="chat.is_group" #chatEditForm="ngForm" (ngSubmit)="editChat()">
         <hamburger [isOpen]="true" (onchange)="setChatInfoIsOpen()"></hamburger>
         <div *ngIf="!isEditing" class="Main-Info">
             <div class="Chat-Ava"></div>
@@ -62,6 +62,8 @@
             <div class="Edit" *ngIf="checkUserCanEditChat()" (click)="startEditing()">Изменить</div>
             <div class="Bad-Chat" *ngIf="!checkUserIsAdmin()">Пожаловаться</div>
             <div class="Signout" *ngIf="!checkUserIsAdmin()" (click)="signoutFromChat()">Выйти из чата</div>
+            <div class="Send-Invite" (click)="copyLink()">Пригласить пользователя</div>
+            <div class="Approve-Invite" *ngIf="!checkUserIsInChat()" (click)="startEditing()">Присоединиться</div>
         </div>
         <div *ngIf="isEditing" class="Actions Row">
             <button class="Done" type="submit">Готово</button>

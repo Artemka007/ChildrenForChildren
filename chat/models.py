@@ -1,6 +1,8 @@
 from django.db import models
 from django.contrib.auth import get_user_model
 
+import datetime
+
 class Chat(models.Model):
     WHO_CAN_EDIT_CHAT = (
         ("everybody", "Все"),
@@ -25,10 +27,10 @@ class Chat(models.Model):
     is_private = models.BooleanField(default=False)
 
     # last message date
-    date = models.DateTimeField(auto_now_add=True)
+    last_action = models.DateTimeField(auto_now=True)
     
     class Meta:
-        ordering = ("date",)
+        ordering = ("last_action",)
 
 class Message(models.Model):
     user = models.ForeignKey(get_user_model(), on_delete=models.CASCADE, related_name="messages")
@@ -48,6 +50,12 @@ class Message(models.Model):
 
     class Meta:
         ordering = ("date",)
+    
+    def save(self, force_insert=False, force_update=False, using=None,
+             update_fields=None):
+        self.chat.last_action = self.date
+        super().save(force_insert, force_update, using,
+             update_fields)
 
 class ImgFileUpload(models.Model):
     file = models.FileField(upload_to="chat/message/imgs")

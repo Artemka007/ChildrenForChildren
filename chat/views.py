@@ -17,26 +17,35 @@ class ChatView(APIView):
                 chat = Chat.objects.get(pk=id)
             except:
                 return Response({"result": False, "message": "Чата с таким id не существует.", "data": {}})
-            user_is_in_chat = chat.users.filter(pk=request.user).exists()
+            user_is_in_chat = chat.users.filter(pk=request.user.pk).exists()
             if not user_is_in_chat and (chat.is_private or not chat.is_group):
                 return Response({"result": False, "message": "Пользователя нет в этом чате.", "data": {}})
             return Response({"result": True, "message": "Чат успешно возращен.", "data": {"chat": ChatSerializer(chat).data}})
         # else reurn all chats where the user be
-        chats = Chat.objects.filter(users__in=[request.user])
+        chats = Chat.objects.filter(users__in=[request.user]).order_by("-last_action").all()
         return Response({"result": True, "message": "Чаты успешно возращены.", "data": {"chats": ChatSerializer(chats, many=True).data}})
     def post(self, request):
         if not request.user.is_authenticated:
             return Response({"result": False, "message": "Пользователь не авторизован.", "data": {}})
-        users = request.data.get("users")
-        if not users:
-            return Response({"result": False, "message": "Параметр users не передан.", "data": {}})
-        chats = Chat.objects.filter(users__in=users).annotate(users_count=Count('users')).filter(users_count=2)
-        if chats.exists():
-            chat = chats[0]
+        ig_group = request.data.get("is_group")
+        if ig_group:
+            serializer = CreateChatSerializer(data=request.data)
+            if serializer.is_valid():
+                serializer.save()
+                chat = serializer.instance
+            else:
+                return Response({"result": False, "message": "Каких-то данных не хватило...", "data": {"errors": serializer.errors}})
         else:
-            chat = Chat.objects.create()
-            chat.users.add(get_user_model().objects.get(pk=users[0]))
-            chat.users.add(get_user_model().objects.get(pk=users[1]))
+            users = request.data.get("users")
+            if not users:
+                return Response({"result": False, "message": "Параметр users не передан.", "data": {}})
+            chats = Chat.objects.filter(users__in=users).annotate(users_count=Count('users')).filter(users_count=2)
+            if chats.exists():
+                chat = chats[0]
+            else:
+                chat = Chat.objects.create()
+                chat.users.add(get_user_model().objects.get(pk=users[0]))
+                chat.users.add(get_user_model().objects.get(pk=users[1]))
         chats = Chat.objects.all()
         serializer = ChatSerializer(chats, many=True)
         return Response({"result": True, "message": "Все прошло успешно.", "data": {"chat": chat.id, "chats": serializer.data}})

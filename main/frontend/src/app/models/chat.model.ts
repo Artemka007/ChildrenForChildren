@@ -41,7 +41,7 @@ export interface ICreateChat {
     photo?: File | Blob
     title?: string
     about?: string
-    who_can_edit_chat?: "everybody" | "moders_and_adnins" | "admins"
+    who_can_edit_chat?: "everybody" | "admins_and_moders" | "admins"
     
     users: number[]
     moderators: number[]
