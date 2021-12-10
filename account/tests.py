@@ -15,7 +15,6 @@ class TestAccountView(TestCase):
             "last_name": "Ivanov",
             "patronymic": "Ivanovich",
             "phone": "+79999999999",
-            "age": 15,
             "status": "Test status",
             "user_in_school_status": "student",
             "country": "Russia",
