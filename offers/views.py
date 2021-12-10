@@ -1,4 +1,5 @@
 from re import I
+import re
 from django.core.checks import messages
 from django.http.response import HttpResponse
 from django.shortcuts import render
@@ -7,7 +8,7 @@ from rest_framework.views import APIView, Response
 from .serializers import OfferMainSerializer
 from .models import OffersMain
 import pdb 
-
+from django.db.models.query import Q
 from rest_framework.filters import SearchFilter, OrderingFilter, BaseFilterBackend
 from rest_framework.viewsets import ModelViewSet
 
@@ -99,13 +100,23 @@ class OfferFilters(ModelViewSet):
 class FilterOffers(APIView):
     def post(self, request):
         q = request.data.get('q')
+        offers = self.search(q)
+        serializer = OfferMainSerializer(offers, many=True)
+        return Response({'result': True, 'message': 'Всё успешно', 'data': {'offers': serializer.data}})
         
     def search(self, q):
         if q is None:
-            return None
-        
+            return []
+        offers = OffersMain.objects.all()
         if isinstance(q, str):
-            offer = OffersMain.objects.all()
-            
-
+            offers = offers.filter(Q(about__comtains=q) | Q(title__comtains=q))
+        else:
+            about = q.get('about') 
+            if about is not None:
+                offers = offers.filter(about__comtains=about)
+            title = q.get('title')
+            if title is not None:
+                offers = offers.filter(title__contains=title)
+        return offers
+    
 
