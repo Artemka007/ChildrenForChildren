@@ -1,10 +1,8 @@
 from django.urls import path
-from .views import indexx, OffersMainView, FilterOffers
+from .views import OffersMainView, SearchOffers
 
 
 urlpatterns = [
-    path("test/offers/", indexx),
     path("", OffersMainView.as_view()),
-    path("filter/", FilterOffers.as_view())
-    
+    path("search/", SearchOffers.as_view())
 ]

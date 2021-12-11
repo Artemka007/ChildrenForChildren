@@ -3,11 +3,14 @@ from django.db.models import Value as V
 from django.db.models.functions import Concat
 from django.db.models.query import Q
 from rest_auth.serializers import PasswordResetConfirmSerializer
+from rest_framework import serializers
 from rest_framework.generics import GenericAPIView
 from rest_framework.permissions import AllowAny
 from rest_framework.views import APIView, Response
 from rest_auth.serializers import PasswordResetSerializer
 from rest_auth.views import sensitive_post_parameters_m
+
+from api.mixins import SearchMixin
 
 from .serializer import UserSerializer
 #from .models import Profile
@@ -60,71 +63,22 @@ class RegisterView(APIView):
     '''
     def post(self, request):
         try:
-            # get data for register
-            [
-                username, 
-                email, 
-                first_name, 
-                last_name,
-                patronymic,
-                phone, 
-                age, 
-                status, 
-                user_in_school_status, 
-                about_me, 
-                city, 
-                country, 
-                district,
-                password
-            ] = self._get_user_data(request=request)
-            if get_user_model().objects.filter(username=username).exists():
-                return Response({"result": False, "message": "Пользователь с таким именем уже существует.", "data": {}})
+            username = request.data["username"]
+            email = request.data["email"]
+            password = request.data["password2"]
+            if request.data.get('password') != request.data.get('password2'):
+                raise Exception("Пароли не совпадают.")
+            if get_user_model().objects.filter(username=request.data.get("username")).exists():
+                raise Exception("Пользователь с таким именем уже существует.")
             # create a user object
-            user = get_user_model().objects.create_user(username, email, password)
-            # set the user first and last name
-            user.first_name = first_name
-            user.last_name = last_name
-            # create profile object with foreign key to user
-            user.phone=phone
-            user.age=age
-            user.status=status
-            user.user_in_school_status=user_in_school_status
-            user.about_me=about_me
-            user.city=city
-            user.country=country
-            user.district=district
-            user.patronymic=patronymic
-            # save profile object
+            user = get_user_model().objects.create_user(username=username, email=email, password=password)
             user.save()
+            serializer = UserSerializer(data=request.data, instance=user)
+            serializer.is_valid(raise_exception=True)
+            serializer.save()
             return Response({"result": True, "message": "Пользователь успешно зарегистрирован.", "data": {}}, 201)
         except Exception as e:
             return Response({"result": False, "message": e.__str__(), "data": {}})
-    
-    def _get_user_data(self, request):
-            '''
-            Function that get user data in request and return
-            it in array.
-            '''
-            data = request.data
-            username = data.get("username")
-            email = data.get("email")
-            first_name = data.get("first_name")
-            last_name = data.get("last_name")
-            phone = data.get("phone")
-            age = data.get("age")
-            patronymic = data.get("patronymic")
-            user_in_school_status = data.get("user_in_school_status")
-            status = data.get("status")
-            about_me = data.get("about_me")
-            city = data.get("city")
-            country = data.get("country")
-            district = data.get("district")
-            password = data.get("password")
-            password2 = data.get("password2")
-            data = [username, email, first_name, last_name, patronymic, phone, age, status, user_in_school_status, about_me, city, country, district, password2]
-            if (password != password2):
-                raise Exception("Пароли не совпадают.")
-            return data
 
 class LogoutView(APIView):
     '''
@@ -161,55 +115,20 @@ class AccountView(APIView):
         else:
             return Response({"result": False, "message": "Какие-то не те данные... Пожалуйста, повторите попытку.", "data": {"errors": serializer.errors}})
 
-class SearchUserView(APIView):
+class SearchUserView(GenericAPIView, SearchMixin):
+    queryset = get_user_model().objects.all().annotate(full_name=Concat('first_name', V(' '), 'last_name'))
+    serializer_class = UserSerializer
+    search_fields = ["username", "first_name", "last_name", "full_name", "email"]
+    detail_search_fields = ["username", "first_name", "last_name", "city", "country", "district"]
+
     def post(self, request):
         # get query in request
         q = request.data.get('q')
         try:
-            users = self._search_users(q)
+            users = self.get_objects(q)
             return Response({"result": True, "message": "Список пользователей возращен.", "data": {"users": users}})
         except Exception as e:
             return Response({"result": False, "message": e.__str__(), "data": {}})
-    def _search_users(self, q):
-        '''
-        The function that search users by the query.
-        ---
-        In q you can pass query string or object
-        with user params:
-        * username 
-        * first_name 
-        * last_name 
-        * city 
-        * country 
-        * district
-        ---
-        return <UserSerializer many=True/>
-        '''
-        if q is None:
-            return UserSerializer(get_user_model().objects.all(), many=True).data
-        if isinstance(q, str):
-            users = get_user_model().objects.annotate(full_name=Concat('first_name', V(' '), 'last_name')).filter(Q(full_name__contains=q) | Q(first_name__contains=q) | Q(last_name__contains=q) | Q(username__contains=q))
-        else:
-            username = q.get("username")
-            first_name = q.get("first_name")
-            last_name = q.get("last_name")
-            city = q.get("city")
-            country = q.get("country")
-            district = q.get("district")
-            users = get_user_model().objects.all()
-            if username:
-                users = users.filter(username__contains=username)
-            if first_name:
-                users = users.filter(first_name__contains=first_name)
-            if last_name:
-                users = users.filter(last_name__contains=last_name)
-            if country:
-                users = users.filter(country__contains=country)
-            if city:
-                users = users.filter(city__contains=city)
-            if district:
-                users = users.filter(district__contains=district)
-        return UserSerializer(users, many=True).data
 
 class PasswordResetView(GenericAPIView):
     '''The generic view that reset password'''

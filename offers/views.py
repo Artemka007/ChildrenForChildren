@@ -1,21 +1,11 @@
-from re import I
-import re
-from django.core.checks import messages
-from django.http.response import HttpResponse
 from django.shortcuts import render
 from rest_framework import serializers
+from rest_framework.generics import GenericAPIView
 from rest_framework.views import APIView, Response
+
+from api.mixins import SearchMixin
 from .serializers import OfferMainSerializer
 from .models import OffersMain
-import pdb 
-from django.db.models.query import Q
-from rest_framework.filters import SearchFilter, OrderingFilter, BaseFilterBackend
-from rest_framework.viewsets import ModelViewSet
-
-def indexx(request):
-    AllOfers = OffersMain.objects.all()
-    return render(request, "indexx.html", {"AllOfers": AllOfers})
-
 
 class OffersMainView(APIView):
     def get(self, request):
@@ -82,41 +72,13 @@ class OffersMainView(APIView):
                 return Response({'result': False, 'message': e.__str__(), 'data': {}})
         else:
             return Response({'result': False, 'message': 'хватит пытаться взломать нас ты не хакер.', 'data': {}})
-        
-        
 
-
-# filter class
-class OfferFilters(ModelViewSet):
-    # it is very good if you don't want create custom filter
-    queryset = OffersMain.objects.all()#get offer from DB
-    serializer_class = OfferMainSerializer# serializer_class
-    filter_backends = [SearchFilter, OrderingFilter]#filters
-    filterset_fields = ['id', 'title']#filters
-    search_fields = ['=title', 'about']#filters
-    ordering_fields = ['title', 'id']#filters
-    ordering = ['id']#filters
-
-class FilterOffers(APIView):
+class SearchOffers(GenericAPIView, SearchMixin):
+    queryset = OffersMain.objects.all()
+    serializer_class = OfferMainSerializer
+    search_fields = ["title", "about", "define_type_of_subject"]
+    detail_search_fields = ["title", "about", "define_type_of_subject"]
     def post(self, request):
         q = request.data.get('q')
-        offers = self.search(q)
-        serializer = OfferMainSerializer(offers, many=True)
-        return Response({'result': True, 'message': 'Всё успешно', 'data': {'offers': serializer.data}})
-        
-    def search(self, q):
-        if q is None:
-            return []
-        offers = OffersMain.objects.all()
-        if isinstance(q, str):
-            offers = offers.filter(Q(about__contains=q) | Q(title__contains=q))
-        else:
-            about = q.get('about') 
-            if about is not None:
-                offers = offers.filter(about__contains=about)
-            title = q.get('title')
-            if title is not None:
-                offers = offers.filter(title__contains=title)
-        return offers
-    
-
+        offers = self.get_objects(q)
+        return Response({'result': True, 'message': 'Всё успешно', 'data': {'offers': offers}})

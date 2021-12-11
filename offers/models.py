@@ -12,7 +12,7 @@ class OffersMain(models.Model): #main module
         ('quastions', 'вопросы')
     )
     
-    TYPE_OF_SUBJECTE =(
+    TYPE_OF_SUBJECT =(
         ('math', 'математика'),
         ('sport', 'спорт'),
         ('rushen', 'русский'),
@@ -33,7 +33,7 @@ class OffersMain(models.Model): #main module
     )
     
     # generral settings
-    define_type_of_subjecte = models.CharField(choices=TYPE_OF_SUBJECTE, default='other', max_length=64)
+    define_type_of_subject = models.CharField(choices=TYPE_OF_SUBJECT, default='other', max_length=64)
     define_type_of_request = models.CharField(choices=TYPE_OF_OFFER, default='offers', max_length=32) #select type of the mouotion
     
     title = models.CharField(max_length=64, verbose_name='Имя предложения') # the tittle of the offer

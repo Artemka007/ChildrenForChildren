@@ -70,6 +70,6 @@ class OffersTest(TestCase):
         serializer = OfferMainSerializer(data=self.offer)
         serializer.is_valid()
         serializer.save()
-        data = self.request.post(self.base_url+'filter/', {'q': 'test'}).data
+        data = self.request.post(self.base_url+'search/', {'q': 'test'}).data
         self.assertEquals(data.get('result'), True, data.get('message'))
         self.assertTrue(data.get('data').get('offers') != [])
