@@ -1,5 +1,6 @@
 from django.contrib.auth import get_user_model
 from django.db import models
+from django.db.models.enums import Choices
 from django.http import request
 from django.contrib.auth.models import User
 
@@ -11,7 +12,26 @@ class OffersMain(models.Model): #main module
         ('quastions', 'вопросы')
     )
     
+    TYPE_OF_SUBJECTE =(
+        ('math', 'математика'),
+        ('sport', 'спорт'),
+        ('rushen', 'русский'),
+        ('biolohy', 'биология'),
+        ('physiks', 'физика'),
+        ('english', 'англиский'),
+        ('letracher', 'литература'),
+        ('it', 'информатика'),
+        ('music', 'музыка'),
+        ('drow', 'рисование'),
+        ('geometry', 'геометрия'),
+        ('geo', 'география'),
+        ('geo_drow', 'чертение')
+        ('other', 'другое')
+        
+    )
+    
     # generral settings
+    define_type_of_subjecte = models.CharField(choices=TYPE_OF_SUBJECTE, default='other', max_length=64)
     define_type_of_request = models.CharField(choices=TYPE_OF_OFFER, default='offers', max_length=32) #select type of the mouotion
     
     title = models.CharField(max_length=64, verbose_name='Имя предложения') # the tittle of the offer
