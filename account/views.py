@@ -122,9 +122,6 @@ class RegisterView(APIView):
             password = data.get("password")
             password2 = data.get("password2")
             data = [username, email, first_name, last_name, patronymic, phone, age, status, user_in_school_status, about_me, city, country, district, password2]
-            for i in data:
-                if i is None:
-                    raise Exception("Данные пользователя переданы не полностью.")
             if (password != password2):
                 raise Exception("Пароли не совпадают.")
             return data
