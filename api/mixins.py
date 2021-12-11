@@ -1,5 +1,6 @@
 from django.db.models.query import Q
 from rest_framework.generics import GenericAPIView, CreateAPIView
+from rest_framework.views import APIView
 
 class ProjectAPIView(GenericAPIView):
     def get(self, request, *args, **kwargs):
@@ -14,7 +15,7 @@ class ProjectAPIView(GenericAPIView):
     def delete(self, request, *args, **kwargs):
         super().delete(request, *args, **kwargs)
     
-    def get_response():
+    def get_response(self):
         pass
     
 class SearchMixin:
