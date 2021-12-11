@@ -1,21 +1,30 @@
 from django.db.models.query import Q
 from rest_framework.generics import GenericAPIView, CreateAPIView
+from rest_framework.response import Response
 
 class ProjectAPIView(GenericAPIView):
     def get(self, request, *args, **kwargs):
-        super().get(request, *args, **kwargs)
-    
+        try:
+            super().get(request, *args, **kwargs)
+        except Exception as erro:
+            return self.get_response(False, erro, {})
     def post(self, request, *args, **kwargs):
-        super().post(request, *args, **kwargs)
-    
+        try:
+            super().post(request, *args, **kwargs)
+        except Exception as erro:
+            return self.get_response(False, erro, {})
     def put(self, request, *args, **kwargs):
-        super().put(request, *args, **kwargs)
-    
+        try:
+            super().put(request, *args, **kwargs)
+        except Exception as erro:
+            return self.get_response(False, erro, {})
     def delete(self, request, *args, **kwargs):
-        super().delete(request, *args, **kwargs)
-    
-    def get_response():
-        pass
+        try:
+            super().delete(request, *args, **kwargs)
+        except Exception as erro:
+            return self.get_response(False, erro, {})
+    def get_response(self, result, message, data):
+        return Response ({'result': result, 'message': message, 'data': data})
     
 class SearchMixin:
     '''
