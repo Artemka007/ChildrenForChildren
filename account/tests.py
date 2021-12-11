@@ -82,17 +82,17 @@ class TestAccountView(TestCase):
         })
         return response.data, user
     
-    def _create_user(self, user1):
-        user = get_user_model().objects.create_user(user1["username"], user1["email"], user1["password"])
-        user.first_name = user1["first_name"]
-        user.last_name = user1["last_name"]
-        user.phone=user1["phone"],
-        user.status=user1["status"], 
-        user.user_in_school_status=user1["user_in_school_status"], 
-        user.about_me=user1["about_me"], 
-        user.city=user1["city"], 
-        user.country=user1["country"], 
-        user.district=user1["district"], 
-        user.patronymic=user1["patronymic"]
+    def _create_user(self, u):
+        user = get_user_model().objects.create_user(u["username"], u["email"], u["password"])
+        user.first_name = u["first_name"]
+        user.last_name = u["last_name"]
+        user.phone=u["phone"],
+        user.status=u["status"], 
+        user.user_in_school_status=u["user_in_school_status"], 
+        user.about_me=u["about_me"], 
+        user.city=u["city"], 
+        user.country=u["country"], 
+        user.district=u["district"], 
+        user.patronymic=u["patronymic"]
         user.save()
         return user
