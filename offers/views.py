@@ -3,82 +3,80 @@ from rest_framework import serializers
 from rest_framework.generics import GenericAPIView
 from rest_framework.views import APIView, Response
 
-from api.mixins import SearchMixin
-from .serializers import OfferMainSerializer
-from .models import OffersMain
+from api.mixins import ProjectAPIView, SearchMixin
+from .serializers import CreateOfferMainSerializer, OfferMainSerializer, SubjectSerializer
+from .models import OffersMain, Subject
 
-class OffersMainView(APIView):
+from django.core.exceptions import PermissionDenied
+
+class OffersMainView(ProjectAPIView):
     def get(self, request):
         if not request.user.is_authenticated:
-            return Response({"result": False, "message": "Пользователь не авторизован.", "data": {}})
-        id = request.GET.get("id")
-        if id is None:
-            all_offers = OffersMain.objects.all()
-            serializer = OfferMainSerializer(all_offers, many=True)
-            return Response({"result": True, "message": "Всё прошло успешно", "data":{"offers": serializer.data}})
-        offer = OffersMain.objects.get(pk=id)
-        serializer = OfferMainSerializer(offer, many=False)
-        return Response({"result": True, "message": "Всё прошло успешно", "data":{"offer": serializer.data}})
+            raise PermissionDenied("Пользователь не авторизован.")
+        offers = OffersMain.objects.all()
+        serializer = OfferMainSerializer(offers, many=True)
+        return self.get_response(True, "Всё прошло успешно", {"offers": serializer.data})
 
     def post(self, request):    #create view
         if not request.user.is_authenticated:
-            return Response({"result": False, "message": "Пользователь не авторизован.", "data": {}})
-        serializer =  OfferMainSerializer(data=request.data)
-        
+            raise PermissionDenied("Пользователь не авторизован.")
+        serializer = CreateOfferMainSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
-            return Response({"result": True, "message": "Всё прошло успешно", "data":{'offer': OfferMainSerializer(serializer.instance).data}})
+            return self.get_response(True, "Всё прошло успешно", {"offer": OfferMainSerializer(serializer.instance).data})
         else:
-            return Response({'result': False, 'message': 'smt went wrong', 'data': {}})
+            raise Exception("Что-то пошло не так.")
         
-    def put(self, request): #Updata
-        
+    def put(self, request):
        # get id in query params
         id = request.GET.get("id")
         if not id:
-            return Response({'result': False, 'message': 'Параметр id не передан', 'data': {}})  
+            raise Exception("Параметр id не передан.")
         if not request.user.is_authenticated:
-            return Response({"result": False, "message": "Пользователь не авторизован.", "data": {}})
+            raise Exception("Пользователь не авторизован.")
         offer = OffersMain.objects.get(pk=int(id))
         if offer.user.id == request.user.id:
-            serializer = OfferMainSerializer(instance=offer, data=request.data)
+            serializer = CreateOfferMainSerializer(instance=offer, data=request.data)
             if serializer.is_valid():
-                serializer.save()   
-                return Response({'result': True, 'message': 'Вы успешно обновили предложение.', 'data': {'offer': OfferMainSerializer(serializer.instance).data}})  
+                serializer.save()
+                return self.get_response(True, "Вы успешно обновили предложение.", {"offer": OfferMainSerializer(serializer.instance).data}) 
             else:
-                return Response({'result': False, 'message': 'smt went wrong', 'data': {}})
-
+                raise Exception("Что-то пошло не так.")
         else:
-            return Response({'result': False, 'message': 'хватит пытаться взломать нас ты не хакер.', 'data': {}})
+            raise PermissionDenied("К сожалению, вы не имеете доступа к этим данным.")
         
         
     def delete(self, request):
         # get id in query params
         id = request.GET.get("id")
         if not id:
-            return Response({'result': False, 'message': 'Параметр id не передан', 'data': {}})
+            raise PermissionDenied("Параметр id не передан.")
         if not request.user.is_authenticated:
-            return Response({"result": False, "message": "Пользователь не авторизован.", "data": {}})
+            raise PermissionDenied("Пользователь не авторизован.")
         # get offer by id
         offer = OffersMain.objects.get(pk=int(id))
         if offer.user.id == request.user.id:
-            try:
-                offer.delete()
-                offers = OffersMain.objects.all()
-                serializer = OfferMainSerializer(offers, many=True)
-                # return offers for frontend
-                return Response({'result': True, 'message': 'Вы удалили пост', 'data': {'offers': serializer.data}}) 
-            except Exception as e:
-                return Response({'result': False, 'message': e.__str__(), 'data': {}})
+            offer.delete()
+            offers = OffersMain.objects.all()
+            serializer = OfferMainSerializer(offers, many=True)
+            # return offers for frontend
+            return self.get_response(True, "Вы успешно удалили предложение.", {"offers": serializer.data}) 
         else:
-            return Response({'result': False, 'message': 'хватит пытаться взломать нас ты не хакер.', 'data': {}})
+            raise PermissionDenied("К сожалению, вы не имеете доступа к этим данным.")
 
-class SearchOffers(GenericAPIView, SearchMixin):
+class SearchOffers(ProjectAPIView, SearchMixin):
     queryset = OffersMain.objects.all()
     serializer_class = OfferMainSerializer
-    search_fields = ["title", "about", "define_type_of_subject"]
-    detail_search_fields = ["title", "about", "define_type_of_subject"]
+    search_fields = ["title", "about", "subject__name"]
+    detail_search_fields = ["title", "about", "subject__name"]
     def post(self, request):
         q = request.data.get('q')
         offers = self.get_objects(q)
         return Response({'result': True, 'message': 'Всё успешно', 'data': {'offers': offers}})
+    
+class AllSubjectsView(ProjectAPIView):
+    queryset = Subject.objects.all()
+    def get(self, request):
+        q = self.get_queryset()
+        subjects = SubjectSerializer(q, many=True).data
+        return self.get_response(True, "Возвращены все предметы.", {"subjects": subjects})

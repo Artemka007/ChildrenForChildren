@@ -6,23 +6,23 @@ class ProjectAPIView(GenericAPIView):
     def get(self, request, *args, **kwargs):
         try:
             super().get(request, *args, **kwargs)
-        except Exception as erro:
-            return self.get_response(False, erro, {})
+        except Exception as e:
+            return self.get_response(False, e.__str__(), {})
     def post(self, request, *args, **kwargs):
         try:
             super().post(request, *args, **kwargs)
-        except Exception as erro:
-            return self.get_response(False, erro, {})
+        except Exception as e:
+            return self.get_response(False, e.__str__(), {})
     def put(self, request, *args, **kwargs):
         try:
             super().put(request, *args, **kwargs)
-        except Exception as erro:
-            return self.get_response(False, erro, {})
+        except Exception as e:
+            return self.get_response(False, e.__str__(), {})
     def delete(self, request, *args, **kwargs):
         try:
             super().delete(request, *args, **kwargs)
-        except Exception as erro:
-            return self.get_response(False, erro, {})
+        except Exception as e:
+            return self.get_response(False, e.__str__(), {})
     def get_response(self, result, message, data):
         return Response ({'result': result, 'message': message, 'data': data})
     

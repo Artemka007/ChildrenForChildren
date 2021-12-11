@@ -15,7 +15,10 @@
                         <input name="title" [(ngModel)]="qDetails.title" placeholder="Заголовок" />
                     </div>
                     <div class="Item">
-                        <input name="title" [(ngModel)]="qDetails.about" placeholder="О приложении" />
+                        <input name="about" [(ngModel)]="qDetails.about" placeholder="О приложении" />
+                    </div>
+                    <div class="Item">
+                        <input name="subject" [(ngModel)]="qDetails.subject__name" placeholder="Предмет" />
                     </div>
                     <button class="Button">Поиск</button>
                 </form>
@@ -29,14 +32,14 @@
 <div class="Offers">
     <div class="Item">
         <div class="Title">Запросы</div>
-        <offer *ngFor="let i of getAllOffers()" [offer]="i" [user]="user" (openDetail)="openDetail($event)" (openEdit)="createOfferOpen('edit', $event)"></offer>
+        <offer *ngFor="let i of getAllOffers()" [offer]="i" [user]="user" (openDetail)="openDetail($event)" (openEdit)="createOfferOpen('edit', $event)" (ondelete)="delete($event)"></offer>
     </div>
     <div class="Item">
         <div class="Title">Предложения</div>
-        <offer *ngFor="let i of getAllRequests()" [offer]="i" [user]="user" (openDetail)="openDetail($event)" (openEdit)="createOfferOpen('edit', $event)"></offer>
+        <offer *ngFor="let i of getAllRequests()" [offer]="i" [user]="user" (openDetail)="openDetail($event)" (openEdit)="createOfferOpen('edit', $event)" (ondelete)="delete($event)"></offer>
     </div>
     <div class="Item">
         <div class="Title">Вопросы</div>
-        <offer *ngFor="let i of getAllQuestions()" [offer]="i" [user]="user" (openDetail)="openDetail($event)" (openEdit)="createOfferOpen('edit', $event)"></offer>
+        <offer *ngFor="let i of getAllQuestions()" [offer]="i" [user]="user" (openDetail)="openDetail($event)" (openEdit)="createOfferOpen('edit', $event)" (ondelete)="delete($event)"></offer>
     </div>
 </div>

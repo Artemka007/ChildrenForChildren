@@ -15,7 +15,8 @@
         font-size: 26px
     .Offer__About,
     .Offer__Back,
-    .Offer__User
+    .Offer__User,
+    .Offer__Subject
         +flex-container(row)
         font-size: 18px
         margin: 7px 0
@@ -28,6 +29,8 @@
             padding-right: 5px
     .Offer__About::before
         content: url("/media/icons/info.svg")
+    .Offer__Subject::before
+        content: url("/media/icons/book-alt.svg")
     .Offer__Back::before
         content: url("/media/icons/back.svg")
     .Offer__User::before

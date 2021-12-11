@@ -32,16 +32,22 @@ export class OfferActionComponent implements OnInit {
     title: "",
     about: "",
     back: "",
+    subject: -1,
     user: -1,
     is_published: true,
     views_amoun: 0
   }
+
+  subjects: {id: number, name: string}[] = []
 
   constructor(
     private _store: Store<AppState>,
     private _offers: OffersService,
     private _ui: UiService
   ) {
+    this._offers.getSubjects().subscribe(data => {
+      this.subjects = data.data.subjects
+    })
     _store.subscribe(data => {
       if(this.offer)this.offer.user = data.account.user?.id || -1
     })

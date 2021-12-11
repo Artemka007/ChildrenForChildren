@@ -1,8 +1,5 @@
 from django.contrib import admin
-from .models import OffersMain
+from .models import OffersMain, Subject
 
 admin.site.register(OffersMain)
-
-# Register your models here.
-class OffersMainAdmin(admin.ModelAdmin):
-    pass
+admin.site.register(Subject)

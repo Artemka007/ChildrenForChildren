@@ -11,11 +11,9 @@ class OffersMain(models.Model): #main module
         ('requsts', 'запросы'),
         ('quastions', 'вопросы')
     )
-    
 
-    
     # generral settings
-    define_type_of_subject = models.ForeignKey('Subject', on_delete=models.CASCADE)
+    subject = models.ForeignKey('Subject', on_delete=models.CASCADE, related_name="offer", null=True, blank=True)
     define_type_of_request = models.CharField(choices=TYPE_OF_OFFER, default='offers', max_length=32) #select type of the mouotion
     
     title = models.CharField(max_length=64, verbose_name='Имя предложения') # the tittle of the offer
@@ -40,3 +38,5 @@ class OffersMain(models.Model): #main module
 class Subject(models.Model):
     name = models.CharField(max_length=64, verbose_name="название")
     
+    def __str__(self):
+        return self.name

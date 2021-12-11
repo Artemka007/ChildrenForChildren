@@ -22,6 +22,9 @@ export class OfferComponent implements OnInit {
   @Output()
   openEdit = new EventEmitter<IOffer>()
 
+  @Output()
+  ondelete = new EventEmitter<number>()
+
   constructor(
     private _offer: OffersService,
     private _chat: ChatService
@@ -43,7 +46,8 @@ export class OfferComponent implements OnInit {
   }
 
   delete() {
-    this._offer.delteOffer(this.offer?.id || -1)
+    let offer = this.offer?.id
+    this.ondelete.emit(offer || -1)
   }
 
   getMutualChat() {

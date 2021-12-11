@@ -4,10 +4,12 @@ import { AppState } from '../business';
 import { IBaseOffer, IOffer } from '../models/offers.model';
 import { User } from '../models/user.model';
 import { OffersService } from '../services/offers.service';
+import { UiService } from '../services/ui.service';
 
 export type TQuery = string | {
   title: string,
-  about: string
+  about: string,
+  subject__name: string
 }
 
 @Component({
@@ -20,7 +22,8 @@ export class OffersComponent implements OnInit {
   q: string = ""
   qDetails = {
     title: "",
-    about: ""
+    about: "",
+    subject__name: ""
   }
 
   offers: IOffer[] = []
@@ -34,7 +37,7 @@ export class OffersComponent implements OnInit {
 
   action: "edit" | "create" = "create"
 
-  constructor(private _offers: OffersService, private _store: Store<AppState>) {
+  constructor(private _offers: OffersService, private _store: Store<AppState>, private _ui: UiService) {
     _store.subscribe(data => {
       this.user = data.account.user
     })
@@ -93,5 +96,15 @@ export class OffersComponent implements OnInit {
   openDetail(offer: IOffer) {
     this.offer = offer
     this.detailOfferIsOpen = true
+  }
+
+  delete(id: number) {
+    this._offers.delteOffer(id).subscribe(data => {
+      if (data.result) {
+        this._ui.openWarning({message: "Предложение удалено.", class: "ok"})
+        this.offers = data.data.offers || []
+      }
+      else this._ui.openWarning({message: "Что-то пошло не так. Проверте данные и повторите попытку.", class: "error"})
+    })
   }
 }

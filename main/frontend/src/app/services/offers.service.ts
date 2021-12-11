@@ -55,6 +55,15 @@ export class OffersService {
     })
     return sub
   }
+
+  getSubjects() {
+    let sub = this._http.get<APIResponse<{subjects: {id: number, name: string}[]}>>("/api/v1/offers/subjects/", {
+      headers: {
+        "X-CSRFToken": this._getCookie("csrftoken")
+      }
+    })
+    return sub
+  }
   
   private _getCookie(name: string): string {
     let ca: Array<string> = document.cookie.split(';')

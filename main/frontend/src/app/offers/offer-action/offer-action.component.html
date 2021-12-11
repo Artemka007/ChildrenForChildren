@@ -39,6 +39,12 @@
                 Максимальная длина - 1024 символа.
             </span>
         </div>
+        <div class="Field">
+            <select [name]="'subject'" required [(ngModel)]="offer.subject" #subject="ngModel">
+                <option value="" disabled selected>Предмет</option>
+                <option *ngFor="let i of subjects" [value]="i.id">{{i.name}}</option>
+            </select>
+        </div>
         <div class="Field Checkbox">
             <input id="is_published" type="checkbox" [name]="'is_published'" [(ngModel)]="offer.is_published" #is_published="ngModel" max_length="1024" />
             <label for="is_published">Публичный или нет?</label>
