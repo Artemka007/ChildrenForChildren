@@ -1,6 +1,6 @@
 from django.db.models.query import Q
 from rest_framework.generics import GenericAPIView, CreateAPIView
-from rest_framework.response import Response
+from rest_framework.views import APIView, Response
 
 class ProjectAPIView(GenericAPIView):
     def get(self, request, *args, **kwargs):

@@ -48,7 +48,7 @@ export class OffersService {
   }
 
   filterOffers(q: TQuery) {
-    let sub = this._http.post<APIResponse<{offers?: IOffer[]}>>("/api/v1/offers/filter/", {q}, {
+    let sub = this._http.post<APIResponse<{offers?: IOffer[]}>>("/api/v1/offers/search/", {q}, {
       headers: {
         "X-CSRFToken": this._getCookie("csrftoken")
       }
