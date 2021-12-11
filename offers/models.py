@@ -16,16 +16,18 @@ class OffersMain(models.Model): #main module
         ('math', 'математика'),
         ('sport', 'спорт'),
         ('rushen', 'русский'),
-        ('biolohy', 'биология'),
-        ('physiks', 'физика'),
+        ('biology', 'биология'),
+        ('physics', 'физика'),
         ('english', 'англиский'),
-        ('letracher', 'литература'),
+        ('literature', 'литература'),
         ('it', 'информатика'),
+        ('programming', 'программирование'),
         ('music', 'музыка'),
-        ('drow', 'рисование'),
+        ('draw', 'рисование'),
         ('geometry', 'геометрия'),
-        ('geo', 'география'),
-        ('geo_drow', 'чертение')
+        ('geography', 'география'),
+        ('drawing', 'ИЗО'),
+        ('comp_games', 'компьютерные игры'),
         ('other', 'другое')
         
     )
