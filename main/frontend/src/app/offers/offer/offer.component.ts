@@ -51,10 +51,10 @@ export class OfferComponent implements OnInit {
   }
 
   getMutualChat() {
-    this._chat.getMutualChat(this.user?.id, this.offer?.user)
+    this._chat.getMutualChat(this.user?.id, this.offer?.user.id)
   }
 
   userIsEqualAuthor() {
-    return this.offer?.user === this.user?.id
+    return this.offer?.user.id === this.user?.id
   }
 }

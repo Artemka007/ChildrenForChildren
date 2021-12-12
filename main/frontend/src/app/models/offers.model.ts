@@ -1,6 +1,7 @@
 import { IUser } from "./user.model";
 
 export interface IBaseOffer {
+    id?: number
     define_type_of_request: 'offers' | 'requsts' | 'quastions'
     title: string
     about: string
@@ -10,7 +11,6 @@ export interface IBaseOffer {
 }
 
 export interface IOffer extends IBaseOffer {
-    id?: number
     user: IUser
     views_amoun: number
 }

@@ -3,7 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { catchError } from 'rxjs/operators';
 import { AppState } from '../business';
-import { IBaseOffer, IOffer } from '../models/offers.model';
+import { IBaseOffer, ICreateOffer, IOffer } from '../models/offers.model';
 import { User } from '../models/user.model';
 import { OffersService } from '../services/offers.service';
 import { UiService } from '../services/ui.service';
@@ -52,6 +52,19 @@ export class OffersComponent implements OnInit {
 
   ngOnInit(): void {
     this.requestToGetAllOffers()
+  }
+
+  offerToAcceptType() {
+    return this.offer && {
+      id: this.offer.id,
+      define_type_of_request: this.offer.define_type_of_request,
+      title: this.offer.title,
+      about: this.offer.about,
+      back: this.offer.back,
+      subject: this.offer.subject,
+      is_published: this.offer.is_published,
+      user: this.offer.user.id
+    } as ICreateOffer
   }
 
   requestToGetAllOffers() {

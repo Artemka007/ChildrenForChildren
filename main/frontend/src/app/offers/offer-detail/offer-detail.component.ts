@@ -23,10 +23,7 @@ export class OfferDetailComponent implements OnInit {
   onclose = new EventEmitter()
 
   constructor(
-    private _chat: ChatService,
-    private _router: Router,
-    private _store: Store<AppState>,
-    private _ui: UiService
+    private _chat: ChatService
   ) { }
 
   ngOnInit(): void {
@@ -37,10 +34,10 @@ export class OfferDetailComponent implements OnInit {
   }
 
   getMutualChat() {
-    this._chat.getMutualChat(this.user?.id, this.offer?.user)
+    this._chat.getMutualChat(this.user?.id, this.offer?.user.id)
   }
 
   userIsEqualAuthor() {
-    return this.offer?.user === this.user?.id
+    return this.offer?.user.id === this.user?.id
   }
 }
