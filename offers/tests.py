@@ -6,7 +6,7 @@ from rest_framework import serializers
 from rest_framework.test import APIClient
 from django.contrib.auth import get_user_model
 
-from offers.serializers import OfferMainSerializer
+from offers.serializers import CreateOfferMainSerializer
 
 class OffersTest(TestCase):
 
@@ -24,7 +24,7 @@ class OffersTest(TestCase):
         self.request= APIClient()
         self.base_url = "/api/v1/offers/"
         
-        user = get_user_model().objects.create_user(username="test", email="", password="123")
+        self.user = get_user_model().objects.create_user(username="test", email="", password="123")
         
 
     def test_get_all_offers(self):
@@ -33,7 +33,7 @@ class OffersTest(TestCase):
 
         # first authenticate user
 
-        serializer = OfferMainSerializer(data=self.offer)
+        serializer = CreateOfferMainSerializer(data=self.offer)
         serializer.is_valid(raise_exception=True)
         serializer.save()
         response = self.request.get(self.base_url)
@@ -49,9 +49,9 @@ class OffersTest(TestCase):
         self.assertEquals(data.get('result'), True, data.get('message'))
         self.assertTrue(data.get('data').get('offer') is not None)
 
-    def test_offer_updata(self):
+    def test_offer_update(self):
         self.request.login(username="test", password="123")# log in
-        serializer = OfferMainSerializer(data=self.offer)# reate new Model
+        serializer = CreateOfferMainSerializer(data=self.offer)# reate new Model
         serializer.is_valid(raise_exception=True)
         serializer.save()
         data = self.request.put(self.base_url+'?id='+str(serializer.instance.id), self.offer).data# put updata requst
@@ -60,14 +60,14 @@ class OffersTest(TestCase):
         
     def test_offer_delete(self):
         self.request.login(username="test", password="123")# log in
-        serializer = OfferMainSerializer(data=self.offer)# reate new Model
+        serializer = CreateOfferMainSerializer(data=self.offer)# reate new Model
         serializer.is_valid(raise_exception=True)
         serializer.save()
         data = self.request.delete(self.base_url+'?id='+str(serializer.instance.id), self.offer).data
         self.assertEquals(data.get('result'), True, data.get('message'))
     
     def test_filters(self):
-        serializer = OfferMainSerializer(data=self.offer)
+        serializer = CreateOfferMainSerializer(data=self.offer)
         serializer.is_valid()
         serializer.save()
         data = self.request.post(self.base_url+'search/', {'q': 'test'}).data

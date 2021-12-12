@@ -38,7 +38,7 @@ class OffersMainView(ProjectAPIView):
             raise Exception("Параметр id не передан.")
         if not request.user.is_authenticated:
             raise Exception("Пользователь не авторизован.")
-        offer = self.get_queryset().objects.get(pk=int(id))
+        offer = self.get_queryset().get(pk=int(id))
         if offer.user.id == request.user.id:
             serializer = CreateOfferMainSerializer(instance=offer, data=request.data)
             if serializer.is_valid():
@@ -58,10 +58,10 @@ class OffersMainView(ProjectAPIView):
         if not request.user.is_authenticated:
             raise PermissionDenied("Пользователь не авторизован.")
         # get offer by id
-        offer = self.get_queryset().objects.get(pk=int(id))
+        offer = self.get_queryset().get(pk=int(id))
         if offer.user.id == request.user.id:
             offer.delete()
-            offers = self.get_queryset().objects.all()
+            offers = self.get_queryset().all()
             serializer = self.get_serializer(offers, many=True)
             # return offers for frontend
             return self.get_response(True, "Вы успешно удалили предложение.", {"offers": serializer.data}) 

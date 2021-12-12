@@ -1,5 +1,6 @@
 from rest_framework import serializers
 from .models import OffersMain, Subject
+from account.serializer import UserSerializer
 
 class SubjectSerializer(serializers.ModelSerializer):   
     class Meta:
@@ -7,6 +8,7 @@ class SubjectSerializer(serializers.ModelSerializer):
         fields = "__all__"
 
 class OfferMainSerializer(serializers.ModelSerializer):
+    user = UserSerializer(read_only=True)
     subject = SubjectSerializer(many=False, read_only=True)
 
     class Meta:
