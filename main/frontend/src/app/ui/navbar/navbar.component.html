@@ -26,7 +26,7 @@
     </li>
     <li class="Navbar__Item">
         <div class="Main-Link News-Main-Link">
-            <a class="Main-Link__Text" routerLinkActive="active">Новости</a>
+            <a class="Main-Link__Text" routerLink="/news" routerLinkActive="active">Новости</a>
             <i class="Main-Link__OpenClose-Arrow" (click)="checkLinkIsOpen('news') ? closeLink('news') : openLink('news')" [ngClass]="{'Rotated': checkLinkIsOpen('news')}"></i>
         </div>
         <ul class="Links-Container" *ngIf="checkLinkIsOpen('news')"></ul>

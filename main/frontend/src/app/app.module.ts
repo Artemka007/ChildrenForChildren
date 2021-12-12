@@ -32,6 +32,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { OfferDetailComponent } from './offers/offer-detail/offer-detail.component';
 import { ChatUploadFilesComponent } from './chats/chat-upload-files/chat-upload-files.component';
 import { ChatCreateComponent } from './chats/chat-create/chat-create.component';
+import { NewsComponent } from './news/news.component';
 
 @NgModule({
   declarations: [
@@ -58,7 +59,8 @@ import { ChatCreateComponent } from './chats/chat-create/chat-create.component';
     OfferActionComponent,
     OfferDetailComponent,
     ChatUploadFilesComponent,
-    ChatCreateComponent
+    ChatCreateComponent,
+    NewsComponent
   ],
   imports: [
     BrowserModule,

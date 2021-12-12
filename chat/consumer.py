@@ -4,7 +4,7 @@ import datetime
 from asgiref.sync import sync_to_async
 from channels.generic.websocket import AsyncWebsocketConsumer
 from django.contrib.auth import get_user_model
-from account.serializer import UserSerializer
+from account.serializers import UserSerializer
 
 from chat.serializer import ChatSerializer, MessageSerializer, CreateMessageSerializer
 

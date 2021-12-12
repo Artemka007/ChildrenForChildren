@@ -1,0 +1,18 @@
+<div class="News-List" *ngIf="!new">
+    <div class="Item Container" *ngFor="let i of news">
+        <div class="Title">{{i.title}}</div>
+        <div class="Author">{{i.user.first_name + " " + i.user.last_name}}</div>
+        <div class="Date">Дата публикации: {{i.date|date:'dd.MM.yyyy'}}</div>
+        <div class="Go-To" [routerLink]="'/news'" [queryParams]="{'id': i.id}">Перейти</div>
+    </div>
+</div>
+<div class="New Container" *ngIf="new">
+    <div class="New__Header Row Center">
+        <div class="Title">{{new.title}}</div>
+        <div class="User-Date Column">
+            <div class="Author Row">Автор: {{new.user.first_name + " " + new.user.last_name}}</div>
+            <div class="Date Row">Дата публикации: {{new.date|date:'dd.MM.yyyy'}}</div>
+        </div>
+    </div>
+    <div class="New__Content" [innerHTML]="new.body"></div>
+</div>

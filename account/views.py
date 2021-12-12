@@ -12,7 +12,7 @@ from rest_auth.views import sensitive_post_parameters_m
 
 from api.mixins import SearchMixin
 
-from .serializer import UserSerializer
+from .serializers import UserSerializer
 #from .models import Profile
 
 class LoginView(APIView):

@@ -1,6 +1,6 @@
 from rest_framework import serializers
 from .models import OffersMain, Subject
-from account.serializer import UserSerializer
+from account.serializers import UserSerializer
 
 class SubjectSerializer(serializers.ModelSerializer):   
     class Meta:

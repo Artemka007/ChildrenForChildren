@@ -1,7 +1,7 @@
 from rest_framework.serializers import ModelSerializer
 
 from .models import Chat, Message, DocFileUpload, ImgFileUpload
-from account.serializer import UserSerializer
+from account.serializers import UserSerializer
 
 class ImgFileUploadSerializer(ModelSerializer):
     class Meta:

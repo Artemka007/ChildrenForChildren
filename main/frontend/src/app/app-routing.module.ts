@@ -10,6 +10,7 @@ import { RegisterComponent } from './auth/register/register.component';
 import { ResetPasswordConfirmComponent } from './auth/reset-password-confirm/reset-password-confirm.component';
 import { ResetPasswordComponent } from './auth/reset-password/reset-password.component';
 import { SearchUsersComponent } from './search-users/search-users.component';
+import { NewsComponent } from './news/news.component';
 
 const routes: Routes = [
  {path: "home", component: HomeComponent},
@@ -21,6 +22,7 @@ const routes: Routes = [
  {path: "profile", component: PersonalAreaComponent},
  {path: "users", component: SearchUsersComponent},
  {path: "chats", component: ChatsComponent},
+ {path: "news", component: NewsComponent},
  {path: "offers", component: OffersComponent},
 ];
 
