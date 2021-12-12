@@ -16,7 +16,8 @@
                 <div class="Avatar"><img src="/media/icons/profile.png" alt="" /> </div>
                 <div class="Username-Status">
                     <div class="Username">{{user.fullName}}</div>
-                    <div class="Status">{{user?.status || "Статус не указан"}}</div>
+                    <div *ngIf="!isEditing" class="Status">{{user?.status || "Статус не указан"}}</div>
+                    <input *ngIf="isEditing && checkUser()" name="status" maxlength="256" placeholder="status" [(ngModel)]="user.status" />
                 </div>
             </div>
             <div class="Item-2">

@@ -15,7 +15,7 @@
         border-color: var(--lite-blue)
     &.ng-touched.ng-invalid
         border-color: var(--lite-red)
-    @media screen and ( max-width: 469px )
+    @media screen and ( max-width: 500px )
         font-size: 14px
         padding: 5px
 
@@ -42,18 +42,23 @@
         border-color: var(--lite-blue)
         cursor: not-allowed
         background-color: #fff
-
+    @media screen and ( max-width: 500px )
+        font-size: 16px
+        padding: 10px
 .Form-Container
     +flex-container()
-    position: fixed
+    position: absolute
     width: 500px
     height: auto
     background: white
     box-shadow: #00000025 0 4px 8px 0
     border-radius: 10px
+    @media screen and ( max-width: 530px )
+        width: 100%
     &:not(.Dialog)
         top: 100px
-        left: calc(50% - 250px)
+        @media screen and ( max-width: 530px )
+            left: 0
     .Form-Container__Title
         width: 100%
         text-align: center
@@ -77,10 +82,6 @@
         padding: 10px
         .Field
             +flex-container()
-            &.Checkbox
-                +flex-container(row)
-                label
-                    font-size: 18px
             width: 100%
             margin-top: 10px
             input:not([type="checkbox"]),

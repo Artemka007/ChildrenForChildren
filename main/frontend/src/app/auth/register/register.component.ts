@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { interval } from 'rxjs';
 import { take } from 'rxjs/operators';
+import { UiService } from 'src/app/services/ui.service';
 import { AccountService, IRegisterData } from '../../services/account.service';
 
 @Component({
@@ -31,7 +32,8 @@ export class RegisterComponent implements OnInit {
 
   constructor(
     private _account: AccountService,
-    private _router: Router
+    private _router: Router,
+    private _ui: UiService
   ) { }
 
   ngOnInit(): void {
@@ -42,7 +44,7 @@ export class RegisterComponent implements OnInit {
     this._account.register(this.registerFormGroup).subscribe(data => {
       this.isLoading = false
       if (data.result) {
-        this._router.navigateByUrl("login")
+        this._ui.openWarning({"class": "ok", "message": data.message})
       } else {
         this.warning = data.message
         interval(10000).pipe(take(1)).subscribe(() => {

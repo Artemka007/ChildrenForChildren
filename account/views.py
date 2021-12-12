@@ -31,12 +31,18 @@ class LoginView(APIView):
         if not username or not password:
             return Response({"result": False, "message": "Данные пользователя переданы не полностью.", "data": {}})
         # else try to authenticate a user
-        user = authenticate(username=username, password=password)
-        # if user authenticated login him
-        if user is not None:
-            login(request, user)
-            return Response({"result": True, "message": "Пользователь успешно авторизован.", "data": {"user": UserSerializer(user).data}}, 200)
-        # else return that user does not exists
+        user = get_user_model().objects.filter(username=username)
+        if user.exists():
+            if not user[0].is_active:
+                return Response({"result": False, "message": "Ваш акк еще не подтвердили.", "data": {}}, 200)
+            user = authenticate(username=username, password=password)
+            # if user authenticated login him
+            if user is not None:
+                login(request, user)
+                return Response({"result": True, "message": "Пользователь успешно авторизован.", "data": {"user": UserSerializer(user).data}}, 200)
+            # else return that user does not exists
+            else:
+                return Response({"result": False, "message": "Пользователя с таким паролем и логином не существует.", "data": {"user": None}}, 200)
         else:
             return Response({"result": False, "message": "Пользователя с таким паролем и логином не существует.", "data": {"user": None}}, 200)
 
@@ -71,13 +77,16 @@ class RegisterView(APIView):
             if get_user_model().objects.filter(username=request.data.get("username")).exists():
                 raise Exception("Пользователь с таким именем уже существует.")
             # create a user object
-            user = get_user_model().objects.create_user(username=username, email=email, password=password)
+            try:
+                user = get_user_model().objects.create_user(username=username, email=email, password=password)
+            except Exception as e:
+                return Response({"result": False, "message": e.__str__(), "data": {}})
             user.is_active = False
             user.save()
             serializer = UserSerializer(data=request.data, instance=user)
             serializer.is_valid(raise_exception=True)
             serializer.save()
-            return Response({"result": True, "message": "Пользователь успешно зарегистрирован.", "data": {}}, 201)
+            return Response({"result": True, "message": "Вы успешно зарегистрированы. Ожидайте подтверждения регистрации.", "data": {}}, 201)
         except Exception as e:
             return Response({"result": False, "message": e.__str__(), "data": {}})
 

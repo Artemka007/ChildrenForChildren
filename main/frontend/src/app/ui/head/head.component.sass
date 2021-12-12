@@ -46,6 +46,17 @@
             background-position: center center
             border-color: transparent
             border-style: solid
+        &::after
+            position: relative
+            top: -10px
+            right: -5px
+            content: "beta"
+            font-size: 12px
+            padding: 1px 5px
+            border-radius: 5px
+            color: #fff
+            background-color: var(--blue)
+            font-weight: 600
     .Header__Auth-Container
         +flex-container(row, flex-start, center)
         margin-right: 10px
