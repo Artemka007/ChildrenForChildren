@@ -1,3 +1,4 @@
+<crop-image *ngIf="uploadImageIsOpen" (onsubmit)="setPhoto($event)" (onclose)="uploadImageIsOpen = false"></crop-image>
 <form class="Profile" *ngIf="user" #editProfileForm="ngForm" (ngSubmit)="!editProfileForm.invalid && endEdit(true)">
     <div class="Profile__Tools-Nav Container">
         <span class="Item" *ngIf="checkUser()">
@@ -13,7 +14,7 @@
     <main class="Profile__Content">
         <div class="Profile__Content__Status-User-Information Container">
             <div class="Item-1">
-                <div class="Avatar"><img src="/media/icons/profile.png" alt="" /> </div>
+                <div class="Avatar" (click)="isEditing && uploadImageIsOpen = true" [style.cursor]="isEditing ? 'pointer' : 'default'"><img [src]="user.photo || '/media/icons/profile.png'" alt="" /> </div>
                 <div class="Username-Status">
                     <div class="Username">{{user.fullName}}</div>
                     <div *ngIf="!isEditing" class="Status">{{user?.status || "Статус не указан"}}</div>

@@ -23,7 +23,7 @@ class ProjectAPIView(GenericAPIView):
             super().delete(request, *args, **kwargs)
         except Exception as e:
             return self.get_response(False, e.__str__(), {})
-    def get_response(self, result, message, data):
+    def get_response(self, result, message, data={}):
         return Response ({'result': result, 'message': message, 'data': data})
     
 class SearchMixin:

@@ -13,7 +13,7 @@ class UserSerializer(ModelSerializer):
             )
         ]
         model = get_user_model()
-        fields = ["id", "username", "email", "first_name", "last_name", "patronymic", "is_active", "age", "phone", "city", "country", "district", "status", "about_me"]  
+        fields = ["id", "username", "email", "first_name", "last_name", "patronymic", "is_active", "age", "phone", "city", "country", "district", "status", "about_me", "photo"]  
 
     def update(self, instance, validated_data):
         raise_errors_on_nested_writes('create', self, validated_data)
@@ -30,6 +30,7 @@ class UserSerializer(ModelSerializer):
         instance.district = validated_data.get('district', instance.district)
         instance.status = validated_data.get('status', instance.status)
         instance.about_me = validated_data.get('about_me', instance.about_me)
+        instance.photo = validated_data.get('photo', instance.photo)
         instance.user_in_school_status = validated_data.get('user_in_school_status', instance.user_in_school_status)
 
         instance.save()

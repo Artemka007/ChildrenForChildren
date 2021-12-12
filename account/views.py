@@ -10,7 +10,7 @@ from rest_framework.views import APIView, Response
 from rest_auth.serializers import PasswordResetSerializer
 from rest_auth.views import sensitive_post_parameters_m
 
-from api.mixins import SearchMixin
+from api.mixins import ProjectAPIView, SearchMixin
 
 from .serializers import UserSerializer
 #from .models import Profile
@@ -124,6 +124,19 @@ class AccountView(APIView):
             return Response({"result": True, "message": "Данные пользователя успешно изменены.", "data": {}})
         else:
             return Response({"result": False, "message": "Какие-то не те данные... Пожалуйста, повторите попытку.", "data": {"errors": serializer.errors}})
+
+class UploadPhotoView(ProjectAPIView):
+    serializer_class = UserSerializer
+    def post(self, request):
+        user = request.user
+        files = request.FILES
+        photo = files.get("photo")
+        if photo:
+            user.photo = photo
+            user.save()
+            return self.get_response(True, "Аватарка успешна установлена.", {"user": self.get_serializer(user).data})
+        else:
+            return self.get_response(False, "Что-то пошло не так...")
 
 class SearchUserView(GenericAPIView, SearchMixin):
     permission_classes = (IsAuthenticated,)

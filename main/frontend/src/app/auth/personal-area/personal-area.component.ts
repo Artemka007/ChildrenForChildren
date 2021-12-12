@@ -17,6 +17,8 @@ export class PersonalAreaComponent implements OnInit {
   currentUser?: User
   isEditing: boolean = false
 
+  uploadImageIsOpen: boolean = false
+
   constructor(
     private _router: Router,
     private _route: ActivatedRoute,
@@ -37,6 +39,19 @@ export class PersonalAreaComponent implements OnInit {
           }
         })
     })
+  }
+
+  setPhoto(fd: FormData) {
+    this._account.uploadPhoto(fd).subscribe(
+      data => {
+        let u = data.data.user
+        if (u) this.user = new User(u)
+        else this._ui.openWarning({"class": "error", "message": data.message})
+      },
+      error => {
+        this._ui.openWarning({"class": "error", "message": error.message})
+      }
+    )
   }
 
   startEdit() {

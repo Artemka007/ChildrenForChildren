@@ -46,6 +46,7 @@ html, body {
   width: 500px;
   animation: openDialog 0.3s ease;
   z-index: 100000;
+  background: #fff;
 }
 
 .Dialog.Close {

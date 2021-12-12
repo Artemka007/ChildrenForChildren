@@ -115,10 +115,16 @@ export class AccountService {
     })
   }
 
+  uploadPhoto(fd: FormData) {
+    let token = this._getCookie("csrftoken")
+    return this._http.post<APIResponse<{user?: IUser}>>(`/api/v1/account/photo/upload/`, fd, {
+      headers: {"X-CSRFToken": token}
+    })
+  }
+
   responseUserToUser(data: {user?: IUser}) {
     if (data.user) {
-      let {id, username, email, first_name, last_name, patronymic, phone, age, status, user_in_school_status, country, city, district, about_me} = data.user
-      return new User(id, username, email, first_name, last_name, patronymic, phone, age, status, user_in_school_status, country, city, district, about_me)
+      return new User(data.user)
     } else {
       return undefined
     }

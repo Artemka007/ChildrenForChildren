@@ -1,168 +1,147 @@
 export interface IUser {
-  readonly id: number
-  readonly username: string
-  readonly email: string
-  readonly first_name: string
-  readonly last_name: string
-  readonly patronymic: string
-  readonly phone: string
-  readonly age: number
-  readonly status?: string
-  readonly user_in_school_status?: "student" | "teacher" | "parent" | "admin" | "moderator"
-  readonly country?: string
-  readonly city?: string
-  readonly district?: string
-  readonly about_me?: string
+  id: number
+  username: string
+  email: string
+  first_name: string
+  last_name: string
+  patronymic: string
+  phone: string
+  age: number
+  status?: string
+  user_in_school_status?: "student" | "teacher" | "parent" | "admin" | "moderator"
+  country?: string
+  city?: string
+  district?: string
+  about_me?: string
+  photo?: string
 }
 
 export class User {
   constructor(
-    private _id: number,
-    private _username: string,
-    private _email: string,
-    private _first_name: string,
-    private _last_name: string,
-    private _patronymic: string,
-    private _phone: string,
-    private _age: number,
-    private _status?: string,
-    private _user_in_school_status?: "student" | "teacher" | "parent" | "admin" | "moderator",
-    private _country?: string,
-    private _city?: string,
-    private _district?: string,
-    private _about_me?: string
+    private _u: IUser
   ) { }
 
   get id() {
-    return this._id
+    return this._u.id
   }
   
   get username() {
-    return this._username
+    return this._u.username
   }
 
   set username(username: string) {
-    this._username = username
+    this._u.username = username
   }
 
   get email() {
-    return this._email
+    return this._u.email
   }
 
   set email(email: string) {
-    this._email = email
+    this._u.email = email
   }
 
   get firstName() {
-    return this._first_name
+    return this._u.first_name
   }
 
   set firstName(firstName: string) {
-    this._first_name = firstName
+    this._u.first_name = firstName
   }
 
   get lastName() {
-    return this._last_name
+    return this._u.last_name
   }
 
   set lastName(lastName: string) {
-    this._last_name = lastName
+    this._u.last_name = lastName
   }
 
   get fullName() {
-    return this._first_name + " " + this._last_name
+    return this._u.first_name + " " + this._u.last_name
   }
   
   
   get phone() {
-    return this._phone
+    return this._u.phone
   }
 
   set phone(phone: string) {
-    this._phone = phone
+    this._u.phone = phone
   }
 
   get patronymic() {
-    return this._patronymic
+    return this._u.patronymic
   }
 
   set patronymic(patronymic: string) {
-    this._patronymic = patronymic
+    this._u.patronymic = patronymic
   }
 
   get age() {
-    return this._age
+    return this._u.age
   }
 
   set age(age: number) {
-    this._age = age
+    this._u.age = age
   }
 
   get status() {
-    return this._status
+    return this._u.status
   }
 
   set status(status: string | undefined) {
-    this._status = status
+    this._u.status = status
   }
 
   get user_in_school_status() {
-    return this._user_in_school_status
+    return this._u.user_in_school_status
   }
   
   set user_in_school_status(user_in_school_status: "student" | "teacher" | "parent" | "admin" | "moderator" | undefined) {
-    this._user_in_school_status = user_in_school_status
+    this._u.user_in_school_status = user_in_school_status
   }
 
   get country() {
-    return this._country
+    return this._u.country
   }
   
   set country(country: string | undefined) {
-    this._country = country
+    this._u.country = country
   }
 
   get city() {
-    return this._city
+    return this._u.city
   }
   
   set city(city: string | undefined) {
-    this._city = city
+    this._u.city = city
   }
 
   get district() {
-    return this._district
+    return this._u.district
   }
 
   set district(district: string | undefined) {
-    this._district = district
+    this._u.district = district
   }
 
   get about_me() {
-    return this._about_me
+    return this._u.about_me
   }
   
   set about_me(about_me: string | undefined) {
-    this._about_me = about_me
+    this._u.about_me = about_me
+  }
+
+  get photo() {
+    return this._u.photo
+  }
+  
+  set photo(photo: string | undefined) {
+    this._u.about_me = photo
   }
   toJSON(): IUser {
-    let {id, username, email, firstName, lastName, patronymic, phone, age, status, user_in_school_status, city, country, about_me, district} = this
-    let JSONUser = {
-      id, 
-      username, 
-      email, 
-      first_name: firstName, 
-      last_name: lastName, 
-      patronymic,
-      phone,
-      age,
-      status,
-      user_in_school_status,
-      city,
-      country,
-      about_me,
-      district
-    }
-    return JSONUser
+    return this._u
   }
 }

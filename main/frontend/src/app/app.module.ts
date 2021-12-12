@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
 import { StoreModule } from '@ngrx/store';
+import { ImageCropperModule } from 'ngx-image-cropper';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -33,6 +34,7 @@ import { OfferDetailComponent } from './offers/offer-detail/offer-detail.compone
 import { ChatUploadFilesComponent } from './chats/chat-upload-files/chat-upload-files.component';
 import { ChatCreateComponent } from './chats/chat-create/chat-create.component';
 import { NewsComponent } from './news/news.component';
+import { CropImageComponent } from './ui/crop-image/crop-image.component';
 
 @NgModule({
   declarations: [
@@ -60,9 +62,11 @@ import { NewsComponent } from './news/news.component';
     OfferDetailComponent,
     ChatUploadFilesComponent,
     ChatCreateComponent,
-    NewsComponent
+    NewsComponent,
+    CropImageComponent
   ],
   imports: [
+    ImageCropperModule,
     BrowserModule,
     FormsModule,
     ReactiveFormsModule,
@@ -73,7 +77,7 @@ import { NewsComponent } from './news/news.component';
     StoreModule.forRoot(reducers)
   ],
   providers: [
-    Subject,
+    Subject
   ],
   exports: [],
   bootstrap: [AppComponent]

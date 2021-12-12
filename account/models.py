@@ -13,6 +13,7 @@ class CustomUser(AbstractUser):
         ('moderator', 'модератор'),
         ('admin', 'админ'),
     )
+    photo = models.ImageField(upload_to="users/photos", null=True, blank=True)
     # user general data
     patronymic = models.CharField(max_length=64)
     phone = models.CharField(max_length=16)
