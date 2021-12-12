@@ -34,7 +34,7 @@ export class OfferComponent implements OnInit {
   }
 
   splitText(text: string) {
-    return text.length > 100 ? text.substr(0, 40) + "..." : text
+    return text.length > 100 ? text.substring(0, 40) + "..." : text
   }
 
   open() {

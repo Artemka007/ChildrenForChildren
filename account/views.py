@@ -5,7 +5,7 @@ from django.db.models.query import Q
 from rest_auth.serializers import PasswordResetConfirmSerializer
 from rest_framework import serializers
 from rest_framework.generics import GenericAPIView
-from rest_framework.permissions import AllowAny
+from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.views import APIView, Response
 from rest_auth.serializers import PasswordResetSerializer
 from rest_auth.views import sensitive_post_parameters_m
@@ -66,12 +66,13 @@ class RegisterView(APIView):
             username = request.data["username"]
             email = request.data["email"]
             password = request.data["password2"]
-            if request.data.get('password') != request.data.get('password2'):
+            if request.data.get('password') != password:
                 raise Exception("Пароли не совпадают.")
             if get_user_model().objects.filter(username=request.data.get("username")).exists():
                 raise Exception("Пользователь с таким именем уже существует.")
             # create a user object
             user = get_user_model().objects.create_user(username=username, email=email, password=password)
+            user.is_active = False
             user.save()
             serializer = UserSerializer(data=request.data, instance=user)
             serializer.is_valid(raise_exception=True)
@@ -116,6 +117,7 @@ class AccountView(APIView):
             return Response({"result": False, "message": "Какие-то не те данные... Пожалуйста, повторите попытку.", "data": {"errors": serializer.errors}})
 
 class SearchUserView(GenericAPIView, SearchMixin):
+    permission_classes = (IsAuthenticated,)
     queryset = get_user_model().objects.all().annotate(full_name=Concat('first_name', V(' '), 'last_name'))
     serializer_class = UserSerializer
     search_fields = ["username", "first_name", "last_name", "full_name", "email"]

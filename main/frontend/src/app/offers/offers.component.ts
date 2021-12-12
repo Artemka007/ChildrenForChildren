@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
+import { catchError } from 'rxjs/operators';
 import { AppState } from '../business';
 import { IBaseOffer, IOffer } from '../models/offers.model';
 import { User } from '../models/user.model';
@@ -37,9 +39,14 @@ export class OffersComponent implements OnInit {
 
   action: "edit" | "create" = "create"
 
-  constructor(private _offers: OffersService, private _store: Store<AppState>, private _ui: UiService) {
+  type: string = "offers"
+
+  constructor(private _offers: OffersService, private _store: Store<AppState>, private _ui: UiService, private _route: ActivatedRoute) {
     _store.subscribe(data => {
       this.user = data.account.user
+    })
+    _route.queryParams.subscribe(i => {
+      if (i["type"]) this.type = i["type"]
     })
   }
 
@@ -48,13 +55,19 @@ export class OffersComponent implements OnInit {
   }
 
   requestToGetAllOffers() {
-    this._offers.getAllOffers().subscribe(data => {
-      if (data.result && data.data.offers) {
-        this.offers = data.data.offers
-      } else {
-        console.error(data.message)
+    this._offers.getAllOffers().subscribe(
+      data => {
+        if (data.result && data.data.offers) {
+          this.offers = data.data.offers
+        } else {
+          console.error(data.message)
+        }
+      },
+      (error) => {
+        this._ui.openWarning({"class": "error", "message": error.message})
+        console.log(error)
       }
-    })
+    )
   }
 
   getAllOffers() {

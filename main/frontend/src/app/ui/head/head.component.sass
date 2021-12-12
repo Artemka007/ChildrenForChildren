@@ -19,9 +19,13 @@
 
 :host
     +flex-container(row, space-between, center)
-    width: 100%
+    width: calc(100% - 10px)
     background: #fff
     height: $header_h
+    margin: 5px
+    padding: 0 10px
+    border-radius: 5px
+    border-bottom: #dddddd solid 3px
     @media screen and ( max-width: 1470px )
         justify-content: flex-end
     .Header__Title

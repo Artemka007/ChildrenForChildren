@@ -12,8 +12,8 @@
     padding: 0 30px
     .Profile__Tools-Nav
         +flex-container(row)
-        width: auto
-        padding: 15px 15px 0 0
+        width: 100%
+        margin: 10px 0
         span
             padding-right: 7px
             margin-right: 7px
@@ -51,8 +51,7 @@
             +flex-container(row, space-between, center)
             height: auto
             width: 100%
-            padding: 0 0 15px 0
-            border-bottom: var(--blue) solid 1px
+            margin-bottom: 10px
             .Item-1
                 +flex-container(row, flex-start, center)
                 height: auto
@@ -102,6 +101,5 @@
 .Profile__Content__Main-User-Information,
 .Profile__Content__Contacts-User-Information
     +flex-container()
-    padding: 15px 0
-    border-bottom: var(--blue) solid 1px
     width: 100%
+    margin-bottom: 10px

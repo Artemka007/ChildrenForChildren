@@ -1,5 +1,5 @@
 <form class="Profile" *ngIf="user" #editProfileForm="ngForm" (ngSubmit)="!editProfileForm.invalid && endEdit(true)">
-    <div class="Profile__Tools-Nav">
+    <div class="Profile__Tools-Nav Container">
         <span class="Item" *ngIf="checkUser()">
             <button type="button" class="Edit-Btn" *ngIf="!isEditing" (click)="startEdit()"></button>
             <button type="submit" class="Ok-Edit-Btn" *ngIf="isEditing" [disabled]="editProfileForm.invalid"></button>
@@ -11,7 +11,7 @@
         </span>
     </div>
     <main class="Profile__Content">
-        <div class="Profile__Content__Status-User-Information">
+        <div class="Profile__Content__Status-User-Information Container">
             <div class="Item-1">
                 <div class="Avatar"><img src="/media/icons/profile.png" alt="" /> </div>
                 <div class="Username-Status">
@@ -24,7 +24,7 @@
                 <div class="Online-Status">online</div>
             </div>
         </div>
-        <div class="Profile__Content__Main-User-Information">
+        <div class="Profile__Content__Main-User-Information Container">
             <div class="Title">Основное</div>
             <div class="Content">
                 <div class="Item">
@@ -92,7 +92,7 @@
                 </div>
             </div>
         </div>
-        <div class="Profile__Content__Contacts-User-Information">
+        <div class="Profile__Content__Contacts-User-Information Container">
             <div class="Title">Контакты</div>
             <div class="Content">
                 <div class="Item">

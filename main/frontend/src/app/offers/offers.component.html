@@ -3,7 +3,7 @@
 <offer-action *ngIf="createOfferIsOpen && !offer" (onclose)="createOfferClose()" [action]="action" [windowTitle]="'Создать предложение'"></offer-action>
 <offer-detail *ngIf="detailOfferIsOpen" [offer]="offer" [user]="user?.toJSON()" (onclose)="detailOfferClose()"></offer-detail>
 <div class="Offers__Filter-Add-New-Offer">
-    <form class="Search-Container Offers__Filter" #searchForm="ngForm">
+    <form class="Search-Container Offers__Filter Container" #searchForm="ngForm">
         <i class="Search"></i>
         <input class="Query" name="q" [(ngModel)]="q" (ngModelChange)="search(q)" placeholder="Поиск..." />
         <div class="Settings" #settingsIcon>
@@ -30,15 +30,15 @@
     </button>
 </div>
 <div class="Offers">
-    <div class="Item">
-        <div class="Title">Запросы</div>
-        <offer *ngFor="let i of getAllOffers()" [offer]="i" [user]="user" (openDetail)="openDetail($event)" (openEdit)="createOfferOpen('edit', $event)" (ondelete)="delete($event)"></offer>
-    </div>
-    <div class="Item">
+    <div *ngIf="type === 'offers'" class="Item">
         <div class="Title">Предложения</div>
         <offer *ngFor="let i of getAllRequests()" [offer]="i" [user]="user" (openDetail)="openDetail($event)" (openEdit)="createOfferOpen('edit', $event)" (ondelete)="delete($event)"></offer>
     </div>
-    <div class="Item">
+    <div *ngIf="type === 'requests'" class="Item">
+        <div class="Title">Запросы</div>
+        <offer *ngFor="let i of getAllOffers()" [offer]="i" [user]="user" (openDetail)="openDetail($event)" (openEdit)="createOfferOpen('edit', $event)" (ondelete)="delete($event)"></offer>
+    </div>
+    <div *ngIf="type === 'questions'" class="Item">
         <div class="Title">Вопросы</div>
         <offer *ngFor="let i of getAllQuestions()" [offer]="i" [user]="user" (openDetail)="openDetail($event)" (openEdit)="createOfferOpen('edit', $event)" (ondelete)="delete($event)"></offer>
     </div>

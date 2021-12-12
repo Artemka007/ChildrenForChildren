@@ -7,7 +7,7 @@ class SubjectSerializer(serializers.ModelSerializer):
         fields = "__all__"
 
 class OfferMainSerializer(serializers.ModelSerializer):
-    subject = serializers.StringRelatedField()
+    subject = SubjectSerializer(many=False, read_only=True)
 
     class Meta:
         model = OffersMain

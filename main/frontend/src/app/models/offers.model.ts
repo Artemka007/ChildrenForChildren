@@ -4,7 +4,7 @@ export interface IBaseOffer {
     about: string
     back: string
     user: number
-    subject: number
+    subject: {id: number, name: string}
     is_published: boolean
 }
 

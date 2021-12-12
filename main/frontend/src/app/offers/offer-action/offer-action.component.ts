@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { NgForm } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { interval } from 'rxjs';
 import { take } from 'rxjs/operators';
@@ -32,7 +33,7 @@ export class OfferActionComponent implements OnInit {
     title: "",
     about: "",
     back: "",
-    subject: -1,
+    subject: {id: -1, name: ""},
     user: -1,
     is_published: true,
     views_amoun: 0
@@ -58,26 +59,38 @@ export class OfferActionComponent implements OnInit {
 
   createOffer() {
     this.isLoading = true
-    this.offer && this._offers.createOffer(this.offer).subscribe(data => {
-      if (data.result) {
-        this._ui.openWarning({message: "Предложение создано.", class: "ok"})
-        this.close()
+    this.offer && this._offers.createOffer(this.offer).subscribe(
+      data => {
+        if (data.result) {
+          this._ui.openWarning({message: "Предложение создано.", class: "ok"})
+          this.close()
+        }
+        else this._ui.openWarning({message: "Что-то пошло не так. Проверте данные и повторите попытку.", class: "error"})
+        this.isLoading = false
+      },
+      error => {
+        this._ui.openWarning({"class": "error", "message": error.message})
+        console.log(error)
       }
-      else this._ui.openWarning({message: "Что-то пошло не так. Проверте данные и повторите попытку.", class: "error"})
-      this.isLoading = false
-    })
+    )
   }
 
   updateOffer() {
     this.isLoading = true
-    this.offer && this._offers.editOffer(this.offer.id || -1, this.offer).subscribe(data => {
-      if (data.result) {
-        this._ui.openWarning({message: "Предложение создано.", class: "ok"})
-        this.close()
+    this.offer && this._offers.editOffer(this.offer.id || -1, this.offer).subscribe(
+      data => {
+        if (data.result) {
+          this._ui.openWarning({message: "Предложение создано.", class: "ok"})
+          this.close()
+        }
+        else this._ui.openWarning({message: "Что-то пошло не так. Проверте данные и повторите попытку.", class: "error"})
+        this.isLoading = false
+      },
+      error => {
+        this._ui.openWarning({"class": "error", "message": error.message})
+        console.log(error)
       }
-      else this._ui.openWarning({message: "Что-то пошло не так. Проверте данные и повторите попытку.", class: "error"})
-      this.isLoading = false
-    })
+    )
   }
 
   close() {

@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { catchError } from 'rxjs/operators';
 import { APIResponse } from '../models/api.model';
 import { IBaseOffer, IOffer } from '../models/offers.model';
 import { TQuery } from '../offers/offers.component';
@@ -21,7 +22,7 @@ export class OffersService {
   }
 
   createOffer(offer: IBaseOffer) {
-    let sub = this._http.post<APIResponse<{offers?: IOffer[]}>>("/api/v1/offers/", {...offer}, {
+    let sub = this._http.post<APIResponse<{offers?: IOffer[]}>>("/api/v1/offers/", {...offer, subject: offer.subject.id}, {
       headers: {
         "X-CSRFToken": this._getCookie("csrftoken")
       }
@@ -30,7 +31,7 @@ export class OffersService {
   }
 
   editOffer(id: number, newOffer: IBaseOffer) {
-    let sub = this._http.put<APIResponse<{offers?: IOffer[]}>>("/api/v1/offers/?id=" + id, {...newOffer}, {
+    let sub = this._http.put<APIResponse<{offers?: IOffer[]}>>("/api/v1/offers/?id=" + id, {...newOffer, subject: newOffer.subject.id}, {
       headers: {
         "X-CSRFToken": this._getCookie("csrftoken")
       }

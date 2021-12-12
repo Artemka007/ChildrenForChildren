@@ -10,7 +10,7 @@
     </a>
     <button class="Add-Chat" [style.left]="(allChats.getClientRects()[0]['left'] + 30).toString() + 'px'" (click)="isCreating = true"></button>
 </div>
-<div *ngIf="chat" class="Chat">
+<div *ngIf="chat" class="Chat Container">
     <div class="Chat__Container" *ngIf="chatIsOpen() || (!chatInfoIsOpen && !chatNavIsOpen)">
         <header class="Chat__Header">
             <hamburger [isOpen]="chatNavIsOpen" (onchange)="setChatNavIsOpen()"></hamburger>

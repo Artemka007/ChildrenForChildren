@@ -4,8 +4,9 @@ import { NavigationEnd, Router } from '@angular/router';
 type CanOpenLinks =
   | "home"
   | "news"
-  | "ads"
+  | "offers"
   | "chats"
+  | "users"
 
 @Component({
   selector: 'navbar',
@@ -65,7 +66,7 @@ export class NavbarComponent implements OnInit {
   }
 
   checkLinkIsOpen(n: CanOpenLinks) {
-    return this.openLinks.indexOf(n) !== -1
+    return this.openLinks.indexOf(n) !== -1 || location.pathname.split('/')[1] === n
   }
 
   navbarIsOpen(): boolean {

@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from rest_framework import serializers
 from rest_framework.generics import GenericAPIView
+from rest_framework.permissions import IsAuthenticated
 from rest_framework.views import APIView, Response
 
 from api.mixins import ProjectAPIView, SearchMixin
@@ -10,11 +11,14 @@ from .models import OffersMain, Subject
 from django.core.exceptions import PermissionDenied
 
 class OffersMainView(ProjectAPIView):
+    queryset = OffersMain.objects.all()
+    serializer_class = OfferMainSerializer
+
     def get(self, request):
         if not request.user.is_authenticated:
             raise PermissionDenied("Пользователь не авторизован.")
-        offers = OffersMain.objects.all()
-        serializer = OfferMainSerializer(offers, many=True)
+        offers = self.get_queryset()
+        serializer = self.get_serializer(offers, many=True)
         return self.get_response(True, "Всё прошло успешно", {"offers": serializer.data})
 
     def post(self, request):    #create view
@@ -23,7 +27,7 @@ class OffersMainView(ProjectAPIView):
         serializer = CreateOfferMainSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
-            return self.get_response(True, "Всё прошло успешно", {"offer": OfferMainSerializer(serializer.instance).data})
+            return self.get_response(True, "Всё прошло успешно", {"offer": self.get_serializer(serializer.instance).data})
         else:
             raise Exception("Что-то пошло не так.")
         
@@ -34,12 +38,12 @@ class OffersMainView(ProjectAPIView):
             raise Exception("Параметр id не передан.")
         if not request.user.is_authenticated:
             raise Exception("Пользователь не авторизован.")
-        offer = OffersMain.objects.get(pk=int(id))
+        offer = self.get_queryset().objects.get(pk=int(id))
         if offer.user.id == request.user.id:
             serializer = CreateOfferMainSerializer(instance=offer, data=request.data)
             if serializer.is_valid():
                 serializer.save()
-                return self.get_response(True, "Вы успешно обновили предложение.", {"offer": OfferMainSerializer(serializer.instance).data}) 
+                return self.get_response(True, "Вы успешно обновили предложение.", {"offer": self.get_serializer(serializer.instance).data}) 
             else:
                 raise Exception("Что-то пошло не так.")
         else:
@@ -54,11 +58,11 @@ class OffersMainView(ProjectAPIView):
         if not request.user.is_authenticated:
             raise PermissionDenied("Пользователь не авторизован.")
         # get offer by id
-        offer = OffersMain.objects.get(pk=int(id))
+        offer = self.get_queryset().objects.get(pk=int(id))
         if offer.user.id == request.user.id:
             offer.delete()
-            offers = OffersMain.objects.all()
-            serializer = OfferMainSerializer(offers, many=True)
+            offers = self.get_queryset().objects.all()
+            serializer = self.get_serializer(offers, many=True)
             # return offers for frontend
             return self.get_response(True, "Вы успешно удалили предложение.", {"offers": serializer.data}) 
         else:

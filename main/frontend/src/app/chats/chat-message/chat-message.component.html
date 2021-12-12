@@ -2,6 +2,7 @@
     <span class="Message-Is-Read" *ngIf="!checkUserIsReadMessage() && checkMessageIsFromUser()"></span>
     <div class="Message__Ava"></div>
     <div class="Message" [ngClass]="{'not-from-user': !checkMessageIsFromUser()}">
+        <div class="Massage__User">{{checkMessageIsFromUser() ? "Вы" : message.user.username}}</div>
         <div class="Message__Images" *ngFor="let i of message.imgs">
             <div class="Item" [style.backgroundImage]="'url(' + i.file + ')'" (click)="openImagesSlider(message.imgs.indexOf(i))"></div>
         </div>

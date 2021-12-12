@@ -3,8 +3,10 @@
         <i [class]="i.type === 'img' ? 'Upload-Img' : 'Upload-Doc'"></i>
     </div>
     <div class="Name">{{i.name}}</div>
-    <progress-bar [progress]="i.progress" [progressColor]="i.progressColor"></progress-bar>
-    <div class="Progress-Bar-Procents">{{i.progress.toString() + "%"}}</div>
+    <div class="Column End">
+        <progress-bar [progress]="i.progress" [progressColor]="i.progressColor"></progress-bar>
+        <div class="Progress-Bar-Procents">{{i.progress.toString() + "%"}}</div>
+    </div>
     <div class="Actions">
         <button type="button" *ngIf="i.progress < 100" [class]="'Break-Upload'" (click)="breakUpload()"><i></i></button>
         <button type="button" *ngIf="i.progress === 100" [class]="'Delete-File'" (click)="deleteUploadedFile(i.type, i.id)"><i></i></button>
