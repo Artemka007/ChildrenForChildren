@@ -91,6 +91,12 @@ export class ChatService {
     })
   }
 
+  uploadPhoto(fd: FormData, id: number) {
+    return this._http.post<APIResponse<{chat?: IChat}>>(`/api/v1/chats/photo/upload/?id=${id}`, fd, {
+      headers: {"X-CSRFToken": this._getCookie("csrftoken")}
+    })
+  }
+
   deleteUploadedFile(id: number, type: "img" | "doc") {
     return this._http.delete<APIResponse<{id?: number}>>(`/api/v1/chats/messages/upload/?type=${type}&id=${id}`, {
       headers: {"X-CSRFToken": this._getCookie("csrftoken")}

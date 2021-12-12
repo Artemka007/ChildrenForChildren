@@ -6,6 +6,8 @@ from django.db.models import Count
 from .models import *
 from .serializer import *
 
+from api.mixins import ProjectAPIView
+
 class ChatView(APIView):
     def get(self, request):
         if not request.user.is_authenticated:
@@ -83,6 +85,21 @@ class ChatView(APIView):
             else:
                 return Response({"result": False, "message": "Данные в запросе некорректны.", "data": {}})
         return Response({"result": False, "message": "Параметр id не передан", "data": {}})
+class UploadChatPhoto(ProjectAPIView):
+    serializer_class = ChatSerializer
+    def post(self, request):
+        chat_id = request.GET.get("id")
+        if not chat_id:
+            raise Exception("Не передан chat_id.")
+        chat = Chat.objects.get(pk=chat_id)
+        files = request.FILES
+        photo = files.get("photo")
+        if photo:
+            chat.photo = photo
+            chat.save()
+            return self.get_response(True, "Аватарка успешна установлена.", {"chat": self.get_serializer(chat).data})
+        else:
+            return self.get_response(False, "Что-то пошло не так...")
 
 class UploadFilesForMessageView(APIView):
     def post(self, request):

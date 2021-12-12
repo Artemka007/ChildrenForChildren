@@ -60,6 +60,7 @@ export class ChatsComponent implements OnInit {
   }
   isEditing: boolean = false
   isCreating: boolean = false
+  isChatPhotoOpen: boolean = false
 
   imageIdForImageSlider: number = 0
   imagesForImageSlider: string[] = []
@@ -122,6 +123,14 @@ export class ChatsComponent implements OnInit {
 
   checkUserIsInChat() {
     return this.chat?.users.map(i => i.id).includes(this.user?.id || -1)
+  }
+
+  chatPhotoUpload(fd: FormData) {
+    this.chat && this._chat.uploadPhoto(fd, this.chat.id).subscribe(data => {
+      if (data.data.chat) this.chat = data.data.chat
+    }, error => {
+      this._ui.openWarning({class: "error", message: error.message})
+    })
   }
 
   getChatTitle() {
