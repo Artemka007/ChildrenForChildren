@@ -31,7 +31,7 @@ SECRET_KEY = 'django-insecure-&o^+%ix!41sb-e1nm!)w70+j1+*)snlkyn65cwd1)*-0k)u7!=
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['www.children-for-children.ru', 'children-for-children.ru']
 
 
 # Application definition
@@ -102,8 +102,11 @@ CHANNEL_LAYERS = {
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'u1549894_default',
+        'USER': 'u1549894_default',
+        'PASSWORD': 'TK89faABjhVBn3b8',
+        'HOST': 'localhost'
     }
 }
 
