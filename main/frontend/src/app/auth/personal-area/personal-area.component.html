@@ -78,8 +78,8 @@
                     </div>
                 </div>
                 <div class="Item">
-                    <div class="Key">Район/Улица:</div>
-                    <div class="Description" *ngIf="!isEditing">{{user?.district || "Район/Улица не указаны."}}</div>
+                    <div class="Key">Улица:</div>
+                    <div class="Description" *ngIf="!isEditing">{{user?.district || "Улица не указана."}}</div>
                     <div class="Field" *ngIf="isEditing && checkUser()">
                         <input name="district" maxlength="64" class="Edit-Description" [(ngModel)]="user.district" #district="ngModel" maxlength="128" />
                         <span class="Validator" *ngIf="district.errors?.maxlength">Максимальная длина - 128 символов.</span>

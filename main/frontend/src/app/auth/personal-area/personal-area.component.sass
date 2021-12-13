@@ -89,14 +89,18 @@
             width: 100%
             font-size: 18px
             margin-top: 10px
+            @media screen and ( max-width: 560px )
+                font-size: 16px
             .Key
-                width: 125px
-                min-width: 125px
+                width: 100px
+                min-width: 100px
             .Description
                 width: 100%
             .Edit-Description
                 +field()
                 width: 400px
+                
+            
 .Profile__Content,
 .Profile__Content__Main-User-Information,
 .Profile__Content__Contacts-User-Information
