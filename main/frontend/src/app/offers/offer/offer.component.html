@@ -8,6 +8,6 @@
         <button *ngIf="!userIsEqualAuthor()" class="Item" (click)="open()">Подробнее</button>
         <button *ngIf="!userIsEqualAuthor()" class="Item" (click)="getMutualChat()">Написать</button>
         <button *ngIf="userIsEqualAuthor()" class="Item" (click)="edit()">Отредактировать</button>
-        <button *ngIf="userIsEqualAuthor()" class="Item Delete" (click)="delete()">Удалить</button>
+        <button *ngIf="userIsEqualAuthor()" class="Item Delete" (click)="delete()">Архивировать</button>
     </div>
 </ng-container>

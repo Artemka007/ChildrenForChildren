@@ -5,7 +5,7 @@
 </div>
 <div class="Header__Auth-Container" (mouseenter)="openS()" (mouseleave)="closeS()">
     <div class="Header__Auth-Container__User-Info">
-        <div class="Header__Auth-Container__User-Info__Ava"><img [src]="'/media/icons/profile.png'" alt="" /></div>
+        <div class="Header__Auth-Container__User-Info__Ava"><img [src]="user?.photo || '/media/icons/profile.png'" alt="" /></div>
         <div class="Header__Auth-Container__User-Info__Username">{{user?.username}}</div>
     </div>
     <div class="Header__Auth-Container__Submenu" *ngIf="submenuIsOpen">

@@ -45,6 +45,7 @@ export class PersonalAreaComponent implements OnInit {
     this._account.uploadPhoto(fd).subscribe(
       data => {
         let u = data.data.user
+        this.isEditing = false
         if (u) this.user = new User(u)
         else this._ui.openWarning({"class": "error", "message": data.message})
       },

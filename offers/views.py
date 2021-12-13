@@ -60,7 +60,8 @@ class OffersMainView(ProjectAPIView):
         # get offer by id
         offer = self.get_queryset().get(pk=int(id))
         if offer.user.id == request.user.id:
-            offer.delete()
+            offer.is_archived = True
+            offer.save()
             offers = self.get_queryset().all()
             serializer = self.get_serializer(offers, many=True)
             # return offers for frontend

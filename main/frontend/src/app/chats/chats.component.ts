@@ -127,7 +127,10 @@ export class ChatsComponent implements OnInit {
 
   chatPhotoUpload(fd: FormData) {
     this.chat && this._chat.uploadPhoto(fd, this.chat.id).subscribe(data => {
-      if (data.data.chat) this.chat = data.data.chat
+      if (data.data.chat) {
+        this.chat = data.data.chat
+        this.isEditing = false
+      }
     }, error => {
       this._ui.openWarning({class: "error", message: error.message})
     })

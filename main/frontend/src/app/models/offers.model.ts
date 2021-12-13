@@ -7,12 +7,12 @@ export interface IBaseOffer {
     about: string
     back: string
     subject: {id: number, name: string}
-    is_published: boolean
 }
 
 export interface IOffer extends IBaseOffer {
     user: IUser
     views_amoun: number
+    is_archived: boolean
 }
 
 export interface ICreateOffer extends IBaseOffer {

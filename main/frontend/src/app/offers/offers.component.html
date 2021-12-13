@@ -31,15 +31,12 @@
 </div>
 <div class="Offers">
     <div *ngIf="type === 'offers'" class="Item">
-        <div class="Title">Предложения</div>
         <offer *ngFor="let i of getAllRequests()" [offer]="i" [user]="user" (openDetail)="openDetail($event)" (openEdit)="createOfferOpen('edit', $event)" (ondelete)="delete($event)"></offer>
     </div>
     <div *ngIf="type === 'requests'" class="Item">
-        <div class="Title">Запросы</div>
         <offer *ngFor="let i of getAllOffers()" [offer]="i" [user]="user" (openDetail)="openDetail($event)" (openEdit)="createOfferOpen('edit', $event)" (ondelete)="delete($event)"></offer>
     </div>
     <div *ngIf="type === 'questions'" class="Item">
-        <div class="Title">Вопросы</div>
         <offer *ngFor="let i of getAllQuestions()" [offer]="i" [user]="user" (openDetail)="openDetail($event)" (openEdit)="createOfferOpen('edit', $event)" (ondelete)="delete($event)"></offer>
     </div>
 </div>

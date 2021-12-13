@@ -34,8 +34,7 @@ export class OfferActionComponent implements OnInit {
     about: "",
     back: "",
     subject: {id: -1, name: ""},
-    user: -1,
-    is_published: true
+    user: -1
   }
 
   subjects: {id: number, name: string}[] = []

@@ -62,7 +62,6 @@ export class OffersComponent implements OnInit {
       about: this.offer.about,
       back: this.offer.back,
       subject: this.offer.subject,
-      is_published: this.offer.is_published,
       user: this.offer.user.id
     } as ICreateOffer
   }
@@ -84,15 +83,15 @@ export class OffersComponent implements OnInit {
   }
 
   getAllOffers() {
-    return this.offers?.filter(i => i.define_type_of_request == "offers")
+    return this.offers?.filter(i => i.is_archived === false).filter(i => i.define_type_of_request == "offers")
   }
 
   getAllRequests() {
-    return this.offers?.filter(i => i.define_type_of_request == "requsts")
+    return this.offers?.filter(i => i.is_archived === false).filter(i => i.define_type_of_request == "requsts")
   }
 
   getAllQuestions() {
-    return this.offers?.filter(i => i.define_type_of_request == "quastions")
+    return this.offers?.filter(i => i.is_archived === false).filter(i => i.define_type_of_request == "quastions")
   }
 
   search(q: TQuery) {

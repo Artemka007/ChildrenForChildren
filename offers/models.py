@@ -25,9 +25,9 @@ class OffersMain(models.Model): #main module
     user = models.ForeignKey(get_user_model(), on_delete=models.CASCADE, related_name='offers') # by who published
     
     # flags 
-    is_published  = models.BooleanField(default=True) # is publishe(true = is, False = not)
+    is_archived = models.BooleanField(default=False, verbose_name='Архивировано')
     
-    views_amoun = models.BigIntegerField(default=0) # Amount of views
+    views_amoun = models.BigIntegerField(default=0, verbose_name='Просмотры (пока не работает)') # Amount of views
     
     def __str__(self):
         return self.title

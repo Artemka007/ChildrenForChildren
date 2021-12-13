@@ -50,7 +50,7 @@
     <form class="Chat__Information Shadow-Left" [ngClass]="{'Close': !chatInfoIsOpen}" *ngIf="chat.is_group" #chatEditForm="ngForm" (ngSubmit)="editChat()">
         <hamburger [isOpen]="true" (onchange)="setChatInfoIsOpen()"></hamburger>
         <div *ngIf="!isEditing" class="Main-Info">
-            <div class="Chat-Ava"><img [src]="chat.photo || '/media/icons/profile.png'" /></div>
+            <div class="Chat-Ava"><img (click)="isChatPhotoOpen = true" [src]="chat.photo || '/media/icons/profile.png'" /></div>
             <div class="Chat-Title">{{getChatTitle()}}</div>
             <div class="Chat-Description">{{chat.about || "Описание не написано"}}</div>
         </div>
