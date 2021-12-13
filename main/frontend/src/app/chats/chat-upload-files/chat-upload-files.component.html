@@ -3,7 +3,7 @@
         <i [class]="i.type === 'img' ? 'Upload-Img' : 'Upload-Doc'"></i>
     </div>
     <div class="Name">{{i.name}}</div>
-    <div class="Column End">
+    <div class="Column End" style="width: 100%;">
         <progress-bar [progress]="i.progress" [progressColor]="i.progressColor"></progress-bar>
         <div class="Progress-Bar-Procents">{{i.progress.toString() + "%"}}</div>
     </div>

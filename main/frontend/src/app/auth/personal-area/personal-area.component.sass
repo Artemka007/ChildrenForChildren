@@ -86,19 +86,22 @@
         width: 100%
         .Item
             +flex-container(row)
+            &.Edit
             width: 100%
             font-size: 18px
             margin-top: 10px
             @media screen and ( max-width: 560px )
                 font-size: 16px
+                flex-direction: column
             .Key
-                width: 100px
+                width: 80px
                 min-width: 100px
             .Description
                 width: 100%
             .Edit-Description
                 +field()
-                width: 400px
+                width: auto
+                max-width: 400px
                 
             
 .Profile__Content,
