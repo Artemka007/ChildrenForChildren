@@ -8,6 +8,8 @@ static/
 db.sqlite3
 .DS_Store
 
+migrations/
+
 main/frontend/node_modules/
 main/frontend/.angular
 ChildrenForChildren/secret.py
