@@ -29,7 +29,7 @@ class OffersMainView(ProjectAPIView):
             serializer.save()
             return self.get_response(True, "Всё прошло успешно", {"offer": self.get_serializer(serializer.instance).data})
         else:
-            raise Exception("Что-то пошло не так.")
+            return self.get_response(False, "Что-то пошло не так", {"errors": serializer.errors})
         
     def put(self, request):
        # get id in query params
