@@ -14,8 +14,6 @@ import pdb as _
 class ChatConsumer(AsyncWebsocketConsumer):
     @sync_to_async()
     def _send_message(self, message):
-        chat = Chat.objects.get(pk=message.get("chat"))
-        chat.date = datetime.date.today()
         serializer = CreateMessageSerializer(data=message)
         serializer.is_valid(raise_exception=True)
         serializer.save()
