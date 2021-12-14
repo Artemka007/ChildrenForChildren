@@ -104,6 +104,7 @@ export class ChatService {
   }
 
   sendMessage(message: ICreateMessage) {
+    console.log("----SEND_MESSAGE_IN_SERVICE-----", "\n", message.body)
     this._messages.next({"action": "send_message", message})
   }
 

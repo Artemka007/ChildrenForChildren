@@ -114,8 +114,10 @@ export class ChatsComponent implements OnInit {
       let id = parseInt(p["id"])
       if (id) {
         this._chat.connectToMessages(id)
+        console.log("-----CONNECT------")
         this._chat.subscribeToMessages().subscribe(data => {
           this._subscribeToWSMessages(data)
+          console.log("-----SUBSCRIBE------")
         })
       }
     })
@@ -149,6 +151,7 @@ export class ChatsComponent implements OnInit {
   }
 
   sendMessage() {
+    "-----SEND_MESSAGE------"
     this._chat.sendMessage(this.message)
   }
 
