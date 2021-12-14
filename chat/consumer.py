@@ -66,9 +66,9 @@ class ChatConsumer(AsyncWebsocketConsumer):
     async def receive(self, text_data=None, bytes_data=None):
         data = json.loads(text_data)
         user = self.scope.get("user")
-        if user is None:
-            await self.disconnect(401)
-            return
+        #if user is None:
+        #    await self.disconnect(401)
+        #    return
         action = data.get("action")
         if action is None:
             await self.disconnect(405)

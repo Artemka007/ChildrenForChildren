@@ -38,7 +38,7 @@ export class ChatService {
   ) { }
 
   connectToMessages(id: number) {
-    this._messages = this._ws.connect(`wss://127.0.0.1:8000/chat/${id}/`)
+    this._messages = this._ws.connect(`ws://127.0.0.1:8000/chat/${id}/`)
   }
 
   getUserChats() {
