@@ -113,8 +113,8 @@ export class ChatsComponent implements OnInit {
     this._route.queryParams.subscribe(p => {
       let id = parseInt(p["id"])
       if (id) {
-        this._chat.connectToMessages(id)
         console.log("-----CONNECT------")
+        this._chat.connectToMessages(id)
         this._chat.subscribeToMessages().subscribe(data => {
           this._subscribeToWSMessages(data)
           console.log("-----SUBSCRIBE------")
