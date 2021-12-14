@@ -26,7 +26,7 @@
 <div class="Searched-Users">
     <a (click)="select(i.id)" *ngFor="let i of users" class="Item">
         <div class="Ava">
-            <img src="/media/icons/profile.png" />
+            <img [src]="i.photo || '/media/icons/profile.png'" />
         </div>
         <div class="Main-Info">
             <div class="Name">{{i.first_name + " " + i.last_name}}</div>

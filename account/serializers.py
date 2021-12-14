@@ -13,7 +13,7 @@ class UserSerializer(ModelSerializer):
             )
         ]
         model = get_user_model()
-        fields = ["id", "username", "email", "first_name", "last_name", "patronymic", "is_active", "age", "phone", "city", "country", "district", "status", "about_me", "photo"]  
+        fields = ["id", "username", "email", "first_name", "last_name", "patronymic", "is_active", "age", "phone", "city", "country", "district", "status", "about_me", "photo", "online_date"]  
 
     def update(self, instance, validated_data):
         raise_errors_on_nested_writes('create', self, validated_data)

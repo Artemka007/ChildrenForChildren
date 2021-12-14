@@ -14,6 +14,7 @@ export interface IUser {
   district?: string
   about_me?: string
   photo?: string
+  online_date: string
 }
 
 export class User {
@@ -140,6 +141,10 @@ export class User {
   
   set photo(photo: string | undefined) {
     this._u.about_me = photo
+  }
+
+  get onlineDate() {
+    return this._u.online_date
   }
   toJSON(): IUser {
     return this._u

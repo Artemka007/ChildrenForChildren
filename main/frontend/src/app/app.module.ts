@@ -35,6 +35,7 @@ import { ChatUploadFilesComponent } from './chats/chat-upload-files/chat-upload-
 import { ChatCreateComponent } from './chats/chat-create/chat-create.component';
 import { NewsComponent } from './news/news.component';
 import { CropImageComponent } from './ui/crop-image/crop-image.component';
+import { DateAgoPipe } from './pipes/date-ago.pipe';
 
 @NgModule({
   declarations: [
@@ -63,7 +64,8 @@ import { CropImageComponent } from './ui/crop-image/crop-image.component';
     ChatUploadFilesComponent,
     ChatCreateComponent,
     NewsComponent,
-    CropImageComponent
+    CropImageComponent,
+    DateAgoPipe
   ],
   imports: [
     ImageCropperModule,

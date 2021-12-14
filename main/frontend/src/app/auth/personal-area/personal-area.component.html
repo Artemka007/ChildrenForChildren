@@ -23,7 +23,7 @@
             </div>
             <div class="Item-2">
                 <div class="User-In-School-Status">{{checkUserInSchoolStatus(user.user_in_school_status)}}</div>
-                <div class="Online-Status">online</div>
+                <div class="Online-Status">{{user.onlineDate|dateAgo}}</div>
             </div>
         </div>
         <div class="Profile__Content__Main-User-Information Container">

@@ -31,7 +31,7 @@ SECRET_KEY = 'django-insecure-&o^+%ix!41sb-e1nm!)w70+j1+*)snlkyn65cwd1)*-0k)u7!=
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['www.children-for-children.ru', 'children-for-children.ru']
+ALLOWED_HOSTS = ['www.children-for-children.ru', 'children-for-children.ru', '127.0.0.1']
 
 
 # Application definition
@@ -64,6 +64,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'account.middleware.IsOnlineMiddleware'
 ]
 
 ROOT_URLCONF = 'ChildrenForChildren.urls'
@@ -100,15 +101,23 @@ CHANNEL_LAYERS = {
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'u1549894_default',
-        'USER': 'u1549894_default',
-        'PASSWORD': 'TK89faABjhVBn3b8',
-        'HOST': 'localhost'
+if DEBUG == False:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.mysql',
+            'NAME': 'u1549894_default',
+            'USER': 'u1549894_default',
+            'PASSWORD': 'TK89faABjhVBn3b8',
+            'HOST': 'localhost'
+        }
     }
-}
+else:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': 'db.sqlite3'
+        }
+    }
 
 
 # Password validation

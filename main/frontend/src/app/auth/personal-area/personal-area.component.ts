@@ -74,12 +74,14 @@ export class PersonalAreaComponent implements OnInit {
   }
 
   checkUserInSchoolStatus(status?: "student" | "admin" | "teacher" | "parent" | "moderator") {
-    if (status === "student") return "Ученик"
-    else if (status === "admin") return "Админ"
-    else if (status === "teacher") return "Учитель"
-    else if (status === "parent") return "Родитель"
-    else if (status === "moderator") return "Модератор"
-    else return ""
+    switch (status) {
+      case "student": return "Ученик"
+      case "admin": return "Админ"
+      case "teacher": return "Учитель"
+      case "parent": return "Родитель"
+      case "moderator": return "Модератор"
+      default: return ""
+    }
   }
 
   checkUser() {

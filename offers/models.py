@@ -37,9 +37,3 @@ class OffersMain(models.Model): #main module
 
     class Meta:
         ordering = ('date',)
-
-class Subject(models.Model):
-    name = models.CharField(max_length=64)
-    
-    def __str__(self):
-        return self.name

@@ -26,3 +26,5 @@ class CustomUser(AbstractUser):
     district = models.CharField(max_length=128, null=True, blank=True)
     # about the user job, hobbies etc
     about_me = models.TextField(null=True, blank=True)
+
+    online_date = models.DateTimeField(auto_now=True)
