@@ -25,10 +25,11 @@ class ChatConsumer(AsyncWebsocketConsumer):
         user = get_user_model().objects.get(pk=userId)
         return UserSerializer(user).data
     @sync_to_async()
-    def _read_messages(self, chat):
+    def _read_messages(self, chat, user):
         messages = Chat.objects.get(pk=chat).messages.all()
         for i in messages:
-            i.readers.add(self.scope.get("user"))
+            if user:
+                i.readers.add(user)
     @sync_to_async()
     def _edit_message(self, message):
         old_message = Message.objects.filter(pk=message['id'])[0]
@@ -66,10 +67,10 @@ class ChatConsumer(AsyncWebsocketConsumer):
     async def receive(self, text_data=None, bytes_data=None):
         data = json.loads(text_data)
         user = self.scope.get("user")
-        #if user is None:
-        #    await self.channel_layer.group_send(self.group_name, {
-        #        "type": "user_not_auth"
-        #    })
+        if user is None:
+            await self.channel_layer.group_send(self.group_name, {
+                "type": "user_not_auth"
+            })
         action = data.get("action")
         if action is None:
             await self.channel_layer.group_send(self.group_name, {
@@ -95,7 +96,7 @@ class ChatConsumer(AsyncWebsocketConsumer):
                 "user": u
             })
         elif action == "read_messages":
-            await self._read_messages(data.get("chat"))
+            await self._read_messages(data.get("chat"), user)
             await self.channel_layer.group_send(self.group_name, {
                 "type": "read_messages",
                 "action": "read_messages",

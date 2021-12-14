@@ -90,7 +90,7 @@ export class ChatsComponent implements OnInit {
             this.message["chat"] = id
             this.chatBody && this.scroll(this.chatBody.nativeElement)
             this.autogrow()
-            this._chat.readMessage(id)
+            //this._chat.readMessage(id)
           } else  {
             this._chat.getChatById(id).subscribe(data => {
               if (data.data.chat) {
