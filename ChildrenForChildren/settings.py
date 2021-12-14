@@ -94,7 +94,8 @@ CHANNEL_LAYERS = {
         # 'CONFIG': {
         #     'hosts': [<hosts of docker>]
         # }
-        'BACKEND': 'channels.layers.InMemoryChannelLayer'
+        'BACKEND': 'django.core.cache.backends.memcached.MemcachedCache',
+        'LOCATION': 'unix:/tmp/memcached.sock'
     }
 }
 
