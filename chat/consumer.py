@@ -70,12 +70,12 @@ class ChatConsumer(AsyncWebsocketConsumer):
             await self.channel_layer.group_send(self.group_name, {
                 "type": "user_not_auth"
             })
-            await self.disconnect(401)
-            return
         action = data.get("action")
         if action is None:
+            await self.channel_layer.group_send(self.group_name, {
+                "type": "user_not_auth"
+            })
             await self.disconnect(405)
-            return
 
         elif action == "send_message":
             message = data.get("message")
