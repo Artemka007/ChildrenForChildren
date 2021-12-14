@@ -12,7 +12,7 @@ export class WebsocketService {
   constructor(private _subject: Subject<WSMessage>) { }
 
   public connect(url: string): Subject<WSMessage> {
-    this._subject = webSocket<WSMessage>({url, protocol: "wss"})
+    this._subject = webSocket<WSMessage>(url)
     return this._subject
   }
 }

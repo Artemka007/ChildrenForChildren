@@ -115,9 +115,9 @@ export class ChatsComponent implements OnInit {
       if (id) {
         console.log("-----CONNECT------")
         this._chat.connectToMessages(id)
-        this._chat.subscribeToMessages().subscribe(data => {
+        console.log("-----SUBSCRIBE------")
+        this._chat.messages.subscribe(data => {
           this._subscribeToWSMessages(data)
-          console.log("-----SUBSCRIBE------")
         })
       }
     })
