@@ -67,6 +67,9 @@ class ChatConsumer(AsyncWebsocketConsumer):
         data = json.loads(text_data)
         user = self.scope.get("user")
         if user is None:
+            await self.channel_layer.group_send(self.group_name, {
+                "type": "user_not_auth"
+            })
             await self.disconnect(401)
             return
         action = data.get("action")
@@ -77,9 +80,6 @@ class ChatConsumer(AsyncWebsocketConsumer):
         elif action == "send_message":
             message = data.get("message")
             if message is None:
-                await self.channel_layer.group_send(self.group_name, {
-                    "type": "user_not_auth"
-                })
                 self.disconnect(405)
             message = await self._send_message(message)
             await self.channel_layer.group_send(self.group_name, {
@@ -126,7 +126,7 @@ class ChatConsumer(AsyncWebsocketConsumer):
     async def user_not_auth(self, e):
         await self.send(text_data=json.dumps({
             'action': 'user_not_auth',
-            'user': self.cope['user']
+            'user': self.scope.get("user")
         }))
     async def send_message(self, e):
         await self.send(text_data=json.dumps({
