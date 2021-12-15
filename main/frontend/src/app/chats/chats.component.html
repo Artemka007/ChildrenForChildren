@@ -6,7 +6,7 @@
         <div class="Avatar"><img [src]="c.photo || '/media/icons/profile.png'" alt="" /> </div>
         <div class="Main-Info">
             <div class="Name">{{c.title || getOtherUserInChat(c.id)?.first_name + " " + getOtherUserInChat(c.id)?.last_name}}</div>
-            <div class="Status">{{checkUserNotIsBanned(c) ? c.messages[c.messages.length - 1]?.body ? c.messages[c.messages.length - 1]?.body : "Сообщений пока что нет." : "Вы забанены..."}}</div>
+            <div class="Status">{{getLastChatMessage(c)}}</div>
         </div>
     </a>
     <button class="Add-Chat" [style.left]="(allChats.getClientRects()[0]['left'] + 30).toString() + 'px'" (click)="isCreating = true"></button>

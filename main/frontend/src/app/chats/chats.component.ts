@@ -267,6 +267,11 @@ export class ChatsComponent implements OnInit {
     return chat?.users.filter(i => i.id !== this.user?.id)[0]
   }
 
+  getLastChatMessage(c: IChat) {
+    let msg = (this.checkUserNotIsBanned(c) ? c.messages[c.messages.length - 1]?.body ? c.messages[c.messages.length - 1]?.body : "Сообщений пока что нет." : "Вы забанены...")
+    return msg.length < 30 ? msg : msg.substring(0, 30) + "..."
+  }
+
   setChatNavIsOpen() {
     this.chatNavIsOpen = !this.chatNavIsOpen
     if (this.chatNavIsOpen && window.innerWidth < 1183) {

@@ -94,9 +94,7 @@ CHANNEL_LAYERS = {
         # 'CONFIG': {
         #     'hosts': [<hosts of docker>]
         # }
-        # 'BACKEND': 'channels.layers.InMemoryChannelLayer'
         'BACKEND': 'asgiref.inmemory.ChannelLayer',
-        'ROUTING': 'ChildrenForChildren.routing.application',
     }
 }
 
