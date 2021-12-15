@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { INew } from '../models/news.model';
 import { NewsService } from '../services/news.service';
@@ -9,6 +9,9 @@ import { NewsService } from '../services/news.service';
   styleUrls: ['./news.component.sass']
 })
 export class NewsComponent implements OnInit {
+  @ViewChild("content")
+  content?: ElementRef<HTMLDivElement>
+
   news: INew[] = []
   new?: INew
 
@@ -17,7 +20,9 @@ export class NewsComponent implements OnInit {
       this.news = data.data.news || []
       this._route.queryParams.subscribe(i => {
         let id = i["id"]
-        if (id) this.new = this.news.find(j => j.id === parseInt(id))
+        if (id) {
+          this.new = this.news.find(j => j.id === parseInt(id))
+        }
       })
     })
   }
