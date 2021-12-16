@@ -5,7 +5,6 @@ export interface IChat {
 
     photo: string
     title: string
-    description: string
     about: string
     who_can_edit_chat: "everybody" | "admins_and_moders" | "admins"
     

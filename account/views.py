@@ -131,6 +131,7 @@ class UploadPhotoView(ProjectAPIView):
         user = request.user
         files = request.FILES
         photo = files.get("photo")
+        photo.name = f'u{request.user.id}_{request.user.username}.png'
         if photo:
             user.photo = photo
             user.save()

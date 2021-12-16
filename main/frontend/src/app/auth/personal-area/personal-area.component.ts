@@ -55,6 +55,10 @@ export class PersonalAreaComponent implements OnInit {
     )
   }
 
+  navigateToPhoto() {
+    this.user?.photo && this._router.navigateByUrl(this.user?.photo)
+  }
+
   startEdit() {
     if (this.checkUser()) this.isEditing = true
   }
