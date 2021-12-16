@@ -38,7 +38,7 @@ export class ChatService {
   ) { }
 
   connectToMessages(id: number) {
-    this._messages = this._ws.connect(`wss://children-for-children.ru/chat/${id}/`)
+    this._messages = this._ws.connect(`wss://www.children-for-children.ru/chat/${id}/`)
   }
 
   getUserChats() {

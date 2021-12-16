@@ -94,7 +94,7 @@ CHANNEL_LAYERS = {
         # 'CONFIG': {
         #     'hosts': [<hosts of docker>]
         # }
-        'BACKEND': 'asgiref.inmemory.ChannelLayer',
+        'BACKEND': 'channels.layers.InMemoryChannelLayer'
     }
 }
 

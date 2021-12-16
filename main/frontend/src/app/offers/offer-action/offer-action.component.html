@@ -40,11 +40,14 @@
             </span>
         </div>
         <div class="Field">
-            <select [name]="'subject'" required [(ngModel)]="offer.subject.id" #subject="ngModel">
+            <select [name]="'subject'" [ngClass]="{'ng-invalid': subject.invalid || subject.value < 0}" [(ngModel)]="offer.subject.id" #subject="ngModel">
                 <option value="-1" disabled selected>Предмет</option>
                 <option *ngFor="let i of subjects" [value]="i.id">{{i.name}}</option>
             </select>
+            <span *ngIf="subject.value < 0">
+                Выберете предмет.
+            </span>
         </div>
     </div>
-    <button class="Form-Container__Button" [disabled]="createOfferForm.invalid">{{isLoading ? "Загрузка..." : action === "edit" ? "Изменить" : "Создать"}}</button>
+    <button class="Form-Container__Button" [disabled]="createOfferForm.invalid || subject.value < 0">{{isLoading ? "Загрузка..." : action === "edit" ? "Изменить" : "Создать"}}</button>
 </form>
