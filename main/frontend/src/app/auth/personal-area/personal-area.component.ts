@@ -66,7 +66,7 @@ export class PersonalAreaComponent implements OnInit {
   endEdit(ok: boolean) {
     if (ok && this.user && this.checkUser()) {
       let user = this.user.toJSON()
-      this._account.editProfile(user).subscribe(data => {
+      this._account.editProfile({...user, photo: undefined}).subscribe(data => {
         if (data.result) {
           this._ui.openWarning({message: data.message, class: "ok"})
         } else {
