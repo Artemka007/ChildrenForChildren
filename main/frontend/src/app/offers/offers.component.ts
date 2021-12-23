@@ -11,7 +11,8 @@ import { UiService } from '../services/ui.service';
 export type TQuery = string | {
   title: string,
   about: string,
-  subject__name: string
+  subject__name: string,
+  define_type_of_request: string
 }
 
 @Component({
@@ -25,7 +26,8 @@ export class OffersComponent implements OnInit {
   qDetails = {
     title: "",
     about: "",
-    subject__name: ""
+    subject__name: "",
+    define_type_of_request: "offers"
   }
 
   offers: IOffer[] = []
@@ -47,6 +49,7 @@ export class OffersComponent implements OnInit {
     })
     _route.queryParams.subscribe(i => {
       if (i["type"]) this.type = i["type"]
+      this.qDetails.define_type_of_request = this.type
     })
   }
 
@@ -55,15 +58,7 @@ export class OffersComponent implements OnInit {
   }
 
   offerToAcceptType() {
-    return this.offer && {
-      id: this.offer.id,
-      define_type_of_request: this.offer.define_type_of_request,
-      title: this.offer.title,
-      about: this.offer.about,
-      back: this.offer.back,
-      subject: this.offer.subject,
-      user: this.offer.user.id
-    } as ICreateOffer
+    return {...this.offer, user: this.offer?.user.id} as ICreateOffer
   }
 
   requestToGetAllOffers() {

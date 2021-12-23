@@ -1,4 +1,4 @@
-<form *ngIf="offer" class="Form-Container Dialog" [class]="windowClass" #createOfferForm="ngForm" (ngSubmit)="action === 'edit' ? updateOffer() : createOffer()">
+<form class="Form-Container Dialog" [class]="windowClass" #createOfferForm="ngForm" (ngSubmit)="action === 'edit' ? updateOffer(createOfferForm) : createOffer()">
     <div class="Header">
         <div class="Title">{{windowTitle}}</div>
         <button class="Close" type="button" (click)="close()">&times;</button>
@@ -9,7 +9,6 @@
             <select [name]="'define_type_of_request'" required [(ngModel)]="offer.define_type_of_request" #define_type_of_request="ngModel">
                 <option value="offers">Предложение помощи</option>
                 <option value="requsts">Запрос помощи</option>
-                <option value="quastions">Вопрос насчет помощи</option>
             </select>
         </div>
         <div class="Field">
@@ -42,12 +41,12 @@
         <div class="Field">
             <select [name]="'subject'" [ngClass]="{'ng-invalid': subject.invalid || subject.value < 0}" [(ngModel)]="offer.subject.id" #subject="ngModel">
                 <option value="-1" disabled selected>Предмет</option>
-                <option *ngFor="let i of subjects" [value]="i.id">{{i.name}}</option>
+                <option *ngFor="let i of subjects" [ngValue]="i.id">{{i.name}}</option>
             </select>
-            <span *ngIf="subject.value < 0">
+            <span *ngIf="subject.touched && subject.value < 0">
                 Выберете предмет.
             </span>
         </div>
     </div>
-    <button class="Form-Container__Button" [disabled]="createOfferForm.invalid || subject.value < 0">{{isLoading ? "Загрузка..." : action === "edit" ? "Изменить" : "Создать"}}</button>
+    <button class="Form-Container__Button" [disabled]="createOfferForm.invalid || subject.value < 0">{{isLoading ? "Загрузка..." : action === "edit" ? "Отредактировать" : "Создать"}}</button>
 </form>

@@ -15,7 +15,7 @@ import { UiService } from '../../services/ui.service';
 })
 export class OfferActionComponent implements OnInit {
   @Input()
-  action: "create" | "edit" = "create"
+  action?: "create" | "edit"
 
   @Output()
   onclose = new EventEmitter()
@@ -28,7 +28,7 @@ export class OfferActionComponent implements OnInit {
   windowTitle: string = ""
 
   @Input()
-  offer?: ICreateOffer = {
+  offer: ICreateOffer = {
     define_type_of_request: 'offers',
     title: "",
     about: "",
@@ -73,12 +73,13 @@ export class OfferActionComponent implements OnInit {
     )
   }
 
-  updateOffer() {
+  updateOffer(form: NgForm) {
+    const offer = <ICreateOffer>form.form.value
     this.isLoading = true
-    this.offer && this._offers.editOffer(this.offer.id || -1, this.offer).subscribe(
+    offer && this._offers.editOffer(this.offer.id || -1, {...offer, user: this.offer.user}).subscribe(
       data => {
         if (data.result) {
-          this._ui.openWarning({message: "Предложение создано.", class: "ok"})
+          this._ui.openWarning({message: "Предложение отредактировано.", class: "ok"})
           this.close()
         }
         else this._ui.openWarning({message: "Что-то пошло не так. Проверте данные и повторите попытку.", class: "error"})

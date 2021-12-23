@@ -151,7 +151,7 @@ class SearchUserView(GenericAPIView, SearchMixin):
         q = request.data.get('q')
         try:
             users = self.get_objects(q)
-            return Response({"result": True, "message": "Список пользователей возращен.", "data": {"users": self.get_serializer(users).data}})
+            return Response({"result": True, "message": "Список пользователей возращен.", "data": {"users": self.get_serializer(users, many=True).data}})
         except Exception as e:
             return Response({"result": False, "message": e.__str__(), "data": {}})
 

@@ -73,12 +73,12 @@ class OffersMainView(ProjectAPIView):
 class SearchOffers(ProjectAPIView, SearchMixin):
     queryset = OffersMain.objects.all()
     serializer_class = OfferMainSerializer
-    search_fields = ["title", "about", "subject__name"]
-    detail_search_fields = ["title", "about", "subject__name"]
+    search_fields = ["title", "about", "subject__name", "define_type_of_request"]
+    detail_search_fields = ["title", "about", "subject__name", "define_type_of_request"]
     def post(self, request):
         q = request.data.get('q')
         offers = self.get_objects(q)
-        return Response({'result': True, 'message': 'Всё успешно', 'data': {'offers': self.get_serializer(offers).data}})
+        return Response({'result': True, 'message': 'Всё успешно', 'data': {'offers': self.get_serializer(offers, many=True).data}})
     
 class AllSubjectsView(ProjectAPIView):
     queryset = Subject.objects.all()

@@ -1,6 +1,6 @@
 <div class="Blackout-Container" *ngIf="createOfferIsOpen || detailOfferIsOpen"></div>
-<offer-action *ngIf="createOfferIsOpen && offer" (onclose)="createOfferClose()" [offer]="offerToAcceptType()" [action]="action" [windowTitle]="'Редактировать предложение'"></offer-action>
-<offer-action *ngIf="createOfferIsOpen && !offer" (onclose)="createOfferClose()" [action]="action" [windowTitle]="'Создать предложение'"></offer-action>
+<offer-action *ngIf="createOfferIsOpen && offer" (onclose)="createOfferClose()" [offer]="offerToAcceptType()" [action]="'edit'" [windowTitle]="'Редактировать предложение'"></offer-action>
+<offer-action *ngIf="createOfferIsOpen && !offer" (onclose)="createOfferClose()" [action]="'create'" [windowTitle]="'Создать предложение'"></offer-action>
 <offer-detail *ngIf="detailOfferIsOpen" [offer]="offer" [user]="user?.toJSON()" (onclose)="detailOfferClose()"></offer-detail>
 <div class="Offers__Filter-Add-New-Offer">
     <form class="Search-Container Offers__Filter Container" #searchForm="ngForm">
@@ -35,8 +35,5 @@
     </div>
     <div *ngIf="type === 'requests'" class="Item">
         <offer *ngFor="let i of getAllRequests()" [offer]="i" [user]="user" (openDetail)="openDetail($event)" (openEdit)="createOfferOpen('edit', $event)" (ondelete)="delete($event)"></offer>
-    </div>
-    <div *ngIf="type === 'questions'" class="Item">
-        <offer *ngFor="let i of getAllQuestions()" [offer]="i" [user]="user" (openDetail)="openDetail($event)" (openEdit)="createOfferOpen('edit', $event)" (ondelete)="delete($event)"></offer>
     </div>
 </div>

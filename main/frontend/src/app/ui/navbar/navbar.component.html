@@ -12,11 +12,6 @@
                     О приложении
                 </a>
             </li>
-            <li (click)="hash = '#Pluses'" class="Item" [ngClass]="{'active': hash === '#Pluses'}">
-                <a [routerLink]="'/home'" [fragment]="'Pluses'" [ngClass]="{'active': hash === '#Pluses'}">
-                    Плюсы
-                </a>
-            </li>
             <li (click)="hash = '#Instruction'" class="Item" [ngClass]="{'active': hash === '#Instruction'}">
                 <a [routerLink]="'/home'" [fragment]="'Instruction'" [ngClass]="{'active': hash === '#Instruction'}">
                     Инструкция
@@ -46,11 +41,6 @@
             <li class="Item">
                 <a [routerLink]="'/offers'" [queryParams]="{'type': 'requests'}" [routerLinkActive]="'active'">
                     Запросы
-                </a>
-            </li>
-            <li class="Item">
-                <a [routerLink]="'/offers'" [queryParams]="{'type': 'questions'}" [routerLinkActive]="'active'">
-                    Вопросы
                 </a>
             </li>
         </ul>
