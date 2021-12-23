@@ -46,7 +46,7 @@ class LoginView(APIView):
         else:
             return Response({"result": False, "message": "Пользователя с таким паролем и логином не существует.", "data": {"user": None}}, 200)
 
-class RegisterView(APIView):
+class RegisterView(ProjectAPIView):
     '''
     The view that register new user and send a success message.
     In data you should send params:
@@ -73,14 +73,14 @@ class RegisterView(APIView):
             email = request.data["email"]
             password = request.data["password2"]
             if request.data.get('password') != password:
-                raise Exception("Пароли не совпадают.")
+                return self.get_response(False, "Пароли не совпадают")
             if get_user_model().objects.filter(username=request.data.get("username")).exists():
-                raise Exception("Пользователь с таким именем уже существует.")
+                return self.get_response(False, "Пользователь с таким именем уже существует")
             # create a user object
             try:
                 user = get_user_model().objects.create_user(username=username, email=email, password=password)
             except Exception as e:
-                return Response({"result": False, "message": e.__str__(), "data": {}})
+                return self.get_response(False, e.__str__())
             user.is_active = False
             user.save()
             serializer = UserSerializer(data=request.data, instance=user)
@@ -151,7 +151,7 @@ class SearchUserView(GenericAPIView, SearchMixin):
         q = request.data.get('q')
         try:
             users = self.get_objects(q)
-            return Response({"result": True, "message": "Список пользователей возращен.", "data": {"users": users}})
+            return Response({"result": True, "message": "Список пользователей возращен.", "data": {"users": self.get_serializer(users).data}})
         except Exception as e:
             return Response({"result": False, "message": e.__str__(), "data": {}})
 

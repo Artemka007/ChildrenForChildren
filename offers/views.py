@@ -38,7 +38,8 @@ class OffersMainView(ProjectAPIView):
             raise Exception("Параметр id не передан.")
         if not request.user.is_authenticated:
             raise Exception("Пользователь не авторизован.")
-        offer = self.get_queryset().get(pk=int(id))
+        id = int(id)
+        offer = self.get_queryset().get(pk=id)
         if offer.user.id == request.user.id:
             serializer = CreateOfferMainSerializer(instance=offer, data=request.data)
             if serializer.is_valid():
@@ -77,7 +78,7 @@ class SearchOffers(ProjectAPIView, SearchMixin):
     def post(self, request):
         q = request.data.get('q')
         offers = self.get_objects(q)
-        return Response({'result': True, 'message': 'Всё успешно', 'data': {'offers': offers}})
+        return Response({'result': True, 'message': 'Всё успешно', 'data': {'offers': self.get_serializer(offers).data}})
     
 class AllSubjectsView(ProjectAPIView):
     queryset = Subject.objects.all()

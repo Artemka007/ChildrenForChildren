@@ -52,4 +52,4 @@ class SearchMixin:
             for field in self.detail_search_fields:
                 filters &= Q(**{f'{field}__contains': q.get(field)})
         objects = self.get_queryset().filter(filters)
-        return self.get_serializer(objects, many=True).data
+        return objects
