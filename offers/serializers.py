@@ -15,6 +15,12 @@ class OfferMainSerializer(serializers.ModelSerializer):
         model = OffersMain
         fields = "__all__"
 
+class OfferMainSerializerWithoutUser(serializers.ModelSerializer):
+
+    class Meta:
+        model = OffersMain
+        fields = "__all__"
+
 class CreateOfferMainSerializer(serializers.ModelSerializer):
     class Meta:
         model = OffersMain

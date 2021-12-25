@@ -1,7 +1,11 @@
+import datetime
+
 from django.contrib.auth import authenticate, login, get_user_model, logout
 from django.db.models import Value as V
 from django.db.models.functions import Concat
-from django.db.models.query import Q
+from django.core.mail import send_mail
+from django.contrib.sites.models import Site
+
 from rest_auth.serializers import PasswordResetConfirmSerializer
 from rest_framework import serializers
 from rest_framework.generics import GenericAPIView
@@ -13,7 +17,6 @@ from rest_auth.views import sensitive_post_parameters_m
 from api.mixins import ProjectAPIView, SearchMixin
 
 from .serializers import UserSerializer
-#from .models import Profile
 
 class LoginView(APIView):
     '''
@@ -86,36 +89,46 @@ class RegisterView(ProjectAPIView):
             serializer = UserSerializer(data=request.data, instance=user)
             serializer.is_valid(raise_exception=True)
             serializer.save()
+            current_site = Site.objects.get_current()
+            send_mail(
+                'Регистрация пользователя на портале "Дети Детям"',
+                f'Пользователь {user.username} хочет зарегистрироваться.\nДля принятия заявок на регистрацию перейдите по <a href="https://{current_site.domain}/admin/account/customuser/">ссылке</a>',
+                recipient_list=['to@example.com'],
+                fail_silently=False,
+            )
             return Response({"result": True, "message": "Вы успешно зарегистрированы. Ожидайте подтверждения регистрации.", "data": {}}, 201)
         except Exception as e:
             return Response({"result": False, "message": e.__str__(), "data": {}})
 
-class LogoutView(APIView):
+class LogoutView(ProjectAPIView):
     '''
     The view for logout user.
     data:
     * csrfmiddlewaretoken*: str
     '''
     def post(self, request):
+        request.user.online_date = datetime.datetime.now()
         logout(request)
         return Response({"result": True, "message": "Пользователь успешно вышел из аккаунта.", "data": {}}, 200)
         
-class AccountView(APIView):
+class AccountView(ProjectAPIView):
     '''
     The view for get and change user data.
     '''
     def get(self, request):
+        request.user.online_date = datetime.datetime.now()
         id = request.GET.get("id")
         user = request.user
         if not user.is_authenticated:
             return Response({"result": False, "message": "Пользователь не авторизован.", "data": {"user": None}})
         if id:
             try:
-                user = get_user_model().objects.get(pk=id)
+                user = get_user_model().objects.filter(is_active=True).get(pk=id)
             except Exception as e:
-                return Response({"result": False, "message": "Пользователь с таким id не найден.", "data": {"user": None}})
+                return Response({"result": False, "message": "Пользователь не найден.", "data": {"user": None}})
         return Response({"result": True, "message": "Данные пользователя отправлены в ответе.", "data": {"user": UserSerializer(user).data}}, 200)
     def put(self, request):
+        request.user.online_date = datetime.datetime.now()
         user = request.user
         data = request.data
         serializer = UserSerializer(user, data=data)
@@ -125,9 +138,24 @@ class AccountView(APIView):
         else:
             return Response({"result": False, "message": "Какие-то не те данные... Пожалуйста, повторите попытку.", "data": {"errors": serializer.errors}})
 
+class ReportToUserView(ProjectAPIView):
+    def post(self, request):
+        d = request.data
+        who = d.get("who")
+        why = d.get("why", "не понятно чем.")
+        current_site = Site.objects.get_current()
+        send_mail(
+            'Блокировка пользователя на портале "Дети Детям"',
+            f'Пользователь {request.user.username} просит заблокировать пользователя {who} мотивируя "{why}".\nДля блокировке пользователя перейдите по <a href="https://{current_site.domain}/admin/account/customuser/">ссылке</a>',
+            recipient_list=['to@example.com'],
+            fail_silently=False,
+        )
+        return Response({"result": True, "message": "Сообщение отправлено в модерацию."})
+
 class UploadPhotoView(ProjectAPIView):
     serializer_class = UserSerializer
     def post(self, request):
+        request.user.online_date = datetime.datetime.now()
         user = request.user
         files = request.FILES
         photo = files.get("photo")
@@ -139,14 +167,15 @@ class UploadPhotoView(ProjectAPIView):
         else:
             return self.get_response(False, "Что-то пошло не так...")
 
-class SearchUserView(GenericAPIView, SearchMixin):
+class SearchUserView(ProjectAPIView, SearchMixin):
     permission_classes = (IsAuthenticated,)
-    queryset = get_user_model().objects.all().annotate(full_name=Concat('first_name', V(' '), 'last_name'))
+    queryset = get_user_model().objects.all().annotate(full_name=Concat('first_name', V(' '), 'last_name')).filter(is_active=True)
     serializer_class = UserSerializer
     search_fields = ["username", "first_name", "last_name", "full_name", "email"]
     detail_search_fields = ["username", "first_name", "last_name", "city", "country", "district"]
 
     def post(self, request):
+        request.user.online_date = datetime.datetime.now()
         # get query in request
         q = request.data.get('q')
         try:
@@ -155,7 +184,7 @@ class SearchUserView(GenericAPIView, SearchMixin):
         except Exception as e:
             return Response({"result": False, "message": e.__str__(), "data": {}})
 
-class PasswordResetView(GenericAPIView):
+class PasswordResetView(ProjectAPIView):
     '''The generic view that reset password'''
     serializer_class = PasswordResetSerializer
     permission_classes = (AllowAny,)
@@ -171,7 +200,7 @@ class PasswordResetView(GenericAPIView):
         except Exception as e:
             return Response({"result": False, "message": e.__str__(), "data": {}})
 
-class PasswordResetConfirmView(GenericAPIView):
+class PasswordResetConfirmView(ProjectAPIView):
     serializer_class = PasswordResetConfirmSerializer
     permission_classes = (AllowAny,)
 

@@ -28,3 +28,6 @@ class CustomUser(AbstractUser):
     about_me = models.TextField(null=True, blank=True)
 
     online_date = models.DateTimeField(auto_now=True)
+
+    def get_full_name(self):
+        return f"{self.first_name} {self.last_name}"

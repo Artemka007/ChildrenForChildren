@@ -1,3 +1,5 @@
+import datetime
+
 from django.shortcuts import render
 from rest_framework import serializers
 from rest_framework.generics import GenericAPIView
@@ -17,6 +19,7 @@ class OffersMainView(ProjectAPIView):
     def get(self, request):
         if not request.user.is_authenticated:
             raise PermissionDenied("Пользователь не авторизован.")
+        request.user.online_date = datetime.datetime.now()
         offers = self.get_queryset()
         serializer = self.get_serializer(offers, many=True)
         return self.get_response(True, "Всё прошло успешно", {"offers": serializer.data})
@@ -24,6 +27,7 @@ class OffersMainView(ProjectAPIView):
     def post(self, request):    #create view
         if not request.user.is_authenticated:
             raise PermissionDenied("Пользователь не авторизован.")
+        request.user.online_date = datetime.datetime.now()
         serializer = CreateOfferMainSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
@@ -36,6 +40,7 @@ class OffersMainView(ProjectAPIView):
         id = request.GET.get("id")
         if not id:
             raise Exception("Параметр id не передан.")
+        request.user.online_date = datetime.datetime.now()
         if not request.user.is_authenticated:
             raise Exception("Пользователь не авторизован.")
         id = int(id)
@@ -58,6 +63,7 @@ class OffersMainView(ProjectAPIView):
             raise PermissionDenied("Параметр id не передан.")
         if not request.user.is_authenticated:
             raise PermissionDenied("Пользователь не авторизован.")
+        request.user.online_date = datetime.datetime.now()
         # get offer by id
         offer = self.get_queryset().get(pk=int(id))
         if offer.user.id == request.user.id:
@@ -76,6 +82,9 @@ class SearchOffers(ProjectAPIView, SearchMixin):
     search_fields = ["title", "about", "subject__name", "define_type_of_request"]
     detail_search_fields = ["title", "about", "subject__name", "define_type_of_request"]
     def post(self, request):
+        if not request.user.is_authenticated:
+            raise PermissionDenied("Пользователь не авторизован.")
+        request.user.online_date = datetime.datetime.now()
         q = request.data.get('q')
         offers = self.get_objects(q)
         return Response({'result': True, 'message': 'Всё успешно', 'data': {'offers': self.get_serializer(offers, many=True).data}})
@@ -83,6 +92,9 @@ class SearchOffers(ProjectAPIView, SearchMixin):
 class AllSubjectsView(ProjectAPIView):
     queryset = Subject.objects.all()
     def get(self, request):
+        if not request.user.is_authenticated:
+            raise PermissionDenied("Пользователь не авторизован.")
+        request.user.online_date = datetime.datetime.now()
         q = self.get_queryset()
         subjects = SubjectSerializer(q, many=True).data
         return self.get_response(True, "Возвращены все предметы.", {"subjects": subjects})
