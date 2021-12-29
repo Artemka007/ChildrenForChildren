@@ -1,6 +1,9 @@
 *.pyc
 __pycache__
 
+Dockerfile
+docker-compose.yml
+
 venv/
 static/
 .vscode
