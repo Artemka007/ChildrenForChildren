@@ -1,0 +1,169 @@
+/*!*********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[5].rules[0].oneOf[1].use[1]!./node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[5].rules[0].oneOf[1].use[2]!./node_modules/resolve-url-loader/index.js??ruleSet[1].rules[5].rules[1].use[0]!./node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[5].rules[1].use[1]!./src/styles.sass ***!
+  \*********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+html, body {
+  margin: 0;
+  padding: 0;
+}
+
+.Row {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+
+.Column {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+
+.End {
+  justify-content: flex-end;
+  align-items: flex-end;
+}
+
+.Container {
+  background: #fff;
+  padding: 10px 15px;
+  border-bottom: #00000030 solid 2px;
+  border-radius: 5px;
+  margin-bottom: 5px;
+}
+
+.Dialog {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  position: fixed;
+  top: 0;
+  left: calc(50% - 250px);
+  border-radius: 5px;
+  box-shadow: #00000050 0 2px 4px 0;
+  width: 500px;
+  animation: openDialog 0.3s ease;
+  z-index: 100000;
+  background: #fff;
+}
+
+@media screen and (max-width: 500px) {
+  .Dialog {
+    width: 100%;
+    left: 0;
+  }
+}
+
+.Dialog.Close {
+  animation: closeDialog 0.3s ease;
+}
+
+.Dialog .Header {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  border: 5px 5px 0 0;
+  color: #fff;
+  background: var(--blue);
+  width: 100%;
+  padding: 10px;
+}
+
+.Dialog .Header .Title {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: flex-start;
+  font-size: 25px;
+  width: 100%;
+}
+
+.Dialog .Header .Close {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  display: inline-flex;
+  outline: none;
+  border: none;
+  background: transparent;
+  color: #000;
+  border-radius: 5px;
+  width: 40px;
+  height: 40px;
+  padding: 5px;
+  transition: all 0.1s;
+  vertical-align: middle;
+  font-size: 30px;
+  font-weight: bold;
+  flex: 0 0 40px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  font-size: 30px;
+  color: #fff;
+}
+
+.Dialog .Header .Close::before {
+  font-size: 30px;
+  width: 30px;
+  height: 30px;
+  flex: 0 0 30px;
+}
+
+.Dialog .Header .Close:disabled {
+  cursor: not-allowed;
+}
+
+.Dialog .Header .Close:hover:not(:disabled) {
+  box-shadow: #00000070 0 1px 8px 0;
+  cursor: pointer;
+}
+
+.Dialog .Header .Close:focus:not(:disabled) {
+  box-shadow: inset #00000050 0 1px 4px 0;
+}
+
+@keyframes openDialog {
+  0% {
+    top: -1000px;
+  }
+  100% {
+    top: 0;
+  }
+}
+
+@keyframes closeDialog {
+  0% {
+    top: 0;
+  }
+  100% {
+    top: -1000px;
+  }
+}
+
+.Blackout-Container {
+  position: fixed;
+  z-index: 20000;
+  background: rgba(0, 0, 0, 0.25);
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+}
+
+.Background-Container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  background: #ecf2f6;
+  z-index: -1000;
+}
+
+/*# sourceMappingURL=styles.css.map*/

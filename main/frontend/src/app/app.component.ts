@@ -16,6 +16,7 @@ import { Warning } from './ui/warning-window/warning-window.component';
 })
 export class AppComponent implements OnInit {
   title = 'frontend';
+  questionIsOpen: boolean = false
 
   user?: User
 

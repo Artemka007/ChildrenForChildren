@@ -1,0 +1,16 @@
+<form class="Form-Container Dialog" #questionForm="ngForm" (submit)="submit()">
+    <div class="Header">
+        <div class="Title">{{"Задать вопрос"}}</div>
+        <button class="Close" type="button" (click)="close()">&times;</button>
+    </div>
+
+    <div class="Form-Container__Fields-Container">
+        <div class="Field">
+            <input [name]="'message'" required [placeholder]="'Введите свой вопрос...'" [(ngModel)]="message" #title="ngModel" max_length="2048" />
+            <span *ngIf="title.errors?.required && title.touched">
+                Обязательное поле.
+            </span>
+        </div>
+    </div>
+    <button class="Form-Container__Button" [disabled]="questionForm.invalid || isLoading">{{isLoading ? "Загрузка... " : "Задать вопрос"}}</button>
+</form>

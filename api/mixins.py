@@ -13,7 +13,7 @@ class MiddleMixin:
         except Exception as e:
             return self.get_response(False, e.__str__(), {})
 
-class ProjectAPIView(GenericAPIView, SingleObjectMixin, MiddleMixin):
+class ProjectAPIView(GenericAPIView, MiddleMixin):
     def get_response(self, result, message, data={}):
         return Response({'result': result, 'message': message, 'data': data})
 

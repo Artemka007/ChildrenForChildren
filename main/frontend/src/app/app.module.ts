@@ -39,6 +39,7 @@ import { DateAgoPipe } from './pipes/date-ago.pipe';
 import { NewComponent } from './news/new/new.component';
 import { SafeHtmlPipe } from './pipes/safe-html.pipe';
 import { ReportComponent } from './auth/report/report.component';
+import { QuestionComponent } from './ui/question/question.component';
 
 @NgModule({
   declarations: [
@@ -71,7 +72,8 @@ import { ReportComponent } from './auth/report/report.component';
     DateAgoPipe,
     NewComponent,
     SafeHtmlPipe,
-    ReportComponent
+    ReportComponent,
+    QuestionComponent
   ],
   imports: [
     ImageCropperModule,
