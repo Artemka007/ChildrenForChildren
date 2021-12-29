@@ -1,19 +1,23 @@
 from django.utils import timezone
 from django.db.models.query import Q
+from django.views.generic.detail import SingleObjectMixin
 from rest_framework.generics import GenericAPIView
 from rest_framework.views import Response
 
-class ProjectAPIView(GenericAPIView):
+class MiddleMixin:
     def dispatch(self, request, *args, **kwargs):
         if request.user.is_authenticated:
             request.user.online_date = timezone.now()
         try:
-            return super().dispatch(request, *args, **kwargs)
+            return super(ProjectAPIView, self).dispatch(request, *args, **kwargs)
         except Exception as e:
             return self.get_response(False, e.__str__(), {})
+
+class ProjectAPIView(GenericAPIView, SingleObjectMixin, MiddleMixin):
     def get_response(self, result, message, data={}):
         return Response({'result': result, 'message': message, 'data': data})
-    
+
+
 class SearchMixin:
     '''
     The mixin that return filtered objects.

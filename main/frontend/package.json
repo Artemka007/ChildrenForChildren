@@ -23,6 +23,7 @@
         "@ngrx/store": "^13.0.1",
         "@ngrx/store-devtools": "^13.0.1",
         "ngx-image-cropper": "^5.0.1",
+        "npm": "^8.3.0",
         "rxjs": "~6.6.0",
         "tslib": "^2.3.0",
         "zone.js": "~0.11.4"
