@@ -5,7 +5,7 @@
     <div class="Form-Container__Warning" *ngIf="warning">{{warning}}</div>
     <div class="Form-Container__Fields-Container">
         <div class="Field">
-            <input [name]="'username'" required [placeholder]="'Ник'" [maxLength]="64" [(ngModel)]="registerFormGroup.username" #username="ngModel" />
+            <input [name]="'username'" required [placeholder]="'Ник'" [maxLength]="64" pattern="^[\w.@+-]+\Z" [(ngModel)]="registerFormGroup.username" #username="ngModel" />
             <span *ngIf="username.errors?.required && username.touched">
                 Обязательное поле.
             </span>
@@ -13,7 +13,7 @@
                 Максимальная длина - 64 символа
             </span>
             <span *ngIf="username.errors?.pattern && username.touched">
-                Ник не должен включать сиволы @#$%.
+                Ник не должен включать сиволы  @/./+/-/_ 
             </span>
         </div>
         <div class="Field">
