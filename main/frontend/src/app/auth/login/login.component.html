@@ -20,5 +20,5 @@
     <div class="Form-Container__Links">
         <span>Забыли пароль? <a routerLink="/reset-password">Сбросить</a></span>
     </div>
-    <button class="Form-Container__Button" [disabled]="loginForm.invalid">{{isLoading ? "Загрузка..." : "Войти"}}</button>
+    <button class="Form-Container__Button" [disabled]="loginForm.invalid || isLoading">{{isLoading ? "Загрузка..." : "Войти"}}</button>
 </form>

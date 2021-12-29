@@ -12,7 +12,6 @@ from api.mixins import ProjectAPIView
 
 class ChatView(APIView):
     def get(self, request):
-        request.user.online_date = datetime.datetime.now()
         if not request.user.is_authenticated:
             return Response({"result": False, "message": "Пользователь не авторизован.", "data": {}})
         id = request.GET.get("id")
@@ -32,7 +31,6 @@ class ChatView(APIView):
     def post(self, request):
         if not request.user.is_authenticated:
             return Response({"result": False, "message": "Пользователь не авторизован.", "data": {}})
-        request.user.online_date = datetime.datetime.now()
         ig_group = request.data.get("is_group")
         if ig_group:
             serializer = CreateChatSerializer(data=request.data)
@@ -58,7 +56,6 @@ class ChatView(APIView):
     def put(self, request):
         if not request.user.is_authenticated:
             return Response({"result": False, "message": "Пользователь не авторизован.", "data": {}})
-        request.user.online_date = datetime.datetime.now()
         # get chat id
         id = request.GET.get("id")
         action = request.GET.get("action")
@@ -93,7 +90,6 @@ class ChatView(APIView):
 class UploadChatPhoto(ProjectAPIView):
     serializer_class = ChatSerializer
     def post(self, request):
-        request.user.online_date = datetime.datetime.now()
         chat_id = request.GET.get("id")
         if not chat_id:
             raise Exception("Не передан chat_id.")
@@ -113,7 +109,6 @@ class UploadFilesForMessageView(APIView):
         type = request.GET.get("type")
         if not request.user.is_authenticated:
             return Response({"result": False, "message": "Пользователь не авторизован.", "data": {}})
-        request.user.online_date = datetime.datetime.now()
         if type == 'img':
             serializer = ImgFileUploadSerializer(data=request.FILES)
         elif type == 'doc':
@@ -126,7 +121,6 @@ class UploadFilesForMessageView(APIView):
     def delete(self, request):
         if not request.user.is_authenticated:
             return Response({"result": False, "message": "Пользователь не авторизован.", "data": {}})
-        request.user.online_date = datetime.datetime.now()
         id = request.GET.get("id")
         type = request.GET.get("type")
         try:

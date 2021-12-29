@@ -38,6 +38,7 @@ import { CropImageComponent } from './ui/crop-image/crop-image.component';
 import { DateAgoPipe } from './pipes/date-ago.pipe';
 import { NewComponent } from './news/new/new.component';
 import { SafeHtmlPipe } from './pipes/safe-html.pipe';
+import { ReportComponent } from './auth/report/report.component';
 
 @NgModule({
   declarations: [
@@ -69,7 +70,8 @@ import { SafeHtmlPipe } from './pipes/safe-html.pipe';
     CropImageComponent,
     DateAgoPipe,
     NewComponent,
-    SafeHtmlPipe
+    SafeHtmlPipe,
+    ReportComponent
   ],
   imports: [
     ImageCropperModule,

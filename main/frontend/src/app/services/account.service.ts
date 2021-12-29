@@ -122,6 +122,13 @@ export class AccountService {
     })
   }
 
+  reportToUser(data: {who: number, why: string}) {
+    let token = this._getCookie("csrftoken")
+    return this._http.post<APIResponse>(`/api/v1/account/report/`, data, {
+      headers: {"X-CSRFToken": token}
+    })
+  }
+
   responseUserToUser(data: {user?: IUser}) {
     if (data.user) {
       return new User(data.user)

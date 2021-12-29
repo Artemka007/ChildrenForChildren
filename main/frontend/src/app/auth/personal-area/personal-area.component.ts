@@ -17,6 +17,7 @@ export class PersonalAreaComponent implements OnInit {
   currentUser?: User
   isEditing: boolean = false
 
+  reportIsOpen: boolean = false
   uploadImageIsOpen: boolean = false
 
   constructor(

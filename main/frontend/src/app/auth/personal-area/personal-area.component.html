@@ -1,14 +1,15 @@
 <crop-image *ngIf="uploadImageIsOpen" (onsubmit)="setPhoto($event)" (onclose)="uploadImageIsOpen = false"></crop-image>
+<report *ngIf="this.user && reportIsOpen" [who]="this.user.id" (onclose)="reportIsOpen = false"></report>
 <form class="Profile" *ngIf="user" #editProfileForm="ngForm" (ngSubmit)="!editProfileForm.invalid && endEdit(true)">
     <div class="Profile__Tools-Nav Container">
         <span class="Item" *ngIf="checkUser()">
             <button type="button" class="Edit-Btn" *ngIf="!isEditing" (click)="startEdit()"></button>
             <button type="submit" class="Ok-Edit-Btn" *ngIf="isEditing" [disabled]="editProfileForm.invalid"></button>
             <button type="button" class="Not-Edit-Btn" *ngIf="isEditing" (click)="endEdit(false)"></button>
-            <button type="button" class="Sign-Out" (click)="logout()"></button>
         </span>
         <span class="Item" *ngIf="!checkUser()">
-            <button type="button" class="Chat" (click)="goToChat()"></button>
+            <button type="button" class="Chat-Btn" (click)="goToChat()"></button>
+            <button type="button" class="Report-Btn" (click)="reportIsOpen = true"></button>
         </span>
     </div>
     <main class="Profile__Content">
@@ -17,12 +18,10 @@
                 <div class="Avatar" (click)="checkUser() ? uploadImageIsOpen = true : navigateToPhoto()" [style.cursor]="'pointer'"><img [src]="user.photo || '/media/icons/profile.png'" alt="" /> </div>
                 <div class="Username-Status">
                     <div class="Username">{{user.fullName}}</div>
-                    <div *ngIf="!isEditing" class="Status">{{user?.status || "Статус не указан"}}</div>
-                    <input *ngIf="isEditing && checkUser()" name="status" maxlength="256" placeholder="status" [(ngModel)]="user.status" />
+                    <div *ngIf="!isEditing" class="Status">{{checkUserInSchoolStatus(user.user_in_school_status) || "Статус не указан"}}</div>
                 </div>
             </div>
             <div class="Item-2">
-                <div class="User-In-School-Status">{{checkUserInSchoolStatus(user.user_in_school_status)}}</div>
                 <div class="Online-Status">{{user.onlineDate|dateAgo}}</div>
             </div>
         </div>
@@ -89,7 +88,8 @@
                     <div class="Key">О себе:</div>
                     <div class="Description" *ngIf="!isEditing">{{user?.about_me || "О себе не написано."}}</div>
                     <div class="Field" *ngIf="isEditing && checkUser()">
-                        <textarea name="about_me" maxlength="64" class="Edit-Description" [(ngModel)]="user.about_me" #about_me="ngModel"></textarea>
+                        <textarea name="about_me" maxlength="2048" class="Edit-Description" [(ngModel)]="user.about_me" #about_me="ngModel"></textarea>
+                        <span class="Validator" *ngIf="about_me.errors?.maxlength && about_me.touched">Максимальная длина - 2048 символов.</span>
                     </div>
                 </div>
             </div>

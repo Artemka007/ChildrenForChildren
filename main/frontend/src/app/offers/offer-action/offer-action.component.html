@@ -48,5 +48,5 @@
             </span>
         </div>
     </div>
-    <button class="Form-Container__Button" [disabled]="createOfferForm.invalid || subject.value < 0">{{isLoading ? "Загрузка..." : action === "edit" ? "Отредактировать" : "Создать"}}</button>
+    <button class="Form-Container__Button" [disabled]="createOfferForm.invalid || subject.value < 0 || isLoading">{{isLoading ? "Загрузка..." : action === "edit" ? "Отредактировать" : "Создать"}}</button>
 </form>

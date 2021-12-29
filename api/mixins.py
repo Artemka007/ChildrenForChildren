@@ -1,31 +1,18 @@
-import datetime
+from django.utils import timezone
 from django.db.models.query import Q
-from rest_framework.generics import GenericAPIView, CreateAPIView
-from rest_framework.views import APIView, Response
+from rest_framework.generics import GenericAPIView
+from rest_framework.views import Response
 
 class ProjectAPIView(GenericAPIView):
-    def get(self, request, *args, **kwargs):
+    def dispatch(self, request, *args, **kwargs):
+        if request.user.is_authenticated:
+            request.user.online_date = timezone.now()
         try:
-            super().get(request, *args, **kwargs)
-        except Exception as e:
-            return self.get_response(False, e.__str__(), {})
-    def post(self, request, *args, **kwargs):
-        try:
-            super().post(request, *args, **kwargs)
-        except Exception as e:
-            return self.get_response(False, e.__str__(), {})
-    def put(self, request, *args, **kwargs):
-        try:
-            super().put(request, *args, **kwargs)
-        except Exception as e:
-            return self.get_response(False, e.__str__(), {})
-    def delete(self, request, *args, **kwargs):
-        try:
-            super().delete(request, *args, **kwargs)
+            return super().dispatch(request, *args, **kwargs)
         except Exception as e:
             return self.get_response(False, e.__str__(), {})
     def get_response(self, result, message, data={}):
-        return Response ({'result': result, 'message': message, 'data': data})
+        return Response({'result': result, 'message': message, 'data': data})
     
 class SearchMixin:
     '''
@@ -36,7 +23,7 @@ class SearchMixin:
     * `search_fields` - array of fields for filter by query string
     * `detail_search_fields` - array of fields for filter by query obj
     ---
-    Use: `objects = self.get_objects(q)` where q is query string or object
+    Usage: `objects = self.get_objects(q)` where q is query string or object
     '''
     def get_objects(self, q):
         if not self.detail_search_fields:
@@ -48,9 +35,9 @@ class SearchMixin:
         filters = Q()
         if isinstance(q, str):
             for field in self.search_fields:
-                filters |= Q(**{f'{field}__contains': q})
+                filters |= Q(**{f'{field}__icontains': q})
         else:
             for field in self.detail_search_fields:
-                filters &= Q(**{f'{field}__contains': q.get(field)})
+                filters &= Q(**{f'{field}__icontains': q.get(field)})
         objects = self.get_queryset().filter(filters)
         return objects

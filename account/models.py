@@ -1,9 +1,6 @@
-from django.contrib.auth import get_user_model
-from django.contrib.auth.models import AbstractUser, UserManager
+from django.contrib.auth.models import AbstractUser
 from django.db import models
-from django.core.mail import send_mail
 from django.db import models
-from django.utils import timezone
 
 class CustomUser(AbstractUser):
     USER_IN_SCHOOL_STATUS = (
@@ -18,7 +15,6 @@ class CustomUser(AbstractUser):
     patronymic = models.CharField(max_length=64)
     phone = models.CharField(max_length=16)
     age = models.PositiveSmallIntegerField(null=True, blank=True)
-    status = models.CharField(max_length=256, null=True, blank=True)
     user_in_school_status = models.CharField(max_length=32, default="student", choices=USER_IN_SCHOOL_STATUS)
     # user location (country, city and district with street)
     country = models.CharField(max_length=128, null=True, blank=True)
@@ -28,6 +24,8 @@ class CustomUser(AbstractUser):
     about_me = models.TextField(null=True, blank=True)
 
     online_date = models.DateTimeField(auto_now=True)
+
+    is_banned = models.BooleanField(default=False)
 
     def get_full_name(self):
         return f"{self.first_name} {self.last_name}"

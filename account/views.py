@@ -1,14 +1,13 @@
 import datetime
+from django.conf import settings
 
 from django.contrib.auth import authenticate, login, get_user_model, logout
+from django.core.exceptions import PermissionDenied
 from django.db.models import Value as V
 from django.db.models.functions import Concat
-from django.core.mail import send_mail
-from django.contrib.sites.models import Site
+from django.core.mail import mail_admins
 
 from rest_auth.serializers import PasswordResetConfirmSerializer
-from rest_framework import serializers
-from rest_framework.generics import GenericAPIView
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.views import APIView, Response
 from rest_auth.serializers import PasswordResetSerializer
@@ -22,7 +21,6 @@ class LoginView(APIView):
     '''
     The view that authenticate and login user or return warning.
     In data you should send params:
-    * csrfmiddlewaretoken*: str
     * username: str
     * password: str
     '''
@@ -49,11 +47,10 @@ class LoginView(APIView):
         else:
             return Response({"result": False, "message": "Пользователя с таким паролем и логином не существует.", "data": {"user": None}}, 200)
 
-class RegisterView(ProjectAPIView):
+class RegisterView(APIView):
     '''
     The view that register new user and send a success message.
     In data you should send params:
-    * csrfmiddlewaretoken*: str
     * username*: str
     * email*: str
     * first_name*: str
@@ -71,40 +68,37 @@ class RegisterView(ProjectAPIView):
     * password2*: str
     '''
     def post(self, request):
+        username = request.data["username"]
+        email = request.data["email"]
+        password = request.data["password2"]
+        if request.data.get('password') != password:
+            return self.get_response(False, "Пароли не совпадают")
+        if get_user_model().objects.filter(username=request.data.get("username")).exists():
+            return self.get_response(False, "Пользователь с таким именем уже существует")
+        # create a user object
         try:
-            username = request.data["username"]
-            email = request.data["email"]
-            password = request.data["password2"]
-            if request.data.get('password') != password:
-                return self.get_response(False, "Пароли не совпадают")
-            if get_user_model().objects.filter(username=request.data.get("username")).exists():
-                return self.get_response(False, "Пользователь с таким именем уже существует")
-            # create a user object
-            try:
-                user = get_user_model().objects.create_user(username=username, email=email, password=password)
-            except Exception as e:
-                return self.get_response(False, e.__str__())
-            user.is_active = False
-            user.save()
-            serializer = UserSerializer(data=request.data, instance=user)
-            serializer.is_valid(raise_exception=True)
-            serializer.save()
-            current_site = Site.objects.get_current()
-            send_mail(
-                'Регистрация пользователя на портале "Дети Детям"',
-                f'Пользователь {user.username} хочет зарегистрироваться.\nДля принятия заявок на регистрацию перейдите по <a href="https://{current_site.domain}/admin/account/customuser/">ссылке</a>',
-                recipient_list=['to@example.com'],
-                fail_silently=False,
-            )
-            return Response({"result": True, "message": "Вы успешно зарегистрированы. Ожидайте подтверждения регистрации.", "data": {}}, 201)
+            user = get_user_model().objects.create_user(username=username, email=email, password=password)
         except Exception as e:
-            return Response({"result": False, "message": e.__str__(), "data": {}})
+            return self.get_response(False, e.__str__())
+        user.is_active = False
+        user.save()
+        serializer = UserSerializer(data=request.data, instance=user)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+        current_site = request.META['HTTP_HOST']
+        #send_mail(
+        #    'Регистрация пользователя на портале "Дети Детям"',
+        #    message=f'Пользователь {user.username} хочет зарегистрироваться.\nДля принятия заявок на регистрацию перейдите по <a href="https://{current_site}/admin/account/customuser/">ссылке</a>',
+        #    from_email=settings.DEFAULT_FROM_EMAIL,
+        #    recipient_list=['kopylovartyom007@gmail.com'],
+        #    auth_user=settings.EMAIL_HOST_USER,
+        #    auth_password=settings.EMAIL_HOST_PASSWORD,
+        #)
+        return Response({"result": True, "message": "Вы успешно зарегистрированы. Ожидайте подтверждения регистрации.", "data": {}}, 201)
 
 class LogoutView(ProjectAPIView):
     '''
     The view for logout user.
-    data:
-    * csrfmiddlewaretoken*: str
     '''
     def post(self, request):
         request.user.online_date = datetime.datetime.now()
@@ -116,7 +110,6 @@ class AccountView(ProjectAPIView):
     The view for get and change user data.
     '''
     def get(self, request):
-        request.user.online_date = datetime.datetime.now()
         id = request.GET.get("id")
         user = request.user
         if not user.is_authenticated:
@@ -128,7 +121,6 @@ class AccountView(ProjectAPIView):
                 return Response({"result": False, "message": "Пользователь не найден.", "data": {"user": None}})
         return Response({"result": True, "message": "Данные пользователя отправлены в ответе.", "data": {"user": UserSerializer(user).data}}, 200)
     def put(self, request):
-        request.user.online_date = datetime.datetime.now()
         user = request.user
         data = request.data
         serializer = UserSerializer(user, data=data)
@@ -140,22 +132,23 @@ class AccountView(ProjectAPIView):
 
 class ReportToUserView(ProjectAPIView):
     def post(self, request):
+        if not request.user.is_authenticated:
+            raise PermissionDenied("Вы не имеете доступа к этой странице.")
         d = request.data
         who = d.get("who")
+        who = get_user_model().objects.get(pk=int(who))
         why = d.get("why", "не понятно чем.")
-        current_site = Site.objects.get_current()
-        send_mail(
+        current_site = request.META['HTTP_HOST']
+        mail_admins(
             'Блокировка пользователя на портале "Дети Детям"',
-            f'Пользователь {request.user.username} просит заблокировать пользователя {who} мотивируя "{why}".\nДля блокировке пользователя перейдите по <a href="https://{current_site.domain}/admin/account/customuser/">ссылке</a>',
-            recipient_list=['to@example.com'],
-            fail_silently=False,
+            f'Пользователь хочет заблокать другого пользователя.',
+            html_message=f'Пользователь <a href="https://{current_site}/profile?id={request.user.id}">{request.user.username}</a> просит заблокировать пользователя <a href="https://{current_site}/profile?id={who.id}">{who}</a>, мотивируя "{why}"'
         )
-        return Response({"result": True, "message": "Сообщение отправлено в модерацию."})
+        return Response({"result": True, "message": "Сообщение отправлено в модерацию.", "data": {}})
 
 class UploadPhotoView(ProjectAPIView):
     serializer_class = UserSerializer
     def post(self, request):
-        request.user.online_date = datetime.datetime.now()
         user = request.user
         files = request.FILES
         photo = files.get("photo")
@@ -175,7 +168,6 @@ class SearchUserView(ProjectAPIView, SearchMixin):
     detail_search_fields = ["username", "first_name", "last_name", "city", "country", "district"]
 
     def post(self, request):
-        request.user.online_date = datetime.datetime.now()
         # get query in request
         q = request.data.get('q')
         try:
