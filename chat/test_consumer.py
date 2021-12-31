@@ -2,7 +2,7 @@ import pytest
 import json
 from channels.testing import WebsocketCommunicator
 from asgiref.sync import sync_to_async
-from ChildrenForChildren.routing import application
+from ChildrenForChildren.websocket import application
 from django.contrib.auth import get_user_model
 from .models import Message
 from .serializer import ChatSerializer, CreateChatSerializer, MessageSerializer

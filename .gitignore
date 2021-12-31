@@ -1,7 +1,8 @@
 *.pyc
 __pycache__
 
-Dockerfile
+.envs/.local
+
 docker-compose.yml
 
 venv/
