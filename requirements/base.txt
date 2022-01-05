@@ -17,7 +17,11 @@ colorama==0.4.4
 constantly==15.1.0
 cryptography==36.0.0
 
+<<<<<<< HEAD
 uvicorn[standard]==0.16.0
+=======
+daphne==3.0.2
+>>>>>>> 06d36bb323f4eb50b7d01a21a5b8f0f317443426
 
 # django
 Django==3.2.10
