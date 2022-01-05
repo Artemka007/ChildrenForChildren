@@ -1,6 +1,11 @@
 *.pyc
 __pycache__
 
+.angular
+
+/migrations/
+
+
 .envs/.local
 
 docker-compose.yml
