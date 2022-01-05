@@ -1,0 +1,8 @@
+<question *ngIf="questionIsOpen && user" [user]="user" (onclose)="questionIsOpen = false"></question>
+<navbar [Content]="Content" *ngIf="user"></navbar>
+<div #Content class="C " [style.marginLeft]="user ? '300px' : 0 ">
+    <headerbar *ngIf="user"></headerbar>
+    <router-outlet></router-outlet>
+</div>
+<warning *ngFor="let i of warnings" [warning]="i" [ngClass]="i?.class || ''"></warning>
+<div class="Info-Question-Container" (click)="questionIsOpen = true"></div>

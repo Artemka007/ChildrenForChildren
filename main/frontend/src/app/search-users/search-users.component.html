@@ -1,0 +1,36 @@
+<form class="Search-Container Container" #searchForm="ngForm">
+    <i class="Search"></i>
+    <input class="Query" name="q" [(ngModel)]="q" (ngModelChange)="search(q)" placeholder="Поиск..." />
+    <div class="Settings" #settingsIcon>
+        <button type="button" class="Settings-Icon-Btn" (click)="detailsIsOpen = !detailsIsOpen"><i></i></button>
+        <div *ngIf="detailsIsOpen" class="Details" #details [style.top]="settingsIcon.getClientRects()[0]['y'] + 30 + 'px'" [style.left]="settingsIcon.getClientRects()[0]['x'] - details.getClientRects()[0]['width'] + 30 + 'px'">
+            <div class="Title">Расширеный поиск</div>
+            <form class="Items-Container" #detailsSearchForm="ngForm" (ngSubmit)="search(qDetails)">
+                <div class="Item">
+                    <input name="username" placeholder="Ник" [(ngModel)]="qDetails.username" />
+                </div>
+                <div class="Item">
+                    <input name="first_name" placeholder="Имя" [(ngModel)]="qDetails.first_name" />
+                    <input name="last_name" placeholder="Фамилия" [(ngModel)]="qDetails.last_name" />
+                </div>
+                <div class="Item">
+                    <input name="district" placeholder="Район/Улица" [(ngModel)]="qDetails.district" />
+                    <input name="city" placeholder="Город" [(ngModel)]="qDetails.city" />
+                    <input name="country" placeholder="Страна" [(ngModel)]="qDetails.country" />
+                </div>
+                <button class="Button">Поиск</button>
+            </form>
+        </div>
+    </div>
+</form>
+<div class="Searched-Users">
+    <a (click)="select(i.id)" *ngFor="let i of users" class="Item">
+        <div class="Ava">
+            <img [src]="i.photo || '/media/icons/profile.png'" />
+        </div>
+        <div class="Main-Info">
+            <div class="Name">{{i.first_name + " " + i.last_name}}</div>
+            <div class="Status">{{getUserStatus(i)}}</div>
+        </div>
+    </a>
+</div>

@@ -1,0 +1,99 @@
+#%RAML 1.0
+title: ChildrenForChildren API
+version: v1
+baseUri: http://127.0.0.1:8000/api/v1/
+
+mediaType: [application/json]
+protocols: [HTTP, HTTPS]
+
+types:
+  Profile:
+    type: object
+    required: true,
+    properties:
+      id:
+        type: number
+        required: true
+      user:
+        type: number
+        required: true
+      patronymic:
+        type: string
+        required: true
+      phone:
+        type: string
+        required: true
+      age:
+        type: number
+        required: true
+      status:
+        type: string
+        required: true
+       
+  User:
+    type: object
+    required: true,
+    properties:
+      id:
+        type: number
+        required: true
+      username:
+        type": string
+        required: true
+      email:
+        type: string
+        required: true
+      first_name:
+        type: string
+        required: true
+      last_name: 
+        type: string
+        required: true
+      profile:
+        type: Profile
+        required: true
+  AccounResponse:
+    type: object
+    required: true
+    properties:
+      result:
+        type: boolean
+        required: true
+      message:
+        type: string
+        required: true
+      data:
+        type: User
+        required: true
+        
+/account:
+  description:
+    Endpoint for get user data
+  get:
+    responses:
+      200:
+        body:
+          application/json:
+            type: AccounResponse
+            example: |
+             {
+              "result": true,
+              "message": "User data send successful."
+              "data": {
+                "user": {
+                  "id": 1,
+                  "username": "vasyapupkin",
+                  "email": "vasyapupkin@mail.com",
+                  "first_name": "Vasya",
+                  "last_name": "Pupkin",
+                  "profile": {
+                    "id": 1,
+                    "user": 1,
+                    "patronymic": "Ivanov",
+                    "phone": "+79126865578",
+                    "age": 13,
+                    "status": "student"
+                  }
+                }
+              }
+            }

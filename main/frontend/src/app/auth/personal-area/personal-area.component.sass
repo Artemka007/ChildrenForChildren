@@ -1,0 +1,148 @@
+@import "src/styles.sass"
+@import "src/styles.forms.sass"
+
+.Profile
+    +flex-container(row)
+    @media screen and ( max-width: 969px )
+        flex-direction: column
+    width: 100%
+    padding: 0 5px
+    .Profile__Card
+        +flex-container()
+        height: auto
+        width: 300px
+        @media screen and ( max-width: 969px )
+            width: 100%
+        padding: 15px
+        margin-right: 10px
+        .Tools
+            +flex-container(row)
+            width: 100%
+            margin: 10px 0
+            span
+                padding-right: 7px
+                margin-right: 7px
+            button
+                +manage-button(40px, 40px)
+                margin-right: 10px
+            .Item
+                +flex-container(row)
+                .Edit-Btn
+                    &::before
+                        content: url("/media/icons/edit-alt.svg")
+                .Ok-Edit-Btn
+                    &::before
+                        content: url("/media/icons/check-circle.svg")
+                    margin-right: 10px
+                .Not-Edit-Btn
+                    &::before
+                        content: url("/media/icons/times-circle.svg")
+                .Chat-Btn
+                    &::before
+                        content: url("/media/icons/message.svg")
+                .Report-Btn
+                    &::before
+                        content: url("/media/icons/exclamation-circle.svg")
+        .Info
+            +flex-container(column, flex-start, center)
+            height: auto
+            width: 100%
+            @media screen and ( max-width: 969px )
+                flex-direction: row
+            .Info__Photo
+                +flex-container(column, flex-start, center)
+                height: 100%
+                width: 100%
+                border-radius: 100%
+                z-index: 1
+                flex: 1 0 auto
+                @media screen and ( max-width: 969px )
+                    width: 100px
+                @media screen and ( max-width: 469px )
+                    width: 70px
+                img
+                    z-index: 1
+                    text-align: center
+                    width: 100%
+            .Info__Title
+                +flex-container(column, space-between)
+                height: auto
+                padding-left: 15px
+                width: 100%
+                .Online
+                    +flex-container(row)
+                    @media screen and ( max-width: 969px )
+                        justify-content: flex-end
+                    width: 100%
+                    font-size: 13px
+                    color: #333
+                .Username
+                    font-size: 16px
+                    padding: 10px 0
+                .Status
+                    font-size: 14px
+        .Item-2
+            +flex-container(column, space-between, flex-end)
+            width: 100%
+            height: 50px
+            .User-In-School-Status
+                font-size: 16px
+                color: #00000090
+            .Online-Status
+                font-size: 14px
+                color: #00000090
+    .Profile__General-Information
+        border-bottom: none
+        span.Validator
+            color: var(--red)
+            font-size: 13px
+            padding: 5px
+        .Field
+            +flex-container(column)
+    .Title
+        +flex-container(row, center)
+        width: 100%
+        font-size: 23px
+        margin-bottom: 10px
+        color: #333
+    .Content
+        +flex-container()
+        width: 100%
+        .Item
+            +flex-container(row)
+            &.Edit
+            width: 100%
+            font-size: 16px
+            margin-top: 10px
+            @media screen and ( max-width: 560px )
+                flex-direction: column
+            .Key
+                width: 80px
+                min-width: 100px
+            .Description
+                width: 100%
+            .Edit-Description
+                +field()
+                width: auto
+                max-width: 400px
+.Profile-Container
+    +flex-container()
+    width: 100%
+    margin-bottom: 10px
+
+.Profile-Navigation
+    +flex-container(row)
+    width: 100%
+    padding: 10px 15px
+    .Profile-Navigation__Item
+        font-size: 16px
+        cursor: pointer
+        font-family: 'Lucida Grande', sans-serif
+        color: var(--blue)
+        padding: 5px 10px
+        margin-right: 10px
+        &:hover
+            color: var(--lite-blue)
+        &.Active
+            color: var(--pink)
+            border-bottom: var(--pink) solid 2px

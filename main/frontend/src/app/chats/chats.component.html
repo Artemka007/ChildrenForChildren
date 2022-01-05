@@ -1,0 +1,101 @@
+<image-slider *ngIf="imageSliderIsOpen" [urls]="imagesForImageSlider" [id]="imageIdForImageSlider" (close)="closeImageSlider()"></image-slider>
+<chat-create *ngIf="isCreating" (onclose)="isCreating = false" [user]="user"></chat-create>
+<crop-image *ngIf="isChatPhotoOpen" (onclose)="isChatPhotoOpen = false" (onsubmit)="chatPhotoUpload($event)"></crop-image>
+<div #allChats class="All-Chats Shadow-Right" [ngClass]="{'Close': !chatNavIsOpen}">
+    <a [routerLink]="'/chats'" [queryParams]="{id: c.id}" *ngFor="let c of chats" class="Item" (click)="chatNavIsOpen = false">
+        <div class="Avatar"><img [src]="c.photo || '/media/icons/profile.png'" alt="" /> </div>
+        <div class="Main-Info">
+            <div class="Name">{{c.title || getOtherUserInChat(c.id)?.first_name + " " + getOtherUserInChat(c.id)?.last_name}}</div>
+            <div class="Status">{{getLastChatMessage(c)}}</div>
+        </div>
+    </a>
+    <button class="Add-Chat" [style.left]="(allChats.getClientRects()[0]['left'] + 30).toString() + 'px'" (click)="isCreating = true"></button>
+</div>
+<div *ngIf="chat" class="Chat Container">
+    <div class="Chat__Container" *ngIf="chatIsOpen() || (!chatInfoIsOpen && !chatNavIsOpen)">
+        <header class="Chat__Header">
+            <hamburger [isOpen]="chatNavIsOpen" (onchange)="setChatNavIsOpen()"></hamburger>
+            <div class="Information">
+                <div class="Chat-Ava"><img [src]="chat.photo || '/media/icons/profile.png'" alt="" /></div>
+                <div class="Chat-Main-Info">
+                    <div class="Chat-Title" *ngIf="chat.is_group" (click)="setChatInfoIsOpen()">{{getChatTitle()}}</div>
+                    <a [routerLink]="'/profile'" [queryParams]="{id: getOtherUserInChat()?.id}" class="Chat-Title" *ngIf="!chat.is_group">{{getChatTitle()}}</a>
+                    <div class="Chat-Status">{{writingUsers.length === 0 ? "online" : getWritingUsersString()}}</div>
+                </div>
+            </div>
+        </header>
+        <main class="Chat__Body" #chatBody [style.justifyContent]="checkUserNotIsBanned() && chat.messages.length > 0 ? 'flex-end' : 'center'">
+            <ng-container *ngIf="checkUserNotIsBanned() && chat.messages.length > 0">
+                <chat-message *ngFor="let m of chat.messages" [message]="m" [userId]="user?.id || -1" style="padding: 0 10px;" (openSlider)="openImageSlider($event)" #chatMessages></chat-message>
+            </ng-container>
+            <div class="Banned" *ngIf="!checkUserNotIsBanned()">Вы забанены модератором чата.</div>
+            <div class="Banned" *ngIf="chat.messages.length === 0">Сообщений пока что нет.</div>
+        </main>
+        <form class="Chat__Form" #chatForm="ngForm" (ngSubmit)="sendMessage()" *ngIf="checkUserNotIsBanned()">
+            <div class="Chat__Form__Fields-Container">
+                <textarea #messageField (ngModelChange)="writingMessage();autogrow()" name="body" [(ngModel)]="message.body" placeholder="Введите сообщение" style="max-height: 300px;"></textarea>
+                <ng-container>
+                    <input #uploadImg type="file" #imageUpload accept="image/*" style="display: none;" />
+                    <input #uploadDoc type="file" #fileUpload accept="application/msword, text/plain, application/pdf" style="display: none;" />
+                </ng-container>
+                <div class="Actions">
+                    <button type="button" (click)="imageUpload.click()" class="Upload-Img"><i></i></button>
+                    <button type="button" (click)="fileUpload.click()" class="Upload-Doc"><i></i></button>
+                </div>
+                <button class="Send"><i></i></button>
+            </div>
+            <chat-upload-files [message]="message" [inputs]="[{'type': 'img', el: uploadImg}, {'type': 'doc', el: uploadDoc}]"></chat-upload-files>
+        </form>
+    </div>
+    <form class="Chat__Information Shadow-Left" [ngClass]="{'Close': !chatInfoIsOpen}" *ngIf="chat.is_group" #chatEditForm="ngForm" (ngSubmit)="editChat()">
+        <hamburger [isOpen]="true" (onchange)="setChatInfoIsOpen()"></hamburger>
+        <div *ngIf="!isEditing" class="Main-Info">
+            <div class="Chat-Ava"><img (click)="isChatPhotoOpen = true" [src]="chat.photo || '/media/icons/profile.png'" /></div>
+            <div class="Chat-Title">{{getChatTitle()}}</div>
+            <div class="Chat-Description">{{chat.about || "Описание не написано"}}</div>
+        </div>
+        <div *ngIf="isEditing" class="Main-Info">
+            <div class="Chat-Ava"><img [src]="chat.photo || '/media/icons/profile.png'" (click)="isChatPhotoOpen = true" /></div>
+            <input name="title" class="Chat-Title Chat-Title-Edit" [(ngModel)]="chatForEdit.title" />
+            <textarea name="about" class="Chat-Description Chat-Description-Edit" [(ngModel)]="chatForEdit.about"></textarea>
+        </div>
+        <div *ngIf="!isEditing" class="Actions Column">
+            <div class="Edit" *ngIf="checkUserCanEditChat()" (click)="startEditing()">Изменить</div>
+            <div class="Bad-Chat" *ngIf="!checkUserIsAdmin()">Пожаловаться</div>
+            <div class="Signout" *ngIf="!checkUserIsAdmin()" (click)="signoutFromChat()">Выйти из чата</div>
+            <div class="Send-Invite" (click)="copyLink()">Пригласить пользователя</div>
+            <div class="Approve-Invite" *ngIf="!checkUserIsInChat()" (click)="startEditing()">Присоединиться</div>
+        </div>
+        <div *ngIf="isEditing" class="Actions Row">
+            <button class="Done" type="submit">Готово</button>
+            <span class="Split"></span>
+            <button class="Cancel" type="button" (click)="stopEditing()">Отменить</button>
+        </div>
+        <div *ngIf="!isEditing" class="Users">
+            <a [routerLink]="'/profile'" [queryParams]="{id: u.id}" class="Item" *ngFor="let u of chat.users">
+                <div class="Avatar"><img src="/media/icons/profile.png" alt="" /> </div>
+                <div class="Main-Info">
+                    <div class="Name">{{u.id === user?.id ? "Вы" : u.first_name + " " + u.last_name}}</div>
+                    <div class="Status">{{u.status || "online"}}</div>
+                </div>
+                <span class="Chat-Status" *ngIf="checkUserIsAdmin(u.id)">admin</span>
+                <span class="Chat-Status" *ngIf="checkUserIsModer(u.id)">moder</span>
+            </a>
+        </div>
+        <div *ngIf="isEditing" class="Users">
+            <div class="Item" *ngFor="let u of chat.users">
+                <div class="Avatar"><img src="/media/icons/profile.png" alt="" /> </div>
+                <div class="Main-Info">
+                    <div class="Name">{{u.first_name + " " + u.last_name}}</div>
+                </div>
+                <ng-container *ngIf="u.id !== user?.id">
+                    <select [value]="checkUserIsModer() ? 'moder' : 'user'">
+                        <option value="user">Пользователь</option>
+                        <option value="moder">Модератор</option>
+                    </select>
+                    <button (click)="banUser(u.id)" type="button" class="Ban" [ngClass]="{'Is-Banned': checkUserIsBanned(u.id), 'Not-Banned': !checkUserIsBanned(u.id)}"><i></i></button>
+                </ng-container>
+            </div>
+        </div>
+    </form>
+</div>

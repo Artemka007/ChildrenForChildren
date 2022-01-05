@@ -1,0 +1,15 @@
+<form class="Form-Container Dialog" #registerForm="ngForm" (ngSubmit)="report()">
+    <div class="Header">
+        <div class="Title">Пожаловаться</div>
+        <button class="Close" type="button" (click)="close()">&times;</button>
+    </div>
+    <div class="Form-Container__Fields-Container">
+        <div class="Field">
+            <input [name]="'why'" required [placeholder]="'Чем вам пользователь не понравился?'" [maxLength]="2048" [(ngModel)]="reportQuery.why" #why="ngModel" />
+            <span *ngIf="why.errors?.required && why.touched">
+                Обязательное поле.
+            </span>
+        </div>
+    </div>
+    <button class="Form-Container__Button" [disabled]="registerForm.invalid || isLoading">{{isLoading ? "Загрузка... " : "Пожаловаться"}}</button>
+</form>

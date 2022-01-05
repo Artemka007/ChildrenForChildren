@@ -1,0 +1,120 @@
+html, body
+    margin: 0
+    padding: 0
+
+$nav_w: 300px
+$header_h: 70px
+    
+=flex-container($dir: column, $jc: flex-start, $ai: flex-start)
+    display: flex
+    flex-direction: $dir
+    justify-content: $jc
+    align-items: $ai 
+
+=manage-button($w, $h, $fg: #000, $bg: transparent)
+    +flex-container(row, center, center)
+    display: inline-flex
+    outline: none
+    border: none
+    background: $bg
+    color: $fg
+    border-radius: 5px
+    width: $w
+    height: $h
+    padding: 5px
+    transition: all .1s
+    vertical-align: middle
+    font-size: 30px
+    font-weight: bold
+    flex: 0 0 $w
+    &::before
+        font-size: 30px
+        width: 30px
+        height: 30px
+        flex: 0 0 30px
+    &:disabled
+        cursor: not-allowed
+    &:hover:not(:disabled)
+        box-shadow: #00000070 0 1px 8px 0
+        cursor: pointer
+    &:focus:not(:disabled)
+        box-shadow: inset #00000050 0 1px 4px 0
+
+.Row
+    +flex-container(row)
+
+.Column
+    +flex-container()
+
+.End
+    justify-content: flex-end
+    align-items: flex-end
+
+.Container
+    background: #fff
+    padding: 10px 15px
+    border-bottom: #00000035 solid 3px
+    border-radius: 5px
+    margin-bottom: 5px
+
+.Dialog
+    +flex-container()
+    position: fixed !important
+    top: 0
+    left: calc(50% - 250px)
+    border-radius: 5px
+    box-shadow: #00000050 0 2px 4px 0
+    width: 500px
+    animation: openDialog .3s ease
+    z-index: 100000
+    background: #fff
+    @media screen and ( max-width: 500px )
+        width: 100%
+        left: 0
+    &.Close
+        animation: closeDialog .3s ease
+    .Header
+        +flex-container(row, center, center)
+        border: 5px 5px 0 0
+        color: #fff
+        background: var(--blue)
+        width: 100%
+        padding: 10px
+        .Title
+            +flex-container(row, center)
+            font-size: 25px
+            width: 100%
+        .Close
+            +manage-button(40px, 40px)
+            +flex-container(row, center, center)
+            font-size: 30px
+            color: #fff
+
+@keyframes openDialog
+    0%
+        top: -1000px
+    100%
+        top: 0
+
+@keyframes closeDialog
+    0%
+        top: 0
+    100%
+        top: -1000px
+.Blackout-Container
+    position: fixed
+    z-index: 20000
+    background: rgba(0,0,0,.25)
+    top: 0
+    left: 0
+    width: 100%
+    height: 100vh
+
+.Background-Container
+    position: fixed
+    top: 0
+    left: 0
+    width: 100%
+    height: 100vh
+    background: #ecf2f6
+    z-index: -1000

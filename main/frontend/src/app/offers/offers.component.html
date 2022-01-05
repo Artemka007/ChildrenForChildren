@@ -1,0 +1,42 @@
+<div class="Blackout-Container" *ngIf="createOfferIsOpen || detailOfferIsOpen"></div>
+<offer-action *ngIf="createOfferIsOpen && offer" (onclose)="createOfferClose()" [offer]="offerToAcceptType()" [action]="'edit'" [windowTitle]="'Редактировать предложение'"></offer-action>
+<offer-action *ngIf="createOfferIsOpen && !offer && !isframe" (onclose)="createOfferClose()" [action]="'create'" [windowTitle]="'Создать предложение'"></offer-action>
+<offer-detail *ngIf="detailOfferIsOpen" [offer]="offer" [user]="user?.toJSON()" (onclose)="detailOfferClose()"></offer-detail>
+<div class="Offers__Filter-Add-New-Offer" *ngIf="!isframe">
+    <form class="Search-Container Offers__Filter Container" #searchForm="ngForm">
+        <i class="Search"></i>
+        <input class="Query" name="q" [(ngModel)]="q" (ngModelChange)="search(q)" placeholder="Поиск..." />
+        <div class="Settings" #settingsIcon>
+            <button type="button" class="Settings-Icon-Btn" (click)="detailsIsOpen = !detailsIsOpen"><i></i></button>
+            <div *ngIf="detailsIsOpen" class="Details" #details [style.top]="settingsIcon.getClientRects()[0]['y'] + 30 + 'px'" [style.left]="settingsIcon.getClientRects()[0]['x'] - details.getClientRects()[0]['width'] + 30 + 'px'">
+                <div class="Title">Расширеный поиск</div>
+                <form class="Items-Container" #detailsSearchForm="ngForm" (ngSubmit)="search(qDetails)">
+                    <div class="Item">
+                        <input name="title" [(ngModel)]="qDetails.title" placeholder="Заголовок" />
+                    </div>
+                    <div class="Item">
+                        <input name="about" [(ngModel)]="qDetails.about" placeholder="О приложении" />
+                    </div>
+                    <div class="Item">
+                        <input name="subject" [(ngModel)]="qDetails.subject__name" placeholder="Предмет" />
+                    </div>
+                    <button class="Button">Поиск</button>
+                </form>
+            </div>
+        </div>
+    </form>
+    <button class="Add-New-Offer" (click)="createOfferOpen('create')">
+        <i></i>
+    </button>
+</div>
+<div class="Offers">
+    <ng-container *ngIf="type === 'offers'">
+        <offer *ngFor="let i of getAllOffers()" [offer]="i" [user]="user" (openDetail)="openDetail($event)" (openEdit)="createOfferOpen('edit', $event)" (ondelete)="delete($event)"></offer>
+    </ng-container>
+    <ng-container *ngIf="type === 'requests'">
+        <offer *ngFor="let i of getAllRequests()" [offer]="i" [user]="user" (openDetail)="openDetail($event)" (openEdit)="createOfferOpen('edit', $event)" (ondelete)="delete($event)"></offer>
+    </ng-container>
+    <ng-container *ngIf="!type">
+        <offer *ngFor="let i of getOffers()" [offer]="i" [user]="user" (openDetail)="openDetail($event)" (openEdit)="createOfferOpen('edit', $event)" (ondelete)="delete($event)"></offer>
+    </ng-container>
+</div>

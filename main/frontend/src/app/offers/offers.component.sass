@@ -1,0 +1,53 @@
+@import "src/styles.sass"
+@import "src/styles.forms.sass"
+
+.Offers__Filter-Add-New-Offer
+    +flex-container(row, space-between)
+    padding: 10px
+    .Offers__Filter
+        +flex-container(row, center, center)
+        padding: 10px
+        width: 1200px
+        background: #fff
+        border-radius: 10px
+        box-shadow: rgba(0,0,0,.35) 0 1px 2px 0
+        @media screen and ( max-width: 1700px )
+            width: 100%
+        &.Search-Container
+            border: none
+    .Add-New-Offer
+        border: none
+        outline: none
+        +flex-container(row, center, center)
+        height: 70px
+        width: 70px
+        background: #fff
+        box-shadow: rgba(0,0,0,.35) 0 1px 2px 0
+        color: var(--blue)
+        font-size: 18px
+        margin-left: 10px
+        border-radius: 10px
+        cursor: pointer
+        i
+            +flex-container(column, center, center)
+            font-size: 40px
+            flex: 0 0 40px
+            width: 40px
+            height: 40px
+            content: url("/media/icons/plus-square.svg")
+        &:hover
+            box-shadow: rgba(0,0,0,.40) 0 2px 8px 2px
+        &:focus
+            box-shadow: rgba(0,0,0,.35) 0 1px 2px 0
+        transition: all .2s
+.Offers
+    +flex-container(row)
+    flex-wrap: wrap
+    width: 100%
+    max-height: calc(100% - 90px)
+    overflow: auto
+    padding: 5px
+    .Title
+        font-size: 30px
+        margin-bottom: 10px
+        color: rgba(0,0,0,0.50)

@@ -1,0 +1,33 @@
+@import "src/styles.sass"
+@import "src/styles.forms.sass"
+:host
+    padding: 10px
+.News-List
+    +flex-container(row)
+    flex-wrap: wrap
+    .Item
+        +flex-container()
+        width: 400px
+        div
+            margin-bottom: 5px
+        .Title
+            width: 100%
+            text-align: center
+            font-size: 26px
+        .Author
+            +flex-container(row, flex-start, center)
+            font-size: 18px
+            width: 100%
+            &::before
+                height: 30px
+                flex: 0 0 30px
+                font-size: 30px
+                margin-right: 10px
+                content: url("/media/icons/user-circle.svg")
+        .Go-To
+            color: var(--lite-blue)
+            font-size: 20px
+            text-decoration: none
+            cursor: pointer
+            &:hover
+                text-decoration: underline

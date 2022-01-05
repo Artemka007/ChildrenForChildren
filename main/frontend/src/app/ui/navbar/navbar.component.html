@@ -1,0 +1,59 @@
+<div class="Blackout" *ngIf="navbarIsOpen() && windowWidth <= 1450" (click)="setIsOpen()"></div>
+<ul #navbar class="Navbar" [ngClass]="{'Close': navbarIsOpen()}" [ngClass]="{'Close': !navbarIsOpen()}">
+    <li class="Navbar__Item">
+        <div class="Main-Link Home-Main-Link">
+            <a (click)="setIsOpen()" routerLink="/home" [fragment]="'About'" routerLinkActive="active" class="Main-Link__Text">Главная</a>
+            <i class="Main-Link__OpenClose-Arrow" (click)="checkLinkIsOpen('home') ? closeLink('home') : openLink('home')" [ngClass]="{'Rotated': checkLinkIsOpen('home')}">
+            </i>
+        </div>
+        <ul class="Links-Container" *ngIf="checkLinkIsOpen('home') || location.pathname.split('/')[1] === 'home'">
+            <li (click)="hash = '#About'" class="Item" [ngClass]="{'active': hash === '#About'}">
+                <a [routerLink]="'/home'" [fragment]="'About'" [ngClass]="{'active': hash === '#About'}">
+                    О приложении
+                </a>
+            </li>
+            <li (click)="hash = '#Instruction'" class="Item" [ngClass]="{'active': hash === '#Instruction'}">
+                <a [routerLink]="'/home'" [fragment]="'Instruction'" [ngClass]="{'active': hash === '#Instruction'}">
+                    Инструкция
+                </a>
+            </li>
+        </ul>
+    </li>
+    <li class="Navbar__Item">
+        <div class="Main-Link News-Main-Link">
+            <a class="Main-Link__Text" routerLink="/news" routerLinkActive="active">Новости</a>
+        </div>
+    </li>
+    <li class="Navbar__Item">
+        <div class="Main-Link Ads-Main-Link">
+            <a class="Main-Link__Text" routerLinkActive="active" (click)="setIsOpen()" routerLink="/offers">Предложения</a>
+            <i class="Main-Link__OpenClose-Arrow" (click)="checkLinkIsOpen('offers') ? closeLink('offers') : openLink('offers')" [ngClass]="{'Rotated': checkLinkIsOpen('offers')}">
+            </i>
+        </div>
+        <ul class="Links-Container" *ngIf="checkLinkIsOpen('offers')">
+            <li class="Item">
+                <a [routerLink]="'/offers'" [queryParams]="{'type': 'offers'}" [routerLinkActive]="'active'">
+                    Предложения
+                </a>
+            </li>
+            <li class="Item">
+                <a [routerLink]="'/offers'" [queryParams]="{'type': 'requests'}" [routerLinkActive]="'active'">
+                    Запросы
+                </a>
+            </li>
+        </ul>
+    </li>
+    <li class="Navbar__Item">
+        <div class="Main-Link Users-Main-Link">
+            <a class="Main-Link__Text" routerLinkActive="active" (click)="setIsOpen()" routerLink="/users">Пользователи</a>
+        </div>
+    </li>
+    <li class="Navbar__Item">
+        <div class="Main-Link Chats-Main-Link">
+            <a class="Main-Link__Text" routerLinkActive="active" (click)="setIsOpen()" routerLink="/chats">Чаты</a>
+        </div>
+    </li>
+</ul>
+<span class="Hanburger-Container" *ngIf="windowWidth <= 1450">
+    <hamburger [isOpen]="navbarIsOpen()" (onchange)="setIsOpen()"></hamburger>
+</span>

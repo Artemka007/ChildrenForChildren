@@ -1,0 +1,7 @@
+[Unit]
+Description = Children for children project daphne service
+Type=simple 
+User=artem
+WorkingDirectory=/app/  
+ExecStart=daphne -b 0.0.0.0 -p 8000 ChildrenForChildren.asgi:application
+#WantedBy=multi-user.target

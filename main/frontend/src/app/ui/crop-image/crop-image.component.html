@@ -1,0 +1,10 @@
+<div class="Dialog Column">
+    <div class="Header">
+        <div class="Title">Выбор аватарки</div>
+        <button class="Close" type="button" (click)="close()">&times;</button>
+    </div>
+    <input type="file" (change)="fileChangeEvent($event)" />
+
+    <image-cropper [imageChangedEvent]="imageChangedEvent" [maintainAspectRatio]="true" [aspectRatio]="1 / 1" format="png" (imageCropped)="imageCropped($event)" (imageLoaded)="imageLoaded($event)" (cropperReady)="cropperReady()" (loadImageFailed)="loadImageFailed()"></image-cropper>
+    <button class="Button" (click)="submit()">Готово</button>
+</div>

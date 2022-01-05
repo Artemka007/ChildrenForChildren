@@ -1,0 +1,10 @@
+#!/usr/bin/env sh
+
+# python
+python3 manage.py makemigrations
+python3 manage.py migrate
+
+python3 manage.py collectstatic --noinput
+
+# run
+uvicorn ChildrenForChildren.asgi:application --host 0.0.0.0 --reload

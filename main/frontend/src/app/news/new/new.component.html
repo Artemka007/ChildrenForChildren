@@ -1,0 +1,11 @@
+<ng-container *ngIf="new">
+    <div class="New__Header Row Center">
+        <div class="Title">{{new.title}}</div>
+        <div class="User-Date Column">
+            <div class="Author Row">Автор: {{new.user.first_name + " " + new.user.last_name}}</div>
+            <div class="Date Row">Дата публикации: {{new.date|date:'dd.MM.yyyy'}}</div>
+        </div>
+    </div>
+    <div class="New__Content" [innerHtml]="new.body|safeHtml">
+    </div>
+</ng-container>

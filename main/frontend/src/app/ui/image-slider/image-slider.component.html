@@ -1,0 +1,7 @@
+<div class="Blackout-Container"></div>
+<div class="Image-Slider">
+    <div class="Arrow-Left" (click)="previous()"></div>
+    <div class="Close" (click)="closeSlider()"></div>
+    <div class="Arrow-Right" (click)="next()"></div>
+    <img *ngIf="urls[id]" #img [src]="urls[id]" alt="" />
+</div>

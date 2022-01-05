@@ -1,0 +1,51 @@
+@import "src/styles.sass"
+@import "src/styles.forms.sass"
+
+:host
+    +flex-container()
+    width: 1200px
+    background: #fff
+    border-radius: 5px
+    box-shadow: #00000050 0 1px 4px 0
+    @media screen and ( max-width: 1543px )
+        width: 100%
+    .Searched-Users
+        +flex-container()
+        width: 100%
+        .Item
+            +flex-container(row, flex-start, center)
+            height: 80px
+            color: #000
+            text-decoration: none
+            width: 100%
+            cursor: pointer
+            .Ava
+                width: 50px
+                height: 50px
+                border-radius: 100%
+                margin: 0 10px
+                img
+                    width: 50px
+                    height: 50px
+                    border-radius: 100%
+            .Main-Info
+                +flex-container()
+                width: 100%
+                .Name
+                    font-size: 18px
+                    margin-bottom: 8px
+                .Status
+                    font-size: 14px
+            .Actions
+                +flex-container(row)
+                padding: 10px
+                .Go-To-Chat
+                    +manage-button(40px, 40px)
+                    &::before
+                        font-size: 30px
+                        content: url("/media/icons/message.svg")
+            &:hover
+                background: #00000020
+            &:last-child
+                border-radius: 0 0 5px 5px
+                

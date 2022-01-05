@@ -1,0 +1,139 @@
+<img src="/media/logo.png" alt="" />
+<form class="Form-Container" #registerForm="ngForm" (ngSubmit)="register()">
+    <account-nav style="width: 100%;"></account-nav>
+    <div class="Form-Container__Title">Регистрация</div>
+    <div class="Form-Container__Warning" *ngIf="warning">{{warning}}</div>
+    <div class="Form-Container__Fields-Container">
+        <div class="Field">
+            <input [name]="'username'" required [placeholder]="'Ник'" [maxLength]="64" pattern="^[\w.@+-]+" [(ngModel)]="registerFormGroup.username" #username="ngModel" />
+            <span *ngIf="username.errors?.required && username.touched">
+                Обязательное поле.
+            </span>
+            <span *ngIf="username.errors?.maxlength && username.touched">
+                Максимальная длина - 64 символа
+            </span>
+            <span *ngIf="username.errors?.pattern && username.touched">
+                Ник может включать сиволы  @/./+/-/_ 
+            </span>
+        </div>
+        <div class="Field">
+            <input [name]="'email'" required pattern="(([^<>()[\]\\.,;:\s@\']+(\.[^<>()[\]\\.,;:\s@\']+)*)|(\'.+\'))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))" [placeholder]="'Email'" [maxLength]="64" [(ngModel)]="registerFormGroup.email"
+                #email="ngModel" [type]="'email'" />
+            <span *ngIf="email.errors?.required && email.touched">
+                Обязательное поле.
+            </span>
+            <span *ngIf="email.errors?.maxlength && email.touched">
+                Максимальная длина - 64 символа
+            </span>
+            <span *ngIf="email.errors?.pattern && email.touched">
+                Неверный формат email.
+            </span>
+        </div>
+
+        <div class="Field">
+            <input [name]="'first_name'" required [placeholder]="'Имя'" [maxLength]="64" [(ngModel)]="registerFormGroup.first_name" #first_name="ngModel" />
+            <span *ngIf="first_name.errors?.required && first_name.touched">
+                Обязательное поле.
+            </span>
+            <span *ngIf="first_name.errors?.maxlength && first_name.touched">
+                Максимальная длина - 64 символа
+            </span>
+        </div>
+        <div class="Field ">
+            <input [name]=" 'last_name' " required [placeholder]="'Фамилия'" [maxLength]="64" [(ngModel)]="registerFormGroup.last_name" #last_name="ngModel" />
+            <span *ngIf="last_name.errors?.required && last_name.touched">
+                Обязательное поле.
+            </span>
+            <span *ngIf="last_name.errors?.maxlength && last_name.touched">
+                Максимальная длина - 64 символа
+            </span>
+        </div>
+        <div class="Field ">
+            <input [name]="'patronymic'" required [placeholder]="'Отчество'" [maxLength]="64" [(ngModel)]="registerFormGroup.patronymic" #patronymic="ngModel" />
+            <span *ngIf="patronymic.errors?.required && patronymic.touched">
+                Обязательное поле.
+            </span>
+            <span *ngIf="patronymic.errors?.maxlength && patronymic.touched">
+                Максимальная длина - 64 символа
+            </span>
+        </div>
+        <div class="Field ">
+            <input [name]="'phone'" required [placeholder]="'Телефон'" [maxLength]="16" [(ngModel)]="registerFormGroup.phone" #phone="ngModel" />
+            <span *ngIf="phone.errors?.required && phone.touched">
+                Обязательное поле.
+            </span>
+            <span *ngIf="phone.errors?.maxlength && phone.touched">
+                Максимальная длина - 16 символов
+            </span>
+        </div>
+        <div class="Field">
+            <input [name]="'age'" required [placeholder]="'Возраст'" [(ngModel)]="registerFormGroup.age" #age="ngModel" [type]="'number'" />
+            <span *ngIf="age.errors?.required && age.touched ">
+                Обязательное поле.
+            </span>
+        </div>
+        <div class="Field ">
+            <select [name]="'user_in_school_status'" [(ngModel)]="registerFormGroup.user_in_school_status " #user_in_school_status_options="ngModel">
+                <option value="student">
+                    Ученик
+                </option>
+                <option value="teacher">
+                    Учитель
+                </option>
+                <option value="parent">
+                    Родитель
+                </option>
+            </select>
+        </div>
+        <div class="Field ">
+            <input [name]="'country'" [placeholder]="'Страна'" [(ngModel)]="registerFormGroup.country " #country="ngModel" maxlength="128" />
+            <span *ngIf="country.errors?.maxlength && phone.touched ">
+                Максимальная длина - 128 символов
+            </span>
+        </div>
+        <div class="Field ">
+            <input [name]="'city'" [placeholder]="'Город'" [(ngModel)]="registerFormGroup.city" #city="ngModel" maxlength="128 " />
+            <span *ngIf="city.errors?.maxlength && phone.touched ">
+                Максимальная длина - 128 символов
+            </span>
+        </div>
+        <div class="Field ">
+            <input [name]="'district'" [placeholder]="'Район/Улица'" [(ngModel)]="registerFormGroup.district" #district="ngModel" maxlength="128" />
+            <span *ngIf="district.errors?.maxlength && phone.touched ">
+                Максимальная длина - 128 символов
+            </span>
+        </div>
+        <div class="Field ">
+            <textarea [name]="'about_me'" [placeholder]="'Напишите немного о себе, Ваши хобби, увлечения, любимые музыкальные группы и т.д.'" [(ngModel)]="registerFormGroup.about_me " #about_me="ngModel"></textarea>
+        </div>
+        <div class="Field ">
+            <textarea [name]="'social_networkws'" [placeholder]="'Соц. сети'" [(ngModel)]="registerFormGroup.social_networkws " #social_networkws="ngModel"></textarea>
+        </div>
+        <div class="Field">
+            <input [name]="'password'" required pattern="(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^\da-zA-Z]).{8,}" [placeholder]="'Пароль'" [type]="'password'" [(ngModel)]="registerFormGroup.password" #password="ngModel" />
+            <span *ngIf="password.errors?.required && password.touched">
+                Обязательное поле.
+            </span>
+            <span *ngIf="password.errors?.minlength && password.touched">
+                Пароль должен быть не короче 8 символов.
+            </span>
+            <span *ngIf="password.errors?.pattern && password.touched">
+                Пароль должен включать в себя буквы, цифры и специальные знаки.
+            </span>
+        </div>
+        <div class="Field ">
+            <input [name]="'password2'" required pattern="(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^\da-zA-Z]).{8,}" [placeholder]="'Повтор пароля'" [type]="'password'" [(ngModel)]="registerFormGroup.password2" #password2="ngModel" />
+            <span *ngIf="password2.errors?.required && password2.touched">
+                Обязательное поле.
+            </span>
+            <span *ngIf="password2.errors?.minlength && password2.touched">
+                Пароль должен быть не короче 8 символов.
+            </span>
+            <span *ngIf="password2.errors?.pattern && password2.touched">
+                Пароль должен включать в себя буквы, цифры и специальные знаки.
+            </span>
+            <span class="register-form__validation_block" *ngIf="password.touched && password2.touched && password.value != password2.value">Пароли не совпадают.</span>
+        </div>
+    </div>
+    <button class="Form-Container__Button" [disabled]="registerForm.invalid || password.value != password2.value || isLoading">{{isLoading ? "Загрузка... " : "Зарегистрироваться"}}</button>
+</form>
