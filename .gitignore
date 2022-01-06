@@ -1,14 +1,11 @@
 *.pyc
 __pycache__
 
-<<<<<<< HEAD
 .angular
 
 /migrations/
 
 
-=======
->>>>>>> 06d36bb323f4eb50b7d01a21a5b8f0f317443426
 .envs/.local
 
 docker-compose.yml

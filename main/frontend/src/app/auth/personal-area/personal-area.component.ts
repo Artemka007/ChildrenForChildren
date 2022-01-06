@@ -28,7 +28,7 @@ export class PersonalAreaComponent implements OnInit {
 
   // url params
   id?: string
-  tab: '' | 'contacts' | 'offers' = ''
+  tab: '' | 'contacts' | 'offers' | 'edit' = ''
   
   offers: IOffer[] = []
 
@@ -53,8 +53,8 @@ export class PersonalAreaComponent implements OnInit {
           this.tab = "offers"
         })
       }
-      else if (tab === "contacts") {
-        this.tab = "contacts"
+      else if (tab) {
+        this.tab = tab
       } else {
         this.tab = ""
       }
@@ -90,10 +90,11 @@ export class PersonalAreaComponent implements OnInit {
   }
 
   startEdit() {
-    if (this.checkUser()) this.isEditing = true
+    if (this.checkUser()) this._router.navigateByUrl('/profile')
   }
 
   endEdit(ok: boolean) {
+    this._router.navigate(["/profile"], {queryParams: {id: this.id}})
     if (ok && this.user && this.checkUser()) {
       let user = this.user.toJSON()
       this._account.editProfile({...user, photo: undefined}).subscribe(data => {

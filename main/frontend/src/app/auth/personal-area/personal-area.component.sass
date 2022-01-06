@@ -22,8 +22,9 @@
             span
                 padding-right: 7px
                 margin-right: 7px
-            button
+            button, a
                 +manage-button(40px, 40px)
+                text-decoration: none
                 margin-right: 10px
             .Item
                 +flex-container(row)
@@ -91,14 +92,21 @@
             .Online-Status
                 font-size: 14px
                 color: #00000090
-    .Profile__General-Information
+    .Profile-Container
+        +flex-container()
+        width: 100%
+        margin-bottom: 10px
         border-bottom: none
         span.Validator
             color: var(--red)
             font-size: 13px
             padding: 5px
+        .Item
+            label
+                margin: 10px 10px 0 0
         .Field
             +flex-container(column)
+            width: 100%
     .Title
         +flex-container(row, center)
         width: 100%
@@ -110,7 +118,6 @@
         width: 100%
         .Item
             +flex-container(row)
-            &.Edit
             width: 100%
             font-size: 16px
             margin-top: 10px
@@ -123,12 +130,16 @@
                 width: 100%
             .Edit-Description
                 +field()
-                width: auto
+                width: 100%
                 max-width: 400px
-.Profile-Container
-    +flex-container()
-    width: 100%
-    margin-bottom: 10px
+    .Edit-Content
+        .Item
+            +flex-container(row, space-between)
+            width: 600px
+            @media screen and ( max-width: 1200px )
+                width: 500px
+            @media screen and ( max-width: 900px )
+                width: auto
 
 .Profile-Navigation
     +flex-container(row)
