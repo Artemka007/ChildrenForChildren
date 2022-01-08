@@ -133,11 +133,13 @@
                 width: 100%
                 max-width: 400px
     .Edit-Content
+        position: relative
+        top: 0
+        label
+            padding-top: 7px
         .Item
             +flex-container(row, space-between)
-            width: 600px
-            @media screen and ( max-width: 1200px )
-                width: 500px
+            width: 450px
             @media screen and ( max-width: 900px )
                 width: auto
 

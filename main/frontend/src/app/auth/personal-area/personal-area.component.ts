@@ -94,7 +94,6 @@ export class PersonalAreaComponent implements OnInit {
   }
 
   endEdit(ok: boolean) {
-    this._router.navigate(["/profile"], {queryParams: {id: this.id}})
     if (ok && this.user && this.checkUser()) {
       let user = this.user.toJSON()
       this._account.editProfile({...user, photo: undefined}).subscribe(data => {

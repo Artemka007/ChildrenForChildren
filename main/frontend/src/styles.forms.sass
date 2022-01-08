@@ -1,12 +1,12 @@
 @import "src/styles.sass"
     
 =field()
-    font-weight: 500
+    font-weight: normal
     font-family: "Rubik", sans-serif
     border: #00000020 solid 1px
     width: 100%
-    padding: 10px
-    font-size: 16px
+    padding: 7px
+    font-size: 15px
     border-radius: 5px
     transition: all .1s
     &:hover:not(.ng-touched.ng-invalid)
@@ -19,9 +19,9 @@
 =button()
     width: calc(100% - 20px)
     background: transparent
-    font-size: 16px
+    font-size: 14px
     font-family: "Rubik", sans-serif
-    font-weight: 550
+    font-weight: bolder
     padding: 10px 15px
     cursor: pointer
     border: var(--blue) solid 2px
@@ -29,6 +29,8 @@
     background-color: var(--blue)
     margin: 10px
     border-radius: 5px
+    width: 100%
+    max-width: 300px
     transition: all .2s ease-in-out
     &:hover:not(:disabled)
         color: #fff
