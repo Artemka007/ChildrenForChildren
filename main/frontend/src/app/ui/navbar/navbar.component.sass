@@ -1,5 +1,6 @@
 @import "src/styles.sass"
-
+:host
+    z-index: 1000
 =link-i($url)
     width: 30px
     height: 30px
@@ -22,6 +23,7 @@
     top: 0
     left: 0
 .Navbar
+    z-index: 1000
     +flex-container()
     position: fixed
     top: 0

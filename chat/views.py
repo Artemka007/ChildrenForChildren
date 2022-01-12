@@ -77,6 +77,9 @@ class ChatView(APIView):
                 except:
                     chat.banned_list.add(user)
                 return Response({"result": True, "message": "Чат успешно возращен.", "data": {"chat": ChatSerializer(chat).data}})
+            elif action == "add_user":
+                userId = request.GET.get("id")
+                chat.users.add(request.user)
             try:
                 serizlizer = EditChatSerializer(data=request.data, instance=Chat.objects.get(pk=int(id)))
             except Exception as e:

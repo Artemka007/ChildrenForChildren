@@ -71,6 +71,12 @@ export class ChatService {
     })
   }
 
+  signin(id: number) {
+    return this._http.put<APIResponse<{chat?: IChat}>>(`/api/v1/chats/?id=${id}&action=add_user`, {id}, {
+      headers: {"X-CSRFToken": this._getCookie("csrftoken")}
+    })
+  }
+
   signout(id: number) {
     return this._http.put<APIResponse<{chat?: IChat}>>(`/api/v1/chats/?id=${id}&action=remove_user`, {id}, {
       headers: {"X-CSRFToken": this._getCookie("csrftoken")}

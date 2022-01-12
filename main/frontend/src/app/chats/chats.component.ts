@@ -149,7 +149,6 @@ export class ChatsComponent implements OnInit {
   }
 
   sendMessage() {
-    "-----SEND_MESSAGE------"
     this._chat.sendMessage(this.message)
   }
 
@@ -218,11 +217,20 @@ export class ChatsComponent implements OnInit {
     this.stopEditing()
   }
 
+  signinToChat() {
+    this.chat && this._chat.signin(this.chat.id).subscribe(data => {
+      if (data.result) {
+        this.chat = data.data.chat
+        this.chatForEdit.users = data.data.chat?.users.map(i => i.id) || this.chatForEdit.users
+      }
+      else this._ui.openWarning({"class": "error", "message": data.message})
+    })
+  }
   signoutFromChat() {
     this.chat && this._chat.signout(this.chat.id).subscribe(data => {
       if (data.result) {
         this.chat = data.data.chat
-        this.chatForEdit.banned_list = data.data.chat?.banned_list || this.chatForEdit.banned_list
+        this.chatForEdit.users = data.data.chat?.users.map(i => i.id) || this.chatForEdit.users
       }
       else this._ui.openWarning({"class": "error", "message": data.message})
     })

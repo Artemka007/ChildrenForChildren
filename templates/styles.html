@@ -1,0 +1,82 @@
+<!-- Set global styles -->
+<style>
+    * {
+        box-sizing: border-box;
+        outline: none;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    
+    html,
+    body {
+        margin: 0;
+        padding: 0;
+        height: 100%;
+        font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    }
+
+    body {
+        background-color: var(--bg-lite-blue);
+    }
+    
+    app-root {
+        display: flex;
+        flex-direction: row;
+        height: 100%;
+    }
+    
+    headerbar,
+    home,
+    personal-area,
+    chats,
+    progress-bar,
+    app-search-users,
+    offers,
+    news {
+        width: 100%;
+    }
+    
+    a {
+        text-decoration: none;
+    }
+</style>
+<style>
+     :root {
+        --blue: #251db3;
+        --lite-blue: #726bf7;
+        --bg-lite-blue: #251DB310;
+        --red: rgb(247, 47, 47);
+        --lite-red: rgb(241, 89, 89);
+        --green: rgb(2, 160, 29);
+        --lite-green: rgb(18, 221, 62);
+        --pink: #E71B7D;
+        --lite-pink: #ff4b64;
+    }
+</style>
+<style>
+    login,
+    register,
+    reset-password,
+    reset-password-confirm {
+        position: fixed;
+        top: 0;
+        left: 0;
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        width: 100%;
+        height: 100vh;
+        overflow: auto;
+        background: var(--lite-blue);
+    }
+    
+    login img,
+    register img,
+    reset-password img,
+    reset-password-confirm img {
+        position: absolute;
+        width: 90px;
+        height: 30px;
+        top: 50px;
+        left: calc(50% - 45px);
+    }
+</style>

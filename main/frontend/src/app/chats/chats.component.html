@@ -24,14 +24,19 @@
                 </div>
             </div>
         </header>
-        <main class="Chat__Body" #chatBody [style.justifyContent]="checkUserNotIsBanned() && chat.messages.length > 0 ? 'flex-end' : 'center'">
-            <ng-container *ngIf="checkUserNotIsBanned() && chat.messages.length > 0">
+        <main class="Chat__Body" #chatBody [style.alignItems]="checkUserNotIsBanned() && chat.messages.length > 0 ? 'flex-end' : 'center'">
+            <ng-container *ngIf="checkUserNotIsBanned() && chat.messages.length > 0 && checkUserIsInChat()">
                 <chat-message *ngFor="let m of chat.messages" [message]="m" [userId]="user?.id || -1" style="padding: 0 10px;" (openSlider)="openImageSlider($event)" #chatMessages></chat-message>
             </ng-container>
             <div class="Banned" *ngIf="!checkUserNotIsBanned()">Вы забанены модератором чата.</div>
             <div class="Banned" *ngIf="chat.messages.length === 0">Сообщений пока что нет.</div>
+            <div class="Banned" *ngIf="!checkUserIsInChat()">
+                Вступите в чат, чтобы увидеть сообщения.
+                <br>
+                <button class="Button">Вступить</button>
+            </div>
         </main>
-        <form class="Chat__Form" #chatForm="ngForm" (ngSubmit)="sendMessage()" *ngIf="checkUserNotIsBanned()">
+        <form class="Chat__Form" #chatForm="ngForm" (ngSubmit)="sendMessage();messageField.value = ''" *ngIf="checkUserNotIsBanned() && checkUserIsInChat()">
             <div class="Chat__Form__Fields-Container">
                 <textarea #messageField (ngModelChange)="writingMessage();autogrow()" name="body" [(ngModel)]="message.body" placeholder="Введите сообщение" style="max-height: 300px;"></textarea>
                 <ng-container>
@@ -60,11 +65,13 @@
             <textarea name="about" class="Chat-Description Chat-Description-Edit" [(ngModel)]="chatForEdit.about"></textarea>
         </div>
         <div *ngIf="!isEditing" class="Actions Column">
-            <div class="Edit" *ngIf="checkUserCanEditChat()" (click)="startEditing()">Изменить</div>
-            <div class="Bad-Chat" *ngIf="!checkUserIsAdmin()">Пожаловаться</div>
-            <div class="Signout" *ngIf="!checkUserIsAdmin()" (click)="signoutFromChat()">Выйти из чата</div>
-            <div class="Send-Invite" (click)="copyLink()">Пригласить пользователя</div>
-            <div class="Approve-Invite" *ngIf="!checkUserIsInChat()" (click)="startEditing()">Присоединиться</div>
+            <ng-container *ngIf="checkUserIsInChat()">
+                <div class="Edit" *ngIf="checkUserCanEditChat()" (click)="startEditing()">Изменить</div>
+                <div class="Bad-Chat" *ngIf="!checkUserIsAdmin()">Пожаловаться</div>
+                <div class="Signout" *ngIf="!checkUserIsAdmin()" (click)="signoutFromChat()">Выйти из чата</div>
+                <div class="Send-Invite" (click)="copyLink()">Пригласить пользователя</div>
+            </ng-container>
+            <div class="Approve-Invite" *ngIf="!checkUserIsInChat()" (click)="startEditing()">Вступить</div>
         </div>
         <div *ngIf="isEditing" class="Actions Row">
             <button class="Done" type="submit">Готово</button>
