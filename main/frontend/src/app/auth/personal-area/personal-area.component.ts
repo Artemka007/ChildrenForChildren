@@ -29,7 +29,7 @@ export class PersonalAreaComponent implements OnInit {
   // url params
   id?: string
   tab: '' | 'contacts' | 'offers' | 'edit' = ''
-  
+
   offers: IOffer[] = []
 
   constructor(
@@ -47,26 +47,26 @@ export class PersonalAreaComponent implements OnInit {
       let tab = <typeof this.tab>p["tab"],
         id = p["id"]
       this.id = id
-      if (tab === "offers") {
-        this._offer.getAllOffers(this.user?.id).subscribe(data => {
-          this.offers = data.data.offers || []
-          this.tab = "offers"
-        })
-      }
-      else if (tab) {
-        this.tab = tab
-      } else {
-        this.tab = ""
-      }
       this._store.subscribe(data => {
         this.currentUser = data.account.user
       })
-        this._account.getUser({id: p["id"]}).subscribe(data => {
-          if (data.result && data.data.user) {
-            this.user = this._account.jsonToUser(data.data)
-            console.log(data.data)
+      this._account.getUser({id: p["id"]}).subscribe(data => {
+        if (data.result && data.data.user) {
+          this.user = this._account.jsonToUser(data.data)
+          if (tab === "offers") {
+            this._offer.getAllOffers(this.user?.id).subscribe(data => {
+              this.offers = data.data.offers || []
+              this.tab = "offers"
+              console.log(this.offers)
+            })
           }
-        })
+          else if (tab) {
+            this.tab = tab
+          } else {
+            this.tab = ""
+          }
+        }
+      })
     })
 
   }
@@ -103,7 +103,7 @@ export class PersonalAreaComponent implements OnInit {
           this._ui.openWarning({message: data.message, class: "error"})
         }
       })
-    } 
+    }
     this.isEditing = false
   }
 

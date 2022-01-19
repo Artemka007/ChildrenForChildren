@@ -1,0 +1,86 @@
+<image-slider *ngIf="imageSliderIsOpen" [urls]="imagesForImageSlider" [id]="imageIdForImageSlider" (close)="imageSliderIsOpen = false"></image-slider>
+<div class="chat" *ngIf="chatIsOpen()">
+    <header class="chat__header">
+        <hamburger [isOpen]="navIsOpen" (onchange)="openNav.emit()"></hamburger>
+        <div class="chat__header__content">
+            <div class="chat__header__content__photo"><img [src]="chat?.photo || '/media/icons/profile.png'" alt="" /></div>
+            <div class="chat__header__content__info">
+                <div *ngIf="chat?.is_group" class="chat__header__content__info__title" (click)="openInfo()">{{getChatTitle()}}</div>
+                <a *ngIf="!chat?.is_group" class="chat__header__content__info__title" [routerLink]="'/profile'" [queryParams]="{id: getOtherUserInChat()?.id}">{{getChatTitle()}}</a>
+                <div *ngIf="writingUsers.length !== 0" class="chat__header__content__info__status">{{getWritingUsersString()}}</div>
+            </div>
+        </div>
+    </header>
+    <main class="chat__body" #chatBody>
+        <ng-container *ngIf="userNotBanned() && chat?.messages!.length > 0 && checkUserIsInChat()">
+            <chat-message *ngFor="let m of chat?.messages" [message]="m" [userId]="user?.id || -1" style="padding: 0 10px;" (openSlider)="openSlider($event)" #chatMessages></chat-message>
+        </ng-container>
+        <div class="chat__body__warn" *ngIf="checkUserIsInChat() && !userNotBanned()">Вы забанены модератором чата.</div>
+        <div class="chat__body__warn" *ngIf="checkUserIsInChat() && chat?.messages?.length === 0">Сообщений пока что нет.</div>
+        <div class="chat__body__warn" *ngIf="!checkUserIsInChat()">
+            Вступите в чат, чтобы увидеть сообщения.
+            <br>
+            <button class="Button" (click)="signinToChat()">Вступить</button>
+        </div>
+    </main>
+    <form class="chat__form" #chatForm="ngForm" (ngSubmit)="sendMessage()" *ngIf="userNotBanned() && checkUserIsInChat()">
+        <div class="chat__form__fields">
+            <textarea #messageField [cfcAutogrow] (ngModelChange)="writingMessage()" name="body" [(ngModel)]="message.body" placeholder="Введите сообщение" style="max-height: 300px;"></textarea>
+            <ng-container>
+                <input #uploadImg type="file" #imageUpload accept="image/*" style="display: none;" />
+                <input #uploadDoc type="file" #fileUpload accept="application/msword, text/plain, application/pdf" style="display: none;" />
+            </ng-container>
+            <div class="chat__form__fields__actions">
+                <button type="button" (click)="imageUpload.click()" class="upload-img"><i></i></button>
+                <button type="button" (click)="fileUpload.click()" class="upload-doc"><i></i></button>
+            </div>
+            <button class="send"><i></i></button>
+        </div>
+        <cfc-chat-uploader [message]="message" [inputs]="[{'type': 'img', el: uploadImg}, {'type': 'doc', el: uploadDoc}]"></cfc-chat-uploader>
+    </form>
+</div>
+<form class="information" [ngClass]="{'close': !infoIsOpen}" *ngIf="chat?.is_group" #chatEditForm="ngForm" (ngSubmit)="editChat()">
+    <hamburger [isOpen]="true" (onchange)="openInfo()"></hamburger>
+    <div class="information__content">
+        <div class="information__content__photo"><img (click)="isChatPhotoOpen = true" [src]="chat?.photo || '/media/icons/profile.png'" /></div>
+        <div class="information__content__title">{{getChatTitle()}}</div>
+        <div class="information__content__description">{{chat?.about || "Описание не написано"}}</div>
+        <input *ngIf="isEditing" name="title" class="information__content__title-edit" [(ngModel)]="chatForEdit.title" placeholder="Заголовок" />
+        <textarea *ngIf="isEditing" name="about" class="information__content__description-edit" [(ngModel)]="chatForEdit.about" placeholder="Немного о чате"></textarea>
+    </div>
+    <div *ngIf="checkUserIsInChat()" class="information__actions Column">
+        <ng-container *ngIf="!isEditing">
+            <div class="information__actions__edit" *ngIf="checkUserCanEditChat()" (click)="startEditing()">Изменить</div>
+            <div class="information__actions__report" *ngIf="!checkUserIsAdmin()">Пожаловаться</div>
+            <div class="information__actions__signout" *ngIf="!checkUserIsAdmin()" (click)="signoutFromChat()">Выйти из чата</div>
+            <div class="information__actions__invite" (click)="copyLink()">Пригласить пользователя</div>
+        </ng-container>
+        <div *ngIf="isEditing" class="Actions Row">
+            <button class="information__actions__done" type="submit">Готово</button>
+            <span class="split"></span>
+            <button class="information__actions__cancel" type="button" (click)="stopEditing()">Отменить</button>
+        </div>
+    </div>
+    <div *ngIf="!isEditing" class="information__users">
+        <a [routerLink]="'/profile'" [queryParams]="{id: u.id}" class="information__users__item" *ngFor="let u of chat?.users">
+            <div class="photo"><img src="/media/icons/profile.png" alt="" /> </div>
+            <div class="info">
+                <div class="name">{{u.id === user?.id ? "Вы" : u.first_name + " " + u.last_name}}</div>
+                <div class="status">{{u.status}}</div>
+            </div>
+            <span class="information__users__item__status" *ngIf="checkUserIsAdmin(u.id)">admin</span>
+            <span class="information__users__item__status" *ngIf="checkUserIsModer(u.id)">moder</span>
+        </a>
+    </div>
+    <div *ngIf="isEditing" class="information__users">
+        <div class="information__users__item" *ngFor="let u of chat?.users">
+            <div class="photo"><img src="/media/icons/profile.png" alt="" /> </div>
+            <div class="info">
+                <div class="name">{{u.first_name + " " + u.last_name}}</div>
+            </div>
+            <ng-container *ngIf="u.id !== user?.id">
+                <button (click)="banUser(u.id)" type="button" class="Ban" [ngClass]="{'banned': userNotBanned(undefined, u.id), 'not-banned': !userNotBanned(undefined, u.id)}"><i></i></button>
+            </ng-container>
+        </div>
+    </div>
+</form>

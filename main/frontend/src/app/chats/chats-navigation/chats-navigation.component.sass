@@ -1,0 +1,52 @@
+@import src/styles.sass
+@import src/app/chat/chat.component.sass
+
+:host
+    +flex-container(column)
+    height: 100%
+    @media screen and ( min-width: 1083px )
+        width: 400px
+        flex: 0 0 400px
+    @media screen and ( max-width: 1083px )
+        width: 100%
+        flex: 0 0 auto
+    background: var(--bg-lite-blue)
+    max-height: 100%
+    overflow: auto
+    color: #000
+    transform-origin: left
+    border-radius: 5px
+    @media screen and ( min-width: 1083px )
+        border-radius: 5px 0 0 5px
+        border-right: #b9b9b9 solid 2px
+    transition: flex .2s, transform .2s
+    &.close
+        transform: scaleX(0)
+        flex: 0 0 0
+    .chat-nav__item
+        @extend %chat-item
+        width: 100%
+        transition: opacity .2s, z-index .2s
+
+    .chat-nav__create-button
+        +flex-container(row, center, center)
+        width: 70px
+        height: 70px
+        background: #fff
+        border-radius: 100%
+        position: absolute
+        bottom: 15px
+        outline: none
+        border: none
+        box-shadow: #00000088 0 0 2px 0
+        cursor: pointer
+        transition: all .1s
+        &:hover:not(:focus)
+            box-shadow: #000000aa 0 2px 8px 0
+            transform: translateY(-5px)
+        &::before
+            font-size: 40px
+            width: 40px
+            height: 40px
+            flex: 0 0 40px
+            content: url('/media/icons/comment-plus.svg')

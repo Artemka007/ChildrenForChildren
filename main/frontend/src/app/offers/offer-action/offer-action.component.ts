@@ -4,7 +4,7 @@ import { Store } from '@ngrx/store';
 import { interval } from 'rxjs';
 import { take } from 'rxjs/operators';
 import { AppState } from '../../business';
-import { IBaseOffer, ICreateOffer, IOffer } from '../../models/offers.model';
+import { ICreateOffer } from '../../models/offers.model';
 import { OffersService } from '../../services/offers.service';
 import { UiService } from '../../services/ui.service';
 
@@ -34,7 +34,8 @@ export class OfferActionComponent implements OnInit {
     about: "",
     back: "",
     subject: {id: -1, name: ""},
-    user: -1
+    user: -1,
+    create_group_chat: false
   }
 
   subjects: {id: number, name: string}[] = []

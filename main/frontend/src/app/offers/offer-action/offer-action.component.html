@@ -47,6 +47,10 @@
                 Выберете предмет.
             </span>
         </div>
+        <div class="Field" *ngIf="action === 'create'" style="flex-direction: row;">
+            <input name="create_group_chat" id="create_group_chat" type="checkbox" [(ngModel)]="offer.create_group_chat" #createGroupChat="ngModel" />
+            <label for="create_group_chat">Создать группу</label>
+        </div>
     </div>
     <button class="Form-Container__Button" [disabled]="createOfferForm.invalid || subject.value < 0 || isLoading">{{isLoading ? "Загрузка..." : action === "edit" ? "Отредактировать" : "Создать"}}</button>
 </form>

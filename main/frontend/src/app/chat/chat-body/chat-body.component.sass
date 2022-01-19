@@ -1,0 +1,96 @@
+@import src/styles.sass
+@import src/styles.forms.sass
+
+:host
+  +flex-container()
+  width: 100%
+  height: 100%
+  .chat__header
+    +flex-container(row, center, center)
+    width: 100%
+    flex: 0 0 2
+    border-bottom: #00000050 solid 2px
+    padding: 0 15px
+    .chat__header__content
+        +flex-container(row, center, center)
+        height: 100%
+        width: 100%
+        .chat__header__content__photo
+            img
+                width: 50px
+                height: 50px
+                border-radius: 100%
+        .chat__header__content__info
+            +flex-container(column, center)
+            height: 100%
+            margin-left: 6px
+            .chat__header__content__info__title
+                color: var(--blue)
+                font-size: 18px
+                margin-bottom: 5px
+                cursor: pointer
+                text-decoration: none
+                &:hover
+                    text-decoration: underline
+            .chat__header__content__info__status
+                color: #00000070
+                font-size: 11px
+  .chat__body
+    height: 100%
+    width: 100%
+    overflow: auto
+    .chat__body__warn
+      +flex-container(column, center, center)
+      width: 100%
+      height: 100%
+      font-size: 26px
+      color: rgba(0,0,0,0.90)
+    chat-message
+        +flex-container(row)
+        width: 100%
+        margin-top: 15px
+  .chat__form
+    +flex-container(column)
+    flex: 0 0 auto
+    width: 100%
+    padding: 10px
+    border-top: #00000050 solid 2px
+    .chat__form__fields
+        +flex-container(row, flex-start, center)
+        width: 100%
+        height: 100%
+        input,
+        textarea
+            width: 100%
+            font-size: 16px
+            padding: 10px 15px
+            border: #00000050 solid 1px
+            border-radius: 10px
+            margin-right: 10px
+            resize: none
+            &:focus
+                border-color: var(--lite-blue)
+        button
+            display: flex
+            flex: 0 0 40px
+            +manage-button(40px, 40px)
+            &.send
+                i
+                    font-size: 30px
+                    content: url("/media/icons/send-message.svg")
+        .chat__form__fields__actions
+            +flex-container(row)
+            flex: 0 0 auto
+            width: auto
+            height: 40px
+            margin: 0 5px
+            button
+                margin: 0 5px
+                &.upload-img
+                    i
+                        font-size: 30px
+                        content: url("/media/icons/image-upload.svg")
+                &.upload-doc
+                    i
+                        font-size: 30px
+                        content: url("/media/icons/file-upload.svg")

@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
 @Component({
   selector: 'hamburger',
@@ -7,7 +7,7 @@ import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 })
 export class HamburgerComponent implements OnInit {
   @Input()
-  isOpen: boolean = false
+  isOpen?: boolean = false
 
   @Output()
   onchange = new EventEmitter()

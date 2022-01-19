@@ -11,10 +11,12 @@ export interface IBaseOffer {
 
 export interface IOffer extends IBaseOffer {
     user: IUser
+    chat?: number
     views_amoun: number
     is_archived: boolean
 }
 
 export interface ICreateOffer extends IBaseOffer {
     user: number
+    create_group_chat: boolean
 }

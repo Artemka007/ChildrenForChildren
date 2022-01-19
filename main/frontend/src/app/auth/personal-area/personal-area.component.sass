@@ -121,13 +121,12 @@
             width: 100%
             font-size: 16px
             margin-top: 10px
-            @media screen and ( max-width: 560px )
-                flex-direction: column
+            flex-wrap: wrap
             .Key
                 width: 80px
                 min-width: 100px
             .Description
-                width: 100%
+                width: auto
             .Edit-Description
                 +field()
                 width: 100%
@@ -139,9 +138,8 @@
             padding-top: 7px
         .Item
             +flex-container(row, space-between)
-            width: 450px
-            @media screen and ( max-width: 900px )
-                width: auto
+            flex-wrap: wrap
+            width: 100%
 
 .Profile-Navigation
     +flex-container(row)

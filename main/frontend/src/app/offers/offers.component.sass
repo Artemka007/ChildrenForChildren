@@ -41,12 +41,14 @@
             box-shadow: rgba(0,0,0,.35) 0 1px 2px 0
         transition: all .2s
 .Offers
-    +flex-container(row)
+    +flex-container(row, center)
     flex-wrap: wrap
     width: 100%
     max-height: calc(100% - 90px)
     overflow: auto
-    padding: 5px
+    padding: 15px
+    @media screen and ( max-width: 550px )
+      padding: 5px
     .Title
         font-size: 30px
         margin-bottom: 10px

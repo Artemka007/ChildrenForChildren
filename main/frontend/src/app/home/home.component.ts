@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 
 @Component({
-  selector: 'home',
+  selector: 'cfc-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.sass']
 })

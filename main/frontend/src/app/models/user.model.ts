@@ -26,7 +26,7 @@ export class User {
   get id() {
     return this._u.id
   }
-  
+
   get username() {
     return this._u.username
   }
@@ -62,8 +62,8 @@ export class User {
   get fullName() {
     return this._u.first_name + " " + this._u.last_name
   }
-  
-  
+
+
   get phone() {
     return this._u.phone
   }
@@ -99,7 +99,7 @@ export class User {
   get user_in_school_status() {
     return this._u.user_in_school_status
   }
-  
+
   set user_in_school_status(user_in_school_status: "student" | "teacher" | "parent" | "admin" | "moderator" | undefined) {
     this._u.user_in_school_status = user_in_school_status
   }
@@ -107,7 +107,7 @@ export class User {
   get country() {
     return this._u.country
   }
-  
+
   set country(country: string | undefined) {
     this._u.country = country
   }
@@ -115,7 +115,7 @@ export class User {
   get city() {
     return this._u.city
   }
-  
+
   set city(city: string | undefined) {
     this._u.city = city
   }
@@ -131,7 +131,7 @@ export class User {
   get about_me() {
     return this._u.about_me
   }
-  
+
   set about_me(about_me: string | undefined) {
     this._u.about_me = about_me
   }
@@ -147,7 +147,7 @@ export class User {
   get photo() {
     return this._u.photo
   }
-  
+
   set photo(photo: string | undefined) {
     this._u.about_me = photo
   }

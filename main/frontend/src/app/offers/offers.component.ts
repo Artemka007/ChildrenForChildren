@@ -1,9 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { catchError } from 'rxjs/operators';
 import { AppState } from '../business';
-import { IBaseOffer, ICreateOffer, IOffer } from '../models/offers.model';
+import { ICreateOffer, IOffer } from '../models/offers.model';
 import { User } from '../models/user.model';
 import { OffersService } from '../services/offers.service';
 import { UiService } from '../services/ui.service';
@@ -44,7 +43,7 @@ export class OffersComponent implements OnInit {
 
   action: "edit" | "create" = "create"
 
-  type?: string 
+  type?: string
 
   constructor(private _offers: OffersService, private _store: Store<AppState>, private _ui: UiService, private _route: ActivatedRoute) {
     _store.subscribe(data => {
@@ -57,7 +56,7 @@ export class OffersComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.requestToGetAllOffers()
+    !this.isframe && this.requestToGetAllOffers()
   }
 
   offerToAcceptType() {
@@ -65,7 +64,7 @@ export class OffersComponent implements OnInit {
   }
 
   requestToGetAllOffers() {
-    !this.offers && this._offers.getAllOffers().subscribe(
+    this._offers.getAllOffers().subscribe(
       (data) => {
         if (data.result && data.data.offers) {
           this.offers = data.data.offers
@@ -95,7 +94,10 @@ export class OffersComponent implements OnInit {
 
   search(q: TQuery) {
     this._offers.filterOffers(q).subscribe(data => {
-      if (data.data.offers) this.offers = data.data.offers
+      if (data.data.offers) {
+        this.offers = data.data.offers
+        this.detailsIsOpen = false
+      }
       else console.error(data.message)
     })
   }

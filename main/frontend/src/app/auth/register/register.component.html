@@ -1,4 +1,4 @@
-<img src="/media/logo.png" alt="" />
+<img src="/media/lt-logo.svg" alt="" />
 <form class="Form-Container" #registerForm="ngForm" (ngSubmit)="register()">
     <account-nav style="width: 100%;"></account-nav>
     <div class="Form-Container__Title">Регистрация</div>
@@ -13,7 +13,7 @@
                 Максимальная длина - 64 символа
             </span>
             <span *ngIf="username.errors?.pattern && username.touched">
-                Ник может включать сиволы  @/./+/-/_ 
+                Ник не может включать спец сиволы, кроме  @/./+/-/_
             </span>
         </div>
         <div class="Field">

@@ -1,0 +1,18 @@
+<div class="message" *ngIf="message" [style.justifyContent]="checkMessageIsFromUser() ? 'flex-end' : 'flex-start'">
+    <span class="message__is-read" *ngIf="!checkUserIsReadMessage() && checkMessageIsFromUser()"></span>
+    <div class="message__photo"></div>
+    <div class="message__content" [ngClass]="{'not-from-user': !checkMessageIsFromUser()}">
+        <div class="message__content__user">{{checkMessageIsFromUser() ? "Вы" : message.user.username}}</div>
+        <div class="message__content__images" *ngFor="let i of message.imgs">
+            <div class="message__content__images__item" [style.backgroundImage]="'url(' + i.file + ')'" (click)="openImagesSlider(message.imgs.indexOf(i))"></div>
+        </div>
+        <pre class="message__content__body">{{message.body}}</pre>
+        <div class="message__content__docs" *ngIf="message.docs.length > 0">
+            <a [href]="i.file" class="message__content__docs__item" *ngFor="let i of message.docs">
+                <div class="message__content__docs__item__icon"><i></i></div>
+                <div class="message__content__docs__item__name">{{i.name ? spliceFileURL(i.name) : spliceFileURL(i.file)}}</div>
+            </a>
+        </div>
+        <div class="message__content__date">{{message.date | date : "dd.MM.y HH:mm"}}</div>
+    </div>
+</div>

@@ -22,4 +22,20 @@ export class UiService {
   closeWarning(warning: Warning) {
     this._store.dispatch(new CloseWarningWindow(warning))
   }
+
+  openBlackout() {
+    let blackout = document.getElementById("blackout")
+    if(blackout) {
+      blackout.style.zIndex = '10'
+      blackout.style.opacity = '1'
+    }
+  }
+
+  closeBlackout() {
+    let blackout = document.getElementById("blackout")
+    if(blackout) {
+      blackout.style.zIndex = '-1'
+      blackout.style.opacity = '0'
+    }
+  }
 }

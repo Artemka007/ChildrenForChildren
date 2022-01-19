@@ -1,16 +1,14 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Subject } from 'rxjs';
-import { IChat, ICreateChat, ICreateMessage, IEditChat } from '../models/chat.model';
-import { WebsocketService } from './websocket.service';
-import { APIResponse } from '../models/api.model';
-import { IUser, User } from '../models/user.model';
-import { IOffer } from '../models/offers.model';
+import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
+import { Subject } from 'rxjs';
 import { AppState } from '../business';
 import { SetUserChats } from '../business/actions/chats.actions';
-import { Router } from '@angular/router';
+import { APIResponse } from '../models/api.model';
+import { IChat, ICreateChat, ICreateMessage, IEditChat } from '../models/chat.model';
 import { UiService } from './ui.service';
+import { WebsocketService } from './websocket.service';
 
 export type WSMessage = {
   readonly action: "send_message"
@@ -30,7 +28,7 @@ export class ChatService {
 
   constructor(
     private _messages: Subject<WSMessage>,
-    private _http: HttpClient, 
+    private _http: HttpClient,
     private _ws: WebsocketService,
     private _store: Store<AppState>,
     private _router: Router,
@@ -110,7 +108,6 @@ export class ChatService {
   }
 
   sendMessage(message: ICreateMessage) {
-    console.log("----SEND_MESSAGE_IN_SERVICE-----", "\n", message.body)
     this._messages.next({"action": "send_message", message})
   }
 
@@ -137,7 +134,7 @@ export class ChatService {
       }
     })
   }
-  
+
   private _getCookie(name: string): string {
     let ca: Array<string> = document.cookie.split(';')
     let caLen: number = ca.length

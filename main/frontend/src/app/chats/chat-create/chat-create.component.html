@@ -1,4 +1,3 @@
-<div class="Blackout-Container"></div>
 <form *ngIf="chat" class="Form-Container Dialog" #createChatForm="ngForm" (ngSubmit)="createChat()">
     <div class="Header">
         <div class="Title">{{"Создать чат"}}</div>
@@ -6,19 +5,13 @@
     </div>
     <div class="Form-Container__Fields-Container">
         <div class="Field">
-            <input [name]="'title'" required [placeholder]="'Заголовок'" [(ngModel)]="chat.title" #title="ngModel" max_length="64" />
-            <span *ngIf="title.errors?.required && title.touched">
-                Обязательное поле.
-            </span>
+            <input [name]="'title'" [placeholder]="'Заголовок'" [(ngModel)]="chat.title" #title="ngModel" max_length="64" />
             <span *ngIf="title.errors?.max_length && title.touched">
                 Максимальная длина - 64 символа.
             </span>
         </div>
         <div class="Field">
-            <input [name]="'about'" required [placeholder]="'О чате'" [(ngModel)]="chat.about" #about="ngModel" max_length="256" />
-            <span *ngIf="about.errors?.required && about.touched">
-                Обязательное поле.
-            </span>
+            <input [name]="'about'" [placeholder]="'О чате'" [(ngModel)]="chat.about" #about="ngModel" max_length="256" />
             <span *ngIf="about.errors?.max_length && about.touched">
                 Максимальная длина - 256 символа.
             </span>

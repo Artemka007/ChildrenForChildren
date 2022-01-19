@@ -1,10 +1,11 @@
 <question *ngIf="questionIsOpen && user" [user]="user" (onclose)="questionIsOpen = false"></question>
 <navbar [Content]="Content" *ngIf="user"></navbar>
-<div #Content class="C " [style.marginLeft]="user ? '300px' : 0 ">
+<div #Content class="cnt " [style.marginLeft]="user ? '300px' : 0 ">
     <headerbar *ngIf="user"></headerbar>
     <div style="padding-top: 80px;width:100%;height:100%;display:flex;">
         <router-outlet></router-outlet>
     </div>
 </div>
 <warning *ngFor="let i of warnings" [warning]="i" [ngClass]="i?.class || ''"></warning>
-<div class="Info-Question-Container" (click)="questionIsOpen = true"></div>
+<button *ngIf="user" class="q-btn" (click)="questionIsOpen = true"></button>
+<div id="blackout" aria-label="Blackout container" aria-hidden="true" style="position: fixed; z-index: -1; top: 0; left: 0; width: 100%; height: 100vh; background: rgba(0,0,0,0.7); opacity: 0; "></div>

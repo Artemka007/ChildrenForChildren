@@ -1,0 +1,14 @@
+<div class="uploader__item" *ngFor="let i of uploadigFiles">
+    <div class="uploader__item__icon">
+        <i [class]="i.type === 'img' ? 'Upload-Img' : 'Upload-Doc'"></i>
+    </div>
+    <div class="uploader__item__name">{{i.name}}</div>
+    <div class="uploader__item__progress Column End" style="width: 100%;">
+        <progress-bar [progress]="i.progress" [progressColor]="i.progressColor"></progress-bar>
+        <div class="uploader__item__progress__percents">{{i.progress.toString() + "%"}}</div>
+    </div>
+    <div class="uploader__item__actions">
+        <button type="button" *ngIf="i.progress < 100" class="break-upload" (click)="breakUpload()"><i></i></button>
+        <button type="button" *ngIf="i.progress === 100" class="delete-file" (click)="deleteUploadedFile(i.type, i.id)"><i></i></button>
+    </div>
+</div>

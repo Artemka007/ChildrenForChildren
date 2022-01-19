@@ -1,0 +1,248 @@
+@import src/styles.sass
+@import src/styles.forms.sass
+/* Пользователь в чатовой информации или чат в навигации */
+%chat-item
+    +flex-container(row, flex-start, center)
+    height: 70px
+    width: 100%
+    border-bottom: #00000050 solid 1px
+    padding: 0 10px
+    &:hover
+        background: #00000007
+        cursor: pointer
+    &:last-child
+        border-bottom: none
+    .photo
+        display: flex
+        flex: 0 0 50px
+        width: 50px
+        height: 50px
+        margin-right: 10px
+        img
+            width: 100%
+            height: 100%
+            border-radius: 100%
+    .info
+        +flex-container(column, center, flex-start)
+        width: 100%
+        margin: 0
+        background: #00000000
+        .name
+            color: #000
+            font-size: 18px
+            text-decoration: none
+        .status
+            color: #000
+            font-size: 14px
+:host
+    +flex-container(row)
+    height: 100%
+    width: 100%
+    background-color: #fff
+.chat
+  +flex-container()
+  width: 100%
+  height: 100%
+  .chat__header
+    +flex-container(row, center, center)
+    width: 100%
+    flex: 0 0 2
+    border-bottom: #00000050 solid 2px
+    padding: 0 15px
+    .chat__header__content
+        +flex-container(row, center, center)
+        height: 100%
+        width: 100%
+        .chat__header__content__photo
+            img
+                width: 50px
+                height: 50px
+                border-radius: 100%
+        .chat__header__content__info
+            +flex-container(column, center)
+            height: 100%
+            margin-left: 6px
+            .chat__header__content__info__title
+                color: var(--blue)
+                font-size: 18px
+                margin-bottom: 5px
+                cursor: pointer
+                text-decoration: none
+                &:hover
+                    text-decoration: underline
+            .chat__header__content__info__status
+                color: #00000070
+                font-size: 11px
+  .chat__body
+    height: 100%
+    width: 100%
+    overflow: auto
+    .chat__body__warn
+      +flex-container(column, center, center)
+      width: 100%
+      height: 100%
+      font-size: 26px
+      color: rgba(0,0,0,0.90)
+    chat-message
+        +flex-container(row)
+        width: 100%
+        margin-top: 15px
+  .chat__form
+    +flex-container(column)
+    flex: 0 0 auto
+    width: 100%
+    padding: 10px
+    border-top: #00000050 solid 2px
+    .chat__form__fields
+        +flex-container(row, flex-start, center)
+        width: 100%
+        height: 100%
+        input,
+        textarea
+            width: 100%
+            font-size: 16px
+            padding: 10px 15px
+            border: #00000050 solid 1px
+            border-radius: 10px
+            margin-right: 10px
+            resize: none
+            &:focus
+                border-color: var(--lite-blue)
+        button
+            display: flex
+            flex: 0 0 40px
+            +manage-button(40px, 40px)
+            &.send
+                i
+                    font-size: 30px
+                    content: url("/media/icons/send-message.svg")
+        .chat__form__fields__actions
+            +flex-container(row)
+            flex: 0 0 auto
+            width: auto
+            height: 40px
+            margin: 0 5px
+            button
+                margin: 0 5px
+                &.upload-img
+                    i
+                        font-size: 30px
+                        content: url("/media/icons/image-upload.svg")
+                &.upload-doc
+                    i
+                        font-size: 30px
+                        content: url("/media/icons/file-upload.svg")
+.information
+  +flex-container(column)
+  height: 100%
+  @media screen and ( min-width: 1083px )
+      width: 400px
+      flex: 0 0 400px
+  @media screen and ( max-width: 1083px )
+      width: 100%
+      flex: 0 0 auto
+  background: var(--bg-lite-blue)
+  transform-origin: right
+  hamburger
+      position: absolute
+  transition: width .2s, flex .2s, transform .2s
+  &.close
+      transform: scaleX(0)
+      width: 0
+      flex: 0 0 0
+  .information__content,
+  .information__actions,
+  .information__users
+      background: #fff
+      margin-bottom: 20px
+      width: 100%
+      transition: opacity .2s, z-index .2s, width .2s
+  .information__content
+      +flex-container(column, flex-start, center)
+      .information__content__photo
+          width: 200px
+          height: 200px
+          border-radius: 100%
+          margin: 10px 0
+          img
+              width: 200px
+              height: 200px
+              border-radius: 100%
+      .information__content__title
+          color: var(--blue)
+          font-size: 28px
+          margin: 10px 0
+      .information__content__description
+          padding: 10px
+          width: 100%
+          font-size: 16px
+      .information__content__title-edit,
+      .information__content__description-edit
+          +field()
+          font-size: 16px
+      .information__content__title-edit
+          font-size: 28px
+
+  .information__actions
+      .information__actions__edit,
+      .information__actions__report,
+      .information__actions__signout,
+      .information__actions__done,
+      .information__actions__cancel,
+      .information__actions__invite
+          +flex-container(row, flex-start, center)
+          color: var(--blue)
+          font-size: 20px
+          padding: 10px 15px
+          width: 100%
+          outline: none
+          border: none
+          background: #fff
+          &::before
+              font-size: 28px
+              width: 28px
+              height: 28px
+              margin-right: 10px
+          &:hover
+              background: #00000007
+              cursor: pointer
+      .information__actions__edit::before
+          content: url("/media/icons/edit-alt.svg")
+      .information__actions__report::before
+          content: url("/media/icons/comment-exclamation.svg")
+      .information__actions__signout::before
+          content: url("/media/icons/sign-out-alt.svg")
+      .information__actions__done::before
+          content: url("/media/icons/check-circle.svg")
+      .information__actions__cancel::before
+          content: url("/media/icons/times-circle.svg")
+      .information__actions__invite::before
+          content: url("/media/icons/user-plus.svg")
+      .separator
+          flex: 0 0 2px
+          height: 100%
+          background: var(--blue)
+  .information__users
+      +flex-container()
+      .information__users__item
+          @extend %chat-item
+          .information__users__item__status
+              height: 100%
+              color: var(--red)
+              font-size: 12px
+              padding: 5px 10px
+          .information__users__item__ban-btn
+              +flex-container(row)
+              flex: 0 0 30px
+              padding: 5px
+              +manage-button(30px, 30px)
+              &.not-banned
+                  i
+                      content: url("/media/icons/unlock-alt.svg")
+              &.banned
+                  i
+                      content: url("/media/icons/padlock.svg")
+              i
+                  font-size: 20px
+                  width: 20px
+                  height: 20px

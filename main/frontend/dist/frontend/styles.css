@@ -6,14 +6,14 @@ html, body {
   padding: 0;
 }
 
-.Row {
+.row {
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
   align-items: flex-start;
 }
 
-.Column {
+.column {
   display: flex;
   flex-direction: column;
   justify-content: flex-start;

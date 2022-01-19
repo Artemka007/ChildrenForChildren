@@ -4089,6 +4089,85 @@ function fromArray(input, scheduler) {
 
 /***/ }),
 
+/***/ 878:
+/*!*********************************************************************!*\
+  !*** ./node_modules/rxjs/_esm2015/internal/observable/fromEvent.js ***!
+  \*********************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "fromEvent": () => (/* binding */ fromEvent)
+/* harmony export */ });
+/* harmony import */ var _Observable__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../Observable */ 1590);
+/* harmony import */ var _util_isArray__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../util/isArray */ 9845);
+/* harmony import */ var _util_isFunction__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../util/isFunction */ 8357);
+/* harmony import */ var _operators_map__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../operators/map */ 8377);
+
+
+
+
+const toString = (() => Object.prototype.toString)();
+function fromEvent(target, eventName, options, resultSelector) {
+    if ((0,_util_isFunction__WEBPACK_IMPORTED_MODULE_0__.isFunction)(options)) {
+        resultSelector = options;
+        options = undefined;
+    }
+    if (resultSelector) {
+        return fromEvent(target, eventName, options).pipe((0,_operators_map__WEBPACK_IMPORTED_MODULE_1__.map)(args => (0,_util_isArray__WEBPACK_IMPORTED_MODULE_2__.isArray)(args) ? resultSelector(...args) : resultSelector(args)));
+    }
+    return new _Observable__WEBPACK_IMPORTED_MODULE_3__.Observable(subscriber => {
+        function handler(e) {
+            if (arguments.length > 1) {
+                subscriber.next(Array.prototype.slice.call(arguments));
+            }
+            else {
+                subscriber.next(e);
+            }
+        }
+        setupSubscription(target, eventName, handler, subscriber, options);
+    });
+}
+function setupSubscription(sourceObj, eventName, handler, subscriber, options) {
+    let unsubscribe;
+    if (isEventTarget(sourceObj)) {
+        const source = sourceObj;
+        sourceObj.addEventListener(eventName, handler, options);
+        unsubscribe = () => source.removeEventListener(eventName, handler, options);
+    }
+    else if (isJQueryStyleEventEmitter(sourceObj)) {
+        const source = sourceObj;
+        sourceObj.on(eventName, handler);
+        unsubscribe = () => source.off(eventName, handler);
+    }
+    else if (isNodeStyleEventEmitter(sourceObj)) {
+        const source = sourceObj;
+        sourceObj.addListener(eventName, handler);
+        unsubscribe = () => source.removeListener(eventName, handler);
+    }
+    else if (sourceObj && sourceObj.length) {
+        for (let i = 0, len = sourceObj.length; i < len; i++) {
+            setupSubscription(sourceObj[i], eventName, handler, subscriber, options);
+        }
+    }
+    else {
+        throw new TypeError('Invalid event target');
+    }
+    subscriber.add(unsubscribe);
+}
+function isNodeStyleEventEmitter(sourceObj) {
+    return sourceObj && typeof sourceObj.addListener === 'function' && typeof sourceObj.removeListener === 'function';
+}
+function isJQueryStyleEventEmitter(sourceObj) {
+    return sourceObj && typeof sourceObj.on === 'function' && typeof sourceObj.off === 'function';
+}
+function isEventTarget(sourceObj) {
+    return sourceObj && typeof sourceObj.addEventListener === 'function' && typeof sourceObj.removeEventListener === 'function';
+}
+
+
+/***/ }),
+
 /***/ 1384:
 /*!********************************************************************!*\
   !*** ./node_modules/rxjs/_esm2015/internal/observable/interval.js ***!

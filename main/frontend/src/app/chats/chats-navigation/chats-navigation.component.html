@@ -1,0 +1,9 @@
+<a *ngFor="let c of chats" [routerLink]="'/chats'" [queryParams]="{id: c.id}" class="chat-nav__item">
+    <div class="photo"><img [src]="c.photo || '/media/icons/profile.png'" alt="" /> </div>
+    <div class="info">
+        <div class="name">{{getChatName(c)}}</div>
+        <div class="status">{{getLastMessage(c)}}</div>
+    </div>
+</a>
+<button class="chat-nav__create-button" [style.left]="(left  + 30).toString() + 'px'" (click)="startChatCreating = true"></button>
+<chat-create *ngIf="startChatCreating" (onclose)="startChatCreating = false" [user]="user"></chat-create>

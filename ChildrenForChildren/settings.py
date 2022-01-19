@@ -13,10 +13,7 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 import os
 from pathlib import Path
 
-from dotenv import load_dotenv
-import os
-
-load_dotenv()
+from .secret import *
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -37,8 +34,8 @@ ALLOWED_HOSTS = ['www.children-for-children.ru', 'children-for-children.ru', '12
 # Application definition
 
 INSTALLED_APPS = [
-    #'jet.dashboard',
-    #'jet',
+    'jet.dashboard',
+    'jet',
     'channels',
     'main',
     'account',
@@ -85,14 +82,15 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'ChildrenForChildren.wsgi.application'
-ASGI_APPLICATION = 'ChildrenForChildren.routing.application'
+ASGI_APPLICATION = 'ChildrenForChildren.websocket.application'
 
 CHANNEL_LAYERS = {
     'default': {
-        'BACKEND': 'channels_redis.core.RedisChannelLayer',
-        'CONFIG': {
-            "hosts": [('172.20.0.1', 6379)],
-        },
+        #'BACKEND': 'channels_redis.core.RedisChannelLayer',
+        #'CONFIG': {
+        #    "hosts": [('172.20.0.1', 6379)],
+        #},
+        'BACKEND': 'channels.layers.InMemoryChannelLayer'
     }
 }
 
@@ -113,10 +111,10 @@ else:
     DATABASES = {
         'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': "postgres",
+        'NAME': "childrenforchildren",
         'USER': "postgres",
-        'PASSWORD': os.getenv("POSTGRES_PASSWORD"),
-        'HOST': 'db',
+        'PASSWORD': POSTGRES_PASSWORD,
+        'HOST': 'localhost',
         'PORT': 5432,
         }
     }
@@ -159,12 +157,9 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
 STATIC_URL = '/static/'
-if DEBUG == True:
-    STATIC_ROOT = os.path.join(BASE_DIR, 'main/frontend/dist/frontend')
-else:
-    STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 STATICFILES_DIRS = [
-    #BASE_DIR / "main/frontend/dist/frontend",
+    BASE_DIR / "main/frontend/dist/frontend",
 ]
 
 MEDIA_URL = '/media/'
@@ -173,7 +168,6 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
-from .secret import *
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field

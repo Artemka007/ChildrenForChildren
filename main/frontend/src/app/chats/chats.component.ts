@@ -1,15 +1,14 @@
 import { Component, ElementRef, OnInit, QueryList, ViewChild, ViewChildren } from '@angular/core';
-import { IChat, ICreateMessage, IEditChat } from '../models/chat.model';
-import { ChatService } from '../services/chat.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
+import { interval } from 'rxjs';
+import { take } from 'rxjs/operators';
 import { AppState } from '../business';
-import { IUser, User } from '../models/user.model';
 import { SetUserChats } from '../business/actions/chats.actions';
-import { ChatMessageComponent } from './chat-message/chat-message.component';
-import { HttpEventType } from '@angular/common/http';
-import { interval, Subscription } from 'rxjs';
-import { map, take } from 'rxjs/operators';
+import { ChatMessageComponent } from '../chat/chat-message/chat-message.component';
+import { IChat, ICreateMessage, IEditChat } from '../models/chat.model';
+import { IUser, User } from '../models/user.model';
+import { ChatService } from '../services/chat.service';
 import { UiService } from '../services/ui.service';
 
 @Component({
@@ -26,7 +25,7 @@ export class ChatsComponent implements OnInit {
 
   @ViewChild("messageField")
   messageField?: ElementRef<HTMLTextAreaElement>
-  
+
   fieldHeight: number = 0
 
   writingUsers: IUser[] = []
@@ -36,7 +35,7 @@ export class ChatsComponent implements OnInit {
   chat?: IChat
   chats: IChat[] = []
   chatInfoIsOpen: boolean = false
-  chatNavIsOpen: boolean = false
+  navIsOpen: boolean = true
 
   message: ICreateMessage = {
     user: -1,
@@ -88,9 +87,10 @@ export class ChatsComponent implements OnInit {
             let {title, about, users, banned_list, moderators, is_private} = this.chat
             this.chatForEdit = {photo: undefined, title, about, users: users.map(i => {return i.id}), moderators, banned_list, is_private}
             this.message["chat"] = id
-            this.chatBody && this.scroll(this.chatBody.nativeElement)
-            this.autogrow()
-            //this._chat.readMessage(id)
+            //this.chatBody && this.scroll(this.chatBody.nativeElement)
+            //this.autogrow()
+            //this.readMessage()
+            this.navIsOpen = false
           } else  {
             this._chat.getChatById(id).subscribe(data => {
               if (data.data.chat) {
@@ -103,7 +103,7 @@ export class ChatsComponent implements OnInit {
             })
           }
         } else {
-          this.chatNavIsOpen = true
+          this.navIsOpen = true
         }
       })
     })
@@ -168,6 +168,10 @@ export class ChatsComponent implements OnInit {
     this._chat.writingMessage(this.user?.id || -1)
   }
 
+  readMessage() {
+    this._chat.readMessage(this.chat?.id || -1)
+  }
+
   autogrow(){
     if (this.messageField) {
       let textArea = this.messageField.nativeElement
@@ -176,7 +180,7 @@ export class ChatsComponent implements OnInit {
       textArea.style.height = textArea.scrollHeight + 'px';
     }
   }
-  
+
 
   scroll(el: HTMLElement) {
     el.scrollTop = el.scrollHeight
@@ -226,6 +230,7 @@ export class ChatsComponent implements OnInit {
       else this._ui.openWarning({"class": "error", "message": data.message})
     })
   }
+
   signoutFromChat() {
     this.chat && this._chat.signout(this.chat.id).subscribe(data => {
       if (data.result) {
@@ -280,9 +285,9 @@ export class ChatsComponent implements OnInit {
     return msg.length < 30 ? msg : msg.substring(0, 30) + "..."
   }
 
-  setChatNavIsOpen() {
-    this.chatNavIsOpen = !this.chatNavIsOpen
-    if (this.chatNavIsOpen && window.innerWidth < 1183) {
+  openNav() {
+    this.navIsOpen = !this.navIsOpen
+    if (this.navIsOpen && window.innerWidth < 1183) {
       this.chatInfoIsOpen = false
     }
   }
@@ -290,12 +295,12 @@ export class ChatsComponent implements OnInit {
   setChatInfoIsOpen() {
     this.chatInfoIsOpen = !this.chatInfoIsOpen
     if (this.chatInfoIsOpen && window.innerWidth < 1183) {
-      this.chatNavIsOpen = false
+      this.navIsOpen = false
     }
   }
 
   chatIsOpen() {
-    return window.innerWidth > 1183
+    return window.innerWidth > 1183 || !this.navIsOpen
   }
 
   checkUserNotIsBanned(chat?: IChat) {

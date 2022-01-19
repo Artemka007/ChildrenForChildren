@@ -1,16 +1,19 @@
 import datetime
 
+from api.mixins import ProjectAPIView, SearchMixin
+from chat.models import Chat
+from chat.serializer import CreateChatSerializer
+from django.core.exceptions import PermissionDenied
 from django.shortcuts import render
 from rest_framework import serializers
 from rest_framework.generics import GenericAPIView
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.views import APIView, Response
 
-from api.mixins import ProjectAPIView, SearchMixin
-from .serializers import CreateOfferMainSerializer, OfferMainSerializer, SubjectSerializer
 from .models import OffersMain, Subject
+from .serializers import (CreateOfferMainSerializer, OfferMainSerializer,
+                          SubjectSerializer)
 
-from django.core.exceptions import PermissionDenied
 
 class OffersMainView(ProjectAPIView):
     queryset = OffersMain.objects.all()
@@ -27,11 +30,19 @@ class OffersMainView(ProjectAPIView):
         serializer = self.get_serializer(offers, many=True)
         return self.get_response(True, "Всё прошло успешно", {"offers": serializer.data})
 
-    def post(self, request):    #create view
+    def post(self, request):
+        data: dict = request.data
+        create_group_chat = data.get("create_group_chat")
         if not request.user.is_authenticated:
             raise PermissionDenied("Пользователь не авторизован.")
         request.user.online_date = datetime.datetime.now()
-        serializer = CreateOfferMainSerializer(data=request.data)
+        if create_group_chat:
+            chat = Chat.objects.create(title=f'Предложение {data.get("title")}', is_group=True)
+            chat.users.add(request.user)
+            chat.admins.add(request.user)
+            chat.save()
+            data['chat'] = chat.id
+        serializer = CreateOfferMainSerializer(data=data)
         if serializer.is_valid():
             serializer.save()
             return self.get_response(True, "Всё прошло успешно", {"offer": self.get_serializer(serializer.instance).data})

@@ -1,5 +1,7 @@
+from chat.models import Chat
 from django.contrib.auth import get_user_model
 from django.db import models
+
 
 class Subject(models.Model):
     name = models.CharField(max_length=64)
@@ -23,6 +25,8 @@ class OffersMain(models.Model): #main module
     about = models.TextField()# the content of the offer
     back = models.TextField()# what do you want back
     date = models.DateTimeField(auto_now_add=True)# when the is was published/changed
+
+    chat = models.OneToOneField(Chat, on_delete=models.CASCADE, related_name='offer', null=True, blank=True)
     
     # user
     user = models.ForeignKey(get_user_model(), on_delete=models.CASCADE, related_name='offers') # by who published

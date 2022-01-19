@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
 import { IUser } from '../models/user.model';
 import { AccountService, SearchUserQuery } from '../services/account.service';
@@ -37,7 +37,10 @@ export class SearchUsersComponent implements OnInit {
 
   search(q: SearchUserQuery) {
     this._account.searchUser(q).subscribe(data => {
-      if (data.data.users) this.users = data.data.users
+      if (data.data.users) {
+        this.users = data.data.users
+        this.detailsIsOpen = false
+      }
       else console.error(data.message)
     })
   }

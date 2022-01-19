@@ -1,14 +1,13 @@
 import datetime
 
-from django.shortcuts import render
-
-from rest_framework.views import APIView, Response
+from api.mixins import ProjectAPIView
 from django.db.models import Count
+from django.shortcuts import render
+from rest_framework.views import APIView, Response
 
 from .models import *
 from .serializer import *
 
-from api.mixins import ProjectAPIView
 
 class ChatView(APIView):
     def get(self, request):
@@ -31,8 +30,8 @@ class ChatView(APIView):
     def post(self, request):
         if not request.user.is_authenticated:
             return Response({"result": False, "message": "Пользователь не авторизован.", "data": {}})
-        ig_group = request.data.get("is_group")
-        if ig_group:
+        is_group = request.data.get("is_group")
+        if is_group:
             serializer = CreateChatSerializer(data=request.data)
             if serializer.is_valid():
                 serializer.save()

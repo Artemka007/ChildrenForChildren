@@ -4,12 +4,12 @@ html, body
 
 $nav_w: 300px
 $header_h: 70px
-    
+
 =flex-container($dir: column, $jc: flex-start, $ai: flex-start)
     display: flex
     flex-direction: $dir
     justify-content: $jc
-    align-items: $ai 
+    align-items: $ai
 
 =manage-button($w, $h, $fg: #000, $bg: transparent)
     +flex-container(row, center, center)
@@ -40,10 +40,10 @@ $header_h: 70px
     &:focus:not(:disabled)
         box-shadow: inset #00000050 0 1px 4px 0
 
-.Row
+.row
     +flex-container(row)
 
-.Column
+.column
     +flex-container()
 
 .End

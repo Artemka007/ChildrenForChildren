@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Router } from '@angular/router';
 import { IOffer } from '../../models/offers.model';
 import { User } from '../../models/user.model';
 import { ChatService } from '../../services/chat.service';
@@ -27,7 +28,8 @@ export class OfferComponent implements OnInit {
 
   constructor(
     private _offer: OffersService,
-    private _chat: ChatService
+    private _chat: ChatService,
+    private _router: Router
   ) { }
 
   ngOnInit(): void {
@@ -51,7 +53,7 @@ export class OfferComponent implements OnInit {
   }
 
   getMutualChat() {
-    this._chat.getMutualChat(this.user?.id, this.offer?.user.id)
+    this.offer?.chat ? this._router.navigateByUrl(`/chats?id=${this.offer?.chat}`) : this._chat.getMutualChat(this.user?.id, this.offer?.user.id)
   }
 
   userIsEqualAuthor() {

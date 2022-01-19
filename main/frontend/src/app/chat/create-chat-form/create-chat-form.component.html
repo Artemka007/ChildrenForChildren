@@ -1,0 +1,29 @@
+<form *ngIf="chat" class="Form-Container Dialog" #createChatForm="ngForm" (ngSubmit)="createChat()">
+    <div class="Header">
+        <div class="Title">{{"Создать чат"}}</div>
+        <button class="Close" type="button" (click)="close()">&times;</button>
+    </div>
+    <div class="Form-Container__Fields-Container">
+        <div class="Field">
+            <input [name]="'title'" [placeholder]="'Заголовок'" [(ngModel)]="chat.title" #title="ngModel" max_length="64" />
+            <span *ngIf="title.errors?.max_length && title.touched">
+              Максимальная длина - 64 символа.
+          </span>
+        </div>
+        <div class="Field">
+            <input [name]="'about'" [placeholder]="'О чате'" [(ngModel)]="chat.about" #about="ngModel" max_length="256" />
+            <span *ngIf="about.errors?.max_length && about.touched">
+              Максимальная длина - 256 символа.
+          </span>
+        </div>
+        <div class="Field">
+            <label>Кто может редактировать?</label>
+            <select [name]="'who_can_edit_chat'" [(ngModel)]="chat.who_can_edit_chat" #who_can_edit_chat="ngModel">
+              <option value="everybody">Все</option>
+              <option value="admins_and_moders">Модераторы и админы</option>
+              <option value="admins">Только админы</option>
+          </select>
+        </div>
+    </div>
+    <button class="Form-Container__Button" [disabled]="createChatForm.invalid">{{isLoading ? "Загрузка..." : "Создать"}}</button>
+</form>

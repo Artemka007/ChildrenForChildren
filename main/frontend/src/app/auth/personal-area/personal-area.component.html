@@ -4,7 +4,7 @@
     <!-- User card -->
     <div class="Profile__Card Container">
         <div class="Tools">
-            <span class="Item">
+            <span class="Item" *ngIf="checkUser()">
                 <a class="Edit-Btn" routerLink="/profile" [queryParams]="{id, tab: 'edit'}"></a>
             </span>
             <span class="Item" *ngIf="!checkUser()">

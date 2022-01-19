@@ -1,8 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { catchError } from 'rxjs/operators';
 import { APIResponse } from '../models/api.model';
-import { IBaseOffer, ICreateOffer, IOffer } from '../models/offers.model';
+import { ICreateOffer, IOffer } from '../models/offers.model';
 import { TQuery } from '../offers/offers.component';
 
 @Injectable({
@@ -65,7 +64,7 @@ export class OffersService {
     })
     return sub
   }
-  
+
   private _getCookie(name: string): string {
     let ca: Array<string> = document.cookie.split(';')
     let caLen: number = ca.length
