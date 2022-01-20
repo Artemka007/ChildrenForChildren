@@ -1,14 +1,15 @@
 from django.urls import path
 from django.urls.conf import include
-from .views import *
 from offers.views import *
 
+from .views import *
 
 urlpatterns = [
     path("", check_is_auth_index),
     path("news", check_is_auth_index),
     path("home", check_is_auth_index),
     path("chats", check_is_auth_index),
+    path("chats/<int:id>", check_is_auth_index),
     path("users", check_is_auth_index),
     path("login", check_user_is_not_auth_index),
     path("logout", logout_user_index),

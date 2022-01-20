@@ -1,16 +1,16 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { ChatsComponent } from './chats/chats.component';
-import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './auth/login/login.component';
 import { LogoutComponent } from './auth/logout/logout.component';
-import { OffersComponent } from './offers/offers.component';
 import { PersonalAreaComponent } from './auth/personal-area/personal-area.component';
 import { RegisterComponent } from './auth/register/register.component';
 import { ResetPasswordConfirmComponent } from './auth/reset-password-confirm/reset-password-confirm.component';
 import { ResetPasswordComponent } from './auth/reset-password/reset-password.component';
-import { SearchUsersComponent } from './search-users/search-users.component';
+import { ChatsComponent } from './chats/chats.component';
+import { HomeComponent } from './home/home.component';
 import { NewsComponent } from './news/news.component';
+import { OffersComponent } from './offers/offers.component';
+import { SearchUsersComponent } from './search-users/search-users.component';
 
 const routes: Routes = [
  {path: "home", component: HomeComponent},
@@ -22,6 +22,7 @@ const routes: Routes = [
  {path: "profile", component: PersonalAreaComponent},
  {path: "users", component: SearchUsersComponent},
  {path: "chats", component: ChatsComponent},
+ {path: "chats/:id", component: ChatsComponent},
  {path: "news", component: NewsComponent},
  {path: "offers", component: OffersComponent},
 ];

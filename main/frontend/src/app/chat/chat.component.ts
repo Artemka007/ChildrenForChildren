@@ -1,4 +1,5 @@
 import { Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { interval } from 'rxjs';
 import { take } from 'rxjs/operators';
@@ -42,6 +43,8 @@ export class ChatComponent implements OnInit {
 
   infoIsOpen: boolean = false
 
+  chatLoading: boolean = false
+
   message: ICreateMessage = {
     user: this.user?.id || -1,
     chat: this.chat?.id || -1,
@@ -62,10 +65,25 @@ export class ChatComponent implements OnInit {
   imageSliderIsOpen: boolean = false
 
   constructor (
+    private _route: ActivatedRoute,
+    private _router: Router,
     private _chat: ChatService,
     private _store: Store<AppState>,
     private _ui: UiService
   ) {
+    let p = this._route.snapshot.paramMap.get("id")
+    if (!p) {
+      this._router.navigateByUrl("/chats")
+      return
+    }
+    let id = parseInt(p)
+    this._getChat(id)
+    this._chat.connectToMessages(id)
+    this._route.params.subscribe(p => {
+      let id = p['id']
+      this._getChat(id)
+      this._chat.connectToMessages(id)
+    })
     this._chat.messages.subscribe(data => {
       this._wsSubscription(data)
     })
@@ -81,12 +99,14 @@ export class ChatComponent implements OnInit {
     if(this.field) this.field.nativeElement.value = ''
   }
 
-  writingMessage() {
-    this._chat.writingMessage(this.user?.id || -1)
+  writingMessage(userId?: number) {
+    if(!(userId && this.user?.id)) throw new Error("User id does not find.")
+    this._chat.writingMessage(userId || this.user?.id)
   }
 
-  readMessage() {
-    this._chat.readMessage(this.chat?.id || -1)
+  readMessages(chatId?: number) {
+    if(!(chatId && this.chat?.id)) throw new Error("Chat id does not find.")
+    else this._chat.readMessage(chatId || this.chat?.id)
   }
 
   copyLink() {
@@ -222,8 +242,44 @@ export class ChatComponent implements OnInit {
   openInfo() {
     this.infoIsOpen = !this.infoIsOpen
     if (this.infoIsOpen && window.innerWidth < 1183) {
-      this.navIsOpen = false
+      this.openNav.emit(false)
     }
+  }
+
+  private _getChat(id: number) {
+    this.chatLoading = true
+    this._chat.getChatById(id).subscribe(data => {
+      if (data.data.chat) {
+        if (data.data.chat.users.map(i => i.id).includes(this.user?.id || -1) || data.data.chat.is_group) {
+          this.chat = data.data.chat
+
+          let {
+            title,
+            about,
+            users,
+            banned_list,
+            moderators,
+            is_private
+          } = this.chat
+
+          this.chatForEdit = {
+            photo: undefined,
+            title, about,
+            users: users.map(i => {return i.id}),
+            moderators,
+            banned_list,
+            is_private
+          }
+
+          this.message["chat"] = id
+
+          this.readMessages(id)
+        } else {
+          this._router.navigateByUrl("/chats")
+        }
+      } else this._ui.openWarning({"class": "error", "message": data.message})
+      this.chatLoading = false
+    })
   }
 
   private _wsSubscription(data: any) {

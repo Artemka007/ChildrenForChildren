@@ -48,7 +48,7 @@ export class OfferActionComponent implements OnInit {
     this._offers.getSubjects().subscribe(data => {
       this.subjects = data.data.subjects
     })
-    _store.subscribe(data => {
+    this._store.subscribe(data => {
       if(this.offer)this.offer.user = data.account.user?.id || -1
     })
   }

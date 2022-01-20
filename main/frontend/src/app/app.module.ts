@@ -25,7 +25,6 @@ import { ChatComponent } from './chat/chat.component';
 import { CreateChatFormComponent } from './chat/create-chat-form/create-chat-form.component';
 import { MessageComponent } from './chat/message/message.component';
 import { ChatCreateComponent } from './chats/chat-create/chat-create.component';
-import { ChatUploadFilesComponent } from './chats/chat-upload-files/chat-upload-files.component';
 import { ChatsNavigationComponent } from './chats/chats-navigation/chats-navigation.component';
 import { ChatsComponent } from './chats/chats.component';
 import { AutogrowDirective } from './directives/autogrow.directive';
@@ -47,6 +46,7 @@ import { NavbarComponent } from './ui/navbar/navbar.component';
 import { ProgressBarComponent } from './ui/progress-bar/progress-bar.component';
 import { QuestionComponent } from './ui/question/question.component';
 import { WarningWindowComponent } from './ui/warning-window/warning-window.component';
+import { LoaderComponent } from './ui/loader/loader.component';
 
 
 @NgModule({
@@ -73,7 +73,6 @@ import { WarningWindowComponent } from './ui/warning-window/warning-window.compo
     WarningWindowComponent,
     OfferActionComponent,
     OfferDetailComponent,
-    ChatUploadFilesComponent,
     ChatCreateComponent,
     NewsComponent,
     CropImageComponent,
@@ -89,7 +88,8 @@ import { WarningWindowComponent } from './ui/warning-window/warning-window.compo
     ChatUploaderComponent,
     ChatBodyComponent,
     ChatInfoComponent,
-    AutogrowDirective
+    AutogrowDirective,
+    LoaderComponent
   ],
   imports: [
     ImageCropperModule,

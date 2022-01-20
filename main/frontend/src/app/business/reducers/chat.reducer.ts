@@ -19,7 +19,7 @@ export function chatsReducer(state: ChatsState = initialState, action: ChatsUnio
 
       case ChatsActions.SendMessage: {
         let chats = [...state.chats]
-        let chat = chats.find(i => i.id === action.chat)
+        let chat = chats.find(i => i.id === (typeof action.chat === 'number' ? action.chat : parseInt(action.chat)))
         if (!chat) {
           throw new Error(`Чат с идентификатором ${action.chat} не найден.`)
         }
@@ -34,16 +34,18 @@ export function chatsReducer(state: ChatsState = initialState, action: ChatsUnio
 
       case ChatsActions.ReadMessages: {
         let chats = [...state.chats]
-        let chat = chats.find(i => i.id === action.chat)
+        let chat = chats.find(i => i.id === (typeof action.chat === 'number' ? action.chat : parseInt(action.chat)))
         if (!chat) {
           throw new Error(`Чат с идентификатором ${action.chat} не найден.`)
         }
         let chatId = chats.indexOf(chat)
         let chatCopy = {...chat}
-        chat.messages = chat.messages.map(i => {
-          i.readers.push(action.user)
-          return i
+        chatCopy.messages = chat.messages.map(m => {
+          let mCopy = {...m}
+          mCopy.readers = [...mCopy.readers, action.user]
+          return mCopy
         })
+        chats.splice(chatId, 1, chatCopy)
         return {
           chats
         }

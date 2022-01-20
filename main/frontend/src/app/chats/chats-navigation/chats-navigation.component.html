@@ -1,4 +1,4 @@
-<a *ngFor="let c of chats" [routerLink]="'/chats'" [queryParams]="{id: c.id}" class="chat-nav__item">
+<a *ngFor="let c of chats" [routerLink]="'/chats/' + c.id" class="chat-nav__item" [routerLinkActive]="'active'">
     <div class="photo"><img [src]="c.photo || '/media/icons/profile.png'" alt="" /> </div>
     <div class="info">
         <div class="name">{{getChatName(c)}}</div>

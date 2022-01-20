@@ -1,0 +1,25 @@
+:host
+  position: absolute
+  flex: 0 0 2
+
+.double-circle-spinner
+  animation: 1.2s ease-in-out 0s infinite double-circle-load, .6s linear 0s infinite rotation
+
+
+@keyframes double-circle-load
+  0%
+    stroke-dasharray: 30 130
+
+  50%
+    stroke-dasharray: 150 10
+
+
+  100%
+    stroke-dasharray: 30 130
+
+@keyframes rotation
+  0%
+    stroke-dashoffset: 40px
+
+  100%
+    stroke-dashoffset: 360px

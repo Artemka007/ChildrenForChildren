@@ -32,7 +32,7 @@ export class OffersComponent implements OnInit {
   @Input()
   offers?: IOffer[]
   @Input()
-  isframe: boolean = false
+  inProfile: boolean = false
 
   createOfferIsOpen: boolean = false
   detailOfferIsOpen: boolean = false
@@ -56,15 +56,15 @@ export class OffersComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    !this.isframe && this.requestToGetAllOffers()
+    this.requestToGetAllOffers(this.inProfile)
   }
 
   offerToAcceptType() {
     return {...this.offer, user: this.offer?.user.id} as ICreateOffer
   }
 
-  requestToGetAllOffers() {
-    this._offers.getAllOffers().subscribe(
+  requestToGetAllOffers(filterByUser: boolean = false) {
+    this._offers.getAllOffers(filterByUser ? this.user?.id : undefined).subscribe(
       (data) => {
         if (data.result && data.data.offers) {
           this.offers = data.data.offers
@@ -80,7 +80,6 @@ export class OffersComponent implements OnInit {
   }
 
   getOffers() {
-    console.log(this.offers?.length)
     return this.offers?.filter(i => i.is_archived === false)
   }
 
@@ -110,7 +109,7 @@ export class OffersComponent implements OnInit {
 
   createOfferClose() {
     this.createOfferIsOpen = false
-    this.requestToGetAllOffers()
+    this.requestToGetAllOffers(this.inProfile)
     this.offer = undefined
   }
 

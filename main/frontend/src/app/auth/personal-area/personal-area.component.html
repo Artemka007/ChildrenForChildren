@@ -86,7 +86,7 @@
         <div *ngIf="tab === 'offers'" class="Profile-Container Container" style="padding: 0px;">
             <div class="Title">Предложения</div>
             <div class="Content">
-                <offers *ngIf="offers" [offers]="offers" [isframe]="true"></offers>
+                <offers *ngIf="offers" [offers]="offers" [inProfile]="true"></offers>
             </div>
         </div>
         <div *ngIf="tab === 'edit'" class="Profile-Container">

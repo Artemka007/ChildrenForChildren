@@ -53,7 +53,7 @@ export class OfferComponent implements OnInit {
   }
 
   getMutualChat() {
-    this.offer?.chat ? this._router.navigateByUrl(`/chats?id=${this.offer?.chat}`) : this._chat.getMutualChat(this.user?.id, this.offer?.user.id)
+    this.offer?.chat ? this._router.navigateByUrl(`/chats/${this.offer?.chat}`) : this._chat.getMutualChat(this.user?.id, this.offer?.user.id)
   }
 
   userIsEqualAuthor() {
